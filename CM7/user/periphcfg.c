@@ -1,26 +1,16 @@
-/**
- * @file peripheral.c
- * @author Huigang Wang (huigang39@outlook.com)
- * @brief
- * @version 0.1
- * @date 2025-02-25
- *
- * @copyright Copyright (c) 2025 Huigang Wang
- *
- */
-
 #include "adc.h"
 #include "hrtim.h"
 #include "usart.h"
 
 #include <stdio.h>
 
+#include "module.h"
+
 #include "dpt.h"
-#include "foc.h"
-#include "peripheral.h"
+#include "periphcfg.h"
 
 void
-peripherals_init(void) {
+periph_init(void) {
   HAL_HRTIM_WaveformCounterStart(&hhrtim,
                                  HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A
                                      | HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
@@ -46,18 +36,13 @@ adc_raw_t
 adc_get(void) {
   adc_raw_t adc_raw = { 0 };
 
-  adc_raw.u32_i_uvw.u = hadc1.Instance->JDR1;
-  adc_raw.u32_i_uvw.v = hadc2.Instance->JDR1;
-  adc_raw.u32_i_uvw.w = hadc3.Instance->JDR1;
+  adc_raw.i32_i_uvw.u = hadc1.Instance->JDR1;
+  adc_raw.i32_i_uvw.v = hadc2.Instance->JDR1;
+  adc_raw.i32_i_uvw.w = hadc3.Instance->JDR1;
 
-  adc_raw.u32_v_bus = hadc1.Instance->JDR2;
+  adc_raw.i32_v_bus = hadc1.Instance->JDR2;
 
   return adc_raw;
-}
-
-FP32
-theta_get(void) {
-  return dpt_get_inner_angle();
 }
 
 void

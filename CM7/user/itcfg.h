@@ -1,13 +1,13 @@
-#ifndef IT_CFG_H
-#define IT_CFG_H
+#ifndef ITCFG_H
+#define ITCFG_H
 
-#include "benchmark.h"
+#include "module.h"
+
 #include "startup.h"
-#include "util.h"
 
 #define HAL_HRTIM_IRQHandler_ENTRY()                                                               \
   do {                                                                                             \
-    MEASURE_TIME(foc.lo.exec_elapsed, "foc", 1, { ATOMIC_EXEC({ foc_loop(); }); });                \
+    MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_loop(); }); });                     \
   } while (0)
 
 #define HAL_HRTIM_IRQHandler_EXIT()                                                                \
@@ -21,4 +21,4 @@
     HAL_HRTIM_IRQHandler_EXIT();                                                                   \
   } while (0)
 
-#endif // !IT_CFG_H
+#endif // !ITCFG_H

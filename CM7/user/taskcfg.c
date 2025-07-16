@@ -2,11 +2,13 @@
 
 #include <stdio.h>
 
-#include "foc.h"
-#include "mathdef.h"
+#include "module.h"
+
 #include "startup.h"
-#include "task_cfg.h"
-#include "typedef.h"
+#include "taskcfg.h"
+
+linerhall_t linerhall[2];
+vel_loop_t  vel;
 
 static void
 force_drag(void *arg) {
@@ -21,33 +23,24 @@ force_drag(void *arg) {
   //  theta_t *fdb_elec = &foc->data.in.elec;
 
   //  ref_mech->force_theta_rad += ref_mech->force_vel_rads * FP32_US_TO_S(200);
-  //  WARP_2PI(ref_mech->force_theta_rad);
+  //  WARP_PI(ref_mech->force_theta_rad);
 
   //  ref_elec->force_theta_rad = MECH_TO_ELEC(ref_mech->force_theta_rad, motor->npp);
   //  ref_elec->force_vel_rads  = MECH_TO_ELEC(ref_mech->force_vel_rads, motor->npp);
   //  fdb_mech->force_theta_rad = ref_mech->force_theta_rad;
   //  fdb_elec->force_theta_rad = ref_elec->force_theta_rad;
-  //  WARP_2PI(fdb_elec->force_theta_rad);
+  //  WARP_PI(fdb_elec->force_theta_rad);
 }
 
 static void
 vel_loop(void *arg) {
-  //  foc_cfg_t *cfg = &foc.cfg;
-  //  foc_t     *foc = (foc_t *)arg;
+  vel_loop_t *vel = (vel_loop_t *)arg;
+  DECL_PID_PTRS(&vel->pid);
+  DECL_FOC_PTRS_PREFIX(&foc, foc);
 
-  //  fp32_dq_t *ref_i_dq = &foc->data.out.i_dq;
-
-  //  theta_t *ref_mech = &foc->data.out.mech;
-  //  theta_t *fdb_mech = &foc->data.in.mech;
-
-  //  pid_ctrl_t *vel_loop     = &foc->data.lo.vel_loop;
-  //  pid_in_t   *vel_loop_in  = &vel_loop->in;
-  //  pid_out_t  *vel_loop_out = &vel_loop->out;
-
-  //  vel_loop_in->ref = ref_mech->vel_rads;
-  //  vel_loop_in->fdb = fdb_mech->vel_rads;
-  //  pid_run(vel_loop);
-  //  ref_i_dq->q = vel_loop_out->val;
+  vel->fdb = foc_in->theta.vel_rads;
+  pid_run_in(&vel->pid, vel->ref, vel->fdb);
+  foc_out->i_dq.q = out->val;
 }
 
 static void
@@ -69,7 +62,7 @@ pos_loop(void *arg) {
 }
 
 static void
-elec_cali(void *arg) {
+magnet_cali(void *arg) {
   //  foc_cfg_t     *cfg   = &foc.cfg;
   //  foc_t         *foc   = (foc_t *)arg;
   //  motor_param_t *motor = &foc->cfg.motor;
@@ -102,7 +95,7 @@ elec_cali(void *arg) {
   //    if (++elec_round_cnt >= motor->npp * 2)
   //      e_last_elec_cali = ELEC_CALI_SAVE;
   //  }
-  //  WARP_2PI(ref_mech->force_theta_rad);
+  //  WARP_PI(ref_mech->force_theta_rad);
 
   //  switch (e_elec_cali) {
   //  case ELEC_CALI_CW:
@@ -136,12 +129,23 @@ elec_cali(void *arg) {
 
   //  fdb_mech->force_theta_rad = ref_mech->force_theta_rad;
   //  fdb_elec->force_theta_rad = ref_elec->force_theta_rad;
-  //  WARP_2PI(fdb_elec->force_theta_rad);
+  //  WARP_PI(fdb_elec->force_theta_rad);
 }
 
+static void
+linerhall_cail(void *arg) {}
+
 void
-user_init(sched_t *sched) {
+task_init(sched_t *sched) {
   U8 idx = 0;
+
+  pid_cfg_t vel_pid_cfg;
+  vel_pid_cfg.freq_hz      = foc.cfg.freq_hz;
+  vel_pid_cfg.kp           = 0.05f;
+  vel_pid_cfg.ki           = 0.0001f;
+  vel_pid_cfg.integral_max = 3.0f;
+  vel_pid_cfg.out_max      = 3.0f;
+  pid_init(&vel.pid, vel_pid_cfg);
 
   sched_task_t vel_loop_task = {
     .id           = idx++,
@@ -149,7 +153,7 @@ user_init(sched_t *sched) {
     .freq_hz      = 1000,
     .exec_cnt_max = 0,
     .f_cb         = vel_loop,
-    .arg          = &foc,
+    .arg          = &vel,
   };
   sched_add_task(sched, vel_loop_task);
 
@@ -172,13 +176,13 @@ user_init(sched_t *sched) {
   // };
   // sched_add_task(sched, force_drag_task);
 
-  sched_task_t elec_cali_task = {
-    .id           = idx++,
-    .delay        = 0,
-    .freq_hz      = 1000,
-    .exec_cnt_max = 0,
-    .f_cb         = elec_cali,
-    .arg          = &foc,
-  };
-  sched_add_task(sched, elec_cali_task);
+  //  sched_task_t elec_cali_task = {
+  //    .id           = idx++,
+  //    .delay        = 0,
+  //    .freq_hz      = 1000,
+  //    .exec_cnt_max = 0,
+  //    .f_cb         = elec_cali,
+  //    .arg          = &foc,
+  //  };
+  //  sched_add_task(sched, elec_cali_task);
 }

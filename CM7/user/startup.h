@@ -5,8 +5,7 @@
 extern "C" {
 #endif
 
-#include "foc.h"
-#include "scheduler.h"
+#include "module.h"
 
 extern foc_t   foc;
 extern sched_t sched;

@@ -1,36 +1,47 @@
 #include <stdio.h>
 
-#include "benchmark.h"
+#include "module.h"
+
 #include "dpt.h"
-#include "foc.h"
-#include "peripheral.h"
+#include "periphcfg.h"
 #include "startup.h"
-#include "task_cfg.h"
+#include "taskcfg.h"
 
 foc_t   foc;
 sched_t sched;
 
 static inline U64
-get_mono_timestamp_us(void) {
+get_ts_us(void) {
   DECL_FOC_PTRS(&foc);
 
-  U64 timestamp_us = lo->exec_cnt * FP32_HZ_TO_US(cfg->freq_hz);
-  return timestamp_us;
+  U64 ts_us = lo->exec_cnt * FP32_HZ_TO_US(cfg->freq_hz);
+  return ts_us;
+}
+
+static inline void
+cpy_vtor(void) {
+  U32 *src = (U32 *)FLASH_BANK1_BASE;
+  U32 *dst = (U32 *)D1_DTCMRAM_BASE;
+  memcpy(dst, src, 0x400);
+  SCB->VTOR = D1_DTCMRAM_BASE;
 }
 
 void
 init(void) {
+//  cpy_vtor();
+
   DWT_INIT();
 
-  DECL_SCHED_PTRS(&sched);
   sched_cfg_t sched_cfg;
-  ops->f_get_ts = get_mono_timestamp_us;
+  sched_cfg.freq_hz = FP32_MUL_K(50.0f);
   sched_init(&sched, sched_cfg);
 
+  sched.ops.f_ts = get_ts_us;
+
   foc_cfg_t foc_cfg;
-  foc_cfg.freq_hz              = FP32_TIMES_K(50.0f);
-  foc_cfg.periph.timer_freq_hz = FP32_TIMES_M(200.0f); // 200Mhz
-  foc_cfg.periph.pwm_freq_hz   = FP32_TIMES_K(50.0f);  // 50KHz
+  foc_cfg.freq_hz              = FP32_MUL_K(50.0f);
+  foc_cfg.periph.timer_freq_hz = FP32_MUL_M(200.0f); // 200Mhz
+  foc_cfg.periph.pwm_freq_hz   = FP32_MUL_K(50.0f);  // 50KHz
 
   foc_cfg.motor.npp = 10u;
   foc_cfg.motor.rs  = 0.38f;
@@ -50,13 +61,13 @@ init(void) {
   foc_init(&foc, foc_cfg);
 
   foc.ops.f_adc_get   = adc_get;
-  foc.ops.f_theta_get = theta_get;
+  foc.ops.f_theta_get = dpt_get_inner_theta;
   foc.ops.f_pwm_set   = pwm_set;
   foc.ops.f_drv_set   = drv_set;
 
-  peripherals_init();
+  periph_init();
   dpt_init();
-  user_init(&sched);
+  task_init(&sched);
 }
 
 void

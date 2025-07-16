@@ -1,11 +1,11 @@
+/**/.cache/
+/**/build/
+
+/.mxproject
+/MDK-ARM/
+
 /CM4/
 /CM7/Core
 /Common/
 /Drivers/
-/MDK-ARM/
 /Middlewares/
-
-/.mxproject
-
-/.cache/
-/**/build/

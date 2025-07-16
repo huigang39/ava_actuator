@@ -1,0 +1,300 @@
+# ---------------------------------------------------------------------------- #
+#                                     工程命名                                 #
+# ---------------------------------------------------------------------------- #
+PROJECT   := actuator_ctrl
+DIR_BUILD := build
+C         ?= ac6
+T         ?= D
+M         ?= 0
+
+# ---------------------------------------------------------------------------- #
+#                                     目录引用                                 #
+# ---------------------------------------------------------------------------- #
+DIR_MODULE     += ../module
+DIR_USER       += ./user
+DIR_DRIVER     += ./driver
+
+DIR_CMSIS      += ../Drivers/CMSIS
+DIR_HAL_DRIVER += ../Drivers/STM32H7xx_HAL_Driver
+
+DIR_COMMON     += ../Common
+
+DIR_GCC        := ./compiler/gcc
+DIR_ARM        := ./compiler/arm
+
+# ---------------------------------------------------------------------------- #
+#                                      头文件                                  #
+# ---------------------------------------------------------------------------- #
+DIR_INCLUDE += -I./Core/Inc
+DIR_INCLUDE += $(addprefix -I, $(DIR_CMSIS)/Core/Include $(DIR_CMSIS)/Device/ST/STM32H7xx/Include/)
+DIR_INCLUDE += $(addprefix -I, $(DIR_HAL_DRIVER)/Inc $(DIR_HAL_DRIVER)/Inc/Legacy)
+DIR_INCLUDE += $(addprefix -I, $(DIR_MODULE) $(DIR_USER) $(DIR_DRIVER))
+
+# ---------------------------------------------------------------------------- #
+#                                      源文件                                  #
+# ---------------------------------------------------------------------------- #
+ifneq (, $(filter ac5 ac6, $(C)))
+	SRC_ASM += $(DIR_ARM)/startup_stm32h745xx_CM7.s
+else ifeq ($(C), gcc)
+	SRC_ASM += $(DIR_GCC)/startup_stm32h745xx_CM7.s
+endif
+
+SRC_C   += $(DIR_COMMON)/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c
+SRC_C   += $(wildcard $(addsuffix /*.c, ./Core/Src $(DIR_USER) $(DIR_DRIVER) $(DIR_HAL_DRIVER)))
+SRC_C   += $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_exti.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_rcc.c       \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_gpio.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_utils.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash.c    \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash_ex.c \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_gpio.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hsem.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_mdma.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_cortex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal.c          \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_exti.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hrtim.c    \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim.c      \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim_ex.c   \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart.c     \
+           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart_ex.c 
+ 
+OBJ     += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_ASM:.s=.o)))
+OBJ     += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_C:.c=.o)))
+
+vpath %.s $(sort $(dir $(SRC_ASM)))
+vpath %.c $(sort $(dir $(SRC_C)))
+
+# ---------------------------------------------------------------------------- #
+#                                     链接脚本                                 #
+# ---------------------------------------------------------------------------- #
+ifneq (, $(filter ac5 ac6, $(C)))
+	SCRIPT_LD := --scatter $(DIR_ARM)/stm32h745xx_flash_CM7.sct
+	MAP       := --map --list=$(DIR_BUILD)/$(PROJECT).map
+else ifeq ($(C), gcc)
+	SCRIPT_LD := -T$(DIR_GCC)/stm32h745xx_flash_CM7.ld
+	MAP       := -Wl,-Map=$(DIR_BUILD)/$(PROJECT).map,--cref -Wl,--gc-sections
+endif
+
+# ---------------------------------------------------------------------------- #
+#                                     编译选项                                 #
+# ---------------------------------------------------------------------------- #
+DEFS         += -DCORE_CM7 -DSTM32H745xx
+DEFS         += -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER
+DEFS         += -DUSE_PWR_DIRECT_SMPS_SUPPLY
+# DEFS         += -DSERIAL_PRINT
+# DEFS         += -DARM_MATH_DSP
+
+ifeq ($(M), 1)
+	LIBS     += --library_type=microlib
+	DEFS     += -D__MICROLIB
+endif
+
+ifeq ($(T), D)
+	OPTS     := -O0 -g
+	ifeq ($(C), ac5)
+		OPTS +=
+	else 
+		OPTS += -gdwarf-4
+	endif
+else ifeq ($(T), R)
+	OPTS     := -O2
+	ifeq ($(C), ac5)
+		OPTS += --split_sections
+	else 
+		OPTS += -fdata-sections -ffunction-sections
+	endif
+endif
+
+# ARMCC (AC5)
+ifeq ($(C), ac5)
+	CPU       := --cpu Cortex-M7.fp.dp
+	MCU       := $(CPU)
+
+	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c --c99 --gnu
+	FLAGS_CXX := $(FLAGS_C)
+	FLAGS_AS  := $(MCU) --apcs=interwork
+	FLAGS_LD  := $(MCU) $(LIBS) $(SCRIPT_LD) $(MAP) --strict
+	
+# ARMCLANG (AC6)
+else ifeq ($(C), ac6)
+	CPU       := -mcpu=cortex-m7 --target=arm-arm-none-eabi
+	FPU       := -mfpu=fpv5-d16
+	FLOAT-ABI := -mfloat-abi=hard
+	MCU       := $(CPU) $(FPU) $(FLOAT-ABI) -mthumb
+	
+	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c -Wall -Wextra
+	FLAGS_CXX := $(FLAGS_C)
+	FLAGS_AS  := $(FLAGS_C) -masm=auto
+	FLAGS_LD  := $(LIBS) $(SCRIPT_LD) $(MAP) --cpu Cortex-M7.fp.dp --strict 
+	
+# GCC
+else ifeq ($(C), gcc)
+	CPU       := -mcpu=cortex-m7
+	FPU       := -mfpu=fpv5-d16
+	FLOAT-ABI := -mfloat-abi=hard
+	MCU       := $(CPU) $(FPU) $(FLOAT-ABI) -mthumb
+	
+	LIBS      := -lm
+	SPECS     := -specs=nosys.specs -specs=rdimon.specs
+	
+	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c -Wall -Wextra
+	FLAGS_CXX := $(FLAGS_C)
+	FLAGS_AS  := $(FLAGS_C) -x assembler-with-cpp
+	FLAGS_LD  := $(MCU) $(SPECS) $(LIBS) $(SCRIPT_LD) $(MAP)
+endif
+
+# ---------------------------------------------------------------------------- #
+#                                      编译器                                  #
+# ---------------------------------------------------------------------------- #
+PATH_KEIL     := C:/Keil_v5
+ifeq ($(C), ac5)
+	CC_PREFIX := $(PATH_KEIL)/ARM/ARMCC/bin
+	CC        := $(CC_PREFIX)/armcc
+	CXX       := $(CC)
+	AS        := $(CC_PREFIX)/armasm
+	CP        := $(CC_PREFIX)/fromelf
+	LD        := $(CC_PREFIX)/armlink
+	AR        := $(CC_PREFIX)/armar
+	SIZE      := $(CP) --text -z
+	HEX       := $(CP) --i32
+	BIN       := $(CP) --bin
+else ifeq ($(C), ac6)
+	CC_PREFIX := $(PATH_KEIL)/ARM/ARMCLANG/bin
+	CC        := $(CC_PREFIX)/armclang
+	CXX       := $(CC)
+	AS        := $(CC)
+	CP        := $(CC_PREFIX)/fromelf
+	LD        := $(CC_PREFIX)/armlink
+	AR        := $(CC_PREFIX)/armar
+	SIZE      := $(CP) --text -z
+	HEX       := $(CP) --i32
+	BIN       := $(CP) --bin
+else ifeq ($(C), gcc)
+	CC_PREFIX := arm-none-eabi-
+	CC        := $(CC_PREFIX)gcc
+	CXX       := $(CC_PREFIX)g++
+	AS        := $(CC)
+	CP        := $(CC_PREFIX)objcopy
+	LD        := $(CC_PREFIX)gcc
+	GDB       := $(CC_PREFIX)gdb
+	SIZE      := $(CC_PREFIX)size
+	HEX       := $(CP) -O ihex
+	BIN       := $(CP) -O binary -S
+endif
+
+# ---------------------------------------------------------------------------- #
+#                                     调试器类型                               #
+# ---------------------------------------------------------------------------- #
+TYPE_FLASH := openocd_swd_flash
+TYPE_DEBUG := openocd_swd_debug
+TYPE_ERASE := openocd_swd_erase
+
+# ---------------------------------------------------------------------------- #
+#                                     伪目标定义                               #
+# ---------------------------------------------------------------------------- #
+ifeq ($(OS), Windows_NT)
+	SHELL := cmd.exe
+	MKDIR := md
+	RMDIR := rd /s /q
+else
+	MKDIR := mkdir -p
+	RMDIR := rm -rf
+endif
+
+ifeq ($(C), gcc)
+	HEX_CMD = $(HEX) $< $@
+	BIN_CMD = $(BIN) $< $@
+else ifeq ($(C), ac6)
+	HEX_CMD = $(HEX) $< --output $@
+	BIN_CMD = $(BIN) $< --output $@
+endif
+
+.PHONY: all flash debug erase clean
+
+all: $(DIR_BUILD) $(DIR_BUILD)/$(PROJECT).elf $(DIR_BUILD)/$(PROJECT).hex $(DIR_BUILD)/$(PROJECT).bin 
+	$(SIZE) $(DIR_BUILD)/$(PROJECT).elf
+
+$(DIR_BUILD):
+	$(MKDIR) $(DIR_BUILD)
+	$(info SRC_ASM: $(SRC_ASM))
+	$(info SRC_C: $(SRC_C))
+	$(info OBJ: $(OBJ))
+	$(info ------)
+
+$(DIR_BUILD)/%.o: %.s | $(DIR_BUILD)
+	$(AS) $(FLAGS_AS) $< -o $@
+
+$(DIR_BUILD)/%.o: %.c | $(DIR_BUILD)
+	$(CC) $(FLAGS_C) $(DIR_INCLUDE) $< -o $@
+
+$(DIR_BUILD)/%.o: %.cpp | $(DIR_BUILD)
+	$(CXX) $(FLAGS_CXX) $(DIR_INCLUDE) $< -o $@
+	
+$(DIR_BUILD)/$(PROJECT).elf: $(OBJ)
+	$(LD) $(FLAGS_LD) $(OBJ) -o $@
+
+$(DIR_BUILD)/%.hex: $(DIR_BUILD)/%.elf
+	$(HEX_CMD)
+
+$(DIR_BUILD)/%.bin: $(DIR_BUILD)/%.elf
+	$(BIN_CMD)
+
+flash: $(TYPE_FLASH)
+openocd_swd_flash: $(DIR_BUILD)/$(PROJECT).bin
+	@echo "Flashing firmware to device..."
+	openocd -f interface/stlink.cfg \
+	-c "transport select hla_swd" \
+	-f target/stm32h7x.cfg \
+	-c "init" \
+	-c "reset halt" \
+	-c "sleep 100" \
+	-c "flash write_image erase $(DIR_BUILD)/$(PROJECT).bin 0x08000000" \
+	-c "sleep 100" \
+	-c "verify_image $(DIR_BUILD)/$(PROJECT).bin 0x08000000" \
+	-c "sleep 100" \
+	-c "reset run" \
+	-c "shutdown"
+
+debug: $(TYPE_DEBUG)
+openocd_swd_debug: $(DIR_BUILD)/$(PROJECT).elf
+	@echo "Starting debug session..."
+	openocd -f interface/stlink.cfg \
+	-c "transport select hla_swd" \
+	-f target/stm32h7x.cfg \
+	-c "init" \
+	-c "halt" \
+	-c "reset halt" &
+	$(GDB) -ex "target extended-remote localhost:3333" \
+	-ex "monitor reset halt" \
+	-ex "load" \
+	-ex "monitor reset init" \
+	$(DIR_BUILD)/$(PROJECT).elf
+
+erase: $(TYPE_ERASE)
+openocd_swd_erase:
+	@echo "Erasing device..."
+	openocd -f interface/stlink.cfg \
+	-c "transport select hla_swd" \
+	-f target/stm32h7x.cfg \
+	-c "init" \
+	-c "reset halt" \
+	-c "sleep 100" \
+	-c "stm32h7x mass_erase 0" \
+	-c "sleep 100" \
+	-c "shutdown"
+
+clean:
+	$(RMDIR) $(DIR_BUILD)

@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-#include "typedef.h"
+#include "module.h"
 
 /* 金刚双编指令 */
 #define SET_INER_ZERO_POS_CMD     0x29 // 设置内零位
@@ -20,7 +20,7 @@ extern "C" {
 
 void dpt_init(void);
 U32  dpt_get_inner_raw(void);
-FP32 dpt_get_inner_angle(void);
+FP32 dpt_get_inner_theta(void);
 
 #ifdef __cplusplus
 }
