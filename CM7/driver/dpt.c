@@ -23,5 +23,5 @@ dpt_get_inner_raw(void) {
 
 FP32
 dpt_get_inner_theta(void) {
-  return (FP32_2PI / U32_LF(24)) * dpt_get_inner_raw();
+  return (dpt_get_inner_raw() / U32_LF(24)) * FP32_2PI;
 }
