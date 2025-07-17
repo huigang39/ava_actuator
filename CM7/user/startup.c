@@ -3,6 +3,7 @@
 #include "module.h"
 
 #include "dpt.h"
+#include "errcheck.h"
 #include "periphcfg.h"
 #include "startup.h"
 #include "taskcfg.h"
@@ -28,7 +29,7 @@ cpy_vtor(void) {
 
 void
 init(void) {
-//  cpy_vtor();
+  //  cpy_vtor();
 
   DWT_INIT();
 
@@ -54,10 +55,10 @@ init(void) {
   foc_cfg.periph.fp32_pwm_max     = 0.8f;
   foc_cfg.periph.pwm_full_val     = foc_cfg.periph.timer_freq_hz / foc_cfg.periph.pwm_freq_hz;
 
-  foc_cfg.periph.adc_cail_cnt_max = 16u;
+  foc_cfg.periph.adc_cail_cnt_max = 12u;
   foc_cfg.periph.cur_range        = 55.0f;
   foc_cfg.periph.vbus_range       = 60.0f;
-  foc_cfg.periph.adc_full_val     = U32_LF(14);
+  foc_cfg.periph.adc_full_val     = LF(14);
   foc_init(&foc, foc_cfg);
 
   foc.ops.f_adc_get   = adc_get;
@@ -77,5 +78,7 @@ task_loop(void) {
 
 void
 foc_loop(void) {
+  if (fpu_check())
+    foc.lo.e_state = FOC_STATE_DISABLE;
   foc_run(&foc);
 }

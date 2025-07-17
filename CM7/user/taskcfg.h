@@ -14,6 +14,11 @@ typedef struct {
 } linerhall_t;
 
 typedef struct {
+  FP32 ref_theta_rad;
+  FP32 ref_vel_rads;
+} force_loop_t;
+
+typedef struct {
   FP32       ref;
   FP32       fdb;
   pid_ctrl_t pid;

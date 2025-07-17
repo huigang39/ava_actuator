@@ -8,28 +8,20 @@
 #include "taskcfg.h"
 
 linerhall_t linerhall[2];
-vel_loop_t  vel;
+
+force_loop_t force;
+vel_loop_t   vel;
 
 static void
-force_drag(void *arg) {
-  //  foc_cfg_t     *cfg   = &foc.cfg;
-  //  foc_t         *foc   = (foc_t *)arg;
-  //  motor_param_t *motor = &foc->cfg.motor;
+force_loop(void *arg) {
+  force_loop_t *force = (force_loop_t *)arg;
+  DECL_FOC_PTRS_PREFIX(&foc, foc);
 
-  //  theta_t *ref_mech = &foc->data.out.mech;
-  //  theta_t *fdb_mech = &foc->data.in.mech;
+  force->ref_theta_rad += force->ref_vel_rads * FP32_HZ_TO_S(1000);
+  WARP_2PI(force->ref_theta_rad);
 
-  //  theta_t *ref_elec = &foc->data.out.elec;
-  //  theta_t *fdb_elec = &foc->data.in.elec;
-
-  //  ref_mech->force_theta_rad += ref_mech->force_vel_rads * FP32_US_TO_S(200);
-  //  WARP_PI(ref_mech->force_theta_rad);
-
-  //  ref_elec->force_theta_rad = MECH_TO_ELEC(ref_mech->force_theta_rad, motor->npp);
-  //  ref_elec->force_vel_rads  = MECH_TO_ELEC(ref_mech->force_vel_rads, motor->npp);
-  //  fdb_mech->force_theta_rad = ref_mech->force_theta_rad;
-  //  fdb_elec->force_theta_rad = ref_elec->force_theta_rad;
-  //  WARP_PI(fdb_elec->force_theta_rad);
+  foc_in->theta.force_theta_rad = force->ref_theta_rad;
+  foc_in->theta.force_vel_rads  = force->ref_vel_rads;
 }
 
 static void
@@ -139,12 +131,22 @@ void
 task_init(sched_t *sched) {
   U8 idx = 0;
 
+  sched_task_t force_loop_task = {
+    .id           = idx++,
+    .delay        = 0,
+    .freq_hz      = 1000,
+    .exec_cnt_max = 0,
+    .f_cb         = force_loop,
+    .arg          = &force,
+  };
+  sched_add_task(sched, force_loop_task);
+
   pid_cfg_t vel_pid_cfg;
   vel_pid_cfg.freq_hz      = foc.cfg.freq_hz;
-  vel_pid_cfg.kp           = 0.05f;
-  vel_pid_cfg.ki           = 0.0001f;
-  vel_pid_cfg.integral_max = 3.0f;
-  vel_pid_cfg.out_max      = 3.0f;
+  vel_pid_cfg.kp           = 0.01f;
+  vel_pid_cfg.ki           = 100.0f;
+  vel_pid_cfg.integral_max = 10.0f;
+  vel_pid_cfg.out_max      = 10.0f;
   pid_init(&vel.pid, vel_pid_cfg);
 
   sched_task_t vel_loop_task = {
@@ -166,15 +168,6 @@ task_init(sched_t *sched) {
   //		.arg        = &foc,
   //	};
   //	sched_add_task(sched, pos_loop_task);
-
-  // sched_in_t force_drag_task = {
-  // 	.task_id    = idx++,
-  // 	.delay_us   = 0,
-  // 	.freq_hz    = 1000,
-  // 	.f_callback = force_drag,
-  // 	.arg        = &foc,
-  // };
-  // sched_add_task(sched, force_drag_task);
 
   //  sched_task_t elec_cali_task = {
   //    .id           = idx++,
