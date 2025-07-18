@@ -1,7 +1,8 @@
-#include <stdio.h>
-
 #include "module.h"
 
+#include <stdio.h>
+
+#include "ads.h"
 #include "dpt.h"
 #include "errcheck.h"
 #include "periphcfg.h"
@@ -10,6 +11,8 @@
 
 foc_t   foc;
 sched_t sched;
+
+benchmark_t benchmark_res[30];
 
 static inline U64
 get_ts_us(void) {
@@ -29,7 +32,9 @@ cpy_vtor(void) {
 
 void
 init(void) {
-  //  cpy_vtor();
+  // cpy_vtor();
+
+  // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
 
   DWT_INIT();
 
@@ -68,6 +73,7 @@ init(void) {
 
   periph_init();
   dpt_init();
+  ads_init();
   task_init(&sched);
 }
 
