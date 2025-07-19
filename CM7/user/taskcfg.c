@@ -12,6 +12,8 @@ linerhall_t linerhall[2];
 force_loop_t force;
 vel_loop_t   vel;
 
+sine_t sine;
+
 static void
 force_loop(void *arg) {
   force_loop_t *force = (force_loop_t *)arg;
@@ -127,6 +129,23 @@ magnet_cali(void *arg) {
 static void
 linerhall_cail(void *arg) {}
 
+static void
+fft_loop(void *arg) {
+  fft_t *fft = (fft_t *)arg;
+  DECL_FFT_PTRS(fft);
+
+  fft_run(fft);
+}
+
+static void
+sine_loop(void *arg) {
+  sine_t *sine = (sine_t *)arg;
+  DECL_SINE_PTRS(sine);
+
+  sine_run(sine);
+  fft_add_value(&fft, out->val);
+}
+
 void
 task_init(sched_t *sched) {
   U8 idx = 0;
@@ -148,7 +167,6 @@ task_init(sched_t *sched) {
   vel_pid_cfg.integral_max = 10.0f;
   vel_pid_cfg.out_max      = 10.0f;
   pid_init(&vel.pid, vel_pid_cfg);
-
   sched_task_t vel_loop_task = {
     .id           = idx++,
     .delay        = 0,
@@ -158,6 +176,35 @@ task_init(sched_t *sched) {
     .arg          = &vel,
   };
   sched_add_task(sched, vel_loop_task);
+
+  sine_cfg_t sinewave_cfg = {};
+  sinewave_cfg.freq_hz    = FP32_MUL_K(10);
+  sine_init(&sine, sinewave_cfg);
+  DECL_SINE_PTRS_PREFIX(&sine, sine);
+  sine_in->freq_hz            = 20.0f;
+  sine_in->amp_rad            = 10.0f;
+  sched_task_t sine_loop_task = {
+    .id           = idx++,
+    .delay        = 0,
+    .freq_hz      = 10000,
+    .exec_cnt_max = 0,
+    .f_cb         = sine_loop,
+    .arg          = &sine,
+  };
+  sched_add_task(sched, sine_loop_task);
+
+  fft_cfg_t fft_cfg      = {};
+  fft_cfg.sample_rate_hz = FP32_MUL_K(10);
+  fft_init(&fft, fft_cfg);
+  sched_task_t fft_loop_task = {
+    .id           = idx++,
+    .delay        = 0,
+    .freq_hz      = 50,
+    .exec_cnt_max = 0,
+    .f_cb         = fft_loop,
+    .arg          = &fft,
+  };
+  sched_add_task(sched, fft_loop_task);
 
   //	sched_in_t pos_loop_task = {
   //		.task_id    = idx++,

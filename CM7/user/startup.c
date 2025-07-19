@@ -11,6 +11,7 @@
 
 foc_t   foc;
 sched_t sched;
+fft_t   fft;
 
 benchmark_t benchmark_res[30];
 
@@ -25,14 +26,14 @@ get_ts_us(void) {
 static inline void
 cpy_vtor(void) {
   U32 *src = (U32 *)FLASH_BANK1_BASE;
-  U32 *dst = (U32 *)D1_DTCMRAM_BASE;
+  U32 *dst = (U32 *)D1_ITCMRAM_BASE;
   memcpy(dst, src, 0x400);
-  SCB->VTOR = D1_DTCMRAM_BASE;
+  SCB->VTOR = D1_ITCMRAM_BASE;
 }
 
 void
 init(void) {
-  // cpy_vtor();
+  cpy_vtor();
 
   // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
 
@@ -87,4 +88,5 @@ foc_loop(void) {
   if (fpu_check())
     foc.lo.e_state = FOC_STATE_DISABLE;
   foc_run(&foc);
+  // fft_add_value(&fft, foc.in.theta.sensor_vel_rads);
 }

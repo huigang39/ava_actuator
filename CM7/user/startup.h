@@ -9,6 +9,7 @@ extern "C" {
 
 extern foc_t   foc;
 extern sched_t sched;
+extern fft_t   fft;
 
 void init(void);
 void task_loop(void);
