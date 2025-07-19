@@ -88,5 +88,5 @@ foc_loop(void) {
   if (fpu_check())
     foc.lo.e_state = FOC_STATE_DISABLE;
   foc_run(&foc);
-  // fft_add_value(&fft, foc.in.theta.sensor_vel_rads);
+  //  fft_add_value(&fft, foc.in.theta.sensor_vel_rads);
 }

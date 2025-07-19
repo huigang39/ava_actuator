@@ -142,6 +142,7 @@ sine_loop(void *arg) {
   sine_t *sine = (sine_t *)arg;
   DECL_SINE_PTRS(sine);
 
+  in->freq_hz = in->freq_hz > 10000.0f ? 0.0f : in->freq_hz + 0.1f;
   sine_run(sine);
   fft_add_value(&fft, out->val);
 }
@@ -178,15 +179,15 @@ task_init(sched_t *sched) {
   sched_add_task(sched, vel_loop_task);
 
   sine_cfg_t sinewave_cfg = {};
-  sinewave_cfg.freq_hz    = FP32_MUL_K(10);
+  sinewave_cfg.freq_hz    = FP32_MUL_K(1);
   sine_init(&sine, sinewave_cfg);
   DECL_SINE_PTRS_PREFIX(&sine, sine);
-  sine_in->freq_hz            = 20.0f;
-  sine_in->amp_rad            = 10.0f;
+  sine_in->freq_hz            = 0.0f;
+  sine_in->amp_rad            = 1.0f;
   sched_task_t sine_loop_task = {
     .id           = idx++,
     .delay        = 0,
-    .freq_hz      = 10000,
+    .freq_hz      = 1000,
     .exec_cnt_max = 0,
     .f_cb         = sine_loop,
     .arg          = &sine,
@@ -194,12 +195,12 @@ task_init(sched_t *sched) {
   sched_add_task(sched, sine_loop_task);
 
   fft_cfg_t fft_cfg      = {};
-  fft_cfg.sample_rate_hz = FP32_MUL_K(10);
+  fft_cfg.sample_rate_hz = FP32_MUL_K(1);
   fft_init(&fft, fft_cfg);
   sched_task_t fft_loop_task = {
     .id           = idx++,
     .delay        = 0,
-    .freq_hz      = 50,
+    .freq_hz      = 1000,
     .exec_cnt_max = 0,
     .f_cb         = fft_loop,
     .arg          = &fft,

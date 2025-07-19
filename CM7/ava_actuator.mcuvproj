@@ -43,7 +43,7 @@ log_directory =
 [var0]
 name = fft.out.freq_hz_max
 tracked_name = fft.out.freq_hz_max
-address = 536874132
+address = 536871828
 type = 7
 color = 3607044096
 should_update_from_elf = true
@@ -56,7 +56,7 @@ do_not_interpret_as_enum = false
 [var1]
 name = foc.in.fp32_i_uvw.u
 tracked_name = foc.in.fp32_i_uvw.u
-address = 536875340
+address = 536872268
 type = 7
 color = 3238002943
 should_update_from_elf = true
@@ -69,7 +69,7 @@ do_not_interpret_as_enum = false
 [var2]
 name = foc.in.fp32_i_uvw.v
 tracked_name = foc.in.fp32_i_uvw.v
-address = 536875344
+address = 536872272
 type = 7
 color = 1157686271
 should_update_from_elf = true
@@ -82,7 +82,7 @@ do_not_interpret_as_enum = false
 [var3]
 name = foc.in.fp32_i_uvw.w
 tracked_name = foc.in.fp32_i_uvw.w
-address = 536875348
+address = 536872276
 type = 7
 color = 33497088
 should_update_from_elf = true
@@ -95,7 +95,7 @@ do_not_interpret_as_enum = false
 [var4]
 name = foc.in.i_dq.d
 tracked_name = foc.in.i_dq.d
-address = 536875380
+address = 536872308
 type = 7
 color = 2365587711
 should_update_from_elf = true
@@ -108,7 +108,7 @@ do_not_interpret_as_enum = false
 [var5]
 name = foc.in.i_dq.q
 tracked_name = foc.in.i_dq.q
-address = 536875384
+address = 536872312
 type = 7
 color = 2650865653
 should_update_from_elf = true
@@ -121,7 +121,7 @@ do_not_interpret_as_enum = false
 [var6]
 name = foc.in.theta.force_theta_rad
 tracked_name = foc.in.theta.force_theta_rad
-address = 536875328
+address = 536872256
 type = 7
 color = 2717909247
 should_update_from_elf = true
@@ -134,7 +134,7 @@ do_not_interpret_as_enum = false
 [var7]
 name = foc.in.theta.force_vel_rads
 tracked_name = foc.in.theta.force_vel_rads
-address = 536875332
+address = 536872260
 type = 7
 color = 3774938892
 should_update_from_elf = true
@@ -147,7 +147,7 @@ do_not_interpret_as_enum = false
 [var8]
 name = foc.in.theta.mech_theta_rad
 tracked_name = foc.in.theta.mech_theta_rad
-address = 536875336
+address = 536872264
 type = 7
 color = 2970790472
 should_update_from_elf = true
@@ -160,7 +160,7 @@ do_not_interpret_as_enum = false
 [var9]
 name = foc.in.theta.obs_theta_rad
 tracked_name = foc.in.theta.obs_theta_rad
-address = 536875320
+address = 536872248
 type = 7
 color = 2902458623
 should_update_from_elf = true
@@ -173,7 +173,7 @@ do_not_interpret_as_enum = false
 [var10]
 name = foc.in.theta.obs_vel_rads
 tracked_name = foc.in.theta.obs_vel_rads
-address = 536875324
+address = 536872252
 type = 7
 color = 2298543872
 should_update_from_elf = true
@@ -186,7 +186,7 @@ do_not_interpret_as_enum = false
 [var11]
 name = foc.in.theta.sensor_theta_rad
 tracked_name = foc.in.theta.sensor_theta_rad
-address = 536875312
+address = 536872240
 type = 7
 color = 3388997887
 should_update_from_elf = true
@@ -199,7 +199,7 @@ do_not_interpret_as_enum = false
 [var12]
 name = foc.in.theta.sensor_vel_rads
 tracked_name = foc.in.theta.sensor_vel_rads
-address = 536875316
+address = 536872244
 type = 7
 color = 3374776064
 should_update_from_elf = true
@@ -212,7 +212,7 @@ do_not_interpret_as_enum = false
 [var13]
 name = foc.in.v_dq.q
 tracked_name = foc.in.v_dq.q
-address = 536875392
+address = 536872320
 type = 7
 color = 3621775981
 should_update_from_elf = true
@@ -225,7 +225,7 @@ do_not_interpret_as_enum = false
 [var14]
 name = foc.lo.e_state
 tracked_name = foc.lo.e_state
-address = 536875516
+address = 536872444
 type = 1
 color = 3835008575
 should_update_from_elf = true
@@ -238,7 +238,7 @@ do_not_interpret_as_enum = false
 [var15]
 name = foc.lo.e_theta
 tracked_name = foc.lo.e_theta
-address = 536875517
+address = 536872445
 type = 1
 color = 2712006534
 should_update_from_elf = true
@@ -251,7 +251,7 @@ do_not_interpret_as_enum = false
 [var16]
 name = foc.lo.elapsed
 tracked_name = foc.lo.elapsed
-address = 536875504
+address = 536872432
 type = 5
 color = 1929378560
 should_update_from_elf = true
@@ -264,7 +264,7 @@ do_not_interpret_as_enum = false
 [var17]
 name = foc.lo.smo.cfg.kp
 tracked_name = foc.lo.smo.cfg.kp
-address = 536875728
+address = 536872656
 type = 7
 color = 1687008657
 should_update_from_elf = true
@@ -277,7 +277,7 @@ do_not_interpret_as_enum = false
 [var18]
 name = foc.lo.smo.lo.pll.cfg.fc
 tracked_name = foc.lo.smo.lo.pll.cfg.fc
-address = 536875784
+address = 536872712
 type = 7
 color = 576332882
 should_update_from_elf = true
@@ -290,7 +290,7 @@ do_not_interpret_as_enum = false
 [var19]
 name = foc.lo.smo.lo.pll.cfg.wc
 tracked_name = foc.lo.smo.lo.pll.cfg.wc
-address = 536875780
+address = 536872708
 type = 7
 color = 2132015907
 should_update_from_elf = true
@@ -303,7 +303,7 @@ do_not_interpret_as_enum = false
 [var20]
 name = foc.lo.vel_pll.in.theta_rad
 tracked_name = foc.lo.vel_pll.in.theta_rad
-address = 536875664
+address = 536872592
 type = 7
 color = 1040187647
 should_update_from_elf = true
@@ -316,7 +316,7 @@ do_not_interpret_as_enum = false
 [var21]
 name = foc.lo.vel_pll.lo.err_theta_rad
 tracked_name = foc.lo.vel_pll.lo.err_theta_rad
-address = 536875684
+address = 536872612
 type = 7
 color = 67168511
 should_update_from_elf = true
@@ -329,7 +329,7 @@ do_not_interpret_as_enum = false
 [var22]
 name = foc.lo.vel_pll.lo.prev_theta_rad
 tracked_name = foc.lo.vel_pll.lo.prev_theta_rad
-address = 536875688
+address = 536872616
 type = 7
 color = 1661009664
 should_update_from_elf = true
@@ -342,7 +342,7 @@ do_not_interpret_as_enum = false
 [var23]
 name = foc.lo.vel_pll.out.theta_rad
 tracked_name = foc.lo.vel_pll.out.theta_rad
-address = 536875668
+address = 536872596
 type = 7
 color = 872367872
 should_update_from_elf = true
@@ -355,7 +355,7 @@ do_not_interpret_as_enum = false
 [var24]
 name = foc.out.i_dq.d
 tracked_name = foc.out.i_dq.d
-address = 536875444
+address = 536872372
 type = 7
 color = 2056897835
 should_update_from_elf = true
@@ -368,7 +368,7 @@ do_not_interpret_as_enum = false
 [var25]
 name = foc.out.i_dq.q
 tracked_name = foc.out.i_dq.q
-address = 536875448
+address = 536872376
 type = 7
 color = 268376320
 should_update_from_elf = true
@@ -381,7 +381,7 @@ do_not_interpret_as_enum = false
 [var26]
 name = foc.out.v_dq.q
 tracked_name = foc.out.v_dq.q
-address = 536875456
+address = 536872384
 type = 7
 color = 2851209014
 should_update_from_elf = true
@@ -394,7 +394,7 @@ do_not_interpret_as_enum = false
 [var27]
 name = force.ref_theta_rad
 tracked_name = force.ref_theta_rad
-address = 536875872
+address = 536872800
 type = 7
 color = 1476395263
 should_update_from_elf = true
@@ -407,7 +407,7 @@ do_not_interpret_as_enum = false
 [var28]
 name = force.ref_vel_rads
 tracked_name = force.ref_vel_rads
-address = 536875876
+address = 536872804
 type = 7
 color = 16842528
 should_update_from_elf = true
@@ -420,7 +420,7 @@ do_not_interpret_as_enum = false
 [var29]
 name = inner_raw
 tracked_name = inner_raw
-address = 536877000
+address = 536873928
 type = 5
 color = 1845494015
 should_update_from_elf = true
@@ -433,20 +433,20 @@ do_not_interpret_as_enum = false
 [var30]
 name = sine.in.freq_hz
 tracked_name = sine.in.freq_hz
-address = 536877764
+address = 536874692
 type = 7
 color = 3773138384
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 2000.000000
+value_to_write = 400.000000
 do_not_interpret_as_enum = false
 
 [var31]
 name = sine.out.val
 tracked_name = sine.out.val
-address = 536877780
+address = 536874708
 type = 7
 color = 1924858111
 should_update_from_elf = true
@@ -459,7 +459,7 @@ do_not_interpret_as_enum = false
 [var32]
 name = vel.fdb
 tracked_name = vel.fdb
-address = 536877800
+address = 536874728
 type = 7
 color = 3097482002
 should_update_from_elf = true
@@ -472,7 +472,7 @@ do_not_interpret_as_enum = false
 [var33]
 name = vel.pid.cfg.ki
 tracked_name = vel.pid.cfg.ki
-address = 536877812
+address = 536874740
 type = 7
 color = 2758772467
 should_update_from_elf = true
@@ -485,7 +485,7 @@ do_not_interpret_as_enum = false
 [var34]
 name = vel.pid.cfg.kp
 tracked_name = vel.pid.cfg.kp
-address = 536877808
+address = 536874736
 type = 7
 color = 2622664433
 should_update_from_elf = true
@@ -498,7 +498,7 @@ do_not_interpret_as_enum = false
 [var35]
 name = vel.ref
 tracked_name = vel.ref
-address = 536877796
+address = 536874724
 type = 7
 color = 2822191085
 should_update_from_elf = true
