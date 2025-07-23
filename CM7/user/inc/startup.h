@@ -12,8 +12,8 @@ extern sched_t sched;
 extern fft_t   fft;
 
 void init(void);
-void task_loop(void);
 void foc_loop(void);
+void scher_loop(void);
 
 #ifdef __cplusplus
 }

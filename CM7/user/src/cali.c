@@ -3,8 +3,7 @@
 #include "cali.h"
 #include "startup.h"
 
-void
-magnet_cali(void *arg) {
+void magnet_cali(void *arg) {
   magnet_cali_t *magnet_cali = (magnet_cali_t *)arg;
   DECL_FOC_PTRS_PREFIX(&foc, foc);
 
@@ -58,5 +57,4 @@ magnet_cali(void *arg) {
   foc_in->theta.force_theta_rad = magnet_cali->ref_theta_rad;
 }
 
-static void
-linerhall_cail(void *arg) {}
+static void linerhall_cail(void *arg) {}

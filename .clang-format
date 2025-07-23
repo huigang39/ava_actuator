@@ -4,7 +4,7 @@
 # date: 2025-06-18
 
 ---
-BasedOnStyle: GNU
+# BasedOnStyle: GNU
 # UseTab: ForIndentation
 TabWidth: 2
 IndentWidth: 2

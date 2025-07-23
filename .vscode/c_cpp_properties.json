@@ -1,0 +1,9 @@
+{
+  "configurations": [
+    {
+      "name": "ava_actuator",
+      "includePath": ["${workspaceFolder}/**"]
+    }
+  ],
+  "version": 4
+}

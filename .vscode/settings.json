@@ -1,0 +1,8 @@
+{
+  "files.associations": {
+    "logger.h": "c",
+    "fifo.h": "c",
+    "memory": "c",
+    "typedef.h": "c"
+  }
+}

@@ -13,12 +13,12 @@ volatile FP32 inner_theta_rad;
 void
 dpt_init(void) {
   *DPT_TX_BUF = GET_INER_OUTER_STATUS_CMD;
-  HAL_UART_Receive_DMA(&huart2, DPT_RX_BUF, 8);
+  HAL_UART_Receive_DMA(&huart1, DPT_RX_BUF, 8);
 }
 
 U32
 dpt_get_inner_raw(void) {
-  HAL_UART_Transmit_DMA(&huart2, DPT_TX_BUF, 1);
+  HAL_UART_Transmit_DMA(&huart1, DPT_TX_BUF, 1);
   inner_raw = (U32)LF(24) - ((U32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
   return inner_raw;
 }

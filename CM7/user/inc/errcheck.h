@@ -9,8 +9,7 @@ extern "C" {
 
 #include "module.h"
 
-__attribute__((optnone)) static inline U32
-fpu_check(void) {
+__attribute__((optnone)) static inline U32 fpu_check(void) {
   enum {
     FPU_EXCEPTION_IOC, // 非法操作
     FPU_EXCEPTION_DZC, // 被零除

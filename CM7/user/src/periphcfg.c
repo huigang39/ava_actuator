@@ -9,14 +9,13 @@
 #include "dpt.h"
 #include "periphcfg.h"
 
-void
-periph_init(void) {
+void periph_init(void) {
   HAL_HRTIM_WaveformCounterStart(&hhrtim,
-                                 HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A
-                                     | HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
+                                 HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A |
+                                     HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
   HAL_HRTIM_WaveformOutputStart(&hhrtim,
-                                HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB1
-                                    | HRTIM_OUTPUT_TB2 | HRTIM_OUTPUT_TC1 | HRTIM_OUTPUT_TC2);
+                                HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB1 |
+                                    HRTIM_OUTPUT_TB2 | HRTIM_OUTPUT_TC1 | HRTIM_OUTPUT_TC2);
   HAL_HRTIM_SimpleBaseStart_IT(&hhrtim, HRTIM_TIMERINDEX_MASTER);
 
   HAL_ADC_Start(&hadc1);
@@ -32,9 +31,8 @@ periph_init(void) {
   HAL_TIM_Base_Start(&htim7);
 }
 
-adc_raw_t
-adc_get(void) {
-  adc_raw_t adc_raw = { 0 };
+adc_raw_t adc_get(void) {
+  adc_raw_t adc_raw = {0};
 
   adc_raw.i32_i_uvw.u = hadc1.Instance->JDR1;
   adc_raw.i32_i_uvw.v = hadc2.Instance->JDR1;
@@ -45,26 +43,37 @@ adc_get(void) {
   return adc_raw;
 }
 
-void
-pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR
-      = pwm_full_val / 2.0f - u32_pwm_duty.u / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR
-      = pwm_full_val / 2.0f + u32_pwm_duty.u / 2.0f;
+void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+  HRTIM1->sCommonRegs.OENR |= LF(0u);
+  HRTIM1->sCommonRegs.OENR |= LF(2u);
+  HRTIM1->sCommonRegs.OENR |= LF(4u);
 
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR
-      = pwm_full_val / 2.0f - u32_pwm_duty.v / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR
-      = pwm_full_val / 2.0f + u32_pwm_duty.v / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR =
+      pwm_full_val / 2.0f - u32_pwm_duty.u / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR =
+      pwm_full_val / 2.0f + u32_pwm_duty.u / 2.0f;
 
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR
-      = pwm_full_val / 2.0f - u32_pwm_duty.w / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR
-      = pwm_full_val / 2.0f + u32_pwm_duty.w / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR =
+      pwm_full_val / 2.0f - u32_pwm_duty.v / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR =
+      pwm_full_val / 2.0f + u32_pwm_duty.v / 2.0f;
+
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR =
+      pwm_full_val / 2.0f - u32_pwm_duty.w / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR =
+      pwm_full_val / 2.0f + u32_pwm_duty.w / 2.0f;
 }
 
-void
-drv_set(U8 enable) {
+void asc_pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+  HRTIM1->sCommonRegs.ODISR |= LF(0u);
+  HRTIM1->sCommonRegs.ODISR |= LF(2u);
+  HRTIM1->sCommonRegs.ODISR |= LF(4u);
+
+  u32_uvw_t u32_pwm_duty_sv = {0, 0, 0};
+  pwm_set(pwm_full_val, u32_pwm_duty_sv);
+}
+
+void drv_set(U8 enable) {
   if (enable)
     HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
   else
@@ -84,13 +93,9 @@ __asm(".global __use_no_semihosting\n\t");
 FILE __stdout;
 #endif
 
-void
-_sys_exit(int x) {
-  x = x;
-}
+void _sys_exit(int x) { x = x; }
 
-int
-_ttywrch(int ch) {
+int _ttywrch(int ch) {
   ch = ch;
   return ch;
 }

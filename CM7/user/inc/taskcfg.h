@@ -7,6 +7,15 @@ extern "C" {
 
 #include "module.h"
 
+typedef enum {
+  TASK_MAGNET_CAIL,
+  TASK_VF_CTL,
+  TASK_IF_CTL,
+  TASK_ASC_CTL,
+  TASK_VEL_CTL,
+  TASK_POS_CTL,
+} task_e;
+
 void task_init(sched_t *sched);
 
 #ifdef __cplusplus

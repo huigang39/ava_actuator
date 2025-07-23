@@ -25,10 +25,11 @@ DIR_ARM        := ./compiler/arm
 # ---------------------------------------------------------------------------- #
 #                                      头文件                                  #
 # ---------------------------------------------------------------------------- #
-DIR_INCLUDE += -I./Core/Inc
+DIR_INCLUDE += $(addprefix -I, ./Core/Inc)
 DIR_INCLUDE += $(addprefix -I, $(DIR_CMSIS)/Core/Include $(DIR_CMSIS)/Device/ST/STM32H7xx/Include/)
 DIR_INCLUDE += $(addprefix -I, $(DIR_HAL_DRIVER)/Inc $(DIR_HAL_DRIVER)/Inc/Legacy)
-DIR_INCLUDE += $(addprefix -I, $(DIR_MODULE) $(DIR_USER) $(DIR_DRIVER))
+DIR_INCLUDE += $(addprefix -I, $(DIR_MODULE))
+DIR_INCLUDE += $(addprefix -I, $(DIR_USER)/inc $(DIR_DRIVER)/inc)
 
 # ---------------------------------------------------------------------------- #
 #                                      源文件                                  #
@@ -40,7 +41,8 @@ else ifeq ($(C), gcc)
 endif
 
 SRC_C   += $(DIR_COMMON)/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c
-SRC_C   += $(wildcard $(addsuffix /*.c, ./Core/Src $(DIR_USER) $(DIR_DRIVER) $(DIR_HAL_DRIVER)))
+SRC_C   += $(wildcard $(addsuffix /*.c, ./Core/Src))
+SRC_C   += $(wildcard $(addsuffix /*.c, $(DIR_USER)/src $(DIR_DRIVER)/src))
 SRC_C   += $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_exti.c      \
            $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_rcc.c       \
            $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_gpio.c      \

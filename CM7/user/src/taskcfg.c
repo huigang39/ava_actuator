@@ -21,66 +21,74 @@ magnet_cali_t g_magnet_cali;
 sine_t   g_sine;
 square_t g_square;
 
-typedef enum {
-  VF_CTL_TASK,
-  IF_CTL_TASK,
-  VEL_CTL_TASK,
-  POS_CTL_TASK,
-} task_e;
-
 static const sched_task_t task_list[] = {
-  {
-      .id           = 0,
-      .freq_hz      = 1000,
-      .init_state   = SCHED_STATE_SUSPENDED,
-      .delay        = 0,
-      .exec_cnt_max = 0,
-      .f_cb         = magnet_cali,
-      .arg          = &g_magnet_cali,
-  },
-  {
-      .id           = 1,
-      .freq_hz      = 1000,
-      .init_state   = SCHED_STATE_SUSPENDED,
-      .delay        = 0,
-      .exec_cnt_max = 0,
-      .f_cb         = force_loop,
-      .arg          = &g_force_ctl,
-  },
-  {
-      .id           = 2,
-      .freq_hz      = 1000,
-      .init_state   = SCHED_STATE_SUSPENDED,
-      .delay        = 0,
-      .exec_cnt_max = 0,
-      .f_cb         = vel_loop,
-      .arg          = &g_vel_ctl,
-  },
-  {
-      .id           = 3,
-      .freq_hz      = 500,
-      .init_state   = SCHED_STATE_SUSPENDED,
-      .delay        = 0,
-      .exec_cnt_max = 0,
-      .f_cb         = pos_loop,
-      .arg          = &g_pos_ctl,
-  },
+    [TASK_MAGNET_CAIL] =
+        {
+            .id           = TASK_MAGNET_CAIL,
+            .freq_hz      = 1000,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = magnet_cali,
+            .arg          = &g_magnet_cali,
+        },
+    [TASK_VF_CTL] =
+        {
+            .id           = TASK_VF_CTL,
+            .freq_hz      = 1000,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = NULL,
+            .arg          = &g_force_ctl,
+        },
+    [TASK_IF_CTL] =
+        {
+            .id           = TASK_IF_CTL,
+            .freq_hz      = 1000,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = if_ctl_loop,
+            .arg          = &g_force_ctl,
+        },
+    [TASK_ASC_CTL] =
+        {
+            .id           = TASK_ASC_CTL,
+            .freq_hz      = 1000,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = asc_ctl_loop,
+            .arg          = NULL,
+        },
+    [TASK_VEL_CTL] =
+        {
+            .id           = TASK_VEL_CTL,
+            .freq_hz      = 1000,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = vel_ctl_loop,
+            .arg          = &g_vel_ctl,
+        },
+    [TASK_POS_CTL] =
+        {
+            .id           = TASK_POS_CTL,
+            .freq_hz      = 500,
+            .init_state   = SCHED_STATE_SUSPENDED,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = pos_ctl_loop,
+            .arg          = &g_pos_ctl,
+        },
 };
 
-static void
-fft_loop(void *arg) {
-  fft_t *fft = (fft_t *)arg;
-  DECL_FFT_PTRS(fft);
-
-  fft_run(fft);
-}
-
-void
-task_init(sched_t *sched) {
-  pid_cfg_t vel_pid_cfg = VEL_PID_CFG[FSA50NV3];
+void task_init(sched_t *sched) {
+  pid_cfg_t vel_pid_cfg = VEL_PID_CFG[ACTUATOR_FSA50NV3];
   pid_init(&g_vel_ctl.pid, vel_pid_cfg);
 
-  pid_cfg_t pos_pid_cfg = POS_PID_CFG[FSA50NV3];
+  pid_cfg_t pos_pid_cfg = POS_PID_CFG[ACTUATOR_FSA50NV3];
   g_pos_ctl.vel_ctl     = &g_vel_ctl;
   pid_init(&g_pos_ctl.pid, pos_pid_cfg);
 
@@ -123,13 +131,13 @@ task_init(sched_t *sched) {
   // };
   // sched_add_task(sched, fft_loop_task);
 
-  //	sched_in_t pos_loop_task = {
+  //	sched_in_t pos_ctl_loop_task = {
   //		.task_id    = idx++,
   //		.delay_us   = 0,
   //		.freq_hz    = 1000,
   //		.exec_num   = 0,
-  //		.f_callback = pos_loop,
+  //		.f_callback = pos_ctl_loop,
   //		.arg        = &foc,
   //	};
-  //	sched_add_task(sched, pos_loop_task);
+  //	sched_add_task(sched, pos_ctl_loop_task);
 }
