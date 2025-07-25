@@ -8,7 +8,7 @@ extern "C" {
 #include "module.h"
 
 extern foc_t   foc;
-extern sched_t sched;
+extern scher_t scher;
 extern fft_t   fft;
 
 void init(void);

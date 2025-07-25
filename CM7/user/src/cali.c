@@ -9,14 +9,13 @@ void magnet_cali(void *arg) {
 
   switch (magnet_cali->state) {
   case MAGNET_CALI_INIT:
-    magnet_cali->ref_id         = 2.0f;
-    magnet_cali->ref_vel_rads   = 50.0f;
-    magnet_cali->init_theta_rad = 0.0f;
-    magnet_cali->state          = MAGNET_CALI_CW;
+    magnet_cali->ref_id       = 2.0f;
+    magnet_cali->ref_vel_rads = 50.0f;
+    magnet_cali->state        = MAGNET_CALI_CW;
     break;
   case MAGNET_CALI_CW:
     magnet_cali->ref_theta_rad += magnet_cali->ref_vel_rads * FP32_HZ_TO_S(1000.0f);
-    if (magnet_cali->ref_theta_rad - magnet_cali->init_theta_rad > FP32_2PI) {
+    if (magnet_cali->ref_theta_rad > FP32_2PI) {
       magnet_cali->ref_theta_rad = 0.0f;
       magnet_cali->state         = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state    = MAGNET_CALI_CW;
@@ -28,7 +27,7 @@ void magnet_cali(void *arg) {
     break;
   case MAGNET_CALI_CCW:
     magnet_cali->ref_theta_rad -= magnet_cali->ref_vel_rads * FP32_HZ_TO_S(1000.0f);
-    if (magnet_cali->ref_theta_rad - magnet_cali->init_theta_rad < 0.0f) {
+    if (magnet_cali->ref_theta_rad < 0.0f) {
       magnet_cali->ref_theta_rad = FP32_2PI;
       magnet_cali->state         = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state    = MAGNET_CALI_CCW;
@@ -45,10 +44,12 @@ void magnet_cali(void *arg) {
     }
     break;
   case MAGNET_CALI_FINISH:
-    foc_cfg->theta_offset = magnet_cali->theta_offset / magnet_cali->sample_cnt;
-    break;
+    foc_cfg->theta_offset    = magnet_cali->theta_offset / magnet_cali->sample_cnt;
+    foc_lo->state            = FOC_STATE_DISABLE;
+    *magnet_cali->task_state = SCHER_STATE_SUSPENDED;
+    return;
   default:
-    break;
+    return;
   }
 
   foc_out->i_dq.q = 0.0f;

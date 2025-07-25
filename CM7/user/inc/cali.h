@@ -8,7 +8,7 @@ extern "C" {
 #include "module.h"
 
 typedef enum {
-  MAGNET_CALI_INIT,   // 空闲状态
+  MAGNET_CALI_INIT,   // 初始化
   MAGNET_CALI_CW,     // 顺时针旋转校准
   MAGNET_CALI_CCW,    // 逆时针旋转校准
   MAGNET_CALI_SAMPLE, // 保持位置采样
@@ -16,15 +16,15 @@ typedef enum {
 } magnet_cali_e;
 
 typedef struct {
-  magnet_cali_e state;
-  magnet_cali_e prev_state;
-  FP32          ref_theta_rad;
-  FP32          ref_vel_rads;
-  FP32          ref_id;
-  FP32          init_theta_rad;
-  U32           sample_cnt;
-  U32           sample_delay;
-  FP32          theta_offset;
+  scher_state_e *task_state;
+  magnet_cali_e  state;
+  magnet_cali_e  prev_state;
+  FP32           ref_theta_rad;
+  FP32           ref_vel_rads;
+  FP32           ref_id;
+  U32            sample_cnt;
+  U32            sample_delay;
+  FP32           theta_offset;
 } magnet_cali_t;
 
 typedef struct {

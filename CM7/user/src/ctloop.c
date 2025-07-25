@@ -32,6 +32,7 @@ void pos_ctl_loop(void *arg) {
   DECL_PID_PTRS(&pos_ctl->pid);
   DECL_FOC_PTRS_PREFIX(&foc, foc);
 
+  pos_ctl->fdb = foc_in->theta.mech_total_theta_rad;
   pid_run_in(&pos_ctl->pid, pos_ctl->ref, pos_ctl->fdb);
   pos_ctl->vel_ctl->ref = out->val;
 

@@ -16,7 +16,7 @@ typedef enum {
   TASK_POS_CTL,
 } task_e;
 
-void task_init(sched_t *sched);
+void task_init(scher_t *scher);
 
 #ifdef __cplusplus
 }

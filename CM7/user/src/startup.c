@@ -13,7 +13,7 @@
 #include "taskcfg.h"
 
 foc_t   foc;
-sched_t sched;
+scher_t scher;
 fft_t   fft;
 
 benchmark_t benchmark_res[30];
@@ -41,10 +41,10 @@ void init(void) {
 
   DWT_INIT();
 
-  sched_cfg_t sched_cfg;
-  sched_cfg.freq_hz = FP32_MUL_K(50.0f); // 50KHz
-  sched_init(&sched, sched_cfg);
-  sched.ops.f_ts = get_ts_us;
+  scher_cfg_t scher_cfg;
+  scher_cfg.freq_hz = FP32_MUL_K(50.0f); // 50KHz
+  scher_init(&scher, scher_cfg);
+  scher.ops.f_ts = get_ts_us;
 
   actuator_cfg_t actuator_cfg = ACTUATOR_CFG[ACTUATOR_FSA50NV3];
 
@@ -53,12 +53,16 @@ void init(void) {
   foc_cfg.motor_cfg  = MOTOR_CFG[actuator_cfg.motor_type];
   foc_cfg.periph_cfg = PERIPH_CFG[actuator_cfg.periph_type];
   foc.ops            = FOC_OPS_CFG[actuator_cfg.periph_type];
+  foc.lo.id_pid.cfg  = CUR_PID_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.iq_pid.cfg  = CUR_PID_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.pll_vel.cfg = PLL_VEL_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.smo.cfg     = SMO_CFG[ACTUATOR_FSA50NV3];
   foc_init(&foc, foc_cfg);
 
   periph_init();
   dpt_init();
   ads_init();
-  task_init(&sched);
+  task_init(&scher);
 }
 
 void foc_loop(void) {
@@ -74,27 +78,27 @@ void scher_loop(void) {
   case CTL_MODE_IF:
     break;
   case CTL_MODE_ASC:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_STATE_READY;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_ASC_CTL].stat.state = SCHER_STATE_READY;
+    scher.lo.tasks[TASK_POS_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_VEL_CTL].stat.state = SCHER_STATE_SUSPENDED;
     break;
   case CTL_MODE_CUR:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_ASC_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_POS_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_VEL_CTL].stat.state = SCHER_STATE_SUSPENDED;
     break;
   case CTL_MODE_VEL:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_STATE_READY;
+    scher.lo.tasks[TASK_ASC_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_POS_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_VEL_CTL].stat.state = SCHER_STATE_READY;
     break;
   case CTL_MODE_POS:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_STATE_READY;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_STATE_READY;
+    scher.lo.tasks[TASK_ASC_CTL].stat.state = SCHER_STATE_SUSPENDED;
+    scher.lo.tasks[TASK_POS_CTL].stat.state = SCHER_STATE_READY;
+    scher.lo.tasks[TASK_VEL_CTL].stat.state = SCHER_STATE_READY;
     break;
   default:
     break;
   }
-  sched_run(&sched);
+  scher_run(&scher);
 }

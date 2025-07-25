@@ -44,9 +44,9 @@ adc_raw_t adc_get(void) {
 }
 
 void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
-  HRTIM1->sCommonRegs.OENR |= LF(0u);
-  HRTIM1->sCommonRegs.OENR |= LF(2u);
-  HRTIM1->sCommonRegs.OENR |= LF(4u);
+  //  HRTIM1->sCommonRegs.OENR |= LF(0u);
+  //  HRTIM1->sCommonRegs.OENR |= LF(2u);
+  //  HRTIM1->sCommonRegs.OENR |= LF(4u);
 
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR =
       pwm_full_val / 2.0f - u32_pwm_duty.u / 2.0f;
@@ -63,17 +63,17 @@ void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR =
       pwm_full_val / 2.0f + u32_pwm_duty.w / 2.0f;
 }
-
-void asc_pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+volatile U32 pwm_duty = 0u;
+void         asc_pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
   HRTIM1->sCommonRegs.ODISR |= LF(0u);
   HRTIM1->sCommonRegs.ODISR |= LF(2u);
   HRTIM1->sCommonRegs.ODISR |= LF(4u);
 
-  u32_uvw_t u32_pwm_duty_sv = {0, 0, 0};
+  u32_uvw_t u32_pwm_duty_sv = {pwm_duty, pwm_duty, pwm_duty};
   pwm_set(pwm_full_val, u32_pwm_duty_sv);
 }
 
-void drv_set(U8 enable) {
+void drv_set(BOOL enable) {
   if (enable)
     HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
   else

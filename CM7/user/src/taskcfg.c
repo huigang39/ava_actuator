@@ -21,12 +21,12 @@ magnet_cali_t g_magnet_cali;
 sine_t   g_sine;
 square_t g_square;
 
-static const sched_task_t task_list[] = {
+static const scher_task_t task_list[] = {
     [TASK_MAGNET_CAIL] =
         {
             .id           = TASK_MAGNET_CAIL,
             .freq_hz      = 1000,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = magnet_cali,
@@ -36,7 +36,7 @@ static const sched_task_t task_list[] = {
         {
             .id           = TASK_VF_CTL,
             .freq_hz      = 1000,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = NULL,
@@ -46,7 +46,7 @@ static const sched_task_t task_list[] = {
         {
             .id           = TASK_IF_CTL,
             .freq_hz      = 1000,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = if_ctl_loop,
@@ -56,7 +56,7 @@ static const sched_task_t task_list[] = {
         {
             .id           = TASK_ASC_CTL,
             .freq_hz      = 1000,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = asc_ctl_loop,
@@ -66,7 +66,7 @@ static const sched_task_t task_list[] = {
         {
             .id           = TASK_VEL_CTL,
             .freq_hz      = 1000,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = vel_ctl_loop,
@@ -76,7 +76,7 @@ static const sched_task_t task_list[] = {
         {
             .id           = TASK_POS_CTL,
             .freq_hz      = 500,
-            .init_state   = SCHED_STATE_SUSPENDED,
+            .init_state   = SCHER_STATE_SUSPENDED,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = pos_ctl_loop,
@@ -84,7 +84,7 @@ static const sched_task_t task_list[] = {
         },
 };
 
-void task_init(sched_t *sched) {
+void task_init(scher_t *scher) {
   pid_cfg_t vel_pid_cfg = VEL_PID_CFG[ACTUATOR_FSA50NV3];
   pid_init(&g_vel_ctl.pid, vel_pid_cfg);
 
@@ -99,8 +99,10 @@ void task_init(sched_t *sched) {
   square_cfg.duty_cycle   = 0.5f;
   square_init(&g_square, square_cfg);
 
+  g_magnet_cali.task_state = &scher->lo.tasks[TASK_MAGNET_CAIL].stat.state;
+
   for (U8 i = 0; i < ARRAY_SIZE(task_list); i++)
-    sched_add_task(sched, task_list[i]);
+    scher_add_task(scher, task_list[i]);
 
   // sine_cfg_t sinewave_cfg = {};
   // sinewave_cfg.freq_hz    = FP32_MUL_K(1);
@@ -108,7 +110,7 @@ void task_init(sched_t *sched) {
   // DECL_SINE_PTRS_PREFIX(&sine, sine);
   // sine_in->freq_hz            = 0.0f;
   // sine_in->amp            = 1.0f;
-  // sched_task_t sine_loop_task = {
+  // scher_task_t sine_loop_task = {
   //   .id           = idx++,
   //   .delay        = 0,
   //   .freq_hz      = 1000,
@@ -116,12 +118,12 @@ void task_init(sched_t *sched) {
   //   .f_cb         = sine_loop,
   //   .arg          = &sine,
   // };
-  // sched_add_task(sched, sine_loop_task);
+  // scher_add_task(scher, sine_loop_task);
 
   // fft_cfg_t fft_cfg      = {};
   // fft_cfg.sample_rate_hz = FP32_MUL_K(1);
   // fft_init(&fft, fft_cfg);
-  // sched_task_t fft_loop_task = {
+  // scher_task_t fft_loop_task = {
   //   .id           = idx++,
   //   .delay        = 0,
   //   .freq_hz      = 1000,
@@ -129,9 +131,9 @@ void task_init(sched_t *sched) {
   //   .f_cb         = fft_loop,
   //   .arg          = &fft,
   // };
-  // sched_add_task(sched, fft_loop_task);
+  // scher_add_task(scher, fft_loop_task);
 
-  //	sched_in_t pos_ctl_loop_task = {
+  //	scher_in_t pos_ctl_loop_task = {
   //		.task_id    = idx++,
   //		.delay_us   = 0,
   //		.freq_hz    = 1000,
@@ -139,5 +141,5 @@ void task_init(sched_t *sched) {
   //		.f_callback = pos_ctl_loop,
   //		.arg        = &foc,
   //	};
-  //	sched_add_task(sched, pos_ctl_loop_task);
+  //	scher_add_task(scher, pos_ctl_loop_task);
 }
