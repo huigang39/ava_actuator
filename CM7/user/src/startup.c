@@ -14,7 +14,6 @@
 
 foc_t   foc;
 scher_t scher;
-fft_t   fft;
 
 benchmark_t benchmark_res[30];
 

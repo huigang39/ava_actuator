@@ -9,7 +9,6 @@ extern "C" {
 
 extern foc_t   foc;
 extern scher_t scher;
-extern fft_t   fft;
 
 void init(void);
 void foc_loop(void);
@@ -19,4 +18,4 @@ void scher_loop(void);
 }
 #endif
 
-#endif //! STARTUP_H
+#endif // !STARTUP_H

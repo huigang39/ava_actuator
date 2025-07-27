@@ -22,4 +22,4 @@ void task_init(scher_t *scher);
 }
 #endif
 
-#endif //! TASKCFG_H
+#endif // !TASKCFG_H
