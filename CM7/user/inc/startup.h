@@ -8,11 +8,11 @@ extern "C" {
 #include "module.h"
 
 extern foc_t   foc;
-extern scher_t scher;
+extern sched_t sched;
 
 void init(void);
 void foc_loop(void);
-void scher_loop(void);
+void sched_loop(void);
 
 #ifdef __cplusplus
 }

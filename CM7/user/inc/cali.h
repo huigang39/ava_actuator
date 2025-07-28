@@ -16,7 +16,7 @@ typedef enum {
 } magnet_cali_e;
 
 typedef struct {
-  scher_state_e *task_state;
+  sched_task_state_e *task_state;
   magnet_cali_e  state;
   magnet_cali_e  prev_state;
   FP32           ref_theta_rad;

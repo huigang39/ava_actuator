@@ -46,7 +46,7 @@ void magnet_cali(void *arg) {
   case MAGNET_CALI_FINISH:
     foc_cfg->theta_offset    = magnet_cali->theta_offset / magnet_cali->sample_cnt;
     foc_lo->state            = FOC_STATE_DISABLE;
-    *magnet_cali->task_state = SCHER_STATE_SUSPENDED;
+    *magnet_cali->task_state = SCHED_TASK_STATE_SUSPENDED;
     return;
   default:
     return;
