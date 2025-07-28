@@ -1,9 +1,14 @@
-#ifndef WAVE_GEN_H
-#define WAVE_GEN_H
+#ifndef WAVE_H
+#define WAVE_H
 
 #ifdef __cpluscplus
 extern "C" {
 #endif
+
+#include "module.h"
+
+static sine_t   sine;
+static square_t square;
 
 void sine_loop(void *arg);
 void square_loop(void *arg);
@@ -12,4 +17,4 @@ void square_loop(void *arg);
 }
 #endif
 
-#endif // !WAVE_GEN_H
+#endif // !WAVE_H

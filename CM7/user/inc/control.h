@@ -1,5 +1,5 @@
-#ifndef CTLOOP_H
-#define CTLOOP_H
+#ifndef CONTROL_H
+#define CONTROL_H
 
 #ifdef __cpluscplus
 extern "C" {
@@ -35,13 +35,17 @@ typedef struct {
   vel_ctl_t *vel_ctl;
 } pos_ctl_t;
 
-void if_ctl_loop(void *arg);
-void vel_ctl_loop(void *arg);
-void pos_ctl_loop(void *arg);
-void asc_ctl_loop(void *arg);
+static force_ctl_t force_ctl;
+static vel_ctl_t   vel_ctl;
+static pos_ctl_t   pos_ctl;
+
+void if_loop_task(void *arg);
+void vel_loop_task(void *arg);
+void pos_loop_task(void *arg);
+void asc_loop_task(void *arg);
 
 #ifdef __cpluscplus
 }
 #endif
 
-#endif // !CTLOOP_H
+#endif // !CONTROL_H

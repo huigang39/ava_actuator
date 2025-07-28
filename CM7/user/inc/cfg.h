@@ -1,6 +1,8 @@
 #ifndef CFG_H
 #define CFG_H
 
+#include "calibration.h"
+#include "filter/pll.h"
 #ifdef __cpluscplus
 extern "C" {
 #endif
@@ -102,6 +104,16 @@ static const smo_cfg_t SMO_CFG[] = {
         },
 };
 
+static const pll_cfg_t SMO_PLL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq_hz = FOC_FREQ_HZ,
+            .wc      = 500.0f,
+            .fc      = 200.0f,
+            .damp    = 0.707f,
+        },
+};
+
 static const pid_cfg_t CUR_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
@@ -135,6 +147,25 @@ static const pid_cfg_t POS_PID_CFG[] = {
             .kd         = 0.0f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
+        },
+};
+
+static const square_cfg_t SQUARE_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq_hz      = 1000.0f,
+            .wave_freq_hz = 1.0f,
+            .amp          = 1.0f,
+            .duty_cycle   = 0.5f,
+        },
+};
+
+static const magnet_cali_t MAGNET_CALI_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .ref_id           = 2.0f,
+            .ref_vel_rads     = 50.0f,
+            .sample_delay_max = 1000u,
         },
 };
 

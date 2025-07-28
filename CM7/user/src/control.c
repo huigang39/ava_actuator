@@ -1,8 +1,8 @@
-#include "ctloop.h"
+#include "control.h"
 #include "periphcfg.h"
 #include "startup.h"
 
-void if_ctl_loop(void *arg) {
+void if_loop_task(void *arg) {
   force_ctl_t *force_ctl = (force_ctl_t *)arg;
   DECL_FOC_PTRS_PREFIX(&foc, foc);
 
@@ -15,7 +15,7 @@ void if_ctl_loop(void *arg) {
   foc_ops->f_pwm_set = pwm_set;
 }
 
-void vel_ctl_loop(void *arg) {
+void vel_loop_task(void *arg) {
   vel_ctl_t *vel_ctl = (vel_ctl_t *)arg;
   DECL_PID_PTRS(&vel_ctl->pid);
   DECL_FOC_PTRS_PREFIX(&foc, foc);
@@ -27,7 +27,7 @@ void vel_ctl_loop(void *arg) {
   foc_ops->f_pwm_set = pwm_set;
 }
 
-void pos_ctl_loop(void *arg) {
+void pos_loop_task(void *arg) {
   pos_ctl_t *pos_ctl = (pos_ctl_t *)arg;
   DECL_PID_PTRS(&pos_ctl->pid);
   DECL_FOC_PTRS_PREFIX(&foc, foc);
@@ -39,7 +39,7 @@ void pos_ctl_loop(void *arg) {
   foc_ops->f_pwm_set = pwm_set;
 }
 
-void asc_ctl_loop(void *arg) {
+void asc_loop_task(void *arg) {
   DECL_FOC_PTRS_PREFIX(&foc, foc);
 
   foc_ops->f_pwm_set = asc_pwm_set;

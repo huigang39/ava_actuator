@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include "module.h"
+
 #define ADS7853_CONFIG_WORD 0x8680
 
 void ads_init(void);

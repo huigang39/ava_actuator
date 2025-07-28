@@ -5,6 +5,10 @@
 extern "C" {
 #endif
 
+#include "module.h"
+
+static fft_t fft;
+
 void fft_loop(void *arg);
 
 #ifdef __cpluscplus

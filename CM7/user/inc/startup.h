@@ -7,8 +7,13 @@ extern "C" {
 
 #include "module.h"
 
-extern foc_t   foc;
-extern sched_t sched;
+#include "control.h"
+
+static foc_t   foc;
+static sched_t sched;
+
+static benchmark_t benchmark_res[30];
+static ctl_mode_e  g_ctl_mode;
 
 void init(void);
 void foc_loop(void);

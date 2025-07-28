@@ -1,6 +1,4 @@
-#include "module.h"
-
-#include "wavegen.h"
+#include "wave.h"
 
 void sine_loop(void *arg) {
   sine_t *sine = (sine_t *)arg;
