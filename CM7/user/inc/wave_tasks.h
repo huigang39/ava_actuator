@@ -1,5 +1,5 @@
-#ifndef WAVE_H
-#define WAVE_H
+#ifndef WAVE_TASKS_H
+#define WAVE_TASKS_H
 
 #ifdef __cpluscplus
 extern "C" {
@@ -7,8 +7,8 @@ extern "C" {
 
 #include "module.h"
 
-static sine_t   sine;
-static square_t square;
+extern sine_t   sine;
+extern square_t square;
 
 void sine_loop(void *arg);
 void square_loop(void *arg);
@@ -17,4 +17,4 @@ void square_loop(void *arg);
 }
 #endif
 
-#endif // !WAVE_H
+#endif // !WAVE_TASKS_H

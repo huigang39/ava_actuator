@@ -1,4 +1,7 @@
-#include "wave.h"
+#include "wave_tasks.h"
+
+sine_t   sine;
+square_t square;
 
 void sine_loop(void *arg) {
   sine_t *sine = (sine_t *)arg;

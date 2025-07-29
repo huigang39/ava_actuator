@@ -16,15 +16,15 @@ typedef enum {
 } magnet_cali_e;
 
 typedef struct {
-  sched_task_state_e *task_state;
-  magnet_cali_e       state;
-  magnet_cali_e       prev_state;
-  FP32                ref_id;
-  FP32                ref_vel_rads;
-  FP32                ref_theta_rad;
-  U32                 sample_cnt;
-  U32                 sample_delay_cnt, sample_delay_max;
-  FP32                theta_offset;
+  FP32          exec_freq_hz;
+  magnet_cali_e state;
+  magnet_cali_e prev_state;
+  FP32          ref_id;
+  FP32          ref_vel_rads;
+  FP32          ref_theta_rad;
+  U32           sample_cnt;
+  U32           sample_delay_cnt, sample_delay_cnt_max;
+  FP32          theta_offset;
 } magnet_cali_t;
 
 typedef struct {
@@ -33,11 +33,11 @@ typedef struct {
   FP32 amp;
 } linerhall_cali_t;
 
-static linerhall_cali_t linerhall_cali;
-static magnet_cali_t    magnet_cali;
+extern linerhall_cali_t linerhall_cali;
+extern magnet_cali_t    magnet_cali;
 
-void magnet_cali_task(void *arg);
-void linerhall_cali_task(void *arg);
+ret_e magnet_cali_loop();
+ret_e linerhall_cali_loop();
 
 #ifdef __cpluscplus
 }

@@ -1,5 +1,5 @@
-#ifndef OTHERTASKS_H
-#define OTHERTASKS_H
+#ifndef OTHER_TASKS_H
+#define OTHER_TASKS_H
 
 #ifdef __cpluscplus
 extern "C" {
@@ -7,7 +7,7 @@ extern "C" {
 
 #include "module.h"
 
-static fft_t fft;
+extern fft_t fft;
 
 void fft_loop(void *arg);
 
@@ -15,4 +15,4 @@ void fft_loop(void *arg);
 }
 #endif
 
-#endif // !OTHERTASKS_H
+#endif // !OTHER_TASKS_H

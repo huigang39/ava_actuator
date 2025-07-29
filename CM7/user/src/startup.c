@@ -2,21 +2,22 @@
 #include <string.h>
 
 #include "ads.h"
-#include "control.h"
+#include "control_tasks.h"
 #include "dpt.h"
 #include "errcheck.h"
-#include "periphcfg.h"
-#include "taskcfg.h"
+#include "periph_cfg.h"
+#include "task_cfg.h"
 
-#include "cfg.h"
+#include "param_cfg.h"
 
 #include "startup.h"
 
-extern foc_t   foc;
-extern sched_t sched;
+foc_t   foc;
+sched_t sched;
 
-extern benchmark_t benchmark_res[30];
-extern ctl_mode_e  ctl_mode;
+benchmark_t         benchmark_res[30];
+volatile ctl_mode_e ctl_mode;
+volatile ctl_word_e ctl_word;
 
 static inline U64 get_ts_us(void) {
   DECL_FOC_PTRS(&foc);
@@ -38,11 +39,6 @@ void init(void) {
   // DWT_INIT();
   // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
 
-  sched_cfg_t sched_cfg;
-  sched_cfg.freq_hz = FP32_MUL_K(50.0f); // 50KHz
-  sched_init(&sched, sched_cfg);
-  sched.ops.f_ts = get_ts_us;
-
   actuator_cfg_t actuator_cfg = ACTUATOR_CFG[ACTUATOR_FSA50NV3];
 
   foc_cfg_t foc_cfg;
@@ -57,6 +53,11 @@ void init(void) {
   foc.lo.smo.lo.pll.cfg = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
   foc_init(&foc, foc_cfg);
 
+  sched_cfg_t sched_cfg;
+  sched_cfg.freq_hz = FP32_MUL_K(50.0f);
+  sched.ops.f_ts    = get_ts_us;
+  sched_init(&sched, sched_cfg);
+
   periph_init();
   dpt_init();
   ads_init();
@@ -69,34 +70,4 @@ void foc_loop(void) {
   foc_run(&foc);
 }
 
-void sched_loop(void) {
-  switch (ctl_mode) {
-  case CTL_MODE_VF:
-    break;
-  case CTL_MODE_IF:
-    break;
-  case CTL_MODE_ASC:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_TASK_STATE_READY;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    break;
-  case CTL_MODE_CUR:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    break;
-  case CTL_MODE_VEL:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_TASK_STATE_READY;
-    break;
-  case CTL_MODE_POS:
-    sched.lo.tasks[TASK_ASC_CTL].stat.state = SCHED_TASK_STATE_SUSPENDED;
-    sched.lo.tasks[TASK_POS_CTL].stat.state = SCHED_TASK_STATE_READY;
-    sched.lo.tasks[TASK_VEL_CTL].stat.state = SCHED_TASK_STATE_READY;
-    break;
-  default:
-    break;
-  }
-  sched_run(&sched);
-}
+void sched_loop(void) { sched_run(&sched); }

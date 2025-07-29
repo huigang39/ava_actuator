@@ -1,5 +1,5 @@
-#ifndef ITCFG_H
-#define ITCFG_H
+#ifndef IT_CFG_H
+#define IT_CFG_H
 
 #include "module.h"
 
@@ -21,4 +21,4 @@
     HAL_HRTIM_IRQHandler_EXIT();                                                                   \
   } while (0)
 
-#endif // !ITCFG_H
+#endif // !IT_CFG_H

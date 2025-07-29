@@ -1,5 +1,5 @@
-#ifndef TASKCFG_H
-#define TASKCFG_H
+#ifndef TASK_CFG_H
+#define TASK_CFG_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -8,10 +8,12 @@ extern "C" {
 #include "module.h"
 
 #include "calibration.h"
-#include "control.h"
+#include "control_tasks.h"
 
 typedef enum {
-  TASK_MAGNET_CAIL,
+  TASK_CTL_WORD,
+  TASK_CTL_MODE,
+  TASK_ENCODER_CALI,
   TASK_VF_CTL,
   TASK_IF_CTL,
   TASK_ASC_CTL,
@@ -20,15 +22,25 @@ typedef enum {
 } task_e;
 
 static const sched_task_cfg_t task_list[] = {
-    [TASK_MAGNET_CAIL] =
+    [TASK_CTL_WORD] =
         {
-            .id           = TASK_MAGNET_CAIL,
+            .id           = TASK_CTL_WORD,
             .priority     = 1,
             .exec_freq_hz = 1000,
             .delay        = 0,
             .exec_cnt_max = 0,
-            .f_cb         = magnet_cali_task,
-            .arg          = &magnet_cali,
+            .f_cb         = ctl_word_task,
+            .arg          = NULL,
+        },
+    [TASK_CTL_MODE] =
+        {
+            .id           = TASK_CTL_MODE,
+            .priority     = 1,
+            .exec_freq_hz = 1000,
+            .delay        = 0,
+            .exec_cnt_max = 0,
+            .f_cb         = ctl_mode_task,
+            .arg          = NULL,
         },
     [TASK_VF_CTL] =
         {
@@ -36,7 +48,7 @@ static const sched_task_cfg_t task_list[] = {
             .priority     = 1,
             .exec_freq_hz = 1000,
             .delay        = 0,
-            .exec_cnt_max = 1,
+            .exec_cnt_max = 0,
             .f_cb         = NULL,
             .arg          = &force_ctl,
         },
@@ -46,7 +58,7 @@ static const sched_task_cfg_t task_list[] = {
             .priority     = 1,
             .exec_freq_hz = 1000,
             .delay        = 0,
-            .exec_cnt_max = 1,
+            .exec_cnt_max = 0,
             .f_cb         = if_loop_task,
             .arg          = &force_ctl,
         },
@@ -56,7 +68,7 @@ static const sched_task_cfg_t task_list[] = {
             .priority     = 1,
             .exec_freq_hz = 1000,
             .delay        = 0,
-            .exec_cnt_max = 1,
+            .exec_cnt_max = 0,
             .f_cb         = asc_loop_task,
             .arg          = NULL,
         },
@@ -66,7 +78,7 @@ static const sched_task_cfg_t task_list[] = {
             .priority     = 1,
             .exec_freq_hz = 1000,
             .delay        = 0,
-            .exec_cnt_max = 1,
+            .exec_cnt_max = 0,
             .f_cb         = vel_loop_task,
             .arg          = &vel_ctl,
         },
@@ -76,7 +88,7 @@ static const sched_task_cfg_t task_list[] = {
             .priority     = 1,
             .exec_freq_hz = 500,
             .delay        = 0,
-            .exec_cnt_max = 1,
+            .exec_cnt_max = 0,
             .f_cb         = pos_loop_task,
             .arg          = &pos_ctl,
         },
@@ -88,4 +100,4 @@ void task_init(sched_t *sched);
 }
 #endif
 
-#endif // !TASKCFG_H
+#endif // !TASK_CFG_H

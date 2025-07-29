@@ -1,5 +1,5 @@
-#ifndef CONTROL_H
-#define CONTROL_H
+#ifndef CONTROL_TASKS_H
+#define CONTROL_TASKS_H
 
 #ifdef __cpluscplus
 extern "C" {
@@ -17,6 +17,13 @@ typedef enum {
   CTL_MODE_POS,
 } ctl_mode_e;
 
+typedef enum {
+  CTL_WORD_NULL,
+  CTL_WORD_CALI,
+  CTL_WORD_ENABLE,
+  CTL_WORD_DISABLE,
+} ctl_word_e;
+
 typedef struct {
   FP32 ref_theta_rad;
   FP32 ref_vel_rads;
@@ -29,16 +36,17 @@ typedef struct {
 } vel_ctl_t;
 
 typedef struct {
-  FP32       ref;
-  FP32       fdb;
-  pid_ctl_t  pid;
-  vel_ctl_t *vel_ctl;
+  FP32      ref;
+  FP32      fdb;
+  pid_ctl_t pid;
 } pos_ctl_t;
 
-static force_ctl_t force_ctl;
-static vel_ctl_t   vel_ctl;
-static pos_ctl_t   pos_ctl;
+extern force_ctl_t force_ctl;
+extern vel_ctl_t   vel_ctl;
+extern pos_ctl_t   pos_ctl;
 
+void ctl_word_task(void *arg);
+void ctl_mode_task(void *arg);
 void if_loop_task(void *arg);
 void vel_loop_task(void *arg);
 void pos_loop_task(void *arg);
@@ -48,4 +56,4 @@ void asc_loop_task(void *arg);
 }
 #endif
 
-#endif // !CONTROL_H
+#endif // !CONTROL_TASKS_H

@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "module"
+		},
+		{
+			"path": "CM7"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"logger.h": "c",
+			"fifo.h": "c",
+			"memory": "c",
+			"typedef.h": "c"
+		}
+	}
+}

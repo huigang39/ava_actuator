@@ -1,6 +1,5 @@
-#ifndef CFG_H
-#define CFG_H
-
+#ifndef PARAM_CFG_H
+#define PARAM_CFG_H
 
 #ifdef __cpluscplus
 extern "C" {
@@ -8,10 +7,9 @@ extern "C" {
 
 #include "module.h"
 
-#include "dpt.h"
-#include "periphcfg.h"
 #include "calibration.h"
-#include "filter/pll.h"
+#include "dpt.h"
+#include "periph_cfg.h"
 
 #define FOC_FREQ_HZ (FP32_MUL_K(50.0f))
 
@@ -164,9 +162,10 @@ static const square_cfg_t SQUARE_CFG[] = {
 static const magnet_cali_t MAGNET_CALI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .ref_id           = 2.0f,
-            .ref_vel_rads     = 50.0f,
-            .sample_delay_max = 1000u,
+            .exec_freq_hz         = 1000.0f,
+            .ref_id               = 2.0f,
+            .ref_vel_rads         = 20.0f,
+            .sample_delay_cnt_max = 1000u,
         },
 };
 
@@ -174,4 +173,4 @@ static const magnet_cali_t MAGNET_CALI_CFG[] = {
 }
 #endif
 
-#endif // !CFG_H
+#endif // !PARAM_CFG_H

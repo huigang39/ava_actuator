@@ -1,9 +1,10 @@
 #include "adc.h"
 #include "hrtim.h"
+#include "tim.h"
 
 #include <stdio.h>
 
-#include "periphcfg.h"
+#include "periph_cfg.h"
 
 void periph_init(void) {
   HAL_HRTIM_WaveformCounterStart(&hhrtim,
