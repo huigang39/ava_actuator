@@ -8,7 +8,6 @@ extern "C" {
 #include "module.h"
 
 #include "calibration.h"
-#include "dpt.h"
 #include "periph_cfg.h"
 
 #define FOC_FREQ_HZ (FP32_MUL_K(50.0f))
@@ -77,7 +76,7 @@ static const foc_ops_t FOC_OPS_CFG[] = {
     [PERIPH_FSA50NV3] =
         {
             .f_adc_get   = adc_get,
-            .f_theta_get = dpt_get_inner_theta,
+            .f_theta_get = theta_get,
             .f_pwm_set   = pwm_set,
             .f_drv_set   = drv_set,
         },
@@ -149,16 +148,6 @@ static const pid_cfg_t POS_PID_CFG[] = {
         },
 };
 
-static const square_cfg_t SQUARE_CFG[] = {
-    [ACTUATOR_FSA50NV3] =
-        {
-            .freq_hz      = 1000.0f,
-            .wave_freq_hz = 1.0f,
-            .amp          = 1.0f,
-            .duty_cycle   = 0.5f,
-        },
-};
-
 static const magnet_cali_t MAGNET_CALI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
@@ -166,6 +155,16 @@ static const magnet_cali_t MAGNET_CALI_CFG[] = {
             .ref_id               = 2.0f,
             .ref_vel_rads         = 20.0f,
             .sample_delay_cnt_max = 1000u,
+        },
+};
+
+static const square_cfg_t SQUARE_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq_hz      = 1000.0f,
+            .wave_freq_hz = 1.0f,
+            .amp          = 1.0f,
+            .duty_cycle   = 0.5f,
         },
 };
 

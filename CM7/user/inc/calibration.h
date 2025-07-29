@@ -28,16 +28,18 @@ typedef struct {
 } magnet_cali_t;
 
 typedef struct {
+  FP32 exec_freq_hz;
   FP32 fdb;
   FP32 min, max;
   FP32 amp;
 } linerhall_cali_t;
 
-extern linerhall_cali_t linerhall_cali;
-extern magnet_cali_t    magnet_cali;
+typedef union {
+  magnet_cali_t    magnet_cali;
+  linerhall_cali_t linerhall_cali;
+} theta_cali_u;
 
-ret_e magnet_cali_loop();
-ret_e linerhall_cali_loop();
+ret_e theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
 
 #ifdef __cpluscplus
 }

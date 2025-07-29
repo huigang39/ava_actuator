@@ -7,14 +7,10 @@ extern "C" {
 
 #include "module.h"
 
-#include "control_tasks.h"
-
 extern foc_t   foc;
 extern sched_t sched;
 
-extern benchmark_t         benchmark_res[30];
-extern volatile ctl_mode_e ctl_mode;
-extern volatile ctl_word_e ctl_word;
+extern benchmark_t benchmark_res[30];
 
 void init(void);
 void foc_loop(void);

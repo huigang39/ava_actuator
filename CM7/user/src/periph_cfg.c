@@ -1,4 +1,5 @@
 #include "adc.h"
+#include "dpt.h"
 #include "hrtim.h"
 #include "tim.h"
 
@@ -40,10 +41,12 @@ adc_raw_t adc_get(void) {
   return adc_raw;
 }
 
+FP32 theta_get(void) { return dpt_get_inner_theta(); }
+
 void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
-  //  HRTIM1->sCommonRegs.OENR |= LF(0u);
-  //  HRTIM1->sCommonRegs.OENR |= LF(2u);
-  //  HRTIM1->sCommonRegs.OENR |= LF(4u);
+  // HRTIM1->sCommonRegs.OENR |= LF(0u);
+  // HRTIM1->sCommonRegs.OENR |= LF(2u);
+  // HRTIM1->sCommonRegs.OENR |= LF(4u);
 
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR =
       pwm_full_val / 2.0f - u32_pwm_duty.u / 2.0f;

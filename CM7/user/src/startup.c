@@ -2,27 +2,24 @@
 #include <string.h>
 
 #include "ads.h"
-#include "control_tasks.h"
 #include "dpt.h"
 #include "errcheck.h"
+#include "param_cfg.h"
 #include "periph_cfg.h"
 #include "task_cfg.h"
-
-#include "param_cfg.h"
+#include "user_tasks.h"
 
 #include "startup.h"
 
 foc_t   foc;
 sched_t sched;
 
-benchmark_t         benchmark_res[30];
-volatile ctl_mode_e ctl_mode;
-volatile ctl_word_e ctl_word;
+benchmark_t benchmark_res[30];
 
 static inline U64 get_ts_us(void) {
-  DECL_FOC_PTRS(&foc);
+  DECL_FOC_PTRS_PREFIX(&foc, foc);
 
-  U64 ts_us = lo->exec_cnt * FP32_HZ_TO_US(cfg->freq_hz);
+  U64 ts_us = foc_lo->exec_cnt * FP32_HZ_TO_US(foc_cfg->freq_hz);
   return ts_us;
 }
 
@@ -64,10 +61,6 @@ void init(void) {
   task_init(&sched);
 }
 
-void foc_loop(void) {
-  if (fpu_check())
-    foc.lo.state = FOC_STATE_DISABLE;
-  foc_run(&foc);
-}
+void foc_loop(void) { foc_run(&foc); }
 
 void sched_loop(void) { sched_run(&sched); }

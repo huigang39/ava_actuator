@@ -6,16 +6,16 @@ relative_path = true
 version = 2
 
 [settings]
-sample_frequency_hz = 1000
+sample_frequency_hz = 50000
 max_points = 50000
 max_viewport_points = 5000
 refresh_on_elf_change = true
 stop_acq_on_elf_change = true
-probe_type = 1
+probe_type = 0
 target_name = STM32H745II_M7
-probe_mode = 1
-probe_speed_khz = 10000
-probe_sn = 69609373
+probe_mode = 0
+probe_speed_khz = 50000
+probe_sn = 0018003B3532510931333430
 should_log = false
 log_directory = 
 gdb_command = ./gdb
@@ -41,48 +41,22 @@ should_log = false
 log_directory = 
 
 [var0]
-name = ctl_mode
-tracked_name = ctl_mode
-address = 536871020
-type = 1
-color = 812767526
-should_update_from_elf = true
-shift = 0
-mask = 4294967295
-high_level_type = 3
-value_to_write = 5.000000
-do_not_interpret_as_enum = false
-
-[var1]
-name = ctl_word
-tracked_name = ctl_word
-address = 536871021
-type = 1
-color = 3438922083
-should_update_from_elf = true
-shift = 0
-mask = 4294967295
-high_level_type = 3
-value_to_write = 2.000000
-do_not_interpret_as_enum = false
-
-[var2]
 name = foc.cfg.theta_offset
 tracked_name = foc.cfg.theta_offset
-address = 536871056
+address = 536871096
 type = 7
 color = 434464097
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 2.400000
+value_to_write = 2.040000
 do_not_interpret_as_enum = false
 
-[var3]
+[var1]
 name = foc.in.fp32_i_uvw.u
 tracked_name = foc.in.fp32_i_uvw.u
-address = 536871212
+address = 536871252
 type = 7
 color = 3238002943
 should_update_from_elf = true
@@ -92,10 +66,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var4]
+[var2]
 name = foc.in.fp32_i_uvw.v
 tracked_name = foc.in.fp32_i_uvw.v
-address = 536871216
+address = 536871256
 type = 7
 color = 1157686271
 should_update_from_elf = true
@@ -105,10 +79,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var5]
+[var3]
 name = foc.in.fp32_i_uvw.w
 tracked_name = foc.in.fp32_i_uvw.w
-address = 536871220
+address = 536871260
 type = 7
 color = 33497088
 should_update_from_elf = true
@@ -118,10 +92,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var6]
+[var4]
 name = foc.in.i_dq.d
 tracked_name = foc.in.i_dq.d
-address = 536871252
+address = 536871292
 type = 7
 color = 2365652781
 should_update_from_elf = true
@@ -131,10 +105,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var7]
+[var5]
 name = foc.in.i_dq.q
 tracked_name = foc.in.i_dq.q
-address = 536871256
+address = 536871296
 type = 7
 color = 2650800383
 should_update_from_elf = true
@@ -144,10 +118,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var8]
+[var6]
 name = foc.in.theta.force_theta_rad
 tracked_name = foc.in.theta.force_theta_rad
-address = 536871168
+address = 536871208
 type = 7
 color = 2717909247
 should_update_from_elf = true
@@ -157,10 +131,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var9]
+[var7]
 name = foc.in.theta.force_vel_rads
 tracked_name = foc.in.theta.force_vel_rads
-address = 536871172
+address = 536871212
 type = 7
 color = 3791600128
 should_update_from_elf = true
@@ -170,10 +144,10 @@ high_level_type = 0
 value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
-[var10]
+[var8]
 name = foc.in.theta.fusion_theta_err_rad
 tracked_name = foc.in.theta.fusion_theta_err_rad
-address = 536871192
+address = 536871232
 type = 7
 color = 1593901038
 should_update_from_elf = true
@@ -183,10 +157,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var11]
+[var9]
 name = foc.in.theta.mech_theta_rad
 tracked_name = foc.in.theta.mech_theta_rad
-address = 536871200
+address = 536871240
 type = 7
 color = 2970790472
 should_update_from_elf = true
@@ -196,10 +170,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var12]
+[var10]
 name = foc.in.theta.mech_total_theta_rad
 tracked_name = foc.in.theta.mech_total_theta_rad
-address = 536871208
+address = 536871248
 type = 7
 color = 4263814863
 should_update_from_elf = true
@@ -209,10 +183,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var13]
+[var11]
 name = foc.in.theta.obs_theta_rad
 tracked_name = foc.in.theta.obs_theta_rad
-address = 536871184
+address = 536871224
 type = 7
 color = 2902458623
 should_update_from_elf = true
@@ -222,10 +196,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var14]
+[var12]
 name = foc.in.theta.obs_vel_rads
 tracked_name = foc.in.theta.obs_vel_rads
-address = 536871188
+address = 536871228
 type = 7
 color = 2298543872
 should_update_from_elf = true
@@ -235,10 +209,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var15]
+[var13]
 name = foc.in.theta.sensor_theta_rad
 tracked_name = foc.in.theta.sensor_theta_rad
-address = 536871176
+address = 536871216
 type = 7
 color = 3405709318
 should_update_from_elf = true
@@ -248,10 +222,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var16]
+[var14]
 name = foc.in.theta.sensor_vel_rads
 tracked_name = foc.in.theta.sensor_vel_rads
-address = 536871180
+address = 536871220
 type = 7
 color = 3374776064
 should_update_from_elf = true
@@ -261,10 +235,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var17]
+[var15]
 name = foc.in.v_dq.d
 tracked_name = foc.in.v_dq.d
-address = 536871260
+address = 536871300
 type = 7
 color = 1510009087
 should_update_from_elf = true
@@ -274,10 +248,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var18]
+[var16]
 name = foc.in.v_dq.q
 tracked_name = foc.in.v_dq.q
-address = 536871264
+address = 536871304
 type = 7
 color = 3621775981
 should_update_from_elf = true
@@ -287,10 +261,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var19]
+[var17]
 name = foc.lo.elapsed
 tracked_name = foc.lo.elapsed
-address = 536871384
+address = 536871424
 type = 5
 color = 1929378560
 should_update_from_elf = true
@@ -300,23 +274,23 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var20]
+[var18]
 name = foc.lo.smo.cfg.kp
 tracked_name = foc.lo.smo.cfg.kp
-address = 536871608
+address = 536871648
 type = 7
 color = 1687008657
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 10.000000
+value_to_write = 100.000000
 do_not_interpret_as_enum = false
 
-[var21]
+[var19]
 name = foc.lo.smo.lo.pll.cfg.fc
 tracked_name = foc.lo.smo.lo.pll.cfg.fc
-address = 536871664
+address = 536871704
 type = 7
 color = 576332882
 should_update_from_elf = true
@@ -326,10 +300,10 @@ high_level_type = 0
 value_to_write = 200.000000
 do_not_interpret_as_enum = false
 
-[var22]
+[var20]
 name = foc.lo.smo.lo.pll.cfg.wc
 tracked_name = foc.lo.smo.lo.pll.cfg.wc
-address = 536871660
+address = 536871700
 type = 7
 color = 2132015907
 should_update_from_elf = true
@@ -339,10 +313,10 @@ high_level_type = 0
 value_to_write = 500.000000
 do_not_interpret_as_enum = false
 
-[var23]
+[var21]
 name = foc.lo.state
 tracked_name = foc.lo.state
-address = 536871396
+address = 536871436
 type = 1
 color = 3835008575
 should_update_from_elf = true
@@ -352,20 +326,20 @@ high_level_type = 3
 value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
-[var24]
+[var22]
 name = foc.lo.theta
 tracked_name = foc.lo.theta
-address = 536871397
+address = 536871437
 type = 1
 color = 2712006534
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 2.000000
+value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var25]
+[var23]
 name = foc.lo.vel_pll.in.theta_rad
 tracked_name = foc.lo.vel_pll.in.theta_rad
 address = 536871520
@@ -378,7 +352,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var26]
+[var24]
 name = foc.lo.vel_pll.lo.err_theta_rad
 tracked_name = foc.lo.vel_pll.lo.err_theta_rad
 address = 536871540
@@ -391,7 +365,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var27]
+[var25]
 name = foc.lo.vel_pll.lo.prev_theta_rad
 tracked_name = foc.lo.vel_pll.lo.prev_theta_rad
 address = 536871544
@@ -404,7 +378,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var28]
+[var26]
 name = foc.lo.vel_pll.out.theta_rad
 tracked_name = foc.lo.vel_pll.out.theta_rad
 address = 536871524
@@ -417,10 +391,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var29]
+[var27]
 name = foc.out.fp32_v_uvw.u
 tracked_name = foc.out.fp32_v_uvw.u
-address = 536871284
+address = 536871324
 type = 7
 color = 218104063
 should_update_from_elf = true
@@ -430,10 +404,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var30]
+[var28]
 name = foc.out.fp32_v_uvw.v
 tracked_name = foc.out.fp32_v_uvw.v
-address = 536871288
+address = 536871328
 type = 7
 color = 3506502655
 should_update_from_elf = true
@@ -443,10 +417,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var31]
+[var29]
 name = foc.out.fp32_v_uvw.w
 tracked_name = foc.out.fp32_v_uvw.w
-address = 536871292
+address = 536871332
 type = 7
 color = 3730046720
 should_update_from_elf = true
@@ -456,10 +430,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var32]
+[var30]
 name = foc.out.i_dq.d
 tracked_name = foc.out.i_dq.d
-address = 536871320
+address = 536871360
 type = 7
 color = 2056897835
 should_update_from_elf = true
@@ -469,10 +443,10 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var33]
+[var31]
 name = foc.out.i_dq.q
 tracked_name = foc.out.i_dq.q
-address = 536871324
+address = 536871364
 type = 7
 color = 268376320
 should_update_from_elf = true
@@ -482,10 +456,10 @@ high_level_type = 0
 value_to_write = 0.500000
 do_not_interpret_as_enum = false
 
-[var34]
+[var32]
 name = foc.out.svpwm.fp32_pwm_duty.u
 tracked_name = foc.out.svpwm.fp32_pwm_duty.u
-address = 536871348
+address = 536871388
 type = 7
 color = 2030043391
 should_update_from_elf = true
@@ -495,10 +469,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var35]
+[var33]
 name = foc.out.svpwm.fp32_pwm_duty.v
 tracked_name = foc.out.svpwm.fp32_pwm_duty.v
-address = 536871352
+address = 536871392
 type = 7
 color = 218168319
 should_update_from_elf = true
@@ -508,10 +482,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var36]
+[var34]
 name = foc.out.svpwm.fp32_pwm_duty.w
 tracked_name = foc.out.svpwm.fp32_pwm_duty.w
-address = 536871356
+address = 536871396
 type = 7
 color = 4177462784
 should_update_from_elf = true
@@ -521,10 +495,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var37]
+[var35]
 name = foc.out.v_dq.d
 tracked_name = foc.out.v_dq.d
-address = 536871328
+address = 536871368
 type = 7
 color = 2499184209
 should_update_from_elf = true
@@ -534,10 +508,10 @@ high_level_type = 0
 value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
-[var38]
+[var36]
 name = foc.out.v_dq.q
 tracked_name = foc.out.v_dq.q
-address = 536871332
+address = 536871372
 type = 7
 color = 2851209014
 should_update_from_elf = true
@@ -547,11 +521,24 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var39]
-name = force_ctl.ref_theta_rad
-tracked_name = force_ctl.ref_theta_rad
-address = 536871752
-type = 7
+[var37]
+name = g_ctl_mode
+tracked_name = g_ctl_mode
+address = 536873984
+type = 0
+color = 3291183434
+should_update_from_elf = true
+shift = 0
+mask = 4294967295
+high_level_type = 3
+value_to_write = 6.000000
+do_not_interpret_as_enum = false
+
+[var38]
+name = g_force_ctl.ref_theta_rad
+tracked_name = g_force_ctl.ref_theta_rad
+address = 536871796
+type = 0
 color = 1476395263
 should_update_from_elf = true
 shift = 0
@@ -560,11 +547,11 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var40]
-name = force_ctl.ref_vel_rads
-tracked_name = force_ctl.ref_vel_rads
-address = 536871756
-type = 7
+[var39]
+name = g_force_ctl.ref_vel_rads
+tracked_name = g_force_ctl.ref_vel_rads
+address = 536871800
+type = 0
 color = 16842528
 should_update_from_elf = true
 shift = 0
@@ -573,10 +560,10 @@ high_level_type = 0
 value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
-[var41]
+[var40]
 name = g_pos_ctl.fdb
 tracked_name = g_pos_ctl.fdb
-address = 536871800
+address = 536871840
 type = 0
 color = 726977492
 should_update_from_elf = true
@@ -586,10 +573,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var42]
+[var41]
 name = g_pos_ctl.pid.cfg.ki
 tracked_name = g_pos_ctl.pid.cfg.ki
-address = 536871812
+address = 536871852
 type = 0
 color = 1715613471
 should_update_from_elf = true
@@ -599,10 +586,10 @@ high_level_type = 0
 value_to_write = 0.100000
 do_not_interpret_as_enum = false
 
-[var43]
+[var42]
 name = g_pos_ctl.pid.cfg.kp
 tracked_name = g_pos_ctl.pid.cfg.kp
-address = 536871808
+address = 536871848
 type = 0
 color = 1580660470
 should_update_from_elf = true
@@ -612,10 +599,10 @@ high_level_type = 0
 value_to_write = 15.000000
 do_not_interpret_as_enum = false
 
-[var44]
+[var43]
 name = g_pos_ctl.ref
 tracked_name = g_pos_ctl.ref
-address = 536871796
+address = 536871836
 type = 0
 color = 934215424
 should_update_from_elf = true
@@ -625,7 +612,7 @@ high_level_type = 0
 value_to_write = 100.000000
 do_not_interpret_as_enum = false
 
-[var45]
+[var44]
 name = g_sine.in.freq_hz
 tracked_name = g_sine.in.freq_hz
 address = 536874692
@@ -638,7 +625,7 @@ high_level_type = 0
 value_to_write = 400.000000
 do_not_interpret_as_enum = false
 
-[var46]
+[var45]
 name = g_sine.out.val
 tracked_name = g_sine.out.val
 address = 536874708
@@ -651,7 +638,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var47]
+[var46]
 name = g_square.cfg.amp
 tracked_name = g_square.cfg.amp
 address = 536871912
@@ -664,7 +651,7 @@ high_level_type = 0
 value_to_write = 100.000000
 do_not_interpret_as_enum = false
 
-[var48]
+[var47]
 name = g_square.out.val
 tracked_name = g_square.out.val
 address = 536871928
@@ -677,10 +664,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var49]
+[var48]
 name = g_vel_ctl.fdb
 tracked_name = g_vel_ctl.fdb
-address = 536871868
+address = 536871940
 type = 0
 color = 3097482002
 should_update_from_elf = true
@@ -690,10 +677,10 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var50]
+[var49]
 name = g_vel_ctl.pid.cfg.ki
 tracked_name = g_vel_ctl.pid.cfg.ki
-address = 536871880
+address = 536871952
 type = 0
 color = 2758772467
 should_update_from_elf = true
@@ -703,10 +690,10 @@ high_level_type = 0
 value_to_write = 0.100000
 do_not_interpret_as_enum = false
 
-[var51]
+[var50]
 name = g_vel_ctl.pid.cfg.kp
 tracked_name = g_vel_ctl.pid.cfg.kp
-address = 536871876
+address = 536871948
 type = 0
 color = 2622664433
 should_update_from_elf = true
@@ -716,10 +703,23 @@ high_level_type = 0
 value_to_write = 0.001000
 do_not_interpret_as_enum = false
 
+[var51]
+name = g_vel_ctl.ref
+tracked_name = g_vel_ctl.ref
+address = 536871936
+type = 0
+color = 2822191085
+should_update_from_elf = true
+shift = 0
+mask = 4294967295
+high_level_type = 0
+value_to_write = 0.000000
+do_not_interpret_as_enum = false
+
 [var52]
 name = inner_raw
 tracked_name = inner_raw
-address = 536873228
+address = 536873260
 type = 5
 color = 1845494015
 should_update_from_elf = true
@@ -732,27 +732,14 @@ do_not_interpret_as_enum = false
 [var53]
 name = magnet_cali.ref_theta_rad
 tracked_name = magnet_cali.ref_theta_rad
-address = 536873252
-type = 7
+address = 536875480
+type = 0
 color = 2382951935
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
 value_to_write = 0.000000
-do_not_interpret_as_enum = false
-
-[var54]
-name = vel_ctl.ref
-tracked_name = vel_ctl.ref
-address = 536874920
-type = 7
-color = 2822191085
-should_update_from_elf = true
-shift = 0
-mask = 4294967295
-high_level_type = 0
-value_to_write = 100.000000
 do_not_interpret_as_enum = false
 
 [group0]
@@ -765,128 +752,123 @@ type = 2
 visibility = true
 
 [group0-plot0-series0]
-name = ctl_mode
-visibility = true
-format = DEC
-
-[group0-plot0-series1]
-name = ctl_word
-visibility = true
-format = DEC
-
-[group0-plot0-series2]
 name = foc.cfg.theta_offset
 visibility = true
 format = DEC
 
-[group0-plot0-series3]
+[group0-plot0-series1]
 name = foc.in.theta.force_vel_rads
 visibility = false
 format = DEC
 
-[group0-plot0-series4]
+[group0-plot0-series2]
 name = foc.lo.elapsed
 visibility = false
 format = DEC
 
-[group0-plot0-series5]
+[group0-plot0-series3]
 name = foc.lo.smo.cfg.kp
-visibility = false
+visibility = true
 format = DEC
 
-[group0-plot0-series6]
+[group0-plot0-series4]
 name = foc.lo.smo.lo.pll.cfg.fc
 visibility = false
 format = DEC
 
-[group0-plot0-series7]
+[group0-plot0-series5]
 name = foc.lo.smo.lo.pll.cfg.wc
 visibility = false
 format = DEC
 
-[group0-plot0-series8]
+[group0-plot0-series6]
 name = foc.lo.state
 visibility = true
 format = DEC
 
-[group0-plot0-series9]
+[group0-plot0-series7]
 name = foc.lo.theta
 visibility = true
 format = DEC
 
-[group0-plot0-series10]
+[group0-plot0-series8]
 name = foc.out.i_dq.d
 visibility = false
 format = DEC
 
-[group0-plot0-series11]
+[group0-plot0-series9]
 name = foc.out.i_dq.q
 visibility = false
 format = DEC
 
-[group0-plot0-series12]
+[group0-plot0-series10]
 name = foc.out.v_dq.d
 visibility = false
 format = DEC
 
-[group0-plot0-series13]
-name = force_ctl.ref_vel_rads
+[group0-plot0-series11]
+name = g_ctl_mode
+visibility = true
+format = DEC
+
+[group0-plot0-series12]
+name = g_force_ctl.ref_vel_rads
 visibility = false
+format = DEC
+
+[group0-plot0-series13]
+name = g_pos_ctl.pid.cfg.ki
+visibility = true
 format = DEC
 
 [group0-plot0-series14]
-name = g_pos_ctl.pid.cfg.ki
-visibility = false
+name = g_pos_ctl.pid.cfg.kp
+visibility = true
 format = DEC
 
 [group0-plot0-series15]
-name = g_pos_ctl.pid.cfg.kp
-visibility = false
+name = g_pos_ctl.ref
+visibility = true
 format = DEC
 
 [group0-plot0-series16]
-name = g_pos_ctl.ref
-visibility = false
-format = DEC
-
-[group0-plot0-series17]
 name = g_sine.in.freq_hz
 visibility = false
 format = DEC
 
-[group0-plot0-series18]
+[group0-plot0-series17]
 name = g_square.cfg.amp
 visibility = false
 format = DEC
 
-[group0-plot0-series19]
+[group0-plot0-series18]
 name = g_vel_ctl.pid.cfg.ki
 visibility = false
 format = DEC
 
-[group0-plot0-series20]
+[group0-plot0-series19]
 name = g_vel_ctl.pid.cfg.kp
 visibility = false
 format = DEC
 
-[group0-plot0-series21]
-name = vel_ctl.ref
-visibility = true
+[group0-plot0-series20]
+name = g_vel_ctl.ref
+visibility = false
 format = DEC
 
 [group0-plot1]
 name = dpt
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot1-series0]
 name = foc.in.theta.mech_theta_rad
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot1-series1]
 name = foc.in.theta.mech_total_theta_rad
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot1-series2]
@@ -1016,12 +998,12 @@ visibility = false
 
 [group0-plot9-series0]
 name = foc.in.theta.sensor_theta_rad
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot9-series1]
 name = foc.in.theta.sensor_vel_rads
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot10]
@@ -1049,15 +1031,10 @@ name = foc.in.theta.sensor_theta_rad
 visibility = false
 format = DEC
 
-[group0-plot10-series4]
-name = foc.in.theta.sensor_vel_rads
-visibility = false
-format = DEC
-
 [group0-plot11]
 name = test
 type = 0
-visibility = false
+visibility = true
 
 [group0-plot11-series0]
 name = foc.in.i_dq.d
@@ -1066,7 +1043,7 @@ format = DEC
 
 [group0-plot11-series1]
 name = foc.in.i_dq.q
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot11-series2]
@@ -1076,7 +1053,7 @@ format = DEC
 
 [group0-plot11-series3]
 name = foc.lo.elapsed
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot11-series4]
@@ -1097,7 +1074,7 @@ format = DEC
 [group0-plot12]
 name = uvw
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot12-series0]
 name = foc.in.fp32_i_uvw.u
@@ -1150,7 +1127,7 @@ visibility = true
 format = DEC
 
 [group0-plot13-series3]
-name = vel_ctl.ref
+name = g_vel_ctl.ref
 visibility = true
 format = DEC
 
