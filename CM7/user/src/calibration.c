@@ -1,6 +1,7 @@
-#include "calibration.h"
 #include "cfg.h"
 #include "startup.h"
+
+#include "calibration.h"
 
 void magnet_cali_task(void *arg) {
   magnet_cali_t *magnet_cali = (magnet_cali_t *)arg;

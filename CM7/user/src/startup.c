@@ -2,13 +2,21 @@
 #include <string.h>
 
 #include "ads.h"
-#include "cfg.h"
 #include "control.h"
 #include "dpt.h"
 #include "errcheck.h"
 #include "periphcfg.h"
-#include "startup.h"
 #include "taskcfg.h"
+
+#include "cfg.h"
+
+#include "startup.h"
+
+extern foc_t   foc;
+extern sched_t sched;
+
+extern benchmark_t benchmark_res[30];
+extern ctl_mode_e  ctl_mode;
 
 static inline U64 get_ts_us(void) {
   DECL_FOC_PTRS(&foc);
@@ -62,7 +70,7 @@ void foc_loop(void) {
 }
 
 void sched_loop(void) {
-  switch (g_ctl_mode) {
+  switch (ctl_mode) {
   case CTL_MODE_VF:
     break;
   case CTL_MODE_IF:

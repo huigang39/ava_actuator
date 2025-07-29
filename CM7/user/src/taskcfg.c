@@ -5,8 +5,9 @@
 #include "calibration.h"
 #include "cfg.h"
 #include "control.h"
-#include "taskcfg.h"
 #include "wave.h"
+
+#include "taskcfg.h"
 
 void task_init(sched_t *sched) {
   pid_cfg_t vel_pid_cfg = VEL_PID_CFG[ACTUATOR_FSA50NV3];

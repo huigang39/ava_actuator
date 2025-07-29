@@ -1,6 +1,7 @@
-#include "control.h"
 #include "periphcfg.h"
 #include "startup.h"
+
+#include "control.h"
 
 void if_loop_task(void *arg) {
   force_ctl_t *force_ctl = (force_ctl_t *)arg;

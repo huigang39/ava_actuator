@@ -13,7 +13,7 @@ static foc_t   foc;
 static sched_t sched;
 
 static benchmark_t benchmark_res[30];
-static ctl_mode_e  g_ctl_mode;
+static ctl_mode_e  ctl_mode;
 
 void init(void);
 void foc_loop(void);

@@ -1,8 +1,7 @@
 #ifndef CFG_H
 #define CFG_H
 
-#include "calibration.h"
-#include "filter/pll.h"
+
 #ifdef __cpluscplus
 extern "C" {
 #endif
@@ -11,6 +10,8 @@ extern "C" {
 
 #include "dpt.h"
 #include "periphcfg.h"
+#include "calibration.h"
+#include "filter/pll.h"
 
 #define FOC_FREQ_HZ (FP32_MUL_K(50.0f))
 
