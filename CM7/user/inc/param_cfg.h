@@ -11,6 +11,7 @@ extern "C" {
 #include "control.h"
 #include "periph_cfg.h"
 
+#define MCU_FREQ_MHZ (400u)
 #define FOC_FREQ_HZ  (FP32_MUL_K(50.0f))
 #define USER_FREQ_HZ (FP32_MUL_K(1.0f))
 
@@ -143,6 +144,20 @@ static const square_cfg_t SQUARE_CFG[] = {
             .wave_freq_hz = 1.0f,
             .amp          = 1.0f,
             .duty_cycle   = 0.5f,
+        },
+};
+
+static const if_ctl_t IF_CTL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .exec_freq_hz = USER_FREQ_HZ,
+        },
+};
+
+static const vf_ctl_t VF_CTL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .exec_freq_hz = USER_FREQ_HZ,
         },
 };
 

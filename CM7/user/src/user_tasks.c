@@ -32,35 +32,46 @@ void set_ctl_word(user_t *user, foc_t *foc) {
 void set_ctl_mode(user_t *user, foc_t *foc) {
   DECL_FOC_PTRS_PREFIX(foc, foc);
 
+  if (user->ctl_word != CTL_WORD_ENABLE)
+    return;
+
   switch (user->ctl_mode) {
-  case CTL_MODE_ASC:
-    asc_ctl_loop(foc);
-    foc_ops->f_pwm_set = asc_pwm_set;
-    break;
   case CTL_MODE_VEL:
-    foc_lo->theta = FOC_THETA_SENSOR;
-    vel_ctl_loop(&user->vel_ctl, foc);
+    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_pwm_set = pwm_set;
+    vel_ctl_loop(&user->vel_ctl, foc);
     break;
   case CTL_MODE_POS:
-    foc_lo->theta = FOC_THETA_SENSOR;
-    pos_ctl_loop(&user->pos_ctl, &user->vel_ctl, foc);
+    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_pwm_set = pwm_set;
+    pos_ctl_loop(&user->pos_ctl, &user->vel_ctl, foc);
     break;
   case CTL_MODE_CUR:
     foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_pwm_set = pwm_set;
     break;
+  case CTL_MODE_ASC:
+    foc_lo->theta      = FOC_THETA_SENSOR;
+    foc_ops->f_pwm_set = asc_pwm_set;
+    asc_ctl_loop(foc);
+    break;
   case CTL_MODE_IF:
+    foc_lo->theta      = FOC_THETA_FORCE;
+    foc_ops->f_pwm_set = pwm_set;
+    if_ctl_loop(&user->if_ctl, foc);
   case CTL_MODE_VF:
     foc_lo->theta      = FOC_THETA_FORCE;
     foc_ops->f_pwm_set = pwm_set;
+    vf_ctl_loop(&user->vf_ctl, foc);
   default:
     break;
   }
 }
 
 void user_init(void) {
+  user.if_ctl = IF_CTL_CFG[ACTUATOR_FSA50NV3];
+  user.vf_ctl = VF_CTL_CFG[ACTUATOR_FSA50NV3];
+
   user.vel_ctl = VEL_CTL_CFG[ACTUATOR_FSA50NV3];
   pid_init(&user.vel_ctl.vel_pid, VEL_PID_CFG[ACTUATOR_FSA50NV3]);
 

@@ -7,7 +7,7 @@
 
 #define HAL_HRTIM_IRQHandler_ENTRY()                                                               \
   do {                                                                                             \
-    MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_loop(); }); });                     \
+    foc_loop();                                                                                    \
   } while (0)
 
 #define HAL_HRTIM_IRQHandler_EXIT()                                                                \

@@ -61,6 +61,9 @@ void init(void) {
   task_init(&sched);
 }
 
-void foc_loop(void) { foc_run(&foc); }
+void foc_loop(void) {
+  MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_run(&foc); }); });
+  foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (FP32)MCU_FREQ_MHZ);
+}
 
 void sched_loop(void) { sched_run(&sched); }
