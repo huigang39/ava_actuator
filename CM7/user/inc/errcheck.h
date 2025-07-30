@@ -7,8 +7,6 @@ extern "C" {
 
 #include "stm32h7xx.h"
 
-#include "module.h"
-
 __attribute__((optnone)) static inline U32 fpu_check(void) {
   enum {
     FPU_EXCEPTION_IOC, // 非法操作

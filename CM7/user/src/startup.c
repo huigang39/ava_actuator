@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "ads.h"
-#include "dpt.h"
-#include "errcheck.h"
+#include "stm32h745xx.h"
+
 #include "param_cfg.h"
 #include "periph_cfg.h"
 #include "task_cfg.h"
-#include "user_tasks.h"
 
 #include "startup.h"
 
@@ -36,14 +34,12 @@ void init(void) {
 
   periph_init();
 
-  actuator_cfg_t actuator_cfg = ACTUATOR_CFG[ACTUATOR_FSA50NV3];
-
   foc.lo.id_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
   foc.lo.iq_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
   foc.lo.pll_vel.cfg    = PLL_VEL_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.cfg        = SMO_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.lo.pll.cfg = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.ops               = FOC_OPS_CFG[actuator_cfg.periph_type];
+  foc.ops               = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_FSA50NV3]);
 
   sched.ops.f_ts = get_ts_us;
