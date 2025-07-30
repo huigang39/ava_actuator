@@ -15,7 +15,6 @@ void set_ctl_word(user_t *user, foc_t *foc) {
   case CTL_WORD_THETA_CALI:
     user->ctl_mode = CTL_MODE_IF;
     foc_lo->state  = FOC_STATE_ENABLE;
-    foc_lo->theta  = FOC_THETA_FORCE;
     if (OK == theta_cali_loop(&user->theta_cali, foc))
       user->ctl_word = CTL_WORD_DISABLE;
     break;
@@ -39,28 +38,34 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
     foc_ops->f_pwm_set = asc_pwm_set;
     break;
   case CTL_MODE_VEL:
+    foc_lo->theta = FOC_THETA_SENSOR;
     vel_ctl_loop(&user->vel_ctl, foc);
     foc_ops->f_pwm_set = pwm_set;
     break;
   case CTL_MODE_POS:
+    foc_lo->theta = FOC_THETA_SENSOR;
     pos_ctl_loop(&user->pos_ctl, &user->vel_ctl, foc);
     foc_ops->f_pwm_set = pwm_set;
     break;
   case CTL_MODE_CUR:
+    foc_lo->theta      = FOC_THETA_SENSOR;
+    foc_ops->f_pwm_set = pwm_set;
+    break;
   case CTL_MODE_IF:
   case CTL_MODE_VF:
-  default:
+    foc_lo->theta      = FOC_THETA_FORCE;
     foc_ops->f_pwm_set = pwm_set;
+  default:
     break;
   }
 }
 
 void user_init(void) {
-  pid_cfg_t vel_pid_cfg = VEL_PID_CFG[ACTUATOR_FSA50NV3];
-  pid_init(&user.vel_ctl.vel_pid, vel_pid_cfg);
+  user.vel_ctl = VEL_CTL_CFG[ACTUATOR_FSA50NV3];
+  pid_init(&user.vel_ctl.vel_pid, VEL_PID_CFG[ACTUATOR_FSA50NV3]);
 
-  pid_cfg_t pos_pid_cfg = POS_PID_CFG[ACTUATOR_FSA50NV3];
-  pid_init(&user.pos_ctl.pos_pid, pos_pid_cfg);
+  user.pos_ctl = POS_CTL_CFG[ACTUATOR_FSA50NV3];
+  pid_init(&user.pos_ctl.pos_pid, POS_PID_CFG[ACTUATOR_FSA50NV3]);
 }
 
 void user_loop_task(void *arg) {

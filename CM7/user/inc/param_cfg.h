@@ -8,9 +8,11 @@ extern "C" {
 #include "module.h"
 
 #include "calibration.h"
+#include "control.h"
 #include "periph_cfg.h"
 
-#define FOC_FREQ_HZ (FP32_MUL_K(50.0f))
+#define FOC_FREQ_HZ  (FP32_MUL_K(50.0f))
+#define USER_FREQ_HZ (FP32_MUL_K(1.0f))
 
 typedef enum {
   ACTUATOR_FSA50NV3,
@@ -124,30 +126,6 @@ static const pid_cfg_t CUR_PID_CFG[] = {
         },
 };
 
-static const pid_cfg_t VEL_PID_CFG[] = {
-    [ACTUATOR_FSA50NV3] =
-        {
-            .freq_hz    = 1000.0f,
-            .kp         = 0.001f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-};
-
-static const pid_cfg_t POS_PID_CFG[] = {
-    [ACTUATOR_FSA50NV3] =
-        {
-            .freq_hz    = 500.0f,
-            .kp         = 10.0f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
-        },
-};
-
 static const magnet_cali_t MAGNET_CALI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
@@ -165,6 +143,44 @@ static const square_cfg_t SQUARE_CFG[] = {
             .wave_freq_hz = 1.0f,
             .amp          = 1.0f,
             .duty_cycle   = 0.5f,
+        },
+};
+
+static const vel_ctl_t VEL_CTL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .prescaler = 1u,
+        },
+};
+
+static const pid_cfg_t VEL_PID_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq_hz    = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .kp         = 0.001f,
+            .ki         = 0.1f,
+            .kd         = 0.0f,
+            .ki_out_max = 10.0f,
+            .out_max    = 10.0f,
+        },
+};
+
+static const pos_ctl_t POS_CTL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .prescaler = 2u,
+        },
+};
+
+static const pid_cfg_t POS_PID_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq_hz    = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .kp         = 10.0f,
+            .ki         = 0.1f,
+            .kd         = 0.0f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
         },
 };
 

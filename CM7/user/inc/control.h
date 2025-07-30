@@ -39,18 +39,24 @@ typedef struct {
 } if_ctl_t;
 
 typedef struct {
+  U32       prescaler;
+  U32       exec_cnt;
+  pid_ctl_t vel_pid;
   FP32      ref_vel_rads;
   FP32      ffd_cur;
+  FP32      ffd_tor;
   FP32      fdb_vel_rads;
-  pid_ctl_t vel_pid;
 } vel_ctl_t;
 
 typedef struct {
+  U32       prescaler;
+  U32       exec_cnt;
+  pid_ctl_t pos_pid;
   FP32      ref_pos_rad;
   FP32      ffd_vel_rads;
   FP32      ffd_cur;
+  FP32      ffd_tor;
   FP32      fdb_pos_rad;
-  pid_ctl_t pos_pid;
 } pos_ctl_t;
 
 void vf_ctl_loop(vf_ctl_t *vf_ctl, foc_t *foc);
