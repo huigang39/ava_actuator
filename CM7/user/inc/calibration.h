@@ -20,8 +20,8 @@ typedef struct {
   magnet_cali_e state;
   magnet_cali_e prev_state;
   FP32          ref_id;
-  FP32          ref_vel_rads;
-  FP32          ref_theta_rad;
+  FP32          ref_vel;
+  FP32          ref_theta;
   U32           sample_cnt;
   U32           sample_delay_cnt, sample_delay_cnt_max;
   FP32          theta_offset;

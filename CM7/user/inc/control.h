@@ -27,36 +27,36 @@ typedef enum {
 typedef struct {
   FP32 exec_freq_hz;
   FP32 ref_vd;
-  FP32 ref_theta_rad;
-  FP32 ref_vel_rads;
+  FP32 ref_theta;
+  FP32 ref_vel;
 } vf_ctl_t;
 
 typedef struct {
   FP32 exec_freq_hz;
   FP32 ref_id;
-  FP32 ref_theta_rad;
-  FP32 ref_vel_rads;
+  FP32 ref_theta;
+  FP32 ref_vel;
 } if_ctl_t;
 
 typedef struct {
   U32       prescaler;
   U32       exec_cnt;
   pid_ctl_t vel_pid;
-  FP32      ref_vel_rads;
+  FP32      ref_vel;
   FP32      ffd_cur;
   FP32      ffd_tor;
-  FP32      fdb_vel_rads;
+  FP32      fdb_vel;
 } vel_ctl_t;
 
 typedef struct {
   U32       prescaler;
   U32       exec_cnt;
   pid_ctl_t pos_pid;
-  FP32      ref_pos_rad;
-  FP32      ffd_vel_rads;
+  FP32      ref_pos;
+  FP32      ffd_vel;
   FP32      ffd_cur;
   FP32      ffd_tor;
-  FP32      fdb_pos_rad;
+  FP32      fdb_pos;
 } pos_ctl_t;
 
 void vf_ctl_loop(vf_ctl_t *vf_ctl, foc_t *foc);

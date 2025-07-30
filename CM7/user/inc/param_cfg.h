@@ -74,6 +74,16 @@ static const periph_cfg_t PERIPH_CFG[] = {
         },
 };
 
+static const foc_cfg_t FOC_CFG[] =
+    {
+        [PERIPH_FSA50NV3] =
+            {
+                .freq                   = FOC_FREQ_HZ,
+                .sensor_theta_comp_gain = 1.0f,
+                .theta_comp_gain        = 1.5f,
+            },
+};
+
 // 和硬件绑定
 static const foc_ops_t FOC_OPS_CFG[] = {
     [PERIPH_FSA50NV3] =
@@ -88,17 +98,17 @@ static const foc_ops_t FOC_OPS_CFG[] = {
 static const pll_cfg_t PLL_VEL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz = FOC_FREQ_HZ,
-            .wc      = 200.0f,
-            .fc      = 200.0f,
-            .damp    = 0.707f,
+            .freq = FOC_FREQ_HZ,
+            .wc   = 200.0f,
+            .fc   = 200.0f,
+            .damp = 0.707f,
         },
 };
 
 static const smo_cfg_t SMO_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz   = FOC_FREQ_HZ,
+            .freq      = FOC_FREQ_HZ,
             .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
             .kp        = 20.0f,
             .es0       = 50.0f,
@@ -108,17 +118,17 @@ static const smo_cfg_t SMO_CFG[] = {
 static const pll_cfg_t SMO_PLL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz = FOC_FREQ_HZ,
-            .wc      = 500.0f,
-            .fc      = 200.0f,
-            .damp    = 0.707f,
+            .freq = FOC_FREQ_HZ,
+            .wc   = 500.0f,
+            .fc   = 200.0f,
+            .damp = 0.707f,
         },
 };
 
 static const pid_cfg_t CUR_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz    = FOC_FREQ_HZ,
+            .freq       = FOC_FREQ_HZ,
             .kp         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].ld,
             .ki         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].rs,
             .kd         = 0.0f,
@@ -132,7 +142,7 @@ static const magnet_cali_t MAGNET_CALI_CFG[] = {
         {
             .exec_freq_hz         = 1000.0f,
             .ref_id               = 2.0f,
-            .ref_vel_rads         = 20.0f,
+            .ref_vel              = 20.0f,
             .sample_delay_cnt_max = 1000u,
         },
 };
@@ -140,7 +150,7 @@ static const magnet_cali_t MAGNET_CALI_CFG[] = {
 static const square_cfg_t SQUARE_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz      = 1000.0f,
+            .freq         = 1000.0f,
             .wave_freq_hz = 1.0f,
             .amp          = 1.0f,
             .duty_cycle   = 0.5f,
@@ -171,7 +181,7 @@ static const vel_ctl_t VEL_CTL_CFG[] = {
 static const pid_cfg_t VEL_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz    = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .freq       = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
             .kp         = 0.001f,
             .ki         = 0.1f,
             .kd         = 0.0f,
@@ -190,7 +200,7 @@ static const pos_ctl_t POS_CTL_CFG[] = {
 static const pid_cfg_t POS_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq_hz    = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .freq       = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
             .kp         = 10.0f,
             .ki         = 0.1f,
             .kd         = 0.0f,

@@ -145,8 +145,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var8]
-name = foc.in.theta.force_theta_rad
-tracked_name = foc.in.theta.force_theta_rad
+name = foc.in.theta.force_theta
+tracked_name = foc.in.theta.force_theta
 address = 536871168
 type = 7
 color = 2717909247
@@ -158,8 +158,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var9]
-name = foc.in.theta.force_vel_rads
-tracked_name = foc.in.theta.force_vel_rads
+name = foc.in.theta.force_vel
+tracked_name = foc.in.theta.force_vel
 address = 536871172
 type = 7
 color = 3791600128
@@ -171,8 +171,8 @@ value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [var10]
-name = foc.in.theta.fusion_theta_err_rad
-tracked_name = foc.in.theta.fusion_theta_err_rad
+name = foc.in.theta.fusion_theta_err
+tracked_name = foc.in.theta.fusion_theta_err
 address = 536871192
 type = 7
 color = 1593901038
@@ -184,8 +184,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var11]
-name = foc.in.theta.mech_theta_rad
-tracked_name = foc.in.theta.mech_theta_rad
+name = foc.in.theta.mech_theta
+tracked_name = foc.in.theta.mech_theta
 address = 536871200
 type = 7
 color = 2970790472
@@ -197,8 +197,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var12]
-name = foc.in.theta.mech_total_theta_rad
-tracked_name = foc.in.theta.mech_total_theta_rad
+name = foc.in.theta.mech_total_theta
+tracked_name = foc.in.theta.mech_total_theta
 address = 536871208
 type = 7
 color = 4263814863
@@ -210,8 +210,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var13]
-name = foc.in.theta.obs_theta_rad
-tracked_name = foc.in.theta.obs_theta_rad
+name = foc.in.theta.obs_theta
+tracked_name = foc.in.theta.obs_theta
 address = 536871184
 type = 7
 color = 2902458623
@@ -223,8 +223,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var14]
-name = foc.in.theta.obs_vel_rads
-tracked_name = foc.in.theta.obs_vel_rads
+name = foc.in.theta.obs_vel
+tracked_name = foc.in.theta.obs_vel
 address = 536871188
 type = 7
 color = 2315200000
@@ -236,8 +236,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var15]
-name = foc.in.theta.sensor_theta_rad
-tracked_name = foc.in.theta.sensor_theta_rad
+name = foc.in.theta.sensor_theta
+tracked_name = foc.in.theta.sensor_theta
 address = 536871176
 type = 7
 color = 3405709318
@@ -249,8 +249,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var16]
-name = foc.in.theta.sensor_vel_rads
-tracked_name = foc.in.theta.sensor_vel_rads
+name = foc.in.theta.sensor_vel
+tracked_name = foc.in.theta.sensor_vel
 address = 536871180
 type = 7
 color = 3374776064
@@ -379,8 +379,8 @@ value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
 [var26]
-name = foc.lo.vel_pll.in.theta_rad
-tracked_name = foc.lo.vel_pll.in.theta_rad
+name = foc.lo.vel_pll.in.theta
+tracked_name = foc.lo.vel_pll.in.theta
 address = 536871520
 type = 0
 color = 1040187647
@@ -392,8 +392,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var27]
-name = foc.lo.vel_pll.lo.err_theta_rad
-tracked_name = foc.lo.vel_pll.lo.err_theta_rad
+name = foc.lo.vel_pll.lo.err_theta
+tracked_name = foc.lo.vel_pll.lo.err_theta
 address = 536871540
 type = 0
 color = 67168511
@@ -405,8 +405,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var28]
-name = foc.lo.vel_pll.lo.prev_theta_rad
-tracked_name = foc.lo.vel_pll.lo.prev_theta_rad
+name = foc.lo.vel_pll.lo.prev_theta
+tracked_name = foc.lo.vel_pll.lo.prev_theta
 address = 536871544
 type = 0
 color = 1661009664
@@ -418,8 +418,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var29]
-name = foc.lo.vel_pll.out.theta_rad
-tracked_name = foc.lo.vel_pll.out.theta_rad
+name = foc.lo.vel_pll.out.theta
+tracked_name = foc.lo.vel_pll.out.theta
 address = 536871524
 type = 0
 color = 872367872
@@ -587,8 +587,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var42]
-name = force_ctl.ref_theta_rad
-tracked_name = force_ctl.ref_theta_rad
+name = force_ctl.ref_theta
+tracked_name = force_ctl.ref_theta
 address = 536871752
 type = 0
 color = 1476395263
@@ -600,8 +600,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var43]
-name = force_ctl.ref_vel_rads
-tracked_name = force_ctl.ref_vel_rads
+name = force_ctl.ref_vel
+tracked_name = force_ctl.ref_vel
 address = 536871756
 type = 0
 color = 16842528
@@ -769,8 +769,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var56]
-name = magnet_cali.ref_theta_rad
-tracked_name = magnet_cali.ref_theta_rad
+name = magnet_cali.ref_theta
+tracked_name = magnet_cali.ref_theta
 address = 536873252
 type = 0
 color = 2382951935
@@ -804,7 +804,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 2.000000
+value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
 [var59]
@@ -821,8 +821,8 @@ value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
 [var60]
-name = user.if_ctl.ref_vel_rads
-tracked_name = user.if_ctl.ref_vel_rads
+name = user.if_ctl.ref_vel
+tracked_name = user.if_ctl.ref_vel
 address = 536874868
 type = 7
 color = 3932074309
@@ -834,8 +834,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var61]
-name = user.vel_ctl.ref_vel_rads
-tracked_name = user.vel_ctl.ref_vel_rads
+name = user.vel_ctl.ref_vel
+tracked_name = user.vel_ctl.ref_vel
 address = 536874952
 type = 7
 color = 2822191085
@@ -876,7 +876,7 @@ visibility = true
 format = DEC
 
 [group0-plot1-series1]
-name = foc.in.theta.force_vel_rads
+name = foc.in.theta.force_vel
 visibility = false
 format = DEC
 
@@ -931,7 +931,7 @@ visibility = false
 format = DEC
 
 [group0-plot1-series12]
-name = force_ctl.ref_vel_rads
+name = force_ctl.ref_vel
 visibility = false
 format = DEC
 
@@ -986,12 +986,12 @@ visibility = true
 format = DEC
 
 [group0-plot1-series23]
-name = user.if_ctl.ref_vel_rads
+name = user.if_ctl.ref_vel
 visibility = true
 format = DEC
 
 [group0-plot1-series24]
-name = user.vel_ctl.ref_vel_rads
+name = user.vel_ctl.ref_vel
 visibility = true
 format = DEC
 
@@ -1001,12 +1001,12 @@ type = 0
 visibility = false
 
 [group0-plot2-series0]
-name = foc.in.theta.mech_theta_rad
+name = foc.in.theta.mech_theta
 visibility = true
 format = DEC
 
 [group0-plot2-series1]
-name = foc.in.theta.mech_total_theta_rad
+name = foc.in.theta.mech_total_theta
 visibility = false
 format = DEC
 
@@ -1051,12 +1051,12 @@ type = 0
 visibility = false
 
 [group0-plot5-series0]
-name = foc.in.theta.force_theta_rad
+name = foc.in.theta.force_theta
 visibility = true
 format = DEC
 
 [group0-plot5-series1]
-name = foc.in.theta.force_vel_rads
+name = foc.in.theta.force_vel
 visibility = true
 format = DEC
 
@@ -1066,7 +1066,7 @@ type = 0
 visibility = false
 
 [group0-plot6-series0]
-name = magnet_cali.ref_theta_rad
+name = magnet_cali.ref_theta
 visibility = true
 format = DEC
 
@@ -1076,22 +1076,22 @@ type = 0
 visibility = false
 
 [group0-plot7-series0]
-name = foc.lo.vel_pll.in.theta_rad
+name = foc.lo.vel_pll.in.theta
 visibility = false
 format = DEC
 
 [group0-plot7-series1]
-name = foc.lo.vel_pll.lo.err_theta_rad
+name = foc.lo.vel_pll.lo.err_theta
 visibility = false
 format = DEC
 
 [group0-plot7-series2]
-name = foc.lo.vel_pll.lo.prev_theta_rad
+name = foc.lo.vel_pll.lo.prev_theta
 visibility = false
 format = DEC
 
 [group0-plot7-series3]
-name = foc.lo.vel_pll.out.theta_rad
+name = foc.lo.vel_pll.out.theta
 visibility = false
 format = DEC
 
@@ -1136,12 +1136,12 @@ type = 0
 visibility = true
 
 [group0-plot10-series0]
-name = foc.in.theta.sensor_theta_rad
+name = foc.in.theta.sensor_theta
 visibility = true
 format = DEC
 
 [group0-plot10-series1]
-name = foc.in.theta.sensor_vel_rads
+name = foc.in.theta.sensor_vel
 visibility = false
 format = DEC
 
@@ -1151,27 +1151,27 @@ type = 0
 visibility = true
 
 [group0-plot11-series0]
-name = foc.in.theta.fusion_theta_err_rad
+name = foc.in.theta.fusion_theta_err
 visibility = true
 format = DEC
 
 [group0-plot11-series1]
-name = foc.in.theta.obs_theta_rad
+name = foc.in.theta.obs_theta
 visibility = false
 format = DEC
 
 [group0-plot11-series2]
-name = foc.in.theta.obs_vel_rads
+name = foc.in.theta.obs_vel
 visibility = false
 format = DEC
 
 [group0-plot11-series3]
-name = foc.in.theta.sensor_theta_rad
+name = foc.in.theta.sensor_theta
 visibility = false
 format = DEC
 
 [group0-plot11-series4]
-name = foc.in.theta.sensor_vel_rads
+name = foc.in.theta.sensor_vel
 visibility = false
 format = DEC
 
@@ -1261,12 +1261,12 @@ type = 0
 visibility = false
 
 [group0-plot14-series0]
-name = foc.in.theta.obs_vel_rads
+name = foc.in.theta.obs_vel
 visibility = false
 format = DEC
 
 [group0-plot14-series1]
-name = foc.in.theta.sensor_vel_rads
+name = foc.in.theta.sensor_vel
 visibility = false
 format = DEC
 
@@ -1276,7 +1276,7 @@ visibility = true
 format = DEC
 
 [group0-plot14-series3]
-name = user.vel_ctl.ref_vel_rads
+name = user.vel_ctl.ref_vel
 visibility = true
 format = DEC
 

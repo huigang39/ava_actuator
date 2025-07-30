@@ -19,7 +19,7 @@ benchmark_t benchmark_res[30];
 static inline U64 get_ts_us(void) {
   DECL_FOC_PTRS_PREFIX(&foc, foc);
 
-  U64 ts_us = foc_lo->exec_cnt * FP32_HZ_TO_US(foc_cfg->freq_hz);
+  U64 ts_us = foc_lo->exec_cnt * FP32_HZ_TO_US(foc_cfg->freq);
   return ts_us;
 }
 
@@ -39,7 +39,7 @@ void init(void) {
   actuator_cfg_t actuator_cfg = ACTUATOR_CFG[ACTUATOR_FSA50NV3];
 
   foc_cfg_t foc_cfg;
-  foc_cfg.freq_hz       = FP32_MUL_K(50.0f);
+  foc_cfg               = FOC_CFG[ACTUATOR_FSA50NV3];
   foc_cfg.motor_cfg     = MOTOR_CFG[actuator_cfg.motor_type];
   foc_cfg.periph_cfg    = PERIPH_CFG[actuator_cfg.periph_type];
   foc.ops               = FOC_OPS_CFG[actuator_cfg.periph_type];
@@ -51,8 +51,8 @@ void init(void) {
   foc_init(&foc, foc_cfg);
 
   sched_cfg_t sched_cfg;
-  sched_cfg.freq_hz = FP32_MUL_K(50.0f);
-  sched.ops.f_ts    = get_ts_us;
+  sched_cfg.freq = FP32_MUL_K(50.0f);
+  sched.ops.f_ts = get_ts_us;
   sched_init(&sched, sched_cfg);
 
   periph_init();
