@@ -34,7 +34,7 @@ void periph_init(void) {
   ads_init();
 }
 
-adc_raw_t adc_get(void) {
+adc_raw_t get_adc(void) {
   adc_raw_t adc_raw = {0};
 
   adc_raw.i32_i_uvw.u = hadc1.Instance->JDR1;
@@ -46,9 +46,9 @@ adc_raw_t adc_get(void) {
   return adc_raw;
 }
 
-FP32 theta_get(void) { return dpt_get_inner_theta(); }
+FP32 get_theta(void) { return dpt_get_inner_theta(); }
 
-void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+void set_pwm(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
   // HRTIM1->sCommonRegs.OENR |= LF(0u);
   // HRTIM1->sCommonRegs.OENR |= LF(2u);
   // HRTIM1->sCommonRegs.OENR |= LF(4u);
@@ -69,16 +69,16 @@ void pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
       pwm_full_val / 2.0f + u32_pwm_duty.w / 2.0f;
 }
 
-void asc_pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+void set_asc_pwm(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
   HRTIM1->sCommonRegs.ODISR |= LF(0u);
   HRTIM1->sCommonRegs.ODISR |= LF(2u);
   HRTIM1->sCommonRegs.ODISR |= LF(4u);
 
   u32_uvw_t u32_pwm_duty_sv = {0u, 0u, 0u};
-  pwm_set(pwm_full_val, u32_pwm_duty_sv);
+  set_pwm(pwm_full_val, u32_pwm_duty_sv);
 }
 
-void drv_set(bool enable) {
+void set_drv(bool enable) {
   if (enable)
     HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
   else

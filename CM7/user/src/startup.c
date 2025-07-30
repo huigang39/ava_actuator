@@ -42,7 +42,7 @@ void init(void) {
   foc.ops               = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_FSA50NV3]);
 
-  sched.ops.f_ts = get_ts_us;
+  sched.ops.f_get_ts = get_ts_us;
   sched_init(&sched, SCHED_CFG[ACTUATOR_FSA50NV3]);
   task_init(&sched);
 }

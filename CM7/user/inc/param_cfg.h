@@ -86,10 +86,10 @@ static const periph_cfg_t PERIPH_CFG[] = {
 static const foc_ops_t FOC_OPS_CFG[] = {
     [PERIPH_FSA50NV3] =
         {
-            .f_adc_get   = adc_get,
-            .f_theta_get = theta_get,
-            .f_pwm_set   = pwm_set,
-            .f_drv_set   = drv_set,
+            .f_get_adc   = get_adc,
+            .f_get_theta = get_theta,
+            .f_set_pwm   = set_pwm,
+            .f_set_drv   = set_drv,
         },
 };
 
