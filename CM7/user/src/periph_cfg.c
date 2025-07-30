@@ -1,9 +1,11 @@
 #include "adc.h"
-#include "dpt.h"
 #include "hrtim.h"
 #include "tim.h"
 
 #include <stdio.h>
+
+#include "ads.h"
+#include "dpt.h"
 
 #include "periph_cfg.h"
 
@@ -27,6 +29,9 @@ void periph_init(void) {
   HAL_ADCEx_InjectedStart_IT(&hadc3);
 
   HAL_TIM_Base_Start(&htim7);
+
+  dpt_init();
+  ads_init();
 }
 
 adc_raw_t adc_get(void) {
@@ -73,7 +78,7 @@ void asc_pwm_set(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
   pwm_set(pwm_full_val, u32_pwm_duty_sv);
 }
 
-void drv_set(BOOL enable) {
+void drv_set(bool enable) {
   if (enable)
     HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
   else

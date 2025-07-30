@@ -16,7 +16,7 @@ typedef enum {
 } magnet_cali_e;
 
 typedef struct {
-  FP32          exec_freq_hz;
+  FP32          exec_freq;
   magnet_cali_e state;
   magnet_cali_e prev_state;
   FP32          ref_id;
@@ -28,7 +28,7 @@ typedef struct {
 } magnet_cali_t;
 
 typedef struct {
-  FP32 exec_freq_hz;
+  FP32 exec_freq;
   FP32 fdb;
   FP32 min, max;
   FP32 amp;

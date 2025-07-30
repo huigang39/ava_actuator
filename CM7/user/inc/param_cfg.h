@@ -11,9 +11,17 @@ extern "C" {
 #include "control.h"
 #include "periph_cfg.h"
 
-#define MCU_FREQ_MHZ (400u)
-#define FOC_FREQ_HZ  (FP32_MUL_K(50.0f))
-#define USER_FREQ_HZ (FP32_MUL_K(1.0f))
+#define MCU_FREQ_MHZ     (400U)
+
+#define FOC_FREQ_HZ      (K(50.0F))
+
+#define USER_FREQ_HZ     (K(1.0F))
+#define USER_FREQ_DIV_1  (1U)
+#define USER_FREQ_DIV_2  (2U)
+#define USER_FREQ_DIV_4  (4U)
+#define USER_FREQ_DIV_8  (8U)
+#define USER_FREQ_DIV_16 (16U)
+#define USER_FREQ_DIV_32 (32U)
 
 typedef enum {
   ACTUATOR_FSA50NV3,
@@ -56,7 +64,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
         {
             // ADC
             .adc_full_val     = LF(14u),
-            .adc_cail_cnt_max = 12u,
+            .adc_cail_cnt_max = 10u,
             .cur_range        = 55.0f,
             .vbus_range       = 60.0f,
             .adc2cur =
@@ -64,24 +72,14 @@ static const periph_cfg_t PERIPH_CFG[] = {
             .adc2vbus =
                 PERIPH_CFG[PERIPH_FSA50NV3].vbus_range / PERIPH_CFG[PERIPH_FSA50NV3].adc_full_val,
             // PWM
-            .timer_freq_hz    = FP32_MUL_M(200.0f),
-            .pwm_freq_hz      = FP32_MUL_K(50.0f),
+            .timer_freq_hz    = M(200.0f),
+            .pwm_freq_hz      = K(50.0f),
             .modulation_ratio = 2.0f / 3.0f,
             .fp32_pwm_min     = 0.0f,
             .fp32_pwm_max     = 0.8f,
             .pwm_full_val =
                 PERIPH_CFG[PERIPH_FSA50NV3].timer_freq_hz / PERIPH_CFG[PERIPH_FSA50NV3].pwm_freq_hz,
         },
-};
-
-static const foc_cfg_t FOC_CFG[] =
-    {
-        [PERIPH_FSA50NV3] =
-            {
-                .freq                   = FOC_FREQ_HZ,
-                .sensor_theta_comp_gain = 1.0f,
-                .theta_comp_gain        = 1.5f,
-            },
 };
 
 // 和硬件绑定
@@ -95,6 +93,24 @@ static const foc_ops_t FOC_OPS_CFG[] = {
         },
 };
 
+static const foc_cfg_t FOC_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq                   = FOC_FREQ_HZ,
+            .sensor_theta_comp_gain = 1.0f,
+            .theta_comp_gain        = 1.5f,
+            .motor_cfg              = MOTOR_CFG[MOTOR_FSA50NV3],
+            .periph_cfg             = PERIPH_CFG[PERIPH_FSA50NV3],
+        },
+};
+
+static const sched_cfg_t SCHED_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .freq = USER_FREQ_HZ,
+        },
+};
+
 static const pll_cfg_t PLL_VEL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
@@ -102,6 +118,13 @@ static const pll_cfg_t PLL_VEL_CFG[] = {
             .wc   = 200.0f,
             .fc   = 200.0f,
             .damp = 0.707f,
+            .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
+            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq),
+            .filter_gain     = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+                                              HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
+            .filter_gain_ffd = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+                                                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };
 
@@ -140,7 +163,7 @@ static const pid_cfg_t CUR_PID_CFG[] = {
 static const magnet_cali_t MAGNET_CALI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .exec_freq_hz         = 1000.0f,
+            .exec_freq            = 1000.0f,
             .ref_id               = 2.0f,
             .ref_vel              = 20.0f,
             .sample_delay_cnt_max = 1000u,
@@ -160,21 +183,21 @@ static const square_cfg_t SQUARE_CFG[] = {
 static const if_ctl_t IF_CTL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .exec_freq_hz = USER_FREQ_HZ,
+            .exec_freq = USER_FREQ_HZ,
         },
 };
 
 static const vf_ctl_t VF_CTL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .exec_freq_hz = USER_FREQ_HZ,
+            .exec_freq = USER_FREQ_HZ,
         },
 };
 
 static const vel_ctl_t VEL_CTL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .prescaler = 1u,
+            .prescaler = USER_FREQ_DIV_1,
         },
 };
 
@@ -193,7 +216,7 @@ static const pid_cfg_t VEL_PID_CFG[] = {
 static const pos_ctl_t POS_CTL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .prescaler = 2u,
+            .prescaler = USER_FREQ_DIV_2,
         },
 };
 

@@ -224,7 +224,19 @@ else ifeq ($(C), ac6)
 	BIN_CMD = $(BIN) $< --output $@
 endif
 
-.PHONY: all flash debug erase clean
+.PHONY: all flash debug erase clean jlink_flash jlink_debug jlink_erase stlink_flash stlink_debug stlink_erase
+
+TOOL ?= stlink
+
+JLINK_EXE        ?= JLinkExe
+JLINK_GDB_SERVER ?= JLinkGDBServer
+JLINK_DEVICE     ?= STM32H745II_M7
+JLINK_IF         ?= SWD
+JLINK_SPEED      ?= 4000
+
+OPENOCD        ?= openocd
+OPENOCD_IF     ?= stlink.cfg
+OPENOCD_TARGET ?= stm32h7x.cfg
 
 all: $(DIR_BUILD) $(DIR_BUILD)/$(PROJECT).elf $(DIR_BUILD)/$(PROJECT).hex $(DIR_BUILD)/$(PROJECT).bin 
 	$(SIZE) $(DIR_BUILD)/$(PROJECT).elf
@@ -254,12 +266,43 @@ $(DIR_BUILD)/%.hex: $(DIR_BUILD)/%.elf
 $(DIR_BUILD)/%.bin: $(DIR_BUILD)/%.elf
 	$(BIN_CMD)
 
-flash: $(TYPE_FLASH)
-openocd_swd_flash: $(DIR_BUILD)/$(PROJECT).bin
-	@echo "Flashing firmware to device..."
-	openocd -f interface/stlink.cfg \
+flash:
+ifeq ($(TOOL), jlink)
+	@$(MAKE) jlink_flash
+else
+	@$(MAKE) stlink_flash
+endif
+
+debug:
+ifeq ($(TOOL), jlink)
+	@$(MAKE) jlink_debug
+else
+	@$(MAKE) stlink_debug
+endif
+
+erase:
+ifeq ($(TOOL), jlink)
+	@$(MAKE) jlink_erase
+else
+	@$(MAKE) stlink_erase
+endif
+
+jlink_flash: $(DIR_BUILD)/$(PROJECT).bin
+	@echo "Flashing firmware to device using J-Link..."
+	@echo "halt" > jlink_flash.jlink
+	@echo "r" >> jlink_flash.jlink
+	@echo "loadfile $(DIR_BUILD)/$(PROJECT).bin 0x08000000" >> jlink_flash.jlink
+	@echo "r" >> jlink_flash.jlink
+	@echo "go" >> jlink_flash.jlink
+	@echo "exit" >> jlink_flash.jlink
+	$(JLINK_EXE) -Device $(JLINK_DEVICE) -If $(JLINK_IF) -Speed $(JLINK_SPEED) -CommanderScript jlink_flash.jlink
+	@rm jlink_flash.jlink
+
+stlink_flash: $(DIR_BUILD)/$(PROJECT).bin
+	@echo "Flashing firmware to device using ST-Link..."
+	$(OPENOCD) -f interface/$(OPENOCD_IF) \
 	-c "transport select hla_swd" \
-	-f target/stm32h7x.cfg \
+	-f target/$(OPENOCD_TARGET) \
 	-c "init" \
 	-c "reset halt" \
 	-c "sleep 100" \
@@ -270,12 +313,20 @@ openocd_swd_flash: $(DIR_BUILD)/$(PROJECT).bin
 	-c "reset run" \
 	-c "shutdown"
 
-debug: $(TYPE_DEBUG)
-openocd_swd_debug: $(DIR_BUILD)/$(PROJECT).elf
-	@echo "Starting debug session..."
-	openocd -f interface/stlink.cfg \
+jlink_debug: $(DIR_BUILD)/$(PROJECT).elf
+	@echo "Starting debug session using J-Link..."
+	$(JLINK_GDB_SERVER) -device $(JLINK_DEVICE) -if $(JLINK_IF) -speed $(JLINK_SPEED) -port 2331 &
+	@echo "JLinkGDBServer started in background (port 2331)"
+	$(GDB) $(DIR_BUILD)/$(PROJECT).elf -ex "target remote localhost:2331" \
+	-ex "monitor reset" \
+	-ex "load" \
+	-ex "monitor halt"
+
+stlink_debug: $(DIR_BUILD)/$(PROJECT).elf
+	@echo "Starting debug session using ST-Link..."
+	$(OPENOCD) -f interface/$(OPENOCD_IF) \
 	-c "transport select hla_swd" \
-	-f target/stm32h7x.cfg \
+	-f target/$(OPENOCD_TARGET) \
 	-c "init" \
 	-c "halt" \
 	-c "reset halt" &
@@ -285,12 +336,21 @@ openocd_swd_debug: $(DIR_BUILD)/$(PROJECT).elf
 	-ex "monitor reset init" \
 	$(DIR_BUILD)/$(PROJECT).elf
 
-erase: $(TYPE_ERASE)
-openocd_swd_erase:
-	@echo "Erasing device..."
-	openocd -f interface/stlink.cfg \
+jlink_erase:
+	@echo "Erasing device using J-Link..."
+	@echo "halt" > jlink_erase.jlink
+	@echo "r" >> jlink_erase.jlink
+	@echo "erase" >> jlink_erase.jlink
+	@echo "r" >> jlink_erase.jlink
+	@echo "exit" >> jlink_erase.jlink
+	$(JLINK_EXE) -Device $(JLINK_DEVICE) -If $(JLINK_IF) -Speed $(JLINK_SPEED) -CommanderScript jlink_erase.jlink
+	@rm jlink_erase.jlink
+
+stlink_erase:
+	@echo "Erasing device using ST-Link..."
+	$(OPENOCD) -f interface/$(OPENOCD_IF) \
 	-c "transport select hla_swd" \
-	-f target/stm32h7x.cfg \
+	-f target/$(OPENOCD_TARGET) \
 	-c "init" \
 	-c "reset halt" \
 	-c "sleep 100" \

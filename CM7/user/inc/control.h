@@ -25,14 +25,14 @@ typedef enum {
 } ctl_mode_e;
 
 typedef struct {
-  FP32 exec_freq_hz;
+  FP32 exec_freq;
   FP32 ref_vd;
   FP32 ref_theta;
   FP32 ref_vel;
 } vf_ctl_t;
 
 typedef struct {
-  FP32 exec_freq_hz;
+  FP32 exec_freq;
   FP32 ref_id;
   FP32 ref_theta;
   FP32 ref_vel;
