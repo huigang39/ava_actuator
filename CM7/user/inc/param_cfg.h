@@ -100,8 +100,8 @@ static const smo_cfg_t SMO_CFG[] = {
         {
             .freq_hz   = FOC_FREQ_HZ,
             .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
-            .kp        = 10.0f,
-            .es0       = 500.0f,
+            .kp        = 20.0f,
+            .es0       = 50.0f,
         },
 };
 
