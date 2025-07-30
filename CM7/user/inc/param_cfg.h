@@ -108,6 +108,7 @@ static const sched_cfg_t SCHED_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .freq = USER_FREQ_HZ,
+            .type = SCHED_TYPE_CFS,
         },
 };
 
