@@ -124,7 +124,7 @@ static const pll_cfg_t PLL_VEL_CFG[] = {
             .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
             .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .filter_ffd_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+            .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
                                                   HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };
@@ -150,7 +150,7 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
             .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .filter_ffd_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+            .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
                                                   HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };

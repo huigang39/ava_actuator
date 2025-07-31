@@ -8,7 +8,7 @@ void vf_ctl_loop(vf_ctl_t *vf_ctl, foc_t *foc) {
   DECL_FOC_PTRS_PREFIX(foc, foc);
 
   vf_ctl->ref_theta += vf_ctl->ref_vel * HZ_TO_S(vf_ctl->exec_freq);
-  WARP_2PI(vf_ctl->ref_theta);
+  WARP_TAU(vf_ctl->ref_theta);
 
   foc_out->v_dq.d           = vf_ctl->ref_vd;
   foc_in->theta.force_theta = vf_ctl->ref_theta;
@@ -19,7 +19,7 @@ void if_ctl_loop(if_ctl_t *if_ctl, foc_t *foc) {
   DECL_FOC_PTRS_PREFIX(foc, foc);
 
   if_ctl->ref_theta += if_ctl->ref_vel * HZ_TO_S(if_ctl->exec_freq);
-  WARP_2PI(if_ctl->ref_theta);
+  WARP_TAU(if_ctl->ref_theta);
 
   foc_out->i_dq.d           = if_ctl->ref_id;
   foc_in->theta.force_theta = if_ctl->ref_theta;

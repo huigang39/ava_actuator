@@ -50,7 +50,7 @@ static ret_e magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
 
   foc_out->i_dq.q = 0.0f;
   foc_out->i_dq.d = magnet_cali->ref_id;
-  WARP_2PI(magnet_cali->ref_theta);
+  WARP_TAU(magnet_cali->ref_theta);
   foc_in->theta.force_theta = magnet_cali->ref_theta;
   return CONTINUE;
 }
