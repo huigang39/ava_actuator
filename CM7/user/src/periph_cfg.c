@@ -48,34 +48,34 @@ adc_raw_t get_adc(void) {
 
 FP32 get_theta(void) { return dpt_get_inner_theta(); }
 
-void set_pwm(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+void set_pwm(U32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
   // HRTIM1->sCommonRegs.OENR |= LF(0u);
   // HRTIM1->sCommonRegs.OENR |= LF(2u);
   // HRTIM1->sCommonRegs.OENR |= LF(4u);
 
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR =
-      pwm_full_val / 2.0f - u32_pwm_duty.u / 2.0f;
+      pwm_cnt_max / 2.0f - u32_pwm_duty.u / 2.0f;
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR =
-      pwm_full_val / 2.0f + u32_pwm_duty.u / 2.0f;
+      pwm_cnt_max / 2.0f + u32_pwm_duty.u / 2.0f;
 
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR =
-      pwm_full_val / 2.0f - u32_pwm_duty.v / 2.0f;
+      pwm_cnt_max / 2.0f - u32_pwm_duty.v / 2.0f;
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR =
-      pwm_full_val / 2.0f + u32_pwm_duty.v / 2.0f;
+      pwm_cnt_max / 2.0f + u32_pwm_duty.v / 2.0f;
 
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR =
-      pwm_full_val / 2.0f - u32_pwm_duty.w / 2.0f;
+      pwm_cnt_max / 2.0f - u32_pwm_duty.w / 2.0f;
   HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR =
-      pwm_full_val / 2.0f + u32_pwm_duty.w / 2.0f;
+      pwm_cnt_max / 2.0f + u32_pwm_duty.w / 2.0f;
 }
 
-void set_asc_pwm(U32 pwm_full_val, u32_uvw_t u32_pwm_duty) {
+void set_asc_pwm(U32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
   HRTIM1->sCommonRegs.ODISR |= LF(0u);
   HRTIM1->sCommonRegs.ODISR |= LF(2u);
   HRTIM1->sCommonRegs.ODISR |= LF(4u);
 
   u32_uvw_t u32_pwm_duty_sv = {0u, 0u, 0u};
-  set_pwm(pwm_full_val, u32_pwm_duty_sv);
+  set_pwm(pwm_cnt_max, u32_pwm_duty_sv);
 }
 
 void set_drv(bool enable) {

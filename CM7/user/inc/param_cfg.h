@@ -64,22 +64,22 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_FSA50NV3] =
         {
             // ADC
-            .adc_full_val     = LF(14u),
+            .adc_cnt_max      = LF(14u),
             .adc_cail_cnt_max = 10u,
             .cur_range        = 55.0f,
             .vbus_range       = 60.0f,
             .adc2cur =
-                PERIPH_CFG[PERIPH_FSA50NV3].cur_range / PERIPH_CFG[PERIPH_FSA50NV3].adc_full_val,
+                PERIPH_CFG[PERIPH_FSA50NV3].cur_range / PERIPH_CFG[PERIPH_FSA50NV3].adc_cnt_max,
             .adc2vbus =
-                PERIPH_CFG[PERIPH_FSA50NV3].vbus_range / PERIPH_CFG[PERIPH_FSA50NV3].adc_full_val,
+                PERIPH_CFG[PERIPH_FSA50NV3].vbus_range / PERIPH_CFG[PERIPH_FSA50NV3].adc_cnt_max,
             // PWM
-            .timer_freq_hz    = M(200.0f),
-            .pwm_freq_hz      = K(50.0f),
-            .modulation_ratio = 2.0f / 3.0f,
-            .fp32_pwm_min     = 0.0f,
-            .fp32_pwm_max     = 0.8f,
-            .pwm_full_val =
-                PERIPH_CFG[PERIPH_FSA50NV3].timer_freq_hz / PERIPH_CFG[PERIPH_FSA50NV3].pwm_freq_hz,
+            .timer_freq   = M(200.0f),
+            .pwm_freq     = K(50.0f),
+            .mi           = 2.0f / 3.0f,
+            .fp32_pwm_min = 0.0f,
+            .fp32_pwm_max = 0.8f,
+            .pwm_cnt_max =
+                PERIPH_CFG[PERIPH_FSA50NV3].timer_freq / PERIPH_CFG[PERIPH_FSA50NV3].pwm_freq,
         },
 };
 
