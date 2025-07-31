@@ -56,6 +56,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld  = 15e-6f,
             .lq  = 17.5e-6f,
             .ls  = (MOTOR_CFG[MOTOR_FSA50NV3].ld + MOTOR_CFG[MOTOR_FSA50NV3].lq) / 2.0f,
+            .psi = 0.005301f,
         },
 };
 
@@ -120,11 +121,10 @@ static const pll_cfg_t PLL_VEL_CFG[] = {
             .fc   = 200.0f,
             .damp = 0.707f,
             .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
-                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq),
-            .filter_gain     = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
+            .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .filter_gain_ffd = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+            .filter_ffd_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
                                                   HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };
@@ -147,11 +147,10 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .fc   = 200.0f,
             .damp = 0.707f,
             .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
-                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq),
-            .filter_gain     = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
+            .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .filter_gain_ffd = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+            .filter_ffd_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
                                                   HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };
@@ -163,8 +162,8 @@ static const pid_cfg_t CUR_PID_CFG[] = {
             .kp         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].ld,
             .ki         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].rs,
             .kd         = 0.0f,
-            .ki_out_max = 48.0f / FP32_1_DIV_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
-            .out_max    = 48.0f / FP32_1_DIV_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .ki_out_max = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .out_max    = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
         },
 };
 

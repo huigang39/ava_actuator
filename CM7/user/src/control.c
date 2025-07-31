@@ -12,7 +12,7 @@ void vf_ctl_loop(vf_ctl_t *vf_ctl, foc_t *foc) {
 
   foc_out->v_dq.d           = vf_ctl->ref_vd;
   foc_in->theta.force_theta = vf_ctl->ref_theta;
-  foc_in->theta.force_vel   = vf_ctl->ref_vel;
+  foc_in->theta.force_omega = vf_ctl->ref_vel;
 }
 
 void if_ctl_loop(if_ctl_t *if_ctl, foc_t *foc) {
@@ -23,7 +23,7 @@ void if_ctl_loop(if_ctl_t *if_ctl, foc_t *foc) {
 
   foc_out->i_dq.d           = if_ctl->ref_id;
   foc_in->theta.force_theta = if_ctl->ref_theta;
-  foc_in->theta.force_vel   = if_ctl->ref_vel;
+  foc_in->theta.force_omega = if_ctl->ref_vel;
 }
 
 void asc_ctl_loop(foc_t *foc) { DECL_FOC_PTRS_PREFIX(foc, foc); }
@@ -35,7 +35,7 @@ void vel_ctl_loop(vel_ctl_t *vel_ctl, foc_t *foc) {
   if (vel_ctl->exec_cnt++ % vel_ctl->prescaler != 0)
     return;
 
-  vel_ctl->fdb_vel = foc_in->theta.vel;
+  vel_ctl->fdb_vel = ELEC_TO_MECH(foc_in->theta.omega, foc_cfg->motor_cfg.npp);
   pid_run_in(p, vel_ctl->ref_vel, vel_ctl->fdb_vel);
   foc_out->i_dq.q = out->val;
 }

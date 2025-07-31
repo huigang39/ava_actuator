@@ -13,12 +13,12 @@ static ret_e magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
     break;
   case MAGNET_CALI_CW:
     magnet_cali->ref_theta += magnet_cali->ref_vel * HZ_TO_S(magnet_cali->exec_freq);
-    if (magnet_cali->ref_theta > FP32_2PI) {
+    if (magnet_cali->ref_theta > TAU) {
       magnet_cali->ref_theta  = 0.0f;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state = MAGNET_CALI_CW;
       if (magnet_cali->sample_cnt >= foc_cfg->motor_cfg.npp) {
-        magnet_cali->ref_theta  = FP32_2PI;
+        magnet_cali->ref_theta  = TAU;
         magnet_cali->prev_state = MAGNET_CALI_CCW;
       }
     }
@@ -26,7 +26,7 @@ static ret_e magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
   case MAGNET_CALI_CCW:
     magnet_cali->ref_theta -= magnet_cali->ref_vel * HZ_TO_S(magnet_cali->exec_freq);
     if (magnet_cali->ref_theta < 0.0f) {
-      magnet_cali->ref_theta  = FP32_2PI;
+      magnet_cali->ref_theta  = TAU;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state = MAGNET_CALI_CCW;
       if (magnet_cali->sample_cnt >= foc_cfg->motor_cfg.npp * 2u)
