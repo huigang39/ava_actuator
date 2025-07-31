@@ -146,6 +146,13 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .wc   = 500.0f,
             .fc   = 200.0f,
             .damp = 0.707f,
+            .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
+            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq),
+            .filter_gain     = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
+                                              HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
+            .filter_gain_ffd = 1.0f / (1.0f + FP32_2PI * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
+                                                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
         },
 };
 
