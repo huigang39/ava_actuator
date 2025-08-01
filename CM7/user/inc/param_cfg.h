@@ -98,7 +98,7 @@ static const foc_cfg_t FOC_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .freq                   = FOC_FREQ_HZ,
-            .sensor_theta_comp_gain = 1.0f,
+            .sensor_theta_comp_gain = 0.0f,
             .theta_comp_gain        = 1.5f,
             .motor_cfg              = MOTOR_CFG[MOTOR_FSA50NV3],
             .periph_cfg             = PERIPH_CFG[PERIPH_FSA50NV3],
@@ -121,7 +121,7 @@ static const pll_cfg_t PLL_VEL_CFG[] = {
             .fc   = 200.0f,
             .damp = 0.707f,
             .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
+            .ki   = SQ(PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc),
             .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
             .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
@@ -147,7 +147,7 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .fc   = 200.0f,
             .damp = 0.707f,
             .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc,
+            .ki   = SQ(PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc),
             .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
                                               HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
             .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
