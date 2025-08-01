@@ -342,7 +342,7 @@ do_not_interpret_as_enum = false
 [var23]
 name = foc.lo.smo.lo.i_ab_obs_err.a
 tracked_name = foc.lo.smo.lo.i_ab_obs_err.a
-address = 536871752
+address = 536871792
 type = 0
 color = 3067899294
 should_update_from_elf = true
@@ -355,7 +355,7 @@ do_not_interpret_as_enum = false
 [var24]
 name = foc.lo.smo.lo.i_ab_obs_err.b
 tracked_name = foc.lo.smo.lo.i_ab_obs_err.b
-address = 536871756
+address = 536871796
 type = 0
 color = 4134210209
 should_update_from_elf = true
@@ -531,7 +531,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 0.300000
+value_to_write = 0.200000
 do_not_interpret_as_enum = false
 
 [var38]

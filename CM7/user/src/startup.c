@@ -36,7 +36,7 @@ void init(void) {
 
   foc.lo.id_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
   foc.lo.iq_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.pll_vel.cfg    = PLL_VEL_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.theta_pll.cfg    = PLL_VEL_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.cfg        = SMO_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.lo.pll.cfg = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
   foc.ops               = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
