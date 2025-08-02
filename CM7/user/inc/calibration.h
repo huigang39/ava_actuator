@@ -39,7 +39,7 @@ typedef union {
   linerhall_cali_t linerhall_cali;
 } theta_cali_u;
 
-ret_e theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
+I32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
 
 #ifdef __cpluscplus
 }

@@ -15,7 +15,7 @@ void set_ctl_word(user_t *user, foc_t *foc) {
   case CTL_WORD_THETA_CALI:
     user->ctl_mode = CTL_MODE_IF;
     foc_lo->state  = FOC_STATE_ENABLE;
-    if (OK == theta_cali_loop(&user->theta_cali, foc))
+    if (0 == theta_cali_loop(&user->theta_cali, foc))
       user->ctl_word = CTL_WORD_DISABLE;
     break;
   case CTL_WORD_ENABLE:

@@ -3,7 +3,7 @@
 
 #include "calibration.h"
 
-static ret_e magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
+static I32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
   DECL_FOC_PTRS_PREFIX(foc, foc);
 
   switch (magnet_cali->state) {
@@ -43,20 +43,20 @@ static ret_e magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
     break;
   case MAGNET_CALI_FINISH:
     foc_cfg->theta_offset = magnet_cali->theta_offset / magnet_cali->sample_cnt;
-    return OK;
+    return 0;
   default:
-    return FAIL;
+    return -EINVAL;
   }
 
   foc_out->i_dq.q = 0.0f;
   foc_out->i_dq.d = magnet_cali->ref_id;
   WARP_TAU(magnet_cali->ref_theta);
   foc_in->theta.force_theta = magnet_cali->ref_theta;
-  return CONTINUE;
+  return -EBUSY;
 }
 
-static ret_e linerhall_cali_loop(linerhall_cali_t *linerhall_cali, foc_t *foc) { return OK; }
+static I32 linerhall_cali_loop(linerhall_cali_t *linerhall_cali, foc_t *foc) { return 0; }
 
-ret_e theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc) {
+I32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc) {
   return magnet_cali_loop(&theta_cali->magnet_cali, foc);
 }
