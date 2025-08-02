@@ -40,6 +40,18 @@ typedef struct {
   periph_type_e periph_type;
 } actuator_cfg_t;
 
+static const sched_cfg_t SCHED_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .exec_freq = USER_FREQ_HZ,
+            .type      = SCHED_TYPE_CFS,
+        },
+};
+
+/* -------------------------------------------------------------------------- */
+/*                                     FOC                                    */
+/* -------------------------------------------------------------------------- */
+
 static const actuator_cfg_t ACTUATOR_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
@@ -97,7 +109,7 @@ static const foc_ops_t FOC_OPS_CFG[] = {
 static const foc_cfg_t FOC_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq                   = FOC_FREQ_HZ,
+            .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 0.0f,
             .theta_comp_gain        = 1.5f,
             .motor_cfg              = MOTOR_CFG[MOTOR_FSA50NV3],
@@ -105,66 +117,68 @@ static const foc_cfg_t FOC_CFG[] = {
         },
 };
 
-static const sched_cfg_t SCHED_CFG[] = {
+static const pid_cfg_t CUR_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq = USER_FREQ_HZ,
-            .type = SCHED_TYPE_CFS,
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].ld,
+            .ki         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].rs,
+            .kd         = 0.0f,
+            .ki_out_max = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .out_max    = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
         },
 };
 
-static const pll_cfg_t PLL_VEL_CFG[] = {
+static const pll_cfg_t THETA_PLL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq = FOC_FREQ_HZ,
-            .wc   = 200.0f,
-            .fc   = 200.0f,
-            .damp = 0.707f,
-            .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = SQ(PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc),
-            .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
-                                              HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
-                                                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
+            .fs         = FOC_FREQ_HZ,
+            .lpf_fc     = 200.0f,
+            .lpf_ffd_fc = 100.0f,
+            .damp       = 0.707f,
+            .kp         = 2.0f * THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc *
+                  THETA_PLL_CFG[ACTUATOR_FSA50NV3].damp,
+            .ki = SQ(THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc),
         },
 };
 
+/* -------------------------------------------------------------------------- */
+/*                                     SMO                                    */
+/* -------------------------------------------------------------------------- */
 static const smo_cfg_t SMO_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq        = FOC_FREQ_HZ,
-            .motor_cfg   = MOTOR_CFG[MOTOR_FSA50NV3],
-            .k_slide     = 48.0f,
-            .es0         = 48.0f,
-            .filter_gain = 0.8f,
+            .fs        = FOC_FREQ_HZ,
+            .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
+            .k_slide   = 48.0f,
+            .es0       = 48.0f,
+            .lpf_fc    = 200.0f,
         },
 };
 
 static const pll_cfg_t SMO_PLL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq = FOC_FREQ_HZ,
-            .wc   = 500.0f,
-            .fc   = 200.0f,
-            .damp = 0.707f,
-            .kp   = 2.0f * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * PLL_VEL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki   = SQ(PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc),
-            .filter_gain     = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc *
-                                              HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
-            .ffd_filter_gain = 1.0f / (1.0f + TAU * PLL_VEL_CFG[ACTUATOR_FSA50NV3].wc * 0.5f *
-                                                  HZ_TO_S(PLL_VEL_CFG[ACTUATOR_FSA50NV3].freq)),
+            .fs     = FOC_FREQ_HZ,
+            .lpf_fc = 500.0f,
+            .damp   = 0.707f,
+            .kp     = 2.0f * THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc *
+                  THETA_PLL_CFG[ACTUATOR_FSA50NV3].damp,
+            .ki = SQ(THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc),
         },
 };
 
-static const pid_cfg_t CUR_PID_CFG[] = {
+/* -------------------------------------------------------------------------- */
+/*                                    USER                                    */
+/* -------------------------------------------------------------------------- */
+
+static const square_cfg_t SQUARE_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq       = FOC_FREQ_HZ,
-            .kp         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].ld,
-            .ki         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].rs,
-            .kd         = 0.0f,
-            .ki_out_max = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
-            .out_max    = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .fs         = 1000.0f,
+            .wave_freq  = 1.0f,
+            .amp        = 1.0f,
+            .duty_cycle = 0.5f,
         },
 };
 
@@ -175,16 +189,6 @@ static const magnet_cali_t MAGNET_CALI_CFG[] = {
             .ref_id               = 2.0f,
             .ref_vel              = 20.0f,
             .sample_delay_cnt_max = 1000u,
-        },
-};
-
-static const square_cfg_t SQUARE_CFG[] = {
-    [ACTUATOR_FSA50NV3] =
-        {
-            .freq         = 1000.0f,
-            .wave_freq_hz = 1.0f,
-            .amp          = 1.0f,
-            .duty_cycle   = 0.5f,
         },
 };
 
@@ -212,7 +216,7 @@ static const vel_ctl_t VEL_CTL_CFG[] = {
 static const pid_cfg_t VEL_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq       = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .fs         = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
             .kp         = 0.001f,
             .ki         = 0.1f,
             .kd         = 0.0f,
@@ -231,7 +235,7 @@ static const pos_ctl_t POS_CTL_CFG[] = {
 static const pid_cfg_t POS_PID_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq       = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
+            .fs         = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50NV3].prescaler,
             .kp         = 10.0f,
             .ki         = 0.1f,
             .kd         = 0.0f,

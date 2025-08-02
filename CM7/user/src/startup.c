@@ -15,7 +15,7 @@ sched_t sched;
 benchmark_t benchmark_res[30];
 
 static inline U64 get_ts_us(void) {
-  U64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.freq);
+  U64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.exec_freq);
   return ts_us;
 }
 
@@ -36,7 +36,7 @@ void init(void) {
 
   foc.lo.id_pid.cfg    = CUR_PID_CFG[ACTUATOR_FSA50NV3];
   foc.lo.iq_pid.cfg    = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.theta_pll.cfg = PLL_VEL_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.theta_pll.cfg = THETA_PLL_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.cfg       = SMO_CFG[ACTUATOR_FSA50NV3];
   foc.ops              = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_FSA50NV3]);
