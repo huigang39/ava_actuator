@@ -132,10 +132,11 @@ static const pll_cfg_t PLL_VEL_CFG[] = {
 static const smo_cfg_t SMO_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .freq      = FOC_FREQ_HZ,
-            .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
-            .kp        = 20.0f,
-            .es0       = 50.0f,
+            .freq        = FOC_FREQ_HZ,
+            .motor_cfg   = MOTOR_CFG[MOTOR_FSA50NV3],
+            .k_slide     = 48.0f,
+            .es0         = 48.0f,
+            .filter_gain = 0.8f,
         },
 };
 
