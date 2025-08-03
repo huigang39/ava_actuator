@@ -47,11 +47,11 @@ void init(void) {
 }
 
 void foc_loop(void) {
-  MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_run(&foc); }); });
+  MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
   foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (FP32)MCU_FREQ_MHZ);
 }
 
 void sched_loop(void) {
-  MEASURE_TIME(sched.lo.elapsed, "sched", 1, { sched_run(&sched); };);
+  MEASURE_TIME(sched.lo.elapsed, "sched", 1, { sched_exec(&sched); };);
   sched.lo.elapsed_us = sched.lo.elapsed * (1.0f / (FP32)MCU_FREQ_MHZ);
 }
