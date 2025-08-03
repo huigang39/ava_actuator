@@ -4,11 +4,11 @@
 
 #include "dpt.h"
 
-U8 *DPT_TX_BUF = (U8 *)0x30000000;
-U8 *DPT_RX_BUF = (U8 *)0x30000004;
+u8 *DPT_TX_BUF = (u8 *)0x30000000;
+u8 *DPT_RX_BUF = (u8 *)0x30000004;
 
-volatile U32  inner_raw;
-volatile FP32 inner_theta_rad;
+volatile u32  inner_raw;
+volatile fp32 inner_theta_rad;
 
 void
 dpt_init(void) {
@@ -16,15 +16,15 @@ dpt_init(void) {
   HAL_UART_Receive_DMA(&huart2, DPT_RX_BUF, 8);
 }
 
-U32
+u32
 dpt_get_inner_raw(void) {
   HAL_UART_Transmit_DMA(&huart2, DPT_TX_BUF, 1);
-  inner_raw = (U32)LF(24) - ((U32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
+  inner_raw = (u32)LF(24) - ((u32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
   return inner_raw;
 }
 
-FP32
+fp32
 dpt_get_inner_theta(void) {
-  inner_theta_rad = ((FP32)dpt_get_inner_raw() / (FP32)LF(24)) * TAU;
+  inner_theta_rad = ((fp32)dpt_get_inner_raw() / (fp32)LF(24)) * TAU;
   return inner_theta_rad;
 }

@@ -16,22 +16,22 @@ typedef enum {
 } magnet_cali_e;
 
 typedef struct {
-  FP32          exec_freq;
+  fp32          exec_freq;
   magnet_cali_e state;
   magnet_cali_e prev_state;
-  FP32          ref_id;
-  FP32          ref_vel;
-  FP32          ref_theta;
-  U32           sample_cnt;
-  U32           sample_delay_cnt, sample_delay_cnt_max;
-  FP32          theta_offset;
+  fp32          ref_id;
+  fp32          ref_vel;
+  fp32          ref_theta;
+  u32           sample_cnt;
+  u32           sample_delay_cnt, sample_delay_cnt_max;
+  fp32          theta_offset;
 } magnet_cali_t;
 
 typedef struct {
-  FP32 exec_freq;
-  FP32 fdb;
-  FP32 min, max;
-  FP32 amp;
+  fp32 exec_freq;
+  fp32 fdb;
+  fp32 min, max;
+  fp32 amp;
 } linerhall_cali_t;
 
 typedef union {
@@ -39,7 +39,7 @@ typedef union {
   linerhall_cali_t linerhall_cali;
 } theta_cali_u;
 
-I32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
+i32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
 
 #ifdef __cpluscplus
 }

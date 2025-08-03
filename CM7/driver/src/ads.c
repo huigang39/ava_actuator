@@ -4,9 +4,9 @@
 
 void
 ads_init(void) {
-  U16 cfg_word = ADS7853_CONFIG_WORD & 0xF000;
-  U16 tx_data  = 0;
-  U16 rx_data  = 0;
+  u16 cfg_word = ADS7853_CONFIG_WORD & 0xF000;
+  u16 tx_data  = 0;
+  u16 rx_data  = 0;
 
   switch (cfg_word) {
   case 0x8000:

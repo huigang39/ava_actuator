@@ -14,14 +14,14 @@ sched_t sched;
 
 benchmark_t benchmark_res[30];
 
-static inline U64 get_ts_us(void) {
-  U64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.exec_freq);
+static inline u64 get_ts_us(void) {
+  u64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.exec_freq);
   return ts_us;
 }
 
 static inline void cpy_vtor_to_itcm(void) {
-  const U32 *src = (U32 *)FLASH_BANK1_BASE;
-  U32       *dst = (U32 *)D1_ITCMRAM_BASE;
+  const u32 *src = (u32 *)FLASH_BANK1_BASE;
+  u32       *dst = (u32 *)D1_ITCMRAM_BASE;
   memcpy(dst, src, 0x400);
   SCB->VTOR = D1_ITCMRAM_BASE;
 }
@@ -48,10 +48,10 @@ void init(void) {
 
 void foc_loop(void) {
   MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
-  foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (FP32)MCU_FREQ_MHZ);
+  foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (fp32)MCU_FREQ_MHZ);
 }
 
 void sched_loop(void) {
   MEASURE_TIME(sched.lo.elapsed, "sched", 1, { sched_exec(&sched); };);
-  sched.lo.elapsed_us = sched.lo.elapsed * (1.0f / (FP32)MCU_FREQ_MHZ);
+  sched.lo.elapsed_us = sched.lo.elapsed * (1.0f / (fp32)MCU_FREQ_MHZ);
 }

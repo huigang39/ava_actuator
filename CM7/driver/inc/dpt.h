@@ -19,8 +19,8 @@ extern "C" {
 #define GET_TEMPERATURE_CMD       0x74 // 获取温度信息
 
 void dpt_init(void);
-U32  dpt_get_inner_raw(void);
-FP32 dpt_get_inner_theta(void);
+u32  dpt_get_inner_raw(void);
+fp32 dpt_get_inner_theta(void);
 
 #ifdef __cplusplus
 }

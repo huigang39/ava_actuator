@@ -3,7 +3,7 @@
 
 #include "calibration.h"
 
-static I32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
+static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
   DECL_FOC_PTRS_PREFIX(foc, foc);
 
   switch (magnet_cali->state) {
@@ -55,8 +55,8 @@ static I32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
   return -EBUSY;
 }
 
-static I32 linerhall_cali_loop(linerhall_cali_t *linerhall_cali, foc_t *foc) { return 0; }
+static i32 linerhall_cali_loop(linerhall_cali_t *linerhall_cali, foc_t *foc) { return 0; }
 
-I32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc) {
+i32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc) {
   return magnet_cali_loop(&theta_cali->magnet_cali, foc);
 }

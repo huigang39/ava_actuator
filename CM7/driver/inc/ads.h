@@ -10,7 +10,7 @@ extern "C" {
 #define ADS7853_CONFIG_WORD 0x8680
 
 void ads_init(void);
-U32  ads_get_raw(void);
+u32  ads_get_raw(void);
 
 #ifdef __cpluscplus
 }

@@ -46,9 +46,9 @@ adc_raw_t get_adc(void) {
   return adc_raw;
 }
 
-FP32 get_theta(void) { return dpt_get_inner_theta(); }
+fp32 get_theta(void) { return dpt_get_inner_theta(); }
 
-void set_pwm(U32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
+void set_pwm(u32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
   // HRTIM1->sCommonRegs.OENR |= LF(0u);
   // HRTIM1->sCommonRegs.OENR |= LF(2u);
   // HRTIM1->sCommonRegs.OENR |= LF(4u);
@@ -69,7 +69,7 @@ void set_pwm(U32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
       pwm_cnt_max / 2.0f + u32_pwm_duty.w / 2.0f;
 }
 
-void set_asc_pwm(U32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
+void set_asc_pwm(u32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
   HRTIM1->sCommonRegs.ODISR |= LF(0u);
   HRTIM1->sCommonRegs.ODISR |= LF(2u);
   HRTIM1->sCommonRegs.ODISR |= LF(4u);

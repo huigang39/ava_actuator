@@ -12,7 +12,9 @@
 			"logger.h": "c",
 			"fifo.h": "c",
 			"memory": "c",
-			"typedef.h": "c"
+			"typedef.h": "c",
+			"benchmark.h": "c",
+			"def.h": "c"
 		}
 	}
 }
