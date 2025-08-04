@@ -14,7 +14,9 @@
 			"memory": "c",
 			"typedef.h": "c",
 			"benchmark.h": "c",
-			"def.h": "c"
+			"def.h": "c",
+			"new": "c",
+			"type_traits": "c"
 		}
 	}
 }
