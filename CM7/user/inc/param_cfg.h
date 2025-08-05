@@ -152,7 +152,6 @@ static const smo_cfg_t SMO_CFG[] = {
             .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
             .k_slide   = 48.0f,
             .es0       = 48.0f,
-            .lpf_fc    = 200.0f,
         },
 };
 
