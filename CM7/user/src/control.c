@@ -36,7 +36,7 @@ void vel_ctl_loop(vel_ctl_t *vel_ctl, foc_t *foc) {
     return;
 
   vel_ctl->fdb_vel = ELEC_TO_MECH(foc_in->theta.omega, foc_cfg->motor_cfg.npp);
-  pid_exec_in(p, vel_ctl->ref_vel, vel_ctl->fdb_vel);
+  pid_exec_in(p, vel_ctl->ref_vel, vel_ctl->fdb_vel, 0.0f);
   foc_out->i_dq.q = out->val;
 }
 
@@ -50,6 +50,6 @@ void pos_ctl_loop(pos_ctl_t *pos_ctl, vel_ctl_t *vel_ctl, foc_t *foc) {
     return;
 
   pos_ctl->fdb_pos = foc_in->theta.mech_total_theta;
-  pid_exec_in(p, pos_ctl->ref_pos, pos_ctl->fdb_pos);
+  pid_exec_in(p, pos_ctl->ref_pos, pos_ctl->fdb_pos, 0.0f);
   vel_ctl->ref_vel = out->val;
 }

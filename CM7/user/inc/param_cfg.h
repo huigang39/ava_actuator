@@ -110,7 +110,7 @@ static const foc_cfg_t FOC_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .exec_freq              = FOC_FREQ_HZ,
-            .sensor_theta_comp_gain = 0.0f,
+            .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
             .motor_cfg              = MOTOR_CFG[MOTOR_FSA50NV3],
             .periph_cfg             = PERIPH_CFG[PERIPH_FSA50NV3],
@@ -124,8 +124,8 @@ static const pid_cfg_t CUR_PID_CFG[] = {
             .kp         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].ld,
             .ki         = 1500.0f * MOTOR_CFG[MOTOR_FSA50NV3].rs,
             .kd         = 0.0f,
-            .ki_out_max = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
-            .out_max    = 48.0f / DIV_1_BY_SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .ki_out_max = 48.0f / SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
+            .out_max    = 48.0f / SQRT_3 * PERIPH_CFG[PERIPH_FSA50NV3].fp32_pwm_max,
         },
 };
 
