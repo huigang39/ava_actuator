@@ -20,7 +20,7 @@ extern "C" {
 
 void dpt_init(void);
 u32  dpt_get_inner_raw(void);
-fp32 dpt_get_inner_theta(void);
+f32 dpt_get_inner_theta(void);
 
 #ifdef __cplusplus
 }

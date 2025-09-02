@@ -12,7 +12,7 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
     magnet_cali->state = MAGNET_CALI_CW;
     break;
   case MAGNET_CALI_CW:
-    magnet_cali->ref_theta += magnet_cali->ref_vel * HZ_TO_S(magnet_cali->exec_freq);
+    magnet_cali->ref_theta += magnet_cali->ref_vel / magnet_cali->exec_freq;
     if (magnet_cali->ref_theta > TAU) {
       magnet_cali->ref_theta  = 0.0f;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
@@ -24,7 +24,7 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
     }
     break;
   case MAGNET_CALI_CCW:
-    magnet_cali->ref_theta -= magnet_cali->ref_vel * HZ_TO_S(magnet_cali->exec_freq);
+    magnet_cali->ref_theta -= magnet_cali->ref_vel / magnet_cali->exec_freq;
     if (magnet_cali->ref_theta < 0.0f) {
       magnet_cali->ref_theta  = TAU;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
@@ -45,14 +45,14 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
     foc_cfg->theta_offset = magnet_cali->theta_offset / magnet_cali->sample_cnt;
     return 0;
   default:
-    return -EINVAL;
+    return -MEINVAL;
   }
 
   foc_out->i_dq.q = 0.0f;
   foc_out->i_dq.d = magnet_cali->ref_id;
   WARP_TAU(magnet_cali->ref_theta);
   foc_in->theta.force_theta = magnet_cali->ref_theta;
-  return -EBUSY;
+  return -MEBUSY;
 }
 
 static i32 linerhall_cali_loop(linerhall_cali_t *linerhall_cali, foc_t *foc) { return 0; }

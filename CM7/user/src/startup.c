@@ -34,12 +34,15 @@ void init(void) {
 
   periph_init();
 
-  foc.lo.id_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.iq_pid.cfg     = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.theta_pll.cfg  = THETA_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.smo.cfg        = SMO_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.smo.lo.pll.cfg = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.ops               = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
+  foc.lo.id_pid.cfg        = CUR_PID_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.iq_pid.cfg        = CUR_PID_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
+  foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_FSA50NV3]);
 
   sched.ops.f_get_ts = get_ts_us;
@@ -49,10 +52,10 @@ void init(void) {
 
 void foc_loop(void) {
   MEASURE_TIME(foc.lo.elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
-  foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (fp32)MCU_FREQ_MHZ);
+  foc.lo.elapsed_us = foc.lo.elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }
 
 void sched_loop(void) {
   MEASURE_TIME(sched.lo.elapsed, "sched", 1, { sched_exec(&sched); };);
-  sched.lo.elapsed_us = sched.lo.elapsed * (1.0f / (fp32)MCU_FREQ_MHZ);
+  sched.lo.elapsed_us = sched.lo.elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }

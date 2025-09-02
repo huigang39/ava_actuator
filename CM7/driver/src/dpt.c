@@ -8,7 +8,7 @@ u8 *DPT_TX_BUF = (u8 *)0x30000000;
 u8 *DPT_RX_BUF = (u8 *)0x30000004;
 
 volatile u32  inner_raw;
-volatile fp32 inner_theta_rad;
+volatile f32 inner_theta_rad;
 
 void
 dpt_init(void) {
@@ -23,8 +23,8 @@ dpt_get_inner_raw(void) {
   return inner_raw;
 }
 
-fp32
+f32
 dpt_get_inner_theta(void) {
-  inner_theta_rad = ((fp32)dpt_get_inner_raw() / (fp32)LF(24)) * TAU;
+  inner_theta_rad = ((f32)dpt_get_inner_raw() / (f32)LF(24)) * TAU;
   return inner_theta_rad;
 }

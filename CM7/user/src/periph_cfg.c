@@ -46,7 +46,7 @@ adc_raw_t get_adc(void) {
   return adc_raw;
 }
 
-fp32 get_theta(void) { return dpt_get_inner_theta(); }
+f32 get_theta(void) { return dpt_get_inner_theta(); }
 
 void set_pwm(u32 pwm_cnt_max, u32_uvw_t u32_pwm_duty) {
   // HRTIM1->sCommonRegs.OENR |= LF(0u);

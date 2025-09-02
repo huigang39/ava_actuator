@@ -16,7 +16,12 @@
 			"benchmark.h": "c",
 			"def.h": "c",
 			"new": "c",
-			"type_traits": "c"
+			"type_traits": "c",
+			"algorithm": "c",
+			"xiosbase": "c",
+			"xlocale": "c",
+			"xutility": "c",
+			"format": "cpp"
 		}
 	}
 }

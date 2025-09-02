@@ -129,16 +129,13 @@ static const pid_cfg_t CUR_PID_CFG[] = {
         },
 };
 
-static const pll_cfg_t THETA_PLL_CFG[] = {
+static const pll_cfg_t OMEGA_PLL_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .fs         = FOC_FREQ_HZ,
             .lpf_fc     = 200.0f,
             .lpf_ffd_fc = 100.0f,
             .damp       = 0.707f,
-            .kp         = 2.0f * THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc *
-                  THETA_PLL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki = SQ(THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc),
         },
 };
 
@@ -150,7 +147,7 @@ static const smo_cfg_t SMO_CFG[] = {
         {
             .fs        = FOC_FREQ_HZ,
             .motor_cfg = MOTOR_CFG[MOTOR_FSA50NV3],
-            .k_slide   = 48.0f,
+            .ks        = 48.0f,
             .es0       = 48.0f,
         },
 };
@@ -161,9 +158,27 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .fs     = FOC_FREQ_HZ,
             .lpf_fc = 500.0f,
             .damp   = 0.707f,
-            .kp     = 2.0f * THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc *
-                  THETA_PLL_CFG[ACTUATOR_FSA50NV3].damp,
-            .ki = SQ(THETA_PLL_CFG[ACTUATOR_FSA50NV3].lpf_fc),
+        },
+};
+
+static const hfi_cfg_t HFI_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .fs   = FOC_FREQ_HZ,
+            .fh   = 1000.0f,
+            .vh   = 2.0f,
+            .kp   = 1000.0f,
+            .ki   = 5000.0f,
+            .id_h = 2.0f,
+        },
+};
+
+static const bpf_cfg_t HFI_BPF_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .fs       = FOC_FREQ_HZ,
+            .f_center = 1000.0f,
+            .bw       = 20.0f,
         },
 };
 
