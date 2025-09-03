@@ -37,7 +37,7 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
 
   switch (user->ctl_mode) {
   case CTL_MODE_VEL:
-    foc_lo->theta      = FOC_THETA_SENSOR;
+//    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_set_pwm = set_pwm;
     vel_ctl_loop(&user->vel_ctl, foc);
     break;
@@ -47,7 +47,7 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
     pos_ctl_loop(&user->pos_ctl, &user->vel_ctl, foc);
     break;
   case CTL_MODE_CUR:
-    foc_lo->theta      = FOC_THETA_SENSOR;
+//    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_set_pwm = set_pwm;
     break;
   case CTL_MODE_ASC:

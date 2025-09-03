@@ -165,11 +165,11 @@ static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .fs   = FOC_FREQ_HZ,
-            .fh   = 1000.0f,
+            .fh   = 5000.0f,
             .vh   = 2.0f,
+            .id_h = 2.0f,
             .kp   = 1000.0f,
             .ki   = 5000.0f,
-            .id_h = 2.0f,
         },
 };
 
@@ -177,7 +177,7 @@ static const bpf_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .fs       = FOC_FREQ_HZ,
-            .f_center = 1000.0f,
+            .f_center = 5000.0f,
             .bw       = 20.0f,
         },
 };
