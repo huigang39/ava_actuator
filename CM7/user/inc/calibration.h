@@ -1,7 +1,7 @@
 #ifndef CALIBRATION_H
 #define CALIBRATION_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -41,7 +41,7 @@ typedef union {
 
 i32 theta_cali_loop(theta_cali_u *theta_cali, foc_t *foc);
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

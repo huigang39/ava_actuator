@@ -1,7 +1,7 @@
 #ifndef ADS_H
 #define ADS_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -12,7 +12,7 @@ extern "C" {
 void ads_init(void);
 u32  ads_get_raw(void);
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

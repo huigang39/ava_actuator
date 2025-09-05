@@ -1,7 +1,7 @@
 #ifndef WAVE_TASKS_H
 #define WAVE_TASKS_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -13,7 +13,7 @@ extern square_t square;
 void sine_loop(void *arg);
 void square_loop(void *arg);
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

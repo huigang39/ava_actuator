@@ -38,6 +38,7 @@ void init(void) {
   foc.lo.iq_pid.cfg        = CUR_PID_CFG[ACTUATOR_FSA50NV3];
   foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_FSA50NV3];
   foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_FSA50NV3];
+  foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_FSA50NV3];
   foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
   foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
   foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_FSA50NV3];

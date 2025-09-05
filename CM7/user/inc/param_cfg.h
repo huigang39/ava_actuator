@@ -1,7 +1,7 @@
 #ifndef PARAM_CFG_H
 #define PARAM_CFG_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -164,12 +164,21 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
 static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
-            .fs   = FOC_FREQ_HZ,
-            .fh   = 5000.0f,
-            .vh   = 2.0f,
-            .id_h = 2.0f,
-            .kp   = 1000.0f,
-            .ki   = 5000.0f,
+            .fs        = FOC_FREQ_HZ,
+            .fh        = 3000.0f,
+            .vh        = 2.0f,
+            .id_h      = 2.0f,
+            .id_lpf_fc = 300.0f,
+            .iq_lpf_fc = 300.0f,
+        },
+};
+
+static const pll_cfg_t HFI_PLL_CFG[] = {
+    [ACTUATOR_FSA50NV3] =
+        {
+            .fs     = FOC_FREQ_HZ,
+            .lpf_fc = 300.0f,
+            .damp   = 0.707f,
         },
 };
 
@@ -177,8 +186,8 @@ static const bpf_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50NV3] =
         {
             .fs       = FOC_FREQ_HZ,
-            .f_center = 5000.0f,
-            .bw       = 20.0f,
+            .f_center = 3000.0f,
+            .bw       = 30.0f,
         },
 };
 
@@ -258,7 +267,7 @@ static const pid_cfg_t POS_PID_CFG[] = {
         },
 };
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

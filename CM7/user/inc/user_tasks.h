@@ -1,7 +1,7 @@
 #ifndef USER_TASKS_H
 #define USER_TASKS_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -26,7 +26,7 @@ void set_ctl_mode(user_t *user, foc_t *foc);
 void user_init(void);
 void user_loop_task(void *arg);
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

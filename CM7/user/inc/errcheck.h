@@ -1,7 +1,7 @@
 #ifndef ERRCHECK_H
 #define ERRCHECK_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -30,7 +30,7 @@ __attribute__((optnone)) static inline u32 fpu_check(void) {
   return 0;
 }
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 

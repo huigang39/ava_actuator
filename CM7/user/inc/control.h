@@ -1,7 +1,7 @@
 #ifndef CONTROL_H
 #define CONTROL_H
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 extern "C" {
 #endif
 
@@ -66,7 +66,7 @@ void asc_ctl_loop(foc_t *foc);
 void vel_ctl_loop(vel_ctl_t *vel_ctl, foc_t *foc);
 void pos_ctl_loop(pos_ctl_t *pos_ctl, vel_ctl_t *vel_ctl, foc_t *foc);
 
-#ifdef __cpluscplus
+#ifdef __cplusplus
 }
 #endif
 
