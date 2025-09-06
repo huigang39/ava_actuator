@@ -8,7 +8,7 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
 
   switch (magnet_cali->state) {
   case MAGNET_CALI_INIT:
-    *magnet_cali       = MAGNET_CALI_CFG[ACTUATOR_FSA50NV3];
+    *magnet_cali       = MAGNET_CALI_CFG[ACTUATOR_TYPE];
     magnet_cali->state = MAGNET_CALI_CW;
     break;
   case MAGNET_CALI_CW:

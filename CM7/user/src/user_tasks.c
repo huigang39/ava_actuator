@@ -37,7 +37,7 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
 
   switch (user->ctl_mode) {
   case CTL_MODE_VEL:
-//    foc_lo->theta      = FOC_THETA_SENSOR;
+    //    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_set_pwm = set_pwm;
     vel_ctl_loop(&user->vel_ctl, foc);
     break;
@@ -47,7 +47,7 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
     pos_ctl_loop(&user->pos_ctl, &user->vel_ctl, foc);
     break;
   case CTL_MODE_CUR:
-//    foc_lo->theta      = FOC_THETA_SENSOR;
+    //    foc_lo->theta      = FOC_THETA_SENSOR;
     foc_ops->f_set_pwm = set_pwm;
     break;
   case CTL_MODE_ASC:
@@ -69,14 +69,14 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
 }
 
 void user_init(void) {
-  user.if_ctl = IF_CTL_CFG[ACTUATOR_FSA50NV3];
-  user.vf_ctl = VF_CTL_CFG[ACTUATOR_FSA50NV3];
+  user.if_ctl = IF_CTL_CFG[ACTUATOR_TYPE];
+  user.vf_ctl = VF_CTL_CFG[ACTUATOR_TYPE];
 
-  user.vel_ctl = VEL_CTL_CFG[ACTUATOR_FSA50NV3];
-  pid_init(&user.vel_ctl.vel_pid, VEL_PID_CFG[ACTUATOR_FSA50NV3]);
+  user.vel_ctl = VEL_CTL_CFG[ACTUATOR_TYPE];
+  pid_init(&user.vel_ctl.vel_pid, VEL_PID_CFG[ACTUATOR_TYPE]);
 
-  user.pos_ctl = POS_CTL_CFG[ACTUATOR_FSA50NV3];
-  pid_init(&user.pos_ctl.pos_pid, POS_PID_CFG[ACTUATOR_FSA50NV3]);
+  user.pos_ctl = POS_CTL_CFG[ACTUATOR_TYPE];
+  pid_init(&user.pos_ctl.pos_pid, POS_PID_CFG[ACTUATOR_TYPE]);
 }
 
 void user_loop_task(void *arg) {

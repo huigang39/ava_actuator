@@ -34,20 +34,18 @@ void init(void) {
 
   periph_init();
 
-  foc.lo.id_pid.cfg        = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.iq_pid.cfg        = CUR_PID_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_FSA50NV3];
-  foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_FSA50NV3];
-  foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_FSA50NV3].periph_type];
-  foc_init(&foc, FOC_CFG[ACTUATOR_FSA50NV3]);
+  foc.lo.pll.cfg        = OMEGA_PLL_CFG[ACTUATOR_TYPE];
+  foc.lo.hfi.cfg        = HFI_CFG[ACTUATOR_TYPE];
+  foc.lo.hfi.lo.pll.cfg = HFI_PLL_CFG[ACTUATOR_TYPE];
+  foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+  foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+  foc.lo.smo.cfg        = SMO_CFG[ACTUATOR_TYPE];
+  foc.lo.smo.lo.pll.cfg = SMO_PLL_CFG[ACTUATOR_TYPE];
+  foc.ops               = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
+  foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
 
   sched.ops.f_get_ts = get_ts_us;
-  sched_init(&sched, SCHED_CFG[ACTUATOR_FSA50NV3]);
+  sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
   task_init(&sched);
 }
 
