@@ -4,7 +4,7 @@
 #include "calibration.h"
 
 static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
-  DECL_FOC_PTRS_PREFIX(foc, foc);
+  DECL_FOC_PTRS(foc);
 
   switch (magnet_cali->state) {
   case MAGNET_CALI_INIT:
@@ -17,7 +17,7 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
       magnet_cali->ref_theta  = 0.0f;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state = MAGNET_CALI_CW;
-      if (magnet_cali->sample_cnt >= foc_cfg->motor_cfg.npp) {
+      if (magnet_cali->sample_cnt >= foc->cfg.motor_cfg.npp) {
         magnet_cali->ref_theta  = TAU;
         magnet_cali->prev_state = MAGNET_CALI_CCW;
       }
@@ -29,7 +29,7 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
       magnet_cali->ref_theta  = TAU;
       magnet_cali->state      = MAGNET_CALI_SAMPLE;
       magnet_cali->prev_state = MAGNET_CALI_CCW;
-      if (magnet_cali->sample_cnt >= foc_cfg->motor_cfg.npp * 2u)
+      if (magnet_cali->sample_cnt >= foc->cfg.motor_cfg.npp * 2u)
         magnet_cali->prev_state = MAGNET_CALI_FINISH;
     }
     break;
@@ -38,20 +38,20 @@ static i32 magnet_cali_loop(magnet_cali_t *magnet_cali, foc_t *foc) {
       magnet_cali->sample_delay_cnt = 0u;
       magnet_cali->sample_cnt++;
       magnet_cali->state = magnet_cali->prev_state;
-      magnet_cali->theta_offset += foc_in->theta.sensor_theta;
+      magnet_cali->theta_offset += foc->in.rotor.sensor_theta;
     }
     break;
   case MAGNET_CALI_FINISH:
-    foc_cfg->theta_offset = magnet_cali->theta_offset / magnet_cali->sample_cnt;
+    foc->cfg.theta_offset = magnet_cali->theta_offset / magnet_cali->sample_cnt;
     return 0;
   default:
     return -MEINVAL;
   }
 
-  foc_out->i_dq.q = 0.0f;
-  foc_out->i_dq.d = magnet_cali->ref_id;
+  foc->lo.ref_i_dq.q = 0.0f;
+  foc->lo.ref_i_dq.d = magnet_cali->ref_id;
   WARP_TAU(magnet_cali->ref_theta);
-  foc_in->theta.force_theta = magnet_cali->ref_theta;
+  foc->in.rotor.force_theta = magnet_cali->ref_theta;
   return -MEBUSY;
 }
 

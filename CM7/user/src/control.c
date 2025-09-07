@@ -5,51 +5,49 @@
 #include "control.h"
 
 void vf_ctl_loop(vf_ctl_t *vf_ctl, foc_t *foc) {
-  DECL_FOC_PTRS_PREFIX(foc, foc);
+  DECL_FOC_PTRS(foc);
 
   vf_ctl->ref_theta += vf_ctl->ref_vel * HZ_TO_S(vf_ctl->exec_freq);
   WARP_TAU(vf_ctl->ref_theta);
 
-  foc_out->v_dq.d           = vf_ctl->ref_vd;
-  foc_in->theta.force_theta = vf_ctl->ref_theta;
-  foc_in->theta.force_omega = vf_ctl->ref_vel;
+  foc->out.v_dq.d           = vf_ctl->ref_vd;
+  foc->in.rotor.force_theta = vf_ctl->ref_theta;
+  foc->in.rotor.force_omega = vf_ctl->ref_vel;
 }
 
 void if_ctl_loop(if_ctl_t *if_ctl, foc_t *foc) {
-  DECL_FOC_PTRS_PREFIX(foc, foc);
+  DECL_FOC_PTRS(foc);
 
   if_ctl->ref_theta += if_ctl->ref_vel * HZ_TO_S(if_ctl->exec_freq);
   WARP_TAU(if_ctl->ref_theta);
 
-  foc_out->i_dq.d           = if_ctl->ref_id;
-  foc_in->theta.force_theta = if_ctl->ref_theta;
-  foc_in->theta.force_omega = if_ctl->ref_vel;
+  foc->lo.ref_i_dq.d        = if_ctl->ref_id;
+  foc->in.rotor.force_theta = if_ctl->ref_theta;
+  foc->in.rotor.force_omega = if_ctl->ref_vel;
 }
 
-void asc_ctl_loop(foc_t *foc) { DECL_FOC_PTRS_PREFIX(foc, foc); }
+void asc_ctl_loop(foc_t *foc) { DECL_FOC_PTRS(foc); }
 
 void vel_ctl_loop(vel_ctl_t *vel_ctl, foc_t *foc) {
   DECL_PID_PTRS(&vel_ctl->vel_pid);
-  DECL_FOC_PTRS_PREFIX(foc, foc);
 
   if (vel_ctl->exec_cnt++ % vel_ctl->prescaler != 0)
     return;
 
-  vel_ctl->fdb_vel = ELEC_TO_MECH(foc_in->theta.omega, foc_cfg->motor_cfg.npp);
+  vel_ctl->fdb_vel = ELEC_TO_MECH(foc->in.rotor.omega, foc->cfg.motor_cfg.npp);
   pid_exec_in(p, vel_ctl->ref_vel, vel_ctl->fdb_vel, 0.0f);
-  foc_out->i_dq.q = out->val;
+  foc->lo.ref_i_dq.q = out->val;
 }
 
 void pos_ctl_loop(pos_ctl_t *pos_ctl, vel_ctl_t *vel_ctl, foc_t *foc) {
   DECL_PID_PTRS(&pos_ctl->pos_pid);
-  DECL_FOC_PTRS_PREFIX(foc, foc);
 
   vel_ctl_loop(vel_ctl, foc);
 
   if (pos_ctl->exec_cnt++ % pos_ctl->prescaler != 0)
     return;
 
-  pos_ctl->fdb_pos = foc_in->theta.mech_total_theta;
+  pos_ctl->fdb_pos = foc->in.rotor.mech_total_theta;
   pid_exec_in(p, pos_ctl->ref_pos, pos_ctl->fdb_pos, 0.0f);
   vel_ctl->ref_vel = out->val;
 }

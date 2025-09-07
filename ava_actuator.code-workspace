@@ -21,7 +21,10 @@
 			"xiosbase": "c",
 			"xlocale": "c",
 			"xutility": "c",
-			"format": "cpp"
+			"format": "cpp",
+			"controller.h": "c",
+			"maf.h": "c",
+			"shared_mem.h": "c"
 		}
 	}
 }

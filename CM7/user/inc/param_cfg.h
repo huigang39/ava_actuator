@@ -110,8 +110,8 @@ static const periph_cfg_t PERIPH_CFG[] = {
             .pwm_freq     = K(50.0f),
             .timer_freq   = M(200.0f),
             .mi           = 2.0f / 3.0f,
-            .fp32_pwm_min = 0.0f,
-            .fp32_pwm_max = 0.8f,
+            .f32_pwm_min = 0.0f,
+            .f32_pwm_max = 0.8f,
         },
     [PERIPH_F2H46V100] =
         {
@@ -126,8 +126,8 @@ static const periph_cfg_t PERIPH_CFG[] = {
             // PWM
             .timer_freq   = M(200.0f),
             .mi           = 2.0f / 3.0f,
-            .fp32_pwm_min = 0.0f,
-            .fp32_pwm_max = 0.8f,
+            .f32_pwm_min = 0.0f,
+            .f32_pwm_max = 0.8f,
         },
 };
 
