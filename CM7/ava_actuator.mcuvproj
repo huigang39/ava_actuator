@@ -6,7 +6,7 @@ relative_path = true
 version = 2
 
 [settings]
-sample_frequency_hz = 50000
+sample_frequency_hz = 5000
 max_points = 50000
 max_viewport_points = 5000
 refresh_on_elf_change = true
@@ -14,7 +14,7 @@ stop_acq_on_elf_change = true
 probe_type = 1
 target_name = STM32H745II_M7
 probe_mode = 1
-probe_speed_khz = 10000000
+probe_speed_khz = 1000000
 probe_sn = 174504233
 should_log = false
 log_directory = 
@@ -279,7 +279,7 @@ name = foc.in.rotor.theta
 tracked_name = foc.in.rotor.theta
 address = 536871184
 type = 7
-color = 553709311
+color = 570402560
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
@@ -355,7 +355,7 @@ do_not_interpret_as_enum = false
 [var24]
 name = foc.lo.hfi.lo.hfi_id
 tracked_name = foc.lo.hfi.lo.hfi_id
-address = 536871980
+address = 536871780
 type = 7
 color = 3759845976
 should_update_from_elf = true
@@ -368,7 +368,7 @@ do_not_interpret_as_enum = false
 [var25]
 name = foc.lo.hfi.lo.hfi_iq
 tracked_name = foc.lo.hfi.lo.hfi_iq
-address = 536871984
+address = 536871784
 type = 7
 color = 2235634670
 should_update_from_elf = true
@@ -381,7 +381,7 @@ do_not_interpret_as_enum = false
 [var26]
 name = foc.lo.hfi.lo.hfi_theta
 tracked_name = foc.lo.hfi.lo.hfi_theta
-address = 536871764
+address = 536871788
 type = 7
 color = 919184112
 should_update_from_elf = true
@@ -394,7 +394,7 @@ do_not_interpret_as_enum = false
 [var27]
 name = foc.lo.hfi.lo.hfi_theta_err
 tracked_name = foc.lo.hfi.lo.hfi_theta_err
-address = 536871992
+address = 536871796
 type = 7
 color = 4211404722
 should_update_from_elf = true
@@ -407,7 +407,7 @@ do_not_interpret_as_enum = false
 [var28]
 name = foc.lo.hfi.lo.hfi_theta_err_integ
 tracked_name = foc.lo.hfi.lo.hfi_theta_err_integ
-address = 536871996
+address = 536871800
 type = 7
 color = 1666596627
 should_update_from_elf = true
@@ -420,7 +420,7 @@ do_not_interpret_as_enum = false
 [var29]
 name = foc.lo.hfi.lo.id_neg
 tracked_name = foc.lo.hfi.lo.id_neg
-address = 536872008
+address = 536871820
 type = 7
 color = 237564030
 should_update_from_elf = true
@@ -433,7 +433,7 @@ do_not_interpret_as_enum = false
 [var30]
 name = foc.lo.hfi.lo.id_pos
 tracked_name = foc.lo.hfi.lo.id_pos
-address = 536872004
+address = 536871816
 type = 7
 color = 3525602678
 should_update_from_elf = true
@@ -446,7 +446,7 @@ do_not_interpret_as_enum = false
 [var31]
 name = foc.lo.hfi.lo.lpf_id
 tracked_name = foc.lo.hfi.lo.lpf_id
-address = 536871988
+address = 536871792
 type = 7
 color = 3478017488
 should_update_from_elf = true
@@ -459,7 +459,7 @@ do_not_interpret_as_enum = false
 [var32]
 name = foc.lo.hfi.lo.polar_cnt
 tracked_name = foc.lo.hfi.lo.polar_cnt
-address = 536872000
+address = 536871808
 type = 5
 color = 554453178
 should_update_from_elf = true
@@ -472,7 +472,7 @@ do_not_interpret_as_enum = false
 [var33]
 name = foc.lo.hfi.lo.polar_offset
 tracked_name = foc.lo.hfi.lo.polar_offset
-address = 536872012
+address = 536871824
 type = 7
 color = 306566144
 should_update_from_elf = true
@@ -486,7 +486,7 @@ do_not_interpret_as_enum = false
 name = foc.lo.hfi.lo.theta_h
 tracked_name = foc.lo.hfi.lo.theta_h
 address = 536871976
-type = 7
+type = 0
 color = 2147549179
 should_update_from_elf = true
 shift = 0
@@ -499,7 +499,7 @@ do_not_interpret_as_enum = false
 name = foc.lo.hfi.out.id_in
 tracked_name = foc.lo.hfi.out.id_in
 address = 536872096
-type = 7
+type = 0
 color = 3270614191
 should_update_from_elf = true
 shift = 0
@@ -511,7 +511,7 @@ do_not_interpret_as_enum = false
 [var36]
 name = foc.lo.hfi.out.theta
 tracked_name = foc.lo.hfi.out.theta
-address = 536872088
+address = 536871764
 type = 7
 color = 4019995320
 should_update_from_elf = true
@@ -525,7 +525,7 @@ do_not_interpret_as_enum = false
 name = foc.lo.hfi.out.vd_h
 tracked_name = foc.lo.hfi.out.vd_h
 address = 536872100
-type = 7
+type = 0
 color = 3892379630
 should_update_from_elf = true
 shift = 0
@@ -1096,7 +1096,7 @@ do_not_interpret_as_enum = false
 [var81]
 name = inner_raw
 tracked_name = inner_raw
-address = 536873588
+address = 536873592
 type = 5
 color = 1845494015
 should_update_from_elf = true
@@ -1116,7 +1116,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 4.000000
+value_to_write = 5.000000
 do_not_interpret_as_enum = false
 
 [var83]
@@ -1168,7 +1168,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 20.000000
+value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [group0]
@@ -1342,7 +1342,7 @@ format = DEC
 
 [group0-plot3-series3]
 name = foc.out.v_dq.d
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot3-series4]
@@ -1538,7 +1538,7 @@ format = DEC
 [group0-plot11]
 name = sensor
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot11-series0]
 name = foc.in.rotor.sensor_omega
@@ -1706,11 +1706,16 @@ visibility = false
 format = DEC
 
 [group0-plot14-series1]
-name = foc.in.rotor.theta
+name = foc.in.rotor.sensor_theta
 visibility = true
 format = DEC
 
 [group0-plot14-series2]
+name = foc.in.rotor.theta
+visibility = true
+format = DEC
+
+[group0-plot14-series3]
 name = foc.in.v_bus
 visibility = false
 format = DEC

@@ -218,16 +218,16 @@ static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .fh        = 2000.0f,
-            .vh        = 2.0f,
-            .id_h      = 2.0f,
+            .hfi_vd    = 2.0f,
+            .hfi_id    = 2.0f,
             .id_lpf_fc = 300.0f,
             .iq_lpf_fc = 300.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .fh        = 2000.0f,
-            .vh        = 2.0f,
-            .id_h      = 1.0f,
+            .hfi_vd    = 2.0f,
+            .hfi_id    = 1.0f,
             .id_lpf_fc = 300.0f,
             .iq_lpf_fc = 300.0f,
         },
