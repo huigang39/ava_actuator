@@ -1116,7 +1116,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 5.000000
+value_to_write = 4.000000
 do_not_interpret_as_enum = false
 
 [var83]
@@ -1553,7 +1553,7 @@ format = DEC
 [group0-plot12]
 name = smo
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot12-series0]
 name = foc.in.rotor.fusion_theta_err
