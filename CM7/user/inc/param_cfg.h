@@ -107,16 +107,15 @@ static const periph_cfg_t PERIPH_CFG[] = {
             .cur_range        = 55.0f,
             .vbus_range       = 60.0f,
             // PWM
-            .pwm_freq     = K(50.0f),
-            .timer_freq   = M(200.0f),
-            .mi           = 2.0f / 3.0f,
+            .pwm_freq    = K(50.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = 2.0f / 3.0f,
             .f32_pwm_min = 0.0f,
             .f32_pwm_max = 0.8f,
         },
     [PERIPH_F2H46V100] =
         {
             // ADC
-            .pwm_freq         = K(20.0f),
             .adc_cnt_max      = LF(14u),
             .adc_cail_cnt_max = 10u,
             .cur_range        = 82.5f,
@@ -124,8 +123,9 @@ static const periph_cfg_t PERIPH_CFG[] = {
             .cur_gain         = 20u,
             .cur_offset       = 41.25f,
             // PWM
-            .timer_freq   = M(200.0f),
-            .mi           = 2.0f / 3.0f,
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = 2.0f / 3.0f,
             .f32_pwm_min = 0.0f,
             .f32_pwm_max = 0.8f,
         },
@@ -217,7 +217,7 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
 static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fh        = 5000.0f,
+            .fh        = 2000.0f,
             .vh        = 2.0f,
             .id_h      = 2.0f,
             .id_lpf_fc = 300.0f,
@@ -225,7 +225,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fh        = 5000.0f,
+            .fh        = 2000.0f,
             .vh        = 2.0f,
             .id_h      = 2.0f,
             .id_lpf_fc = 300.0f,
@@ -236,28 +236,30 @@ static const hfi_cfg_t HFI_CFG[] = {
 static const pll_cfg_t HFI_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_fc = 300.0f,
+            .lpf_fc = 100.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_fc = 300.0f,
+            .lpf_fc = 100.0f,
         },
 };
 
-static const bpf_cfg_t HFI_BPF_CFG[] = {
+static const iir_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .f_center = 5000.0f,
-            .bw       = 20.0f,
+            .fc   = 2000.0f,
+            .q    = 0.5f,
+            .type = IIR_BANDPASS,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .f_center = 5000.0f,
-            .bw       = 20.0f,
+            .fc   = 2000.0f,
+            .q    = 0.5f,
+            .type = IIR_BANDPASS,
         },
 };
 
