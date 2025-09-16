@@ -24,7 +24,24 @@
 			"format": "cpp",
 			"controller.h": "c",
 			"maf.h": "c",
-			"shared_mem.h": "c"
+			"shared_mem.h": "c",
+			"atomic": "c",
+			"bit": "c",
+			"charconv": "c",
+			"compare": "c",
+			"cstddef": "c",
+			"functional": "c",
+			"iterator": "c",
+			"limits": "c",
+			"system_error": "c",
+			"vector": "c",
+			"xhash": "c",
+			"xlocbuf": "c",
+			"xlocmon": "c",
+			"xloctime": "c",
+			"xmemory": "c",
+			"xstring": "c",
+			"iosfwd": "c"
 		}
 	}
 }

@@ -80,6 +80,6 @@ void user_init(void) {
 }
 
 void user_loop_task(void *arg) {
-  set_ctl_word(&user, &foc);
-  set_ctl_mode(&user, &foc);
+  // set_ctl_word(&user, &foc);
+  // set_ctl_mode(&user, &foc);
 }

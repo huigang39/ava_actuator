@@ -102,10 +102,11 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F3H58V101] =
         {
             // ADC
-            .adc_cnt_max      = LF(14u),
-            .adc_cail_cnt_max = 10u,
-            .cur_range        = 55.0f,
-            .vbus_range       = 60.0f,
+            .adc_full_cnt       = LF(14u),
+            .adc_cali_cnt_max   = 10u,
+            .theta_cali_cnt_max = 1024u,
+            .cur_range          = 55.0f,
+            .vbus_range         = 60.0f,
             // PWM
             .pwm_freq    = K(50.0f),
             .timer_freq  = M(200.0f),
@@ -116,12 +117,13 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F2H46V100] =
         {
             // ADC
-            .adc_cnt_max      = LF(14u),
-            .adc_cail_cnt_max = 10u,
-            .cur_range        = 82.5f,
-            .vbus_range       = 60.0f,
-            .cur_gain         = 20u,
-            .cur_offset       = 41.25f,
+            .adc_full_cnt       = LF(14u),
+            .adc_cali_cnt_max   = 10u,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
+            .cur_range          = 82.5f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 20u,
+            .cur_offset         = 41.25f,
             // PWM
             .pwm_freq    = K(20.0f),
             .timer_freq  = M(200.0f),
