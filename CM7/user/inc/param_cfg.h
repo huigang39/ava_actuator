@@ -7,8 +7,6 @@ extern "C" {
 
 #include "module.h"
 
-#include "calibration.h"
-#include "control.h"
 #include "dpt.h"
 #include "periph_cfg.h"
 
@@ -166,22 +164,89 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
         },
 };
 
+static const pid_cfg_t PD_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 0.1f,
+            .kd         = 0.01f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 0.1f,
+            .kd         = 0.01f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+};
+
+static const pid_cfg_t VEL_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 0.01f,
+            .ki         = 0.1f,
+            .ki_out_max = 10.0f,
+            .out_max    = 10.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 0.01f,
+            .ki         = 0.1f,
+            .ki_out_max = 10.0f,
+            .out_max    = 10.0f,
+        },
+};
+
+static const pid_cfg_t POS_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 5.0f,
+            .ki         = 1.0f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .kp         = 5.0f,
+            .ki         = 1.0f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+};
+
 static const foc_cfg_t FOC_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
+            .ref_theta_cali_id      = 2.0f,
+            .ref_theta_cali_omega   = 10.0f,
             .motor_cfg              = MOTOR_CFG[MOTOR_FSA50NV3],
             .periph_cfg             = PERIPH_CFG[PERIPH_F3H58V101],
+            .vel_cfg                = VEL_CFG[ACTUATOR_FSA50N24E],
+            .pos_cfg                = POS_CFG[ACTUATOR_FSA50N24E],
+            .pd_cfg                 = PD_CFG[ACTUATOR_FSA50N24E],
         },
     [ACTUATOR_FSA361480Z] =
         {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
+            .ref_theta_cali_id      = 2.0f,
+            .ref_theta_cali_omega   = 10.0f,
             .motor_cfg              = MOTOR_CFG[MOTOR_FSA3610V0],
             .periph_cfg             = PERIPH_CFG[PERIPH_F2H46V100],
+            .vel_cfg                = VEL_CFG[ACTUATOR_FSA361480Z],
+            .pos_cfg                = POS_CFG[ACTUATOR_FSA361480Z],
+            .pd_cfg                 = PD_CFG[ACTUATOR_FSA361480Z],
         },
 };
 
@@ -285,109 +350,6 @@ static const square_cfg_t SQUARE_CFG[] = {
             .wave_freq  = 1.0f,
             .amp        = 1.0f,
             .duty_cycle = 0.5f,
-        },
-};
-
-static const magnet_cali_t MAGNET_CALI_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .exec_freq            = 1000.0f,
-            .ref_id               = 2.0f,
-            .ref_vel              = 20.0f,
-            .sample_delay_cnt_max = 1000u,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .exec_freq            = 1000.0f,
-            .ref_id               = 4.0f,
-            .ref_vel              = 20.0f,
-            .sample_delay_cnt_max = 1000u,
-        },
-};
-
-static const if_ctl_t IF_CTL_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .exec_freq = USER_FREQ_HZ,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .exec_freq = USER_FREQ_HZ,
-        },
-};
-
-static const vf_ctl_t VF_CTL_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .exec_freq = USER_FREQ_HZ,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .exec_freq = USER_FREQ_HZ,
-        },
-};
-
-static const vel_ctl_t VEL_CTL_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .prescaler = USER_FREQ_DIV_1,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .prescaler = USER_FREQ_DIV_1,
-        },
-};
-
-static const pid_cfg_t VEL_PID_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .fs         = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA50N24E].prescaler,
-            .kp         = 0.001f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .fs         = USER_FREQ_HZ / VEL_CTL_CFG[ACTUATOR_FSA361480Z].prescaler,
-            .kp         = 0.001f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-};
-
-static const pos_ctl_t POS_CTL_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .prescaler = USER_FREQ_DIV_2,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .prescaler = USER_FREQ_DIV_2,
-        },
-};
-
-static const pid_cfg_t POS_PID_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .fs         = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA50N24E].prescaler,
-            .kp         = 10.0f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .fs         = USER_FREQ_HZ / POS_CTL_CFG[ACTUATOR_FSA361480Z].prescaler,
-            .kp         = 10.0f,
-            .ki         = 0.1f,
-            .kd         = 0.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
         },
 };
 

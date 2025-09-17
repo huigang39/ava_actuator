@@ -11,6 +11,12 @@ extern fft_t fft;
 
 void fft_loop(void *arg);
 
+extern sine_t   sine;
+extern square_t square;
+
+void sine_loop(void *arg);
+void square_loop(void *arg);
+
 #ifdef __cplusplus
 }
 #endif
