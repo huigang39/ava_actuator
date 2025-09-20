@@ -9,4 +9,5 @@ void task_init(sched_t *sched) {
     sched_register_task(sched, task_list[i]);
 
   sched_set_task_state(sched, TASK_USER, SCHED_TASK_STATE_READY);
+  sched_set_task_state(sched, TASK_SINE, SCHED_TASK_STATE_READY);
 }

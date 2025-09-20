@@ -14,12 +14,10 @@ typedef enum {
 
 typedef enum {
   CTL_MODE_NULL,
-  CTL_MODE_VF,
-  CTL_MODE_IF,
-  CTL_MODE_ASC,
   CTL_MODE_CUR,
   CTL_MODE_VEL,
   CTL_MODE_POS,
+  CTL_MODE_ASC,
 } ctl_mode_e;
 
 typedef struct {

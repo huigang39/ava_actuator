@@ -30,23 +30,17 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
 
   switch (user->ctl_mode) {
   case CTL_MODE_VEL: {
-    //    foc->lo.theta      = FOC_THETA_SENSOR;
+    lo->e_mode = FOC_MODE_VEL;
   } break;
   case CTL_MODE_POS: {
-    foc->lo.e_theta = FOC_THETA_SENSOR;
+    lo->e_mode = FOC_MODE_POS;
   } break;
   case CTL_MODE_CUR: {
-    //    foc->lo.theta      = FOC_THETA_SENSOR;
+    lo->e_mode = FOC_MODE_CUR;
   } break;
   case CTL_MODE_ASC: {
-    foc->lo.e_theta = FOC_THETA_SENSOR;
+    lo->e_mode = FOC_MODE_ASC;
   } break;
-  case CTL_MODE_IF: {
-    foc->lo.e_theta = FOC_THETA_FORCE;
-  }
-  case CTL_MODE_VF: {
-    foc->lo.e_theta = FOC_THETA_FORCE;
-  }
   default:
     break;
   }

@@ -7,15 +7,13 @@ extern "C" {
 
 #include "module.h"
 
-extern fft_t fft;
-
-void fft_loop(void *arg);
-
 extern sine_t   sine;
 extern square_t square;
+extern fft_t    fft;
 
-void sine_loop(void *arg);
-void square_loop(void *arg);
+void fft_loop_task(void *arg);
+void sine_loop_task(void *arg);
+void square_loop_task(void *arg);
 
 #ifdef __cplusplus
 }

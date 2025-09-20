@@ -12,7 +12,7 @@
 foc_t   foc;
 sched_t sched;
 
-benchmark_t benchmark_res[30];
+// benchmark_t benchmark_res[30];
 
 static inline u64 get_ts_us(void) {
   u64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.exec_freq);
@@ -29,7 +29,7 @@ static inline void cpy_vtor_to_itcm(void) {
 void init(void) {
   // cpy_vtor_to_itcm();
 
-  // DWT_INIT();
+  DWT_INIT();
   // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
 
   periph_init();
