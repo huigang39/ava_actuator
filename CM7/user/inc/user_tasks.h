@@ -1,10 +1,6 @@
 #ifndef USER_TASKS_H
 #define USER_TASKS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef enum {
   CTL_WORD_NULL,
   CTL_WORD_CALI,
@@ -32,9 +28,5 @@ void set_ctl_mode(user_t *user, foc_t *foc);
 
 void user_init(void);
 void user_loop_task(void *arg);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // !USER_TASKS_H

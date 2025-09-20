@@ -1,10 +1,6 @@
 #ifndef PARAM_CFG_H
 #define PARAM_CFG_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "module.h"
 
 #include "dpt.h"
@@ -12,8 +8,8 @@ extern "C" {
 
 #define MCU_FREQ_MHZ (400U)
 
-// #define FOC_FREQ_HZ      (K(50.0F))
-#define FOC_FREQ_HZ      (K(20.0F))
+#define FOC_FREQ_HZ  (K(50.0F))
+// #define FOC_FREQ_HZ      (K(20.0F))
 
 #define ACTUATOR_TYPE    ACTUATOR_FSA361480Z
 
@@ -336,6 +332,21 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
 /*                                    USER                                    */
 /* -------------------------------------------------------------------------- */
 
+static const sine_cfg_t SINE_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .fs        = 1000.0f,
+            .wave_freq = 10.0f,
+            .amp       = 1.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .fs        = 1000.0f,
+            .wave_freq = 10.0f,
+            .amp       = 1.0f,
+        },
+};
+
 static const square_cfg_t SQUARE_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
@@ -352,9 +363,5 @@ static const square_cfg_t SQUARE_CFG[] = {
             .duty_cycle = 0.5f,
         },
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // !PARAM_CFG_H

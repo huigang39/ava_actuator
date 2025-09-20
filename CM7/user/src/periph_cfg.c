@@ -1,8 +1,8 @@
+#include <stdio.h>
+
 #include "adc.h"
 #include "hrtim.h"
 #include "tim.h"
-
-#include <stdio.h>
 
 #include "ads.h"
 #include "dpt.h"
@@ -53,14 +53,20 @@ void set_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty) {
   // HRTIM1->sCommonRegs.OENR |= LF(2u);
   // HRTIM1->sCommonRegs.OENR |= LF(4u);
 
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.u / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.u / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR =
+      pwm_full_cnt / 2.0f - u32_pwm_duty.u / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR =
+      pwm_full_cnt / 2.0f + u32_pwm_duty.u / 2.0f;
 
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.v / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.v / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR =
+      pwm_full_cnt / 2.0f - u32_pwm_duty.v / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR =
+      pwm_full_cnt / 2.0f + u32_pwm_duty.v / 2.0f;
 
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.w / 2.0f;
-  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.w / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR =
+      pwm_full_cnt / 2.0f - u32_pwm_duty.w / 2.0f;
+  HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR =
+      pwm_full_cnt / 2.0f + u32_pwm_duty.w / 2.0f;
 }
 
 void set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty) {
@@ -74,12 +80,12 @@ void set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty) {
 
 void set_drv(bool enable) {
   enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET)
-      : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET);
+         : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET);
 }
 
 void set_drv_8353(bool enable) {
   enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET)
-      : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
+         : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
 /* --------------------------------- printf --------------------------------- */
