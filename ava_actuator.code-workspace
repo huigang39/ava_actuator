@@ -41,7 +41,8 @@
 			"xloctime": "c",
 			"xmemory": "c",
 			"xstring": "c",
-			"iosfwd": "c"
+			"iosfwd": "c",
+			"task_cfg.h": "c"
 		}
 	}
 }

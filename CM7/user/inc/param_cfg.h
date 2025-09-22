@@ -8,8 +8,8 @@
 
 #define MCU_FREQ_MHZ (400U)
 
-#define FOC_FREQ_HZ  (K(50.0F))
-// #define FOC_FREQ_HZ      (K(20.0F))
+// #define FOC_FREQ_HZ  (K(50.0F))
+#define FOC_FREQ_HZ      (K(20.0F))
 
 #define ACTUATOR_TYPE    ACTUATOR_FSA361480Z
 
@@ -164,16 +164,16 @@ static const pid_cfg_t PD_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .fs         = FOC_FREQ_HZ,
-            .kp         = 0.1f,
-            .kd         = 0.01f,
+            .kp         = 0.01f,
+            .kd         = 0.001f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .fs         = FOC_FREQ_HZ,
-            .kp         = 0.1f,
-            .kd         = 0.01f,
+            .kp         = 0.01f,
+            .kd         = 0.001f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
@@ -335,13 +335,13 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
 static const sine_cfg_t SINE_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fs        = 1000.0f,
+            .fs        = FOC_FREQ_HZ,
             .wave_freq = 10.0f,
             .amp       = 1.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fs        = 1000.0f,
+            .fs        = FOC_FREQ_HZ,
             .wave_freq = 10.0f,
             .amp       = 1.0f,
         },
@@ -350,14 +350,14 @@ static const sine_cfg_t SINE_CFG[] = {
 static const square_cfg_t SQUARE_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fs         = 1000.0f,
+            .fs         = FOC_FREQ_HZ,
             .wave_freq  = 1.0f,
             .amp        = 1.0f,
             .duty_cycle = 0.5f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fs         = 1000.0f,
+            .fs         = FOC_FREQ_HZ,
             .wave_freq  = 1.0f,
             .amp        = 1.0f,
             .duty_cycle = 0.5f,
