@@ -56,7 +56,7 @@ void foc_loop(void) {
 
   sine_exec(&sine);
   foc.lo.ref_pvct.vel = sine.out.val;
-  fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &foc.lo.fdb_pvct.cur, sizeof(f32));
+  fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &sine.out.val, sizeof(f32));
 }
 
 void sched_loop(void) {
