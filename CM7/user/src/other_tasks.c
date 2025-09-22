@@ -7,8 +7,8 @@ square_t square;
 fft_t    fft;
 
 fifo_t fft_fifo;
-f32    fft_fifo_buf[FFT_LEN_8192];
-f32    fft_in_buf[FFT_LEN_8192], fft_out_buf[FFT_LEN_8192], fft_mag_buf[FFT_LEN_8192];
+f32    fft_fifo_buf[FFT_LEN_1024];
+f32    fft_in_buf[FFT_LEN_1024], fft_out_buf[FFT_LEN_1024], fft_mag_buf[FFT_LEN_1024];
 
 void other_init(void) {
   fifo_buf_init(&fft_fifo, sizeof(fft_fifo_buf), FIFO_POLICY_OVERWRITE);
@@ -16,7 +16,7 @@ void other_init(void) {
 
   fft_cfg_t fft_cfg = {
       .fs      = FOC_FREQ_HZ,
-      .buf_len = FFT_LEN_8192,
+      .buf_len = FFT_LEN_1024,
       .in_buf  = fft_in_buf,
       .out_buf = fft_out_buf,
       .mag_buf = fft_mag_buf,
