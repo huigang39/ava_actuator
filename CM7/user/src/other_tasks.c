@@ -11,7 +11,7 @@ f32    fft_fifo_buf[FFT_LEN_4096];
 f32    fft_in_buf[FFT_LEN_4096], fft_out_buf[FFT_LEN_4096], fft_mag_buf[FFT_LEN_4096];
 
 void other_init(void) {
-  fifo_buf_init(&fft_fifo, sizeof(fft_fifo_buf));
+  fifo_buf_init(&fft_fifo, sizeof(fft_fifo_buf), FIFO_POLICY_DISCARD);
   sine_init(&sine, SINE_CFG[ACTUATOR_TYPE]);
 
   fft_cfg_t fft_cfg = {
