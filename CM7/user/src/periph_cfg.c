@@ -3,6 +3,7 @@
 #include "adc.h"
 #include "hrtim.h"
 #include "tim.h"
+#include "lptim.h"
 
 #include "ads.h"
 #include "dpt.h"
@@ -33,7 +34,7 @@ void periph_init(void) {
   HAL_ADC_Start_IT(&hadc3);
   HAL_ADCEx_InjectedStart_IT(&hadc3);
 
-  HAL_TIM_Base_Start(&htim7);
+  HAL_LPTIM_Counter_Start_IT(&hlptim1, 0xFFFF);
 }
 
 adc_raw_t get_adc(void) {
