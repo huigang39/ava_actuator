@@ -91,8 +91,8 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .psi     = 0.005002f,
             .wc      = 1500.0f,
             .j       = 1.73e-5f,
-            .cur2tor = {3e-5f, -0.0026f, 0.0824f},
-            .tor2cur = {27.904f, -13.244f, 16.183f},
+            .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
+            .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
             .max_tor = 0.747f,
         },
 };
