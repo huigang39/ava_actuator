@@ -80,15 +80,20 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .lq  = 17.5e-6f,
             .psi = 0.005301f,
             .wc  = 1500.0f,
+            .j   = 1.48e-05f,
         },
     [MOTOR_FSA3610V0] =
         {
-            .npp = 10u,
-            .rs  = 0.668f,
-            .ld  = 207.2e-6f,
-            .lq  = 376.2e-6f,
-            .psi = 0.005002f,
-            .wc  = 1500.0f,
+            .npp     = 10u,
+            .rs      = 0.668f,
+            .ld      = 207.2e-6f,
+            .lq      = 376.2e-6f,
+            .psi     = 0.005002f,
+            .wc      = 1500.0f,
+            .j       = 1.73e-5f,
+            .cur2tor = {3e-5f, -0.0026f, 0.0824f},
+            .tor2cur = {27.904f, -13.244f, 16.183f},
+            .max_tor = 0.747f,
         },
 };
 
@@ -325,6 +330,17 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
             .q     = 0.5f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
+        },
+};
+
+static const lbg_cfg_t LBG_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .wc = 500.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .wc = 500.0f,
         },
 };
 

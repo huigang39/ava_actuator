@@ -41,6 +41,7 @@ void init(void) {
   foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
   foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
   foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
+  foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
   foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
 
@@ -54,8 +55,8 @@ void foc_loop(void) {
   MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
   foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 
-  sine_exec(&sine);
-  foc.lo.ref_pvct.pos = sine.out.val;
+  // sine_exec(&sine);
+  // foc.lo.ref_pvct.pos = sine.out.val;
   fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &foc.in.i_dq.q, sizeof(f32));
 }
 
