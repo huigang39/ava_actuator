@@ -55,8 +55,8 @@ void foc_loop(void) {
   foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 
   sine_exec(&sine);
-  foc.lo.ref_pvct.vel = sine.out.val;
-  fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &sine.out.val, sizeof(f32));
+  foc.lo.ref_pvct.pos = sine.out.val;
+  fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &foc.in.i_dq.d, sizeof(f32));
 }
 
 void sched_loop(void) {

@@ -8,8 +8,12 @@ extern square_t square;
 extern fft_t    fft;
 
 extern fifo_t fft_fifo;
-extern f32    fft_fifo_buf[FFT_LEN_1024];
-extern f32    fft_in_buf[FFT_LEN_1024], fft_out_buf[FFT_LEN_1024], fft_mag_buf[FFT_LEN_1024];
+
+#define FFT_LEN FFT_LEN_4096
+extern f32 fft_fifo_buf[FFT_LEN];
+extern f32 fft_in_buf[FFT_LEN];
+extern f32 fft_out_buf[FFT_LEN];
+extern f32 fft_mag_buf[FFT_LEN];
 
 void other_init(void);
 

@@ -1,5 +1,5 @@
-#ifndef ERRCHECK_H
-#define ERRCHECK_H
+#ifndef ERR_CHECK_H
+#define ERR_CHECK_H
 
 #include "stm32h7xx.h"
 
@@ -26,4 +26,4 @@ __attribute__((optnone)) static inline u32 fpu_check(void) {
   return 0;
 }
 
-#endif // !ERRCHECK_H
+#endif // !ERR_CHECK_H

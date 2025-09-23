@@ -282,7 +282,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
-            .hfi_id    = 2.0f,
+            .hfi_id    = 1.0f,
             .id_lpf_fc = 300.0f,
             .iq_lpf_fc = 300.0f,
         },
