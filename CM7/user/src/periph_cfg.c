@@ -1,10 +1,5 @@
 #include <stdio.h>
 
-#include "adc.h"
-#include "hrtim.h"
-#include "tim.h"
-#include "lptim.h"
-
 #include "ads.h"
 #include "dpt.h"
 #include "drv8353.h"
@@ -89,6 +84,10 @@ void set_drv_8353(bool enable) {
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
+void logger_putchar(void *fp, u8 c) {
+  HAL_UART_Transmit(fp, &c, sizeof(u8), 1);
+}
+
 /* --------------------------------- printf --------------------------------- */
 #ifdef SERIAL_PRINT
 #ifndef __MICROLIB
@@ -102,7 +101,9 @@ __asm(".global __use_no_semihosting\n\t");
 FILE __stdout;
 #endif
 
-void _sys_exit(int x) { x = x; }
+void _sys_exit(int x) {
+  x = x;
+}
 
 int _ttywrch(int ch) {
   ch = ch;

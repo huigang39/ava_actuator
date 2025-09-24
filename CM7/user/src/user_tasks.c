@@ -1,6 +1,7 @@
 #include "periph_cfg.h"
 #include "startup.h"
 
+#include "addr_cfg.h"
 #include "param_cfg.h"
 
 #include "user_tasks.h"
@@ -46,7 +47,8 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
   }
 }
 
-void user_init(void) {}
+void user_init(void) {
+}
 
 void user_loop_task(void *arg) {
   set_ctl_word(&user, &foc);

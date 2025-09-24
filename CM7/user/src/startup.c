@@ -54,10 +54,6 @@ void foc_loop(void) {
   u32 elapsed = 0;
   MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
   foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
-
-  // sine_exec(&sine);
-  // foc.lo.ref_pvct.pos = sine.out.val;
-  fifo_spsc_buf_in(&fft_fifo, fft_fifo_buf, &foc.in.i_dq.q, sizeof(f32));
 }
 
 void sched_loop(void) {

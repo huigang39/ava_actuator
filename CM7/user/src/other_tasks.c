@@ -1,35 +1,48 @@
 #include "addr_cfg.h"
+#include "buffer_cfg.h"
 #include "param_cfg.h"
+#include "periph_cfg.h"
 
 #include "other_tasks.h"
 
 sine_t   sine;
 square_t square;
 fft_t    fft;
-
-fifo_t fft_fifo;
-
-AT("fft_section") f32 fft_fifo_buf[FFT_LEN];
-AT("fft_section") f32 fft_in_buf[FFT_LEN];
-AT("fft_section") f32 fft_out_buf[FFT_LEN];
-AT("fft_section") f32 fft_mag_buf[FFT_LEN];
+logger_t logger;
 
 void other_init(void) {
-  fifo_buf_init(&fft_fifo, sizeof(fft_fifo_buf), FIFO_POLICY_OVERWRITE);
-  sine_init(&sine, SINE_CFG[ACTUATOR_TYPE]);
+
+  logger_cfg_t logger_cfg = {
+      .level         = LOGGER_LEVEL_INFO,
+      .new_line_sign = '\n',
+      .fp            = &huart1,
+      .buf           = logger_buf,
+      .buf_size      = sizeof(logger_buf),
+  };
+  logger.ops.f_putchar = logger_putchar;
+  logger_init(&logger, logger_cfg);
+  logger_info(&logger, "logger init\n");
 
   fft_cfg_t fft_cfg = {
       .fs      = FOC_FREQ_HZ,
-      .buf_len = FFT_LEN,
+      .buf_len = FFT_BUF_LEN,
       .in_buf  = fft_in_buf,
       .out_buf = fft_out_buf,
       .mag_buf = fft_mag_buf,
   };
   fft_init(&fft, fft_cfg);
+  logger_info(&logger, "fft init\n");
+
+  sine_init(&sine, SINE_CFG[ACTUATOR_TYPE]);
+  logger_info(&logger, "sine init\n");
 }
 
 void fft_loop_task(void *arg) {
-  fft_exec_cpy_in(&fft, fft_fifo_buf, sizeof(fft_fifo_buf));
+  fft_exec(&fft);
+}
+
+void logger_loop_task(void *arg) {
+  logger_flush(&logger);
 }
 
 void sine_loop_task(void *arg) {

@@ -42,7 +42,9 @@
 			"xmemory": "c",
 			"xstring": "c",
 			"iosfwd": "c",
-			"task_cfg.h": "c"
+			"task_cfg.h": "c",
+			"startup.h": "c",
+			"periph_cfg.h": "c"
 		}
 	}
 }
