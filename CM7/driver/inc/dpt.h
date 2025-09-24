@@ -7,8 +7,6 @@ extern "C" {
 
 #include "module.h"
 
-#define DPT_RX_SIZE 8
-
 /* 金刚双编指令 */
 #define SET_INER_ZERO_POS_CMD     0x29 // 设置内零位
 #define SET_OUTER_ZERO_POS_CMD    0x30 // 设置外零位

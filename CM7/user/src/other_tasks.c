@@ -16,19 +16,20 @@ void other_init(void) {
       .level         = LOGGER_LEVEL_INFO,
       .new_line_sign = '\n',
       .fp            = &huart1,
-      .buf           = logger_buf,
-      .buf_size      = sizeof(logger_buf),
+      .buf           = LOGGER_BUF,
+      .buf_size      = sizeof(LOGGER_BUF),
   };
   logger.ops.f_putchar = logger_putchar;
   logger_init(&logger, logger_cfg);
   logger_info(&logger, "logger init\n");
 
   fft_cfg_t fft_cfg = {
-      .fs      = FOC_FREQ_HZ,
-      .buf_len = FFT_BUF_LEN,
-      .in_buf  = fft_in_buf,
-      .out_buf = fft_out_buf,
-      .mag_buf = fft_mag_buf,
+      .fs       = FOC_FREQ_HZ,
+      .buf_len  = FFT_BUF_LEN,
+      .fifo_buf = FFT_FIFO_BUF,
+      .in_buf   = FFT_IN_BUF,
+      .out_buf  = FFT_OUT_BUF,
+      .mag_buf  = FFT_MAG_BUF,
   };
   fft_init(&fft, fft_cfg);
   logger_info(&logger, "fft init\n");

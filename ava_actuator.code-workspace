@@ -44,7 +44,9 @@
 			"iosfwd": "c",
 			"task_cfg.h": "c",
 			"startup.h": "c",
-			"periph_cfg.h": "c"
+			"periph_cfg.h": "c",
+			"user_tasks.h": "c",
+			"other_tasks.h": "c"
 		}
 	}
 }

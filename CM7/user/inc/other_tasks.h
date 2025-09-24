@@ -6,6 +6,7 @@
 extern sine_t   sine;
 extern square_t square;
 extern fft_t    fft;
+extern logger_t logger;
 
 void other_init(void);
 

@@ -4,6 +4,8 @@
 #include "dpt.h"
 #include "drv8353.h"
 
+#include "buffer_cfg.h"
+
 #include "periph_cfg.h"
 
 void periph_init(void) {
@@ -85,40 +87,6 @@ void set_drv_8353(bool enable) {
 }
 
 void logger_putchar(void *fp, u8 c) {
-  HAL_UART_Transmit(fp, &c, sizeof(u8), 1);
+  LOGGER_PUTCHAR_BUF = c;
+  HAL_UART_Transmit_DMA(fp, &LOGGER_PUTCHAR_BUF, sizeof(LOGGER_PUTCHAR_BUF));
 }
-
-/* --------------------------------- printf --------------------------------- */
-#ifdef SERIAL_PRINT
-#ifndef __MICROLIB
-#ifdef __CC_ARM
-#pragma import(__use_no_semihosting)
-#elif defined(__clang__)
-__asm(".global __use_no_semihosting\n\t");
-// struct __FILE {
-//	int handle;
-// };
-FILE __stdout;
-#endif
-
-void _sys_exit(int x) {
-  x = x;
-}
-
-int _ttywrch(int ch) {
-  ch = ch;
-  return ch;
-}
-#endif
-
-#if defined(__GNUC__) && !defined(__clang__)
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif
-PUTCHAR_PROTOTYPE {
-  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 1);
-  return ch;
-}
-#endif
-/* --------------------------------- printf --------------------------------- */
