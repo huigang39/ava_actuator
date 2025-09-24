@@ -1,5 +1,3 @@
-#include <stdio.h>
-
 #include "ads.h"
 #include "dpt.h"
 #include "drv8353.h"
@@ -9,7 +7,7 @@
 #include "periph_cfg.h"
 
 void periph_init(void) {
-  //  drv8353_init(DRV8353_GAIN_X20);
+  // drv8353_init(DRV8353_GAIN_X20);
   dpt_init();
   ads_init();
 
@@ -86,7 +84,6 @@ void set_drv_8353(bool enable) {
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
-void logger_putchar(void *fp, u8 c) {
-  LOGGER_PUTCHAR_BUF = c;
-  HAL_UART_Transmit_DMA(fp, &LOGGER_PUTCHAR_BUF, sizeof(LOGGER_PUTCHAR_BUF));
+void logger_uart_flush(void *fp, const u8 *data, size_t size) {
+  HAL_UART_Transmit_DMA(fp, data, size);
 }
