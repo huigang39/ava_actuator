@@ -11,11 +11,10 @@ fft_t    fft;
 logger_t logger;
 
 void other_init(void) {
-
   logger_cfg_t logger_cfg = {
       .level         = LOGGER_LEVEL_INFO,
       .new_line_sign = '\n',
-      .fp            = &huart3,
+      .fp            = &huart1,
       .fifo_buf      = LOGGER_FIFO_BUF,
       .fifo_buf_size = sizeof(LOGGER_FIFO_BUF),
       .line_buf      = LOGGER_LINE_BUF,
