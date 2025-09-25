@@ -84,8 +84,6 @@ void set_drv_8353(bool enable) {
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
-void logger_uart_putc(u8 c, void *fp) {
-  LOGGER_PUTC_BUF = c;
-  HAL_UART_Transmit_DMA(fp, &LOGGER_PUTC_BUF, sizeof(LOGGER_PUTC_BUF));
-  // HAL_UART_Transmit(fp, &LOGGER_PUTC_BUF, sizeof(LOGGER_PUTC_BUF), HAL_MAX_DELAY);
+void logger_uart_tx(void *fp, const u8 *data, size_t size) {
+  HAL_UART_Transmit_DMA(fp, data, size);
 }

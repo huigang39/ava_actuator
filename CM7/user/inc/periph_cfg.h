@@ -17,6 +17,6 @@ void      set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
 void      set_drv(bool enable);
 void      set_drv_8353(bool enable);
 
-void logger_uart_putc(u8 c, void *fp);
+void logger_uart_tx(void *fp, const u8 *data, size_t size);
 
 #endif // !PERIPH_CFG_H

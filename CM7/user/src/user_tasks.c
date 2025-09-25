@@ -51,7 +51,7 @@ void user_init(void) {
 }
 
 void user_loop_task(void *arg) {
-  logger_info(&logger, "user loop: %u\n", fifo_get_free(&logger.lo.fifo));
+  logger_info(&logger, "user loop!\n");
   set_ctl_word(&user, &foc);
   set_ctl_mode(&user, &foc);
 }

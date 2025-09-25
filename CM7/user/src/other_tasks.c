@@ -1,4 +1,5 @@
 #include "buffer_cfg.h"
+#include "logger/logger.h"
 #include "param_cfg.h"
 #include "periph_cfg.h"
 
@@ -11,13 +12,16 @@ logger_t logger;
 
 void other_init(void) {
   logger_cfg_t logger_cfg = {
+      .mode          = LOGGER_ASYNC,
       .level         = LOGGER_LEVEL_INFO,
       .new_line_sign = '\n',
       .fp            = &huart1,
       .fifo_buf      = LOGGER_FIFO_BUF,
       .fifo_buf_size = sizeof(LOGGER_FIFO_BUF),
+      .tx_buf        = LOGGER_TX_BUF,
+      .tx_buf_size   = sizeof(LOGGER_TX_BUF),
   };
-  logger.ops.f_putc = logger_uart_putc;
+  logger.ops.f_tx = logger_uart_tx;
   logger_init(&logger, logger_cfg);
   logger_info(&logger, "logger init\n");
 
@@ -41,7 +45,7 @@ void fft_loop_task(void *arg) {
 }
 
 void logger_loop_task(void *arg) {
-//  logger_flush(&logger);
+  logger_flush(&logger);
 }
 
 void sine_loop_task(void *arg) {
@@ -53,6 +57,6 @@ void square_loop_task(void *arg) {
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-  if (huart == logger.cfg.fp)
+  if (huart == (UART_HandleTypeDef *)logger.cfg.fp)
     logger.lo.busy = false;
 }
