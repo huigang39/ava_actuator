@@ -4,14 +4,13 @@
 #include "module.h"
 
 #define DPT_RX_BUF_SIZE      8
-#define LOGGER_LINE_BUF_SIZE 128
 #define LOGGER_FIFO_BUF_SIZE (8 * 1024)
 #define FFT_POINT_NUM        FFT_POINT_4096
 
 extern u8 DPT_TX_BUF;
 extern u8 DPT_RX_BUF[DPT_RX_BUF_SIZE];
 
-extern u8 LOGGER_LINE_BUF[LOGGER_LINE_BUF_SIZE];
+extern u8 LOGGER_PUTC_BUF;
 extern u8 LOGGER_FIFO_BUF[LOGGER_FIFO_BUF_SIZE];
 
 extern f32 FFT_FIFO_BUF[FFT_POINT_NUM];

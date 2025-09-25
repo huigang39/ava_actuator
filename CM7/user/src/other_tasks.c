@@ -17,10 +17,8 @@ void other_init(void) {
       .fp            = &huart1,
       .fifo_buf      = LOGGER_FIFO_BUF,
       .fifo_buf_size = sizeof(LOGGER_FIFO_BUF),
-      .line_buf      = LOGGER_LINE_BUF,
-      .line_buf_size = sizeof(LOGGER_LINE_BUF),
   };
-  logger.ops.f_flush = logger_uart_flush;
+  logger.ops.f_putc = logger_uart_putc;
   logger_init(&logger, logger_cfg);
   logger_info(&logger, "logger init\n");
 

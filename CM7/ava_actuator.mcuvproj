@@ -45,7 +45,7 @@ log_directory =
 [var0]
 name = FOC_CFG[0].vel_cfg.ki
 tracked_name = FOC_CFG[0].vel_cfg.ki
-address = 134304012
+address = 134303948
 type = 7
 color = 2870769216
 should_update_from_elf = true
@@ -58,7 +58,7 @@ do_not_interpret_as_enum = false
 [var1]
 name = FOC_CFG[0].vel_cfg.kp
 tracked_name = FOC_CFG[0].vel_cfg.kp
-address = 134304008
+address = 134303944
 type = 7
 color = 3078856387
 should_update_from_elf = true
