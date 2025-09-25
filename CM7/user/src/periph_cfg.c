@@ -93,8 +93,8 @@ void set_drv_8353(bool enable) {
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
-volatile u64 timer_overflow = 0;
-u64          get_ts_us(void) {
+u64 timer_overflow;
+u64 get_ts_us(void) {
   u16 us_cnt = HAL_LPTIM_ReadCounter(timer);
   return (timer_overflow << 16) + us_cnt;
 }
