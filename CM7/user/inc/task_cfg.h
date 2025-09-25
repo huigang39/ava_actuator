@@ -28,7 +28,7 @@ static const sched_task_cfg_t task_list[] = {
         {
             .id           = TASK_LOGGER,
             .priority     = 1,
-            .exec_freq    = 10000,
+            .exec_freq    = 1000,
             .delay        = 0,
             .exec_cnt_max = 0,
             .f_cb         = logger_loop_task,

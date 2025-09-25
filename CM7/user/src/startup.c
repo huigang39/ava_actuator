@@ -11,11 +11,6 @@ sched_t sched;
 
 // benchmark_t benchmark_res[30];
 
-static inline u64 get_ts_us(void) {
-  u64 ts_us = foc.lo.exec_cnt * HZ_TO_US(foc.cfg.exec_freq);
-  return ts_us;
-}
-
 static inline void cpy_vtor_to_itcm(void) {
   const u32 *src = (u32 *)FLASH_BANK1_BASE;
   u32       *dst = (u32 *)D1_ITCMRAM_BASE;
@@ -31,6 +26,10 @@ void init(void) {
 
   periph_init();
 
+  sched.ops.f_get_ts = get_ts_us;
+  sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
+  task_init(&sched);
+
   foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
   foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
   foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
@@ -41,10 +40,6 @@ void init(void) {
   foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
   foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
   foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
-
-  sched.ops.f_get_ts = get_ts_us;
-  sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
-  task_init(&sched);
 }
 
 void foc_loop(void) {

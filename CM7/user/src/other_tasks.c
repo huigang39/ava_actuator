@@ -12,16 +12,17 @@ logger_t logger;
 
 void other_init(void) {
   logger_cfg_t logger_cfg = {
-      .mode          = LOGGER_ASYNC,
-      .level         = LOGGER_LEVEL_INFO,
-      .new_line_sign = '\n',
-      .fp            = &huart1,
+      .e_mode        = LOGGER_ASYNC,
+      .e_level       = LOGGER_LEVEL_INFO,
+      .end_sign      = '\n',
+      .fp            = logger_uart,
       .fifo_buf      = LOGGER_FIFO_BUF,
       .fifo_buf_size = sizeof(LOGGER_FIFO_BUF),
       .tx_buf        = LOGGER_TX_BUF,
       .tx_buf_size   = sizeof(LOGGER_TX_BUF),
   };
-  logger.ops.f_tx = logger_uart_tx;
+  logger.ops.f_get_ts = get_ts_us;
+  logger.ops.f_tx     = logger_uart_tx;
   logger_init(&logger, logger_cfg);
   logger_info(&logger, "logger init\n");
 
@@ -54,9 +55,4 @@ void sine_loop_task(void *arg) {
 
 void square_loop_task(void *arg) {
   square_exec(&square);
-}
-
-void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-  if (huart == (UART_HandleTypeDef *)logger.cfg.fp)
-    logger.lo.busy = false;
 }

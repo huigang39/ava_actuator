@@ -9,17 +9,10 @@
 #define MCU_FREQ_MHZ (400U)
 
 // #define FOC_FREQ_HZ  (K(50.0F))
-#define FOC_FREQ_HZ      (K(20.0F))
+#define FOC_FREQ_HZ   (K(20.0F))
+#define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE    ACTUATOR_FSA361480Z
-
-#define USER_FREQ_HZ     (K(1.0F))
-#define USER_FREQ_DIV_1  (1U)
-#define USER_FREQ_DIV_2  (2U)
-#define USER_FREQ_DIV_4  (4U)
-#define USER_FREQ_DIV_8  (8U)
-#define USER_FREQ_DIV_16 (16U)
-#define USER_FREQ_DIV_32 (32U)
+#define ACTUATOR_TYPE ACTUATOR_FSA361480Z
 
 typedef enum {
   ACTUATOR_FSA50N24E,
@@ -44,13 +37,11 @@ typedef struct {
 static const sched_cfg_t SCHED_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .exec_freq = USER_FREQ_HZ,
-            .type      = SCHED_TYPE_CFS,
+            .type = SCHED_TYPE_CFS,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .exec_freq = USER_FREQ_HZ,
-            .type      = SCHED_TYPE_CFS,
+            .type = SCHED_TYPE_CFS,
         },
 };
 

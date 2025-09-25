@@ -11,7 +11,6 @@ void task_init(sched_t *sched) {
 
   sched_set_task_state(sched, TASK_USER, SCHED_TASK_STATE_READY);
   sched_set_task_state(sched, TASK_LOGGER, SCHED_TASK_STATE_READY);
-
   // sched_set_task_state(sched, TASK_FFT, SCHED_TASK_STATE_READY);
   // sched_set_task_state(sched, TASK_SINE, SCHED_TASK_STATE_READY);
 }
