@@ -2,7 +2,6 @@
 
 #include "module.h"
 
-#include "addr_cfg.h"
 #include "buffer_cfg.h"
 #include "dpt.h"
 

@@ -51,7 +51,7 @@ void foc_loop(void) {
   u32 elapsed = 0;
   MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
   foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
-  logger_info(&logger, "foc_loop: %u\n", foc.lo.exec_cnt);
+  // logger_info(&logger, "foc_loop: %u\n", foc.lo.exec_cnt);
 }
 
 void sched_loop(void) {

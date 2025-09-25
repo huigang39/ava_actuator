@@ -1,5 +1,3 @@
-#include "addr_cfg.h"
-
 #include "buffer_cfg.h"
 
 AT("sensor_section") u8 DPT_TX_BUF;

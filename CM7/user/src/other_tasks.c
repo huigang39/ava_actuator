@@ -1,4 +1,3 @@
-#include "addr_cfg.h"
 #include "buffer_cfg.h"
 #include "param_cfg.h"
 #include "periph_cfg.h"
@@ -42,7 +41,7 @@ void fft_loop_task(void *arg) {
 }
 
 void logger_loop_task(void *arg) {
-  logger_flush(&logger);
+//  logger_flush(&logger);
 }
 
 void sine_loop_task(void *arg) {
@@ -51,4 +50,9 @@ void sine_loop_task(void *arg) {
 
 void square_loop_task(void *arg) {
   square_exec(&square);
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+  if (huart == logger.cfg.fp)
+    logger.lo.busy = false;
 }

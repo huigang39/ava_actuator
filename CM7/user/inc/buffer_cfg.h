@@ -4,7 +4,7 @@
 #include "module.h"
 
 #define DPT_RX_BUF_SIZE      8
-#define LOGGER_FIFO_BUF_SIZE (8 * 1024)
+#define LOGGER_FIFO_BUF_SIZE (1 * 1024)
 #define FFT_POINT_NUM        FFT_POINT_4096
 
 extern u8 DPT_TX_BUF;

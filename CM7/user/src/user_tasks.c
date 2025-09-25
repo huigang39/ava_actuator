@@ -1,7 +1,7 @@
 #include "periph_cfg.h"
 #include "startup.h"
 
-#include "addr_cfg.h"
+#include "other_tasks.h"
 #include "param_cfg.h"
 
 #include "user_tasks.h"
@@ -51,6 +51,7 @@ void user_init(void) {
 }
 
 void user_loop_task(void *arg) {
+  logger_info(&logger, "user loop: %u\n", fifo_get_free(&logger.lo.fifo));
   set_ctl_word(&user, &foc);
   set_ctl_mode(&user, &foc);
 }

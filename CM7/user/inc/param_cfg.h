@@ -168,7 +168,6 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
 static const pid_cfg_t PD_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fs         = FOC_FREQ_HZ,
             .kp         = 0.01f,
             .kd         = 0.001f,
             .ki_out_max = 1000.0f,
@@ -176,7 +175,6 @@ static const pid_cfg_t PD_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fs         = FOC_FREQ_HZ,
             .kp         = 0.01f,
             .kd         = 0.001f,
             .ki_out_max = 1000.0f,
@@ -187,17 +185,15 @@ static const pid_cfg_t PD_CFG[] = {
 static const pid_cfg_t VEL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fs         = FOC_FREQ_HZ,
-            .kp         = 0.001f,
-            .ki         = 0.1f,
+            .kp         = 0.05f,
+            .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fs         = FOC_FREQ_HZ,
-            .kp         = 0.001f,
-            .ki         = 0.1f,
+            .kp         = 0.05f,
+            .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
@@ -206,7 +202,6 @@ static const pid_cfg_t VEL_CFG[] = {
 static const pid_cfg_t POS_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fs         = FOC_FREQ_HZ,
             .kp         = 1.0f,
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
@@ -214,7 +209,6 @@ static const pid_cfg_t POS_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fs         = FOC_FREQ_HZ,
             .kp         = 1.0f,
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
@@ -235,6 +229,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .vel_cfg                = VEL_CFG[ACTUATOR_FSA50N24E],
             .pos_cfg                = POS_CFG[ACTUATOR_FSA50N24E],
             .pd_cfg                 = PD_CFG[ACTUATOR_FSA50N24E],
+            .cur_div                = 1u,
+            .vel_div                = 5u,
+            .pos_div                = 10u,
+            .pd_div                 = 5u,
         },
     [ACTUATOR_FSA361480Z] =
         {
@@ -248,6 +246,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .vel_cfg                = VEL_CFG[ACTUATOR_FSA361480Z],
             .pos_cfg                = POS_CFG[ACTUATOR_FSA361480Z],
             .pd_cfg                 = PD_CFG[ACTUATOR_FSA361480Z],
+            .cur_div                = 1u,
+            .vel_div                = 5u,
+            .pos_div                = 10u,
+            .pd_div                 = 5u,
         },
 };
 
@@ -342,7 +344,7 @@ static const lbg_cfg_t LBG_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc   = 500.0f * TAU,
+            .wc   = 100.0f * TAU,
             .damp = 2.0f,
         },
 };
