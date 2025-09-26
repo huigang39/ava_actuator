@@ -49,9 +49,9 @@ void set_ctl_mode(user_t *user, foc_t *foc) {
 
 void user_init(void) {
 }
-u32 cnt;
+
 void user_loop_task(void *arg) {
-  logger_info(&logger, "user loop: %u\n", cnt++);
+  logger_info(&logger, "user loop\n");
   set_ctl_word(&user, &foc);
   set_ctl_mode(&user, &foc);
 }

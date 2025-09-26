@@ -6,14 +6,13 @@
 
 #include "periph_cfg.h"
 
-ADC_HandleTypeDef   *adc1 = &hadc1;
-ADC_HandleTypeDef   *adc2 = &hadc2;
-ADC_HandleTypeDef   *adc3 = &hadc3;
-HRTIM_HandleTypeDef *pwm  = &hhrtim;
-
+ADC_HandleTypeDef   *adc1        = &hadc1;
+ADC_HandleTypeDef   *adc2        = &hadc2;
+ADC_HandleTypeDef   *adc3        = &hadc3;
+HRTIM_HandleTypeDef *pwm         = &hhrtim;
 LPTIM_HandleTypeDef *timer       = &hlptim1;
 UART_HandleTypeDef  *sensor_uart = &huart2;
-UART_HandleTypeDef  *logger_uart = &huart3;
+UART_HandleTypeDef  *logger_uart = &huart1;
 
 void periph_init(void) {
   // drv8353_init(DRV8353_GAIN_X20);

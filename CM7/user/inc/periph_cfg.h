@@ -13,7 +13,6 @@ extern ADC_HandleTypeDef   *adc1;
 extern ADC_HandleTypeDef   *adc2;
 extern ADC_HandleTypeDef   *adc3;
 extern HRTIM_HandleTypeDef *pwm;
-
 extern LPTIM_HandleTypeDef *timer;
 extern UART_HandleTypeDef  *sensor_uart;
 extern UART_HandleTypeDef  *logger_uart;
