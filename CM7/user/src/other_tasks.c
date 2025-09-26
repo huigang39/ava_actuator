@@ -13,7 +13,7 @@ logger_t logger;
 void other_init(void) {
   logger_cfg_t logger_cfg = {
       .e_mode        = LOGGER_ASYNC_SPSC,
-      .e_policy      = FIFO_POLICY_DISCARD,
+      .e_policy      = FIFO_POLICY_REJECT,
       .e_level       = LOGGER_LEVEL_INFO,
       .end_sign      = '\n',
       .fp            = logger_uart,
