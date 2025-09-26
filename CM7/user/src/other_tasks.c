@@ -1,4 +1,5 @@
 #include "buffer_cfg.h"
+#include "container/fifo.h"
 #include "logger/logger.h"
 #include "param_cfg.h"
 #include "periph_cfg.h"
@@ -12,15 +13,16 @@ logger_t logger;
 
 void other_init(void) {
   logger_cfg_t logger_cfg = {
-      .e_mode        = LOGGER_ASYNC_SPSC,
-      .e_policy      = FIFO_POLICY_REJECT,
-      .e_level       = LOGGER_LEVEL_INFO,
-      .end_sign      = '\n',
-      .fp            = logger_uart,
-      .fifo_buf      = LOGGER_FIFO_BUF,
-      .fifo_buf_size = sizeof(LOGGER_FIFO_BUF),
-      .tx_buf        = LOGGER_TX_BUF,
-      .tx_buf_size   = sizeof(LOGGER_TX_BUF),
+      .e_logger_mode  = LOGGER_ASYNC,
+      .e_logger_level = LOGGER_LEVEL_INFO,
+      .e_fifo_mode    = FIFO_MODE_MPSC,
+      .e_fifo_policy  = FIFO_POLICY_REJECT,
+      .end_sign       = '\n',
+      .fp             = logger_uart,
+      .fifo_buf       = LOGGER_FIFO_BUF,
+      .fifo_buf_size  = sizeof(LOGGER_FIFO_BUF),
+      .tx_buf         = LOGGER_TX_BUF,
+      .tx_buf_size    = sizeof(LOGGER_TX_BUF),
   };
   logger.ops.f_get_ts = get_ts_us;
   logger.ops.f_tx     = logger_uart_tx;
