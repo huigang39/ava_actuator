@@ -51,7 +51,7 @@ void user_init(void) {
 }
 
 void user_loop_task(void *arg) {
-  logger_info(&logger, "user loop\n");
+  logger_info(&logger, 1, "user loop\n");
   set_ctl_word(&user, &foc);
   set_ctl_mode(&user, &foc);
 }

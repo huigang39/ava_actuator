@@ -82,12 +82,12 @@ void set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty) {
   set_pwm(pwm_full_cnt, u32_pwm_duty_sv);
 }
 
-void set_drv(bool enable) {
+void set_drv(u8 enable) {
   enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET)
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET);
 }
 
-void set_drv_8353(bool enable) {
+void set_drv_8353(u8 enable) {
   enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET)
          : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
@@ -101,11 +101,11 @@ u64 get_ts_us(void) {
 void HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim) {
   if (hlptim == timer)
     timer_overflow++;
-  logger_info(&logger, "lptim overflow\n");
+//  logger_info(&logger, 0, "lptim overflow\n");
 }
 
-void logger_uart_tx(void *uart, const u8 *data, size_t size) {
-  HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, data, size);
+void logger_uart_tx(void *uart, const u8 *src, size_t nbytes) {
+  HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, src, nbytes);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
