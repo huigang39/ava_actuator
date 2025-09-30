@@ -101,7 +101,7 @@ u64 get_ts_us(void) {
 void HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim) {
   if (hlptim == timer)
     timer_overflow++;
-//  logger_info(&logger, 0, "lptim overflow\n");
+  logger_info(&logger, 0, "lptim overflow\n");
 }
 
 void logger_uart_tx(void *uart, const u8 *src, size_t nbytes) {
