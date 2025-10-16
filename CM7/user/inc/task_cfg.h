@@ -34,26 +34,26 @@ static const sched_task_cfg_t TASK_LIST[] = {
             .f_cb         = logger_loop_task,
             .arg          = NULL,
         },
-//     [TASK_FFT] =
-//         {
-//             .id           = TASK_FFT,
-//             .priority     = 1,
-//             .exec_freq    = 1000,
-//             .delay_tick   = 0,
-//             .exec_cnt_max = 0,
-//             .f_cb         = fft_loop_task,
-//             .arg          = NULL,
-//         },
-//     [TASK_SINE] =
-//         {
-//             .id           = TASK_SINE,
-//             .priority     = 1,
-//             .exec_freq    = 1000,
-//             .delay_tick   = 0,
-//             .exec_cnt_max = 0,
-//             .f_cb         = sine_loop_task,
-//             .arg          = NULL,
-//         },
+    //     [TASK_FFT] =
+    //         {
+    //             .id           = TASK_FFT,
+    //             .priority     = 1,
+    //             .exec_freq    = 1000,
+    //             .delay_tick   = 0,
+    //             .exec_cnt_max = 0,
+    //             .f_cb         = fft_loop_task,
+    //             .arg          = NULL,
+    //         },
+    //     [TASK_SINE] =
+    //         {
+    //             .id           = TASK_SINE,
+    //             .priority     = 1,
+    //             .exec_freq    = 1000,
+    //             .delay_tick   = 0,
+    //             .exec_cnt_max = 0,
+    //             .f_cb         = sine_loop_task,
+    //             .arg          = NULL,
+    //         },
 };
 
 void task_init(sched_t *sched);

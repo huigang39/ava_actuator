@@ -3,8 +3,8 @@
 
 #include "module.h"
 
-extern foc_t   foc;
-extern sched_t sched;
+extern foc_t   g_foc;
+extern sched_t g_sched;
 
 // extern benchmark_t benchmark_res[30];
 

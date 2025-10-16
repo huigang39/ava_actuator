@@ -24,7 +24,7 @@ void dpt_init(void);
 u32  dpt_get_inner_raw(void);
 f32  dpt_get_inner_theta(void);
 
-extern UART_HandleTypeDef *sensor_uart;
+extern UART_HandleTypeDef *g_sensor_uart;
 
 #ifdef __cplusplus
 }

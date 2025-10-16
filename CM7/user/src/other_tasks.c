@@ -4,9 +4,9 @@
 
 #include "other_tasks.h"
 
-sine_t   sine;
-square_t square;
-fft_t    fft;
+sine_t   g_sine;
+square_t g_square;
+fft_t    g_fft;
 log_t    g_log;
 
 void other_init(void) {
@@ -14,7 +14,7 @@ void other_init(void) {
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
             .end_sign   = '\n',
-            .fp         = logger_uart,
+            .fp         = g_log_uart,
             .buf        = LOG_BUF,
             .cap        = sizeof(LOG_BUF),
             .producers  = LOG_PRODUCERS,
@@ -35,15 +35,15 @@ void other_init(void) {
             .out_buf   = FFT_OUT_BUF,
             .mag_buf   = FFT_MAG_BUF,
         };
-        fft_init(&fft, fft_cfg);
+        fft_init(&g_fft, fft_cfg);
         log_info(&g_log, 1, "fft init\n");
 
-        sine_init(&sine, SINE_CFG[ACTUATOR_TYPE]);
-        log_info(&g_log, 1, "sine init\n");
+        sine_init(&g_sine, SINE_CFG[ACTUATOR_TYPE]);
+        log_info(&g_log, 1, "g_sine init\n");
 }
 
 void fft_loop_task(void *arg) {
-        fft_exec(&fft);
+        fft_exec(&g_fft);
 }
 
 void logger_loop_task(void *arg) {
@@ -51,9 +51,9 @@ void logger_loop_task(void *arg) {
 }
 
 void sine_loop_task(void *arg) {
-        sine_exec(&sine);
+        sine_exec(&g_sine);
 }
 
 void square_loop_task(void *arg) {
-        square_exec(&square);
+        square_exec(&g_square);
 }

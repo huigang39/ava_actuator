@@ -6,8 +6,8 @@
 
 #include "startup.h"
 
-foc_t   foc;
-sched_t sched;
+foc_t   g_foc;
+sched_t g_sched;
 
 // benchmark_t benchmark_res[30];
 
@@ -26,30 +26,30 @@ void init(void) {
 
         periph_init();
 
-        sched.ops.f_get_ts = get_ts_us;
-        sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
-        task_init(&sched);
+        g_sched.ops.f_get_ts = get_ts_us;
+        sched_init(&g_sched, SCHED_CFG[ACTUATOR_TYPE]);
+        task_init(&g_sched);
 
-        foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
-        foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
-        foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
-        foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-        foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-        foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
-        foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
-        foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
-        foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
-        foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
+        g_foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
+        g_foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+        g_foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
+        g_foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
+        g_foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
+        g_foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
+        foc_init(&g_foc, FOC_CFG[ACTUATOR_TYPE]);
 }
 
 void foc_loop(void) {
         u32 elapsed = 0;
-        MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
-        foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
+        g_foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }
 
 void sched_loop(void) {
         u32 elapsed = 0;
-        MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&sched); };);
-        sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&g_sched); };);
+        g_sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }

@@ -6,7 +6,7 @@
 
 #include "user_tasks.h"
 
-user_t user;
+user_t g_user;
 
 void set_ctl_word(user_t *user, foc_t *foc) {
         DECL_PTRS(foc, lo);
@@ -61,6 +61,6 @@ void user_loop_task(void *arg) {
         ARG_UNUSED(arg);
 
         log_info(&g_log, 1, "user loop\n");
-        set_ctl_word(&user, &foc);
-        set_ctl_mode(&user, &foc);
+        set_ctl_word(&g_user, &g_foc);
+        set_ctl_mode(&g_user, &g_foc);
 }

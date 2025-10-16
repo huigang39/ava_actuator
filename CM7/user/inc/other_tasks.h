@@ -3,9 +3,9 @@
 
 #include "module.h"
 
-extern sine_t   sine;
-extern square_t square;
-extern fft_t    fft;
+extern sine_t   g_sine;
+extern square_t g_square;
+extern fft_t    g_fft;
 extern log_t    g_log;
 
 void other_init(void);

@@ -6,48 +6,48 @@
 
 #include "periph_cfg.h"
 
-ADC_HandleTypeDef   *adc1        = &hadc1;
-ADC_HandleTypeDef   *adc2        = &hadc2;
-ADC_HandleTypeDef   *adc3        = &hadc3;
-HRTIM_HandleTypeDef *pwm         = &hhrtim;
-LPTIM_HandleTypeDef *timer       = &hlptim1;
-UART_HandleTypeDef  *sensor_uart = &huart2;
-UART_HandleTypeDef  *logger_uart = &huart1;
+ADC_HandleTypeDef   *g_adc1        = &hadc1;
+ADC_HandleTypeDef   *g_adc2        = &hadc2;
+ADC_HandleTypeDef   *g_adc3        = &hadc3;
+HRTIM_HandleTypeDef *g_pwm         = &hhrtim;
+LPTIM_HandleTypeDef *g_timer       = &hlptim1;
+UART_HandleTypeDef  *g_sensor_uart = &huart2;
+UART_HandleTypeDef  *g_log_uart    = &huart1;
 
 void periph_init(void) {
         // drv8353_init(DRV8353_GAIN_X20);
         dpt_init();
         ads_init();
 
-        HAL_HRTIM_WaveformCounterStart(pwm,
+        HAL_HRTIM_WaveformCounterStart(g_pwm,
                                        HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A |
                                            HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
-        HAL_HRTIM_WaveformOutputStart(pwm,
+        HAL_HRTIM_WaveformOutputStart(g_pwm,
                                       HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB1 |
                                           HRTIM_OUTPUT_TB2 | HRTIM_OUTPUT_TC1 | HRTIM_OUTPUT_TC2);
-        HAL_HRTIM_SimpleBaseStart_IT(pwm, HRTIM_TIMERINDEX_MASTER);
+        HAL_HRTIM_SimpleBaseStart_IT(g_pwm, HRTIM_TIMERINDEX_MASTER);
 
-        HAL_ADC_Start(adc1);
-        HAL_ADC_Start_IT(adc1);
-        HAL_ADCEx_InjectedStart_IT(adc1);
-        HAL_ADC_Start(adc2);
-        HAL_ADC_Start_IT(adc2);
-        HAL_ADCEx_InjectedStart_IT(adc2);
-        HAL_ADC_Start(adc3);
-        HAL_ADC_Start_IT(adc3);
-        HAL_ADCEx_InjectedStart_IT(adc3);
+        HAL_ADC_Start(g_adc1);
+        HAL_ADC_Start_IT(g_adc1);
+        HAL_ADCEx_InjectedStart_IT(g_adc1);
+        HAL_ADC_Start(g_adc2);
+        HAL_ADC_Start_IT(g_adc2);
+        HAL_ADCEx_InjectedStart_IT(g_adc2);
+        HAL_ADC_Start(g_adc3);
+        HAL_ADC_Start_IT(g_adc3);
+        HAL_ADCEx_InjectedStart_IT(g_adc3);
 
-        HAL_LPTIM_Counter_Start_IT(timer, 0xFFFF);
+        HAL_LPTIM_Counter_Start_IT(g_timer, 0xFFFF);
 }
 
 adc_raw_t get_adc(void) {
         adc_raw_t adc_raw = {0};
 
-        adc_raw.i32_i_uvw.u = adc1->Instance->JDR1;
-        adc_raw.i32_i_uvw.v = adc2->Instance->JDR1;
-        adc_raw.i32_i_uvw.w = adc3->Instance->JDR1;
+        adc_raw.i32_i_uvw.u = g_adc1->Instance->JDR1;
+        adc_raw.i32_i_uvw.v = g_adc2->Instance->JDR1;
+        adc_raw.i32_i_uvw.w = g_adc3->Instance->JDR1;
 
-        adc_raw.i32_v_bus = adc1->Instance->JDR2;
+        adc_raw.i32_v_bus = g_adc1->Instance->JDR2;
 
         return adc_raw;
 }
@@ -92,15 +92,15 @@ void set_drv_8353(u8 enable) {
                : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
-u64 timer_overflow;
+u64 g_timer_overflow;
 u64 get_ts_us(void) {
-        u16 us_cnt = HAL_LPTIM_ReadCounter(timer);
-        return (timer_overflow << 16) + us_cnt;
+        u16 us_cnt = HAL_LPTIM_ReadCounter(g_timer);
+        return (g_timer_overflow << 16) + us_cnt;
 }
 
 void HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim) {
-        if (hlptim == timer)
-                timer_overflow++;
+        if (hlptim == g_timer)
+                g_timer_overflow++;
         log_info(&g_log, 0, "lptim overflow\n");
 }
 

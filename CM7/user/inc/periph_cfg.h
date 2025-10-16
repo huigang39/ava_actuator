@@ -9,13 +9,13 @@
 
 #include "module.h"
 
-extern ADC_HandleTypeDef   *adc1;
-extern ADC_HandleTypeDef   *adc2;
-extern ADC_HandleTypeDef   *adc3;
-extern HRTIM_HandleTypeDef *pwm;
-extern LPTIM_HandleTypeDef *timer;
-extern UART_HandleTypeDef  *sensor_uart;
-extern UART_HandleTypeDef  *logger_uart;
+extern ADC_HandleTypeDef   *g_adc1;
+extern ADC_HandleTypeDef   *g_adc2;
+extern ADC_HandleTypeDef   *g_adc3;
+extern HRTIM_HandleTypeDef *g_pwm;
+extern LPTIM_HandleTypeDef *g_timer;
+extern UART_HandleTypeDef  *g_sensor_uart;
+extern UART_HandleTypeDef  *g_log_uart;
 
 extern log_t g_log;
 

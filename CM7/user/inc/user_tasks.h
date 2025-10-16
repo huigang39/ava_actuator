@@ -21,7 +21,7 @@ typedef struct {
         ctl_mode_e ctl_mode;
 } user_t;
 
-extern user_t user;
+extern user_t g_user;
 
 void set_ctl_word(user_t *user, foc_t *foc);
 void set_ctl_mode(user_t *user, foc_t *foc);
