@@ -12,44 +12,44 @@ sched_t sched;
 // benchmark_t benchmark_res[30];
 
 static inline void cpy_vtor_to_itcm(void) {
-  const u32 *src = (u32 *)FLASH_BANK1_BASE;
-  u32       *dst = (u32 *)D1_ITCMRAM_BASE;
-  memcpy(dst, src, 0x400);
-  SCB->VTOR = D1_ITCMRAM_BASE;
+        const u32 *src = (u32 *)FLASH_BANK1_BASE;
+        u32       *dst = (u32 *)D1_ITCMRAM_BASE;
+        memcpy(dst, src, 0x400);
+        SCB->VTOR = D1_ITCMRAM_BASE;
 }
 
 void init(void) {
-  // cpy_vtor_to_itcm();
+        // cpy_vtor_to_itcm();
 
-  DWT_INIT();
-  // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
+        DWT_INIT();
+        // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
 
-  periph_init();
+        periph_init();
 
-  sched.ops.f_get_ts = get_ts_us;
-  sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
-  task_init(&sched);
+        sched.ops.f_get_ts = get_ts_us;
+        sched_init(&sched, SCHED_CFG[ACTUATOR_TYPE]);
+        task_init(&sched);
 
-  foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
-  foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
-  foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
-  foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-  foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-  foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
-  foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
-  foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
-  foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
-  foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
+        foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
+        foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
+        foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
+        foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+        foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
+        foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
+        foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
+        foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
+        foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
+        foc_init(&foc, FOC_CFG[ACTUATOR_TYPE]);
 }
 
 void foc_loop(void) {
-  u32 elapsed = 0;
-  MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
-  foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        u32 elapsed = 0;
+        MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&foc); }); });
+        foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }
 
 void sched_loop(void) {
-  u32 elapsed = 0;
-  MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&sched); };);
-  sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        u32 elapsed = 0;
+        MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&sched); };);
+        sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }

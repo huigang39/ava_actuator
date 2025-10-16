@@ -15,33 +15,33 @@
 #define ACTUATOR_TYPE ACTUATOR_FSA361480Z
 
 typedef enum {
-  ACTUATOR_FSA50N24E,
-  ACTUATOR_FSA361480Z,
+        ACTUATOR_FSA50N24E,
+        ACTUATOR_FSA361480Z,
 } actuator_type_e;
 
 typedef enum {
-  MOTOR_FSA50NV3,
-  MOTOR_FSA3610V0,
+        MOTOR_FSA50NV3,
+        MOTOR_FSA3610V0,
 } motor_type_e;
 
 typedef enum {
-  PERIPH_F3H58V101,
-  PERIPH_F2H46V100,
+        PERIPH_F3H58V101,
+        PERIPH_F2H46V100,
 } periph_type_e;
 
 typedef struct {
-  motor_type_e  motor_type;
-  periph_type_e periph_type;
+        motor_type_e  motor_type;
+        periph_type_e periph_type;
 } actuator_cfg_t;
 
 static const sched_cfg_t SCHED_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .type = SCHED_TYPE_CFS,
+            .e_type = SCHED_TYPE_CFS,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .type = SCHED_TYPE_CFS,
+            .e_type = SCHED_TYPE_CFS,
         },
 };
 

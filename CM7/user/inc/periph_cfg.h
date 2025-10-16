@@ -17,7 +17,7 @@ extern LPTIM_HandleTypeDef *timer;
 extern UART_HandleTypeDef  *sensor_uart;
 extern UART_HandleTypeDef  *logger_uart;
 
-extern logger_t logger;
+extern log_t g_log;
 
 void periph_init(void);
 
@@ -28,6 +28,6 @@ void      set_drv(u8 enable);
 void      set_drv_8353(u8 enable);
 
 u64  get_ts_us(void);
-void logger_uart_tx(void *uart, const u8 *data, size_t size);
+void log_uart_tx(void *uart, const u8 *data, size_t size);
 
 #endif // !PERIPH_CFG_H

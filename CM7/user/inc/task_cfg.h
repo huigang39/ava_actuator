@@ -7,19 +7,19 @@
 #include "user_tasks.h"
 
 typedef enum {
-  TASK_USER,
-  TASK_LOGGER,
-  TASK_FFT,
-  TASK_SINE,
+        TASK_USER,
+        TASK_LOGGER,
+        TASK_FFT,
+        TASK_SINE,
 } task_e;
 
-static const sched_task_cfg_t task_list[] = {
+static const sched_task_cfg_t TASK_LIST[] = {
     [TASK_USER] =
         {
             .id           = TASK_USER,
-            .priority     = 1,
+            .priority     = 0,
             .exec_freq    = 10000,
-            .delay        = 0,
+            .delay_tick   = 0,
             .exec_cnt_max = 0,
             .f_cb         = user_loop_task,
             .arg          = NULL,
@@ -27,33 +27,33 @@ static const sched_task_cfg_t task_list[] = {
     [TASK_LOGGER] =
         {
             .id           = TASK_LOGGER,
-            .priority     = 1,
+            .priority     = 0,
             .exec_freq    = 20000,
-            .delay        = 0,
+            .delay_tick   = 0,
             .exec_cnt_max = 0,
             .f_cb         = logger_loop_task,
             .arg          = NULL,
         },
-    [TASK_FFT] =
-        {
-            .id           = TASK_FFT,
-            .priority     = 1,
-            .exec_freq    = 1000,
-            .delay        = 0,
-            .exec_cnt_max = 0,
-            .f_cb         = fft_loop_task,
-            .arg          = NULL,
-        },
-    [TASK_SINE] =
-        {
-            .id           = TASK_SINE,
-            .priority     = 1,
-            .exec_freq    = 1000,
-            .delay        = 0,
-            .exec_cnt_max = 0,
-            .f_cb         = sine_loop_task,
-            .arg          = NULL,
-        },
+//     [TASK_FFT] =
+//         {
+//             .id           = TASK_FFT,
+//             .priority     = 1,
+//             .exec_freq    = 1000,
+//             .delay_tick   = 0,
+//             .exec_cnt_max = 0,
+//             .f_cb         = fft_loop_task,
+//             .arg          = NULL,
+//         },
+//     [TASK_SINE] =
+//         {
+//             .id           = TASK_SINE,
+//             .priority     = 1,
+//             .exec_freq    = 1000,
+//             .delay_tick   = 0,
+//             .exec_cnt_max = 0,
+//             .f_cb         = sine_loop_task,
+//             .arg          = NULL,
+//         },
 };
 
 void task_init(sched_t *sched);
