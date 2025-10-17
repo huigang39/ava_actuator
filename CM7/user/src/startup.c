@@ -11,14 +11,18 @@ sched_t g_sched;
 
 // benchmark_t benchmark_res[30];
 
-static inline void cpy_vtor_to_itcm(void) {
+HAPI void
+cpy_vtor_to_itcm(void)
+{
         const u32 *src = (u32 *)FLASH_BANK1_BASE;
         u32       *dst = (u32 *)D1_ITCMRAM_BASE;
         memcpy(dst, src, 0x400);
         SCB->VTOR = D1_ITCMRAM_BASE;
 }
 
-void init(void) {
+void
+init(void)
+{
         // cpy_vtor_to_itcm();
 
         DWT_INIT();
@@ -42,13 +46,17 @@ void init(void) {
         foc_init(&g_foc, FOC_CFG[ACTUATOR_TYPE]);
 }
 
-void foc_loop(void) {
+void
+foc_loop(void)
+{
         u32 elapsed = 0;
         MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
         g_foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
 }
 
-void sched_loop(void) {
+void
+sched_loop(void)
+{
         u32 elapsed = 0;
         MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&g_sched); };);
         g_sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);

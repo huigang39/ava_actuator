@@ -40,41 +40,41 @@ else ifeq ($(C), gcc)
 	SRC_ASM += $(DIR_GCC)/startup_stm32h745xx_CM7.s
 endif
 
-SRC_C   += $(DIR_COMMON)/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c
-SRC_C   += $(wildcard $(addsuffix /*.c, ./Core/Src))
-SRC_C   += $(wildcard $(addsuffix /*.c, $(DIR_USER)/src $(DIR_DRIVER)/src))
-SRC_C   += $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_exti.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_rcc.c       \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_gpio.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_utils.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash.c    \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash_ex.c \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_gpio.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hsem.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_mdma.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_cortex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal.c          \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_exti.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hrtim.c    \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim.c      \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim_ex.c   \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart.c     \
-           $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart_ex.c 
+SRC_C += $(DIR_COMMON)/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c
+SRC_C += $(wildcard $(addsuffix /*.c, ./Core/Src))
+SRC_C += $(wildcard $(addsuffix /*.c, $(DIR_USER)/src $(DIR_DRIVER)/src))
+SRC_C += $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_exti.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_rcc.c       \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_gpio.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_utils.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash.c    \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash_ex.c \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_gpio.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hsem.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_mdma.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_cortex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal.c          \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_exti.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hrtim.c    \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim.c      \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim_ex.c   \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart.c     \
+         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart_ex.c 
  
-OBJ     += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_ASM:.s=.o)))
-OBJ     += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_C:.c=.o)))
+OBJ += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_ASM:.s=.o)))
+OBJ += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_C:.c=.o)))
 
 vpath %.s $(sort $(dir $(SRC_ASM)))
 vpath %.c $(sort $(dir $(SRC_C)))
@@ -93,26 +93,25 @@ endif
 # ---------------------------------------------------------------------------- #
 #                                     编译选项                                 #
 # ---------------------------------------------------------------------------- #
-DEFS         += -DCORE_CM7 -DSTM32H745xx
-DEFS         += -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER
-DEFS         += -DUSE_PWR_DIRECT_SMPS_SUPPLY
-# DEFS         += -DSERIAL_PRINT
-# DEFS         += -DARM_MATH_DSP
+DEFS += -DCORE_CM7 -DSTM32H745xx
+DEFS += -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER
+DEFS += -DUSE_PWR_DIRECT_SMPS_SUPPLY
+DEFS += -DARM_MATH
 
 ifeq ($(M), 1)
-	LIBS     += --library_type=microlib
-	DEFS     += -D__MICROLIB
+	LIBS += --library_type=microlib
+	DEFS += -D__MICROLIB
 endif
 
 ifeq ($(T), D)
-	OPTS     := -O0 -g
+	OPTS := -O0 -g
 	ifeq ($(C), ac5)
 		OPTS +=
 	else 
 		OPTS += -gdwarf-4
 	endif
 else ifeq ($(T), R)
-	OPTS     := -O2
+	OPTS := -O2
 	ifeq ($(C), ac5)
 		OPTS += --split_sections
 	else 

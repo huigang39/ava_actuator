@@ -3,7 +3,9 @@
 
 #include "stm32h7xx.h"
 
-__attribute__((optnone)) static inline u32 fpu_check(void) {
+OPTNONE HAPI u32
+fpu_check(void)
+{
         enum {
                 FPU_EXCEPTION_IOC, // 非法操作
                 FPU_EXCEPTION_DZC, // 被零除

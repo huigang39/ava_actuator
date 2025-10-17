@@ -10,7 +10,7 @@ extern log_t    g_log;
 
 void other_init(void);
 
-void logger_loop_task(void *arg);
+void log_loop_task(void *arg);
 void fft_loop_task(void *arg);
 void sine_loop_task(void *arg);
 void square_loop_task(void *arg);

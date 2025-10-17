@@ -9,7 +9,9 @@ square_t g_square;
 fft_t    g_fft;
 log_t    g_log;
 
-void other_init(void) {
+void
+other_init(void)
+{
         log_cfg_t log_cfg = {
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
@@ -39,21 +41,29 @@ void other_init(void) {
         log_info(&g_log, 1, "fft init\n");
 
         sine_init(&g_sine, SINE_CFG[ACTUATOR_TYPE]);
-        log_info(&g_log, 1, "g_sine init\n");
+        log_info(&g_log, 1, "sine init\n");
 }
 
-void fft_loop_task(void *arg) {
+void
+fft_loop_task(void *arg)
+{
         fft_exec(&g_fft);
 }
 
-void logger_loop_task(void *arg) {
+void
+log_loop_task(void *arg)
+{
         log_flush(&g_log);
 }
 
-void sine_loop_task(void *arg) {
+void
+sine_loop_task(void *arg)
+{
         sine_exec(&g_sine);
 }
 
-void square_loop_task(void *arg) {
+void
+square_loop_task(void *arg)
+{
         square_exec(&g_square);
 }

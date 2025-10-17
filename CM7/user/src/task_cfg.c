@@ -2,7 +2,9 @@
 
 #include "task_cfg.h"
 
-void task_init(sched_t *sched) {
+void
+task_init(sched_t *sched)
+{
         user_init();
         other_init();
 

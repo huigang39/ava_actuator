@@ -1,52 +1,10 @@
 {
-	"folders": [
-		{
-			"path": "module"
-		},
-		{
-			"path": "CM7"
-		}
-	],
-	"settings": {
-		"files.associations": {
-			"logger.h": "c",
-			"fifo.h": "c",
-			"memory": "c",
-			"typedef.h": "c",
-			"benchmark.h": "c",
-			"def.h": "c",
-			"new": "c",
-			"type_traits": "c",
-			"algorithm": "c",
-			"xiosbase": "c",
-			"xlocale": "c",
-			"xutility": "c",
-			"format": "cpp",
-			"controller.h": "c",
-			"maf.h": "c",
-			"shared_mem.h": "c",
-			"atomic": "c",
-			"bit": "c",
-			"charconv": "c",
-			"compare": "c",
-			"cstddef": "c",
-			"functional": "c",
-			"iterator": "c",
-			"limits": "c",
-			"system_error": "c",
-			"vector": "c",
-			"xhash": "c",
-			"xlocbuf": "c",
-			"xlocmon": "c",
-			"xloctime": "c",
-			"xmemory": "c",
-			"xstring": "c",
-			"iosfwd": "c",
-			"task_cfg.h": "c",
-			"startup.h": "c",
-			"periph_cfg.h": "c",
-			"user_tasks.h": "c",
-			"other_tasks.h": "c"
-		}
-	}
+  "folders": [
+    {
+      "path": "module"
+    },
+    {
+      "path": "CM7"
+    }
+  ]
 }

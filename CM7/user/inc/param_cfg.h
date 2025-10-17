@@ -6,7 +6,7 @@
 #include "dpt.h"
 #include "periph_cfg.h"
 
-#define MCU_FREQ_MHZ (400U)
+#define MCU_FREQ_MHZ  (400U)
 
 // #define FOC_FREQ_HZ  (K(50.0F))
 #define FOC_FREQ_HZ   (K(20.0F))
@@ -37,11 +37,13 @@ typedef struct {
 static const sched_cfg_t SCHED_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .e_type = SCHED_TYPE_CFS,
+            .e_type = SCHED_TYPE_FCFS,
+            .e_tick = SCHED_TICK_US,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .e_type = SCHED_TYPE_CFS,
+            .e_type = SCHED_TYPE_FCFS,
+            .e_tick = SCHED_TICK_US,
         },
 };
 
