@@ -10,15 +10,18 @@ ads_init(void)
         u16 rx_data  = 0;
 
         switch (cfg_word) {
-                case 0x8000:
+                case 0x8000: {
                         tx_data = 0x3000;
                         break;
-                case 0x9000:
+                }
+                case 0x9000: {
                         tx_data = 0x1000;
                         break;
-                case 0xA000:
+                }
+                case 0xA000: {
                         tx_data = 0x2000;
                         break;
+                }
                 default:
                         break;
         }

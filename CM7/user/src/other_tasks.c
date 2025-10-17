@@ -30,12 +30,12 @@ other_init(void)
         log_info(&g_log, 1, "logger init\n");
 
         fft_cfg_t fft_cfg = {
-            .fs        = FOC_FREQ_HZ,
-            .point_num = FFT_POINT_NUM,
-            .buf       = FFT_BUF,
-            .in_buf    = FFT_IN_BUF,
-            .out_buf   = FFT_OUT_BUF,
-            .mag_buf   = FFT_MAG_BUF,
+            .fs      = FOC_FREQ_HZ,
+            .npoints = FFT_POINT_NUM,
+            .buf     = FFT_BUF,
+            .in_buf  = FFT_IN_BUF,
+            .out_buf = FFT_OUT_BUF,
+            .mag_buf = FFT_MAG_BUF,
         };
         fft_init(&g_fft, fft_cfg);
         log_info(&g_log, 1, "fft init\n");
