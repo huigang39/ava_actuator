@@ -1079,7 +1079,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 100.000000
+value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var80]
@@ -1092,7 +1092,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 100.000000
+value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var81]
@@ -1908,7 +1908,7 @@ visibility = true
 
 [group0-plot7-series0]
 name = g_foc.in.rotor.fusion_theta_err
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot7-series1]
@@ -1948,12 +1948,12 @@ format = DEC
 
 [group0-plot7-series8]
 name = g_foc.lo.hfi.lo.id_neg
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot7-series9]
 name = g_foc.lo.hfi.lo.id_pos
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot7-series10]
@@ -2374,7 +2374,7 @@ format = DEC
 [group0-plot17]
 name = uvw
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot17-series0]
 name = g_foc.in.f32_i_uvw.u

@@ -39,6 +39,10 @@ set_ctl_mode(user_t *user, foc_t *foc)
         DECL_PTRS(foc, lo);
 
         switch (user->e_ctl_mode) {
+                case CTL_MODE_PD: {
+                        lo->e_mode = FOC_MODE_PD;
+                        break;
+                }
                 case CTL_MODE_VEL: {
                         lo->e_mode = FOC_MODE_VEL;
                         break;

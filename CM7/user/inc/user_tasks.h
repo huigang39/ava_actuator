@@ -19,6 +19,7 @@ typedef enum {
         CTL_MODE_CUR,
         CTL_MODE_VEL,
         CTL_MODE_POS,
+        CTL_MODE_PD,
         CTL_MODE_ASC,
 } ctl_mode_e;
 
