@@ -17,16 +17,19 @@
 typedef enum {
         ACTUATOR_FSA50N24E,
         ACTUATOR_FSA361480Z,
+        ACTUATOR_FSA451780Z,
 } actuator_type_e;
 
 typedef enum {
         MOTOR_FSA50NV3,
         MOTOR_FSA3610V0,
+        MOTOR_FSA4515V1,
 } motor_type_e;
 
 typedef enum {
         PERIPH_F3H58V101,
         PERIPH_F2H46V100,
+        PERIPH_F2H58V100,
 } periph_type_e;
 
 typedef struct {
@@ -41,6 +44,11 @@ static const sched_cfg_t SCHED_CFG[] = {
             .e_tick = SCHED_TICK_US,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .e_type = SCHED_TYPE_FCFS,
+            .e_tick = SCHED_TICK_US,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .e_type = SCHED_TYPE_FCFS,
             .e_tick = SCHED_TICK_US,
@@ -62,6 +70,11 @@ static const actuator_cfg_t ACTUATOR_CFG[] = {
             .motor_type  = MOTOR_FSA3610V0,
             .periph_type = PERIPH_F2H46V100,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .motor_type  = MOTOR_FSA4515V1,
+            .periph_type = PERIPH_F2H58V100,
+        },
 };
 
 static const motor_cfg_t MOTOR_CFG[] = {
@@ -82,11 +95,24 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 207.2e-6f,
             .lq      = 376.2e-6f,
             .psi     = 0.005002f,
-            .wc      = 1500.0f,
+            .wc      = 800.0f,
             .j       = 1.73e-5f,
             .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
             .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
             .max_tor = 0.747f,
+        },
+    [MOTOR_FSA4515V1] =
+        {
+            .npp     = 10u,
+            .rs      = 0.2601f,
+            .ld      = 78.8e-6f,
+            .lq      = 95.6e-6f,
+            .psi     = 0.004749f,
+            .wc      = 1500.0f,
+            .j       = 3.48e-05f,
+            .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
+            .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
+            .max_tor = 3.0f,
         },
 };
 
@@ -123,6 +149,23 @@ static const periph_cfg_t PERIPH_CFG[] = {
             .f32_pwm_min = 0.0f,
             .f32_pwm_max = 0.8f,
         },
+    [PERIPH_F2H58V100] =
+        {
+            // ADC
+            .adc_full_cnt       = LF(14u),
+            .adc_cali_cnt_max   = 10u,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
+            .cur_range          = 82.5f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 20u,
+            .cur_offset         = 41.25f,
+            // PWM
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = 2.0f / 3.0f,
+            .f32_pwm_min = 0.0f,
+            .f32_pwm_max = 0.8f,
+        },
 };
 
 // 和硬件绑定
@@ -141,6 +184,13 @@ static const foc_ops_t FOC_OPS_CFG[] = {
             .f_set_pwm   = set_pwm,
             .f_set_drv   = set_drv_8353,
         },
+    [PERIPH_F2H58V100] =
+        {
+            .f_get_theta = dpt_get_inner_theta,
+            .f_get_adc   = get_adc,
+            .f_set_pwm   = set_pwm,
+            .f_set_drv   = set_drv_8353,
+        },
 };
 
 static const pll_cfg_t OMEGA_PLL_CFG[] = {
@@ -150,7 +200,13 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
             .damp   = 0.707f,
             .lpf_fc = 500.0f,
         },
-    [PERIPH_F2H46V100] =
+    [ACTUATOR_FSA361480Z] =
+        {
+            .wc     = 300.0f,
+            .damp   = 0.707f,
+            .lpf_fc = 300.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .wc     = 300.0f,
             .damp   = 0.707f,
@@ -167,6 +223,13 @@ static const pid_cfg_t PD_CFG[] = {
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .kp         = 0.01f,
+            .kd         = 0.001f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
@@ -190,6 +253,13 @@ static const pid_cfg_t VEL_CFG[] = {
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .kp         = 0.05f,
+            .ki         = 1.0f,
+            .ki_out_max = 10.0f,
+            .out_max    = 10.0f,
+        },
 };
 
 static const pid_cfg_t POS_CFG[] = {
@@ -201,6 +271,13 @@ static const pid_cfg_t POS_CFG[] = {
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .kp         = 1.0f,
+            .ki         = 1.0f,
+            .ki_out_max = 1000.0f,
+            .out_max    = 1000.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .kp         = 1.0f,
             .ki         = 1.0f,
@@ -244,6 +321,23 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div                = 10u,
             .pd_div                 = 5u,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .exec_freq              = FOC_FREQ_HZ,
+            .sensor_theta_comp_gain = 1.0f,
+            .theta_comp_gain        = 1.5f,
+            .ref_theta_cali_id      = 2.0f,
+            .ref_theta_cali_omega   = 20.0f,
+            .motor_cfg              = MOTOR_CFG[MOTOR_FSA3610V0],
+            .periph_cfg             = PERIPH_CFG[PERIPH_F2H58V100],
+            .vel_cfg                = VEL_CFG[ACTUATOR_FSA451780Z],
+            .pos_cfg                = POS_CFG[ACTUATOR_FSA451780Z],
+            .pd_cfg                 = PD_CFG[ACTUATOR_FSA451780Z],
+            .cur_div                = 1u,
+            .vel_div                = 5u,
+            .pos_div                = 10u,
+            .pd_div                 = 5u,
+        },
 };
 
 /* -------------------------------------------------------------------------- */
@@ -257,6 +351,11 @@ static const smo_cfg_t SMO_CFG[] = {
             .es0 = 48.0f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .ks  = 48.0f,
+            .es0 = 48.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .ks  = 48.0f,
             .es0 = 48.0f,
@@ -276,6 +375,12 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
             .damp   = 0.707f,
             .lpf_fc = 500.0f,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .wc     = 500.0f,
+            .damp   = 0.707f,
+            .lpf_fc = 500.0f,
+        },
 };
 
 static const hfi_cfg_t HFI_CFG[] = {
@@ -284,16 +389,24 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 300.0f,
-            .iq_lpf_fc = 300.0f,
+            .id_lpf_fc = 200.0f,
+            .iq_lpf_fc = 200.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 300.0f,
-            .iq_lpf_fc = 300.0f,
+            .id_lpf_fc = 200.0f,
+            .iq_lpf_fc = 200.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .fh        = 2000.0f,
+            .hfi_vd    = 2.0f,
+            .hfi_id    = 1.0f,
+            .id_lpf_fc = 200.0f,
+            .iq_lpf_fc = 200.0f,
         },
 };
 
@@ -305,6 +418,12 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
             .lpf_fc = 100.0f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_fc = 100.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
@@ -327,6 +446,13 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .fc    = 2000.0f,
+            .q     = 0.5f,
+            .order = IIR_2,
+            .type  = IIR_BANDPASS,
+        },
 };
 
 static const lbg_cfg_t LBG_CFG[] = {
@@ -336,6 +462,11 @@ static const lbg_cfg_t LBG_CFG[] = {
             .damp = 2.0f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .wc   = 100.0f * TAU,
+            .damp = 2.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .wc   = 100.0f * TAU,
             .damp = 2.0f,
@@ -359,6 +490,12 @@ static const sine_cfg_t SINE_CFG[] = {
             .wave_freq = 10.0f,
             .amp       = 1.0f,
         },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .fs        = FOC_FREQ_HZ,
+            .wave_freq = 10.0f,
+            .amp       = 1.0f,
+        },
 };
 
 static const square_cfg_t SQUARE_CFG[] = {
@@ -370,6 +507,13 @@ static const square_cfg_t SQUARE_CFG[] = {
             .duty_cycle = 0.5f,
         },
     [ACTUATOR_FSA361480Z] =
+        {
+            .fs         = FOC_FREQ_HZ,
+            .wave_freq  = 1.0f,
+            .amp        = 1.0f,
+            .duty_cycle = 0.5f,
+        },
+    [ACTUATOR_FSA451780Z] =
         {
             .fs         = FOC_FREQ_HZ,
             .wave_freq  = 1.0f,

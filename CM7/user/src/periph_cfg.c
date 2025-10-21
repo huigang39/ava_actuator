@@ -12,7 +12,7 @@ ADC_HandleTypeDef   *g_adc3        = &hadc3;
 HRTIM_HandleTypeDef *g_pwm         = &hhrtim;
 LPTIM_HandleTypeDef *g_timer       = &hlptim1;
 UART_HandleTypeDef  *g_sensor_uart = &huart2;
-UART_HandleTypeDef  *g_log_uart    = &huart3;
+UART_HandleTypeDef  *g_log_uart    = &huart1;
 
 void
 periph_init(void)
