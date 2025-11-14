@@ -7,7 +7,7 @@ extern "C" {
 
 #include "module.h"
 
-#define ADS7853_CONFIG_WORD 0x8680
+#define ADS7853_CFG_WORD 0x8680
 
 void ads_init(void);
 u32  ads_get_raw(void);

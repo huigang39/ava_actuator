@@ -5,7 +5,7 @@
 void
 ads_init(void)
 {
-        u16 cfg_word = ADS7853_CONFIG_WORD & 0xF000;
+        u16 cfg_word = ADS7853_CFG_WORD & 0xF000;
         u16 tx_data  = 0;
         u16 rx_data  = 0;
 

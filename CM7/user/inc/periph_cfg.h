@@ -28,6 +28,6 @@ void      set_drv(u8 enable);
 void      set_drv_8353(u8 enable);
 
 u64  get_ts_us(void);
-void log_uart_tx(void *uart, const u8 *data, size_t size);
+void log_uart_tx(void *uart, const void *data, const usz size);
 
 #endif // !PERIPH_CFG_H

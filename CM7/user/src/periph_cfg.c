@@ -114,9 +114,9 @@ HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim)
 }
 
 void
-log_uart_tx(void *uart, const u8 *src, size_t nbytes)
+log_uart_tx(void *uart, const void *src, const usz size)
 {
-        HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, src, nbytes);
+        HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, src, size);
 }
 
 void

@@ -15,17 +15,16 @@ other_init(void)
         log_cfg_t log_cfg = {
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
-            .end_sign   = '\n',
             .fp         = g_log_uart,
             .buf        = LOG_BUF,
             .cap        = sizeof(LOG_BUF),
             .producers  = LOG_PRODUCERS,
-            .nproducers = ARRAY_SIZE(LOG_PRODUCERS),
+            .nproducers = ARRAY_LEN(LOG_PRODUCERS),
             .flush_buf  = LOG_FLUSH_BUF,
             .flush_cap  = sizeof(LOG_FLUSH_BUF),
+            .f_get_ts   = get_ts_us,
+            .f_flush    = log_uart_tx,
         };
-        g_log.ops.f_get_ts = get_ts_us;
-        g_log.ops.f_flush  = log_uart_tx;
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "logger init\n");
 
@@ -40,7 +39,7 @@ other_init(void)
         fft_init(&g_fft, fft_cfg);
         log_info(&g_log, 1, "fft init\n");
 
-        sine_init(&g_sine, SINE_CFG[ACTUATOR_TYPE]);
+        sine_init(&g_sine, SINE_CFG[0]);
         log_info(&g_log, 1, "sine init\n");
 }
 

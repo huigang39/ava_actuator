@@ -30,7 +30,6 @@ init(void)
 
         periph_init();
 
-        g_sched.ops.f_get_ts = get_ts_us;
         sched_init(&g_sched, SCHED_CFG[ACTUATOR_TYPE]);
         task_init(&g_sched);
 
@@ -42,7 +41,6 @@ init(void)
         g_foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
         g_foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
         g_foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
-        g_foc.ops                  = FOC_OPS_CFG[ACTUATOR_CFG[ACTUATOR_TYPE].periph_type];
         foc_init(&g_foc, FOC_CFG[ACTUATOR_TYPE]);
 }
 
