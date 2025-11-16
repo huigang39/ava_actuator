@@ -476,32 +476,28 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 500.0f,
-            .iq_lpf_fc = 500.0f,
+            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
         },
     [ACTUATOR_FSA361480Z] =
         {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 500.0f,
-            .iq_lpf_fc = 500.0f,
+            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
         },
     [ACTUATOR_FSA451780Z] =
         {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 500.0f,
-            .iq_lpf_fc = 500.0f,
+            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
         },
     [ACTUATOR_FSA4530E] =
         {
             .fh        = 2000.0f,
             .hfi_vd    = 2.0f,
             .hfi_id    = 1.0f,
-            .id_lpf_fc = 500.0f,
-            .iq_lpf_fc = 500.0f,
+            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
         },
 };
 
