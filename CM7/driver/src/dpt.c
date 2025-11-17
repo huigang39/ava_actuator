@@ -5,8 +5,8 @@
 #include "buffer_cfg.h"
 #include "dpt.h"
 
-volatile u32 inner_raw;
-volatile f32 inner_theta;
+volatile u32 dpt_inner_raw;
+volatile f32 dpt_inner_theta;
 
 void
 dpt_init(void)
@@ -19,13 +19,13 @@ u32
 dpt_get_inner_raw(void)
 {
         HAL_UART_Transmit_DMA(g_sensor_uart, &DPT_TX_BUF, sizeof(DPT_TX_BUF));
-        inner_raw = (u32)LF(24) - ((u32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
-        return inner_raw;
+        dpt_inner_raw = (u32)LF(24) - ((u32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
+        return dpt_inner_raw;
 }
 
 f32
 dpt_get_inner_theta(void)
 {
-        inner_theta = ((f32)dpt_get_inner_raw() / (f32)LF(24)) * TAU;
-        return inner_theta;
+        dpt_inner_theta = ((f32)dpt_get_inner_raw() / (f32)LF(24)) * TAU;
+        return dpt_inner_theta;
 }
