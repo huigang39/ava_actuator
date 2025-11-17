@@ -11,6 +11,7 @@ ADC_HandleTypeDef   *g_adc2        = &hadc2;
 ADC_HandleTypeDef   *g_adc3        = &hadc3;
 HRTIM_HandleTypeDef *g_pwm         = &hhrtim;
 LPTIM_HandleTypeDef *g_timer       = &hlptim1;
+SPI_HandleTypeDef   *g_sensor_spi  = &hspi1;
 UART_HandleTypeDef  *g_sensor_uart = &huart2;
 UART_HandleTypeDef  *g_log_uart    = &huart1;
 

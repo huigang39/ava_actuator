@@ -4,6 +4,7 @@
 #include "adc.h"
 #include "hrtim.h"
 #include "lptim.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 
@@ -14,6 +15,7 @@ extern ADC_HandleTypeDef   *g_adc2;
 extern ADC_HandleTypeDef   *g_adc3;
 extern HRTIM_HandleTypeDef *g_pwm;
 extern LPTIM_HandleTypeDef *g_timer;
+extern SPI_HandleTypeDef   *g_sensor_spi;
 extern UART_HandleTypeDef  *g_sensor_uart;
 extern UART_HandleTypeDef  *g_log_uart;
 
