@@ -111,7 +111,7 @@ HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim)
 {
         if (hlptim == g_timer)
                 g_timer_overflow++;
-        log_info(&g_log, 0, "lptim overflow\n");
+        log_info(&g_log, 0, "lptim overflow: %llu\n", g_timer_overflow);
 }
 
 void

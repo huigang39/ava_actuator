@@ -3,7 +3,7 @@
 #include "ads.h"
 #include "buffer_cfg.h"
 
-volatile ads_raw_t g_ads_raw;
+AT("sensor_section") volatile ads_raw_t g_ads_raw;
 volatile f32       g_ads_theta;
 
 void
@@ -53,7 +53,9 @@ ads_init(void)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
 
         if ((rx_data & 0x0FFF) == (cfg_word & 0x0FFF))
-                rx_data = 0;
+                ;
+
+        log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", rx_data);
 }
 
 ads_raw_t
