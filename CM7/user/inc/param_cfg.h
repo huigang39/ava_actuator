@@ -3,6 +3,7 @@
 
 #include "module.h"
 
+#include "ads.h"
 #include "dpt.h"
 #include "periph_cfg.h"
 
@@ -409,7 +410,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_cfg    = POS_CFG[ACTUATOR_FSA451780Z],
             .pd_cfg     = PD_CFG[ACTUATOR_FSA451780Z],
 
-            .f_get_theta = dpt_get_inner_theta,
+            .f_get_theta = ads_get_theta,
             .f_get_adc   = get_adc,
             .f_set_pwm   = set_pwm,
             .f_set_drv   = set_drv_8353,

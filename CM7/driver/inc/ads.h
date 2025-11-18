@@ -11,11 +11,17 @@ extern "C" {
 
 extern SPI_HandleTypeDef *g_sensor_spi;
 
-#define ADS7853_CFG_WORD (0x8680)
+#define ADS7853_CFG_WORD   (0x8680)
+#define ADS7853_DUMMY_DATA (0x4000)
 
-void ads_init(void);
-u32  ads_get_raw(void);
-f32  ads_get_theta(void);
+typedef struct {
+        u16 a;
+        u16 b;
+} ads_raw_t;
+
+void      ads_init(void);
+ads_raw_t ads_get_raw(void);
+f32       ads_get_theta(void);
 
 #ifdef __cplusplus
 }

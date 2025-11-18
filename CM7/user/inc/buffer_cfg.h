@@ -8,8 +8,9 @@
 #define LOG_BUF_SIZE       (1 * 1024)
 #define FFT_POINT_NUM      (FFT_POINT_4096)
 
-extern u8 DPT_TX_BUF;
-extern u8 DPT_RX_BUF[DPT_RX_BUF_SIZE];
+extern u8  DPT_TX_BUF;
+extern u8  DPT_RX_BUF[DPT_RX_BUF_SIZE];
+extern u16 ADS_TX_BUF;
 
 extern u8       LOG_FLUSH_BUF[LOG_FLUSH_BUF_SIZE];
 extern u8       LOG_BUF[LOG_BUF_SIZE];

@@ -1,5 +1,3 @@
-#include "foc/focdef.h"
-#include "obs/hfi.h"
 #include "periph_cfg.h"
 #include "startup.h"
 

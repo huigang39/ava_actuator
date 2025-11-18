@@ -9,6 +9,11 @@ extern "C" {
 
 #include "module.h"
 
+typedef struct {
+        u32 inner;
+        u32 outer;
+} dpt_raw_t;
+
 extern UART_HandleTypeDef *g_sensor_uart;
 
 /* 金刚双编指令 */
@@ -22,9 +27,9 @@ extern UART_HandleTypeDef *g_sensor_uart;
 #define GET_INER_OUTER_STATUS_CMD (0x43) // 获取内外角度、状态信息
 #define GET_TEMPERATURE_CMD       (0x74) // 获取温度信息
 
-void dpt_init(void);
-u32  dpt_get_inner_raw(void);
-f32  dpt_get_inner_theta(void);
+void      dpt_init(void);
+dpt_raw_t dpt_get_raw(void);
+f32       dpt_get_inner_theta(void);
 
 #ifdef __cplusplus
 }
