@@ -9,11 +9,8 @@ volatile f32       g_ads_theta;
 void
 ads_init(void)
 {
-        ADS_TX_BUF = ADS7853_DUMMY_DATA;
-
         g_ads_raw.a = ADS7853_CFG_WORD;
-
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        g_ads_raw.b = g_ads_raw.c = ADS7853_DUMMY_DATA;
 
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
         HAL_SPI_Transmit(g_sensor_spi, (u8 *)&g_ads_raw, sizeof(g_ads_raw), 1000);
