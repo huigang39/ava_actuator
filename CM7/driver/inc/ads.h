@@ -19,6 +19,7 @@ extern log_t g_log;
 typedef struct {
         u16 a;
         u16 b;
+        u16 c;
 } ads_raw_t;
 
 void      ads_init(void);
