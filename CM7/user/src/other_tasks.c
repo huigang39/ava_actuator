@@ -7,7 +7,6 @@
 sine_t   g_sine;
 square_t g_square;
 fft_t    g_fft;
-log_t    g_log;
 
 void
 other_init(void)

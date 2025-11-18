@@ -5,6 +5,7 @@
 
 extern foc_t   g_foc;
 extern sched_t g_sched;
+extern log_t   g_log;
 
 // extern benchmark_t benchmark_res[30];
 

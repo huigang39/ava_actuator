@@ -9,6 +9,7 @@
 
 foc_t   g_foc;
 sched_t g_sched;
+log_t   g_log;
 
 // benchmark_t benchmark_res[30];
 
