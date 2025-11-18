@@ -3,7 +3,7 @@
 #include "ads.h"
 #include "buffer_cfg.h"
 
-AT("sensor_section") volatile ads_raw_t g_ads_raw;
+volatile ads_raw_t g_ads_raw;
 volatile f32       g_ads_theta;
 
 void

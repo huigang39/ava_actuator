@@ -38,6 +38,7 @@ init(void)
             .f_flush    = log_uart_tx,
         };
         log_init(&g_log, log_cfg);
+        log_info(&g_log, 1, "------------------\n");
         log_info(&g_log, 1, "logger init\n");
   
         // cpy_vtor_to_itcm();
