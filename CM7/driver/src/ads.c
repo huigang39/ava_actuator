@@ -51,7 +51,7 @@ ads_init(void)
         memset((void *)&g_tx_ads_raw, ADS7853_DUMMY_DATA, sizeof(g_tx_ads_raw));
 
         log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_rx_ads_raw.a);
-        
+
         linerhall_cfg_t linerhall_cfg = 
         {
                 .fs = 20000,
@@ -62,6 +62,8 @@ ads_init(void)
                 .theta_rate_max = TAU,
                 .sin_gain = 1,
                 .cos_gain = 1,
+                .sin_offset = LF(15),
+                .cos_offset = LF(15),
         };
         linerhall_init(&g_linerhall, linerhall_cfg);
 }
