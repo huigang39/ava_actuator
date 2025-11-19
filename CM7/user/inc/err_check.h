@@ -15,13 +15,10 @@ fpu_check(void)
                 FPU_EXCEPTION_IDC  // 输入非标准
         };
 
-        volatile u32 fpscr = __get_FPSCR();
+        u32 fpscr = __get_FPSCR();
 
         /* 构造掩码, 用于仅判断 IOC 和 DZC 异常 */
-        volatile u32 mask = (u32)(1 << FPU_EXCEPTION_IOC | 1 << FPU_EXCEPTION_DZC) & (u32)0x3F;
-
-        /* 清除 FPU 所有异常 */
-        // __regfpscr &= (uint32_t)~0x8F;
+        u32 mask = (u32)(LF(FPU_EXCEPTION_IOC) | LF(FPU_EXCEPTION_DZC)) & (u32)0x3F;
 
         if ((fpscr & mask) != 0)
                 return 1;

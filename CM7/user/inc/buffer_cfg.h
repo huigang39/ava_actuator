@@ -6,19 +6,19 @@
 #define DPT_RX_BUF_SIZE    (8)
 #define LOG_FLUSH_BUF_SIZE (128)
 #define LOG_BUF_SIZE       (1 * 1024)
-#define FFT_POINT_NUM      (FFT_POINT_4096)
+#define LOG_PRODUCERS_NUM  (2)
+#define FFT_POINTS_NUM     (FFT_POINTS_4096)
 
-extern u8  DPT_TX_BUF;
-extern u8  DPT_RX_BUF[DPT_RX_BUF_SIZE];
-extern u16 ADS_TX_BUF;
+extern u8 g_dpt_tx_buf;
+extern u8 g_dpt_rx_buf[DPT_RX_BUF_SIZE];
 
-extern u8       LOG_FLUSH_BUF[LOG_FLUSH_BUF_SIZE];
-extern u8       LOG_BUF[LOG_BUF_SIZE];
-extern mpsc_p_t LOG_PRODUCERS[2];
+extern u8       g_log_flush_buf[LOG_FLUSH_BUF_SIZE];
+extern u8       g_log_buf[LOG_BUF_SIZE];
+extern mpsc_p_t g_log_producers[LOG_PRODUCERS_NUM];
 
-extern f32 FFT_BUF[FFT_POINT_NUM];
-extern f32 FFT_IN_BUF[FFT_POINT_NUM];
-extern f32 FFT_OUT_BUF[FFT_POINT_NUM];
-extern f32 FFT_MAG_BUF[FFT_POINT_NUM];
+extern f32 g_fft_buf[FFT_POINTS_NUM];
+extern f32 g_fft_in_buf[FFT_POINTS_NUM];
+extern f32 g_fft_out_buf[FFT_POINTS_NUM];
+extern f32 g_fft_mag_buf[FFT_POINTS_NUM];
 
 #endif // !BUFFER_CFG_H

@@ -1,9 +1,9 @@
 #include "stm32h745xx.h"
 
+#include "buffer_cfg.h"
 #include "param_cfg.h"
 #include "periph_cfg.h"
 #include "task_cfg.h"
-#include "buffer_cfg.h"
 
 #include "startup.h"
 
@@ -29,19 +29,19 @@ init(void)
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
             .fp         = g_log_uart,
-            .buf        = LOG_BUF,
-            .cap        = sizeof(LOG_BUF),
-            .producers  = LOG_PRODUCERS,
-            .nproducers = ARRAY_LEN(LOG_PRODUCERS),
-            .flush_buf  = LOG_FLUSH_BUF,
-            .flush_cap  = sizeof(LOG_FLUSH_BUF),
+            .buf        = g_log_buf,
+            .cap        = sizeof(g_log_buf),
+            .producers  = g_log_producers,
+            .nproducers = ARRAY_LEN(g_log_producers),
+            .flush_buf  = g_log_flush_buf,
+            .flush_cap  = sizeof(g_log_flush_buf),
             .f_get_ts   = get_ts_us,
             .f_flush    = log_uart_tx,
         };
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "------------------\n");
         log_info(&g_log, 1, "logger init\n");
-  
+
         // cpy_vtor_to_itcm();
 
         DWT_INIT();

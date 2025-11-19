@@ -4,10 +4,10 @@
 #include "buffer_cfg.h"
 #include "periph_cfg.h"
 
-spi_t              g_spi;
-volatile ads_raw_t g_tx_ads_raw, g_rx_ads_raw;
-volatile f32       g_ads_theta;
-linerhall_t        g_linerhall;
+spi_t       g_spi;
+ads_raw_t   g_tx_ads_raw, g_rx_ads_raw;
+f32         g_ads_theta;
+linerhall_t g_linerhall;
 
 void
 ads_init(void)
@@ -75,9 +75,9 @@ ads_init(void)
 ads_raw_t
 ads_get_raw(void)
 {
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
+        SPI_CS_LOW(&g_spi);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        SPI_CS_HIGH(&g_spi);
         return g_rx_ads_raw;
 }
 
@@ -86,5 +86,6 @@ ads_get_theta(void)
 {
         ads_raw_t rx_ads_raw = ads_get_raw();
         linerhall_exec_in(&g_linerhall, rx_ads_raw.b, rx_ads_raw.c);
-        return g_linerhall.out.theta;
+        g_ads_theta = g_linerhall.out.theta;
+        return g_ads_theta;
 }

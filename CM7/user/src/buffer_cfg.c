@@ -1,14 +1,13 @@
 #include "buffer_cfg.h"
 
-AT("sensor_section") u8 DPT_TX_BUF;
-AT("sensor_section") u8 DPT_RX_BUF[DPT_RX_BUF_SIZE];
-AT("sensor_section") u16 ADS_TX_BUF;
+AT("sensor_section") u8 g_dpt_tx_buf;
+AT("sensor_section") u8 g_dpt_rx_buf[DPT_RX_BUF_SIZE];
 
-AT("log_section") u8 LOG_FLUSH_BUF[LOG_FLUSH_BUF_SIZE];
-AT("log_section") u8 LOG_BUF[LOG_BUF_SIZE];
-AT("log_section") mpsc_p_t LOG_PRODUCERS[2];
+AT("log_section") u8 g_log_flush_buf[LOG_FLUSH_BUF_SIZE];
+AT("log_section") u8 g_log_buf[LOG_BUF_SIZE];
+AT("log_section") mpsc_p_t g_log_producers[LOG_PRODUCERS_NUM];
 
-AT("fft_section") f32 FFT_BUF[FFT_POINT_NUM];
-AT("fft_section") f32 FFT_IN_BUF[FFT_POINT_NUM];
-AT("fft_section") f32 FFT_OUT_BUF[FFT_POINT_NUM];
-AT("fft_section") f32 FFT_MAG_BUF[FFT_POINT_NUM];
+AT("fft_section") f32 g_fft_buf[FFT_POINTS_NUM];
+AT("fft_section") f32 g_fft_in_buf[FFT_POINTS_NUM];
+AT("fft_section") f32 g_fft_out_buf[FFT_POINTS_NUM];
+AT("fft_section") f32 g_fft_mag_buf[FFT_POINTS_NUM];
