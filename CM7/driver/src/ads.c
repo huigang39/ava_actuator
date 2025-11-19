@@ -2,7 +2,9 @@
 
 #include "ads.h"
 #include "buffer_cfg.h"
+#include "periph_cfg.h"
 
+spi_t              g_spi;
 volatile ads_raw_t g_tx_ads_raw, g_rx_ads_raw;
 volatile f32       g_ads_theta;
 linerhall_t        g_linerhall;
@@ -10,15 +12,18 @@ linerhall_t        g_linerhall;
 void
 ads_init(void)
 {
+        g_spi.cs_port = GPIOG;
+        g_spi.cs_pin  = GPIO_PIN_10;
+
         g_tx_ads_raw.a = ADS7853_CFG_WORD;
         g_tx_ads_raw.b = g_tx_ads_raw.c = ADS7853_DUMMY_DATA;
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
+        SPI_CS_LOW(&g_spi);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        SPI_CS_HIGH(&g_spi);
 
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
+        SPI_CS_LOW(&g_spi);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        SPI_CS_HIGH(&g_spi);
 
         switch (g_tx_ads_raw.a & 0xF000) {
                 case 0x8000: {
@@ -36,14 +41,14 @@ ads_init(void)
                 default:
                         break;
         }
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
+        SPI_CS_LOW(&g_spi);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        SPI_CS_HIGH(&g_spi);
 
         g_tx_ads_raw.a = ADS7853_DUMMY_DATA;
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
+        SPI_CS_LOW(&g_spi);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
-        HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
+        SPI_CS_HIGH(&g_spi);
 
         if ((g_rx_ads_raw.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
                 ;

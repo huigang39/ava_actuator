@@ -21,6 +21,14 @@ extern UART_HandleTypeDef  *g_log_uart;
 
 extern log_t g_log;
 
+typedef struct {
+        GPIO_TypeDef *cs_port;
+        u16           cs_pin;
+} spi_t;
+
+#define SPI_CS_HIGH(spi) HAL_GPIO_WritePin((spi)->cs_port, (spi)->cs_pin, GPIO_PIN_SET)
+#define SPI_CS_LOW(spi)  HAL_GPIO_WritePin((spi)->cs_port, (spi)->cs_pin, GPIO_PIN_RESET)
+
 void periph_init(void);
 
 adc_raw_t get_adc(void);
