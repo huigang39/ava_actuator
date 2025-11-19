@@ -7,7 +7,7 @@
 #include "dpt.h"
 #include "periph_cfg.h"
 
-#define MCU_FREQ_MHZ  (400U)
+#define MCU_FREQ_MHZ  (400)
 
 // #define FOC_FREQ_HZ  (K(50.0F))
 #define FOC_FREQ_HZ   (K(20.0F))
@@ -97,7 +97,7 @@ static const actuator_cfg_t ACTUATOR_CFG[] = {
 static const motor_cfg_t MOTOR_CFG[] = {
     [MOTOR_FSA50NV3] =
         {
-            .npp = 10u,
+            .npp = 10,
             .rs  = 0.38f,
             .ld  = 15e-6f,
             .lq  = 17.5e-6f,
@@ -107,7 +107,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
         },
     [MOTOR_FSA3610V0] =
         {
-            .npp     = 10u,
+            .npp     = 10,
             .rs      = 0.668f,
             .ld      = 207.2e-6f,
             .lq      = 376.2e-6f,
@@ -120,7 +120,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
         },
     [MOTOR_FSA4515V1] =
         {
-            .npp     = 10u,
+            .npp     = 10,
             .rs      = 0.2601f,
             .ld      = 78.8e-6f,
             .lq      = 95.6e-6f,
@@ -137,9 +137,9 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F3H58V101] =
         {
             // ADC
-            .adc_full_cnt       = LF(14u),
-            .adc_cali_cnt_max   = 10u,
-            .theta_cali_cnt_max = 1024u,
+            .adc_full_cnt       = LF(14),
+            .adc_cali_cnt_max   = 10,
+            .theta_cali_cnt_max = 1024,
             .cur_range          = 55.0f,
             .vbus_range         = 60.0f,
             // PWM
@@ -152,12 +152,12 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F2H46V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14u),
-            .adc_cali_cnt_max   = 10u,
+            .adc_full_cnt       = LF(14),
+            .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
-            .cur_gain           = 20u,
+            .cur_gain           = 20,
             .cur_offset         = 41.25f,
             // PWM
             .pwm_freq    = K(20.0f),
@@ -169,12 +169,12 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F2H58V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14u),
-            .adc_cali_cnt_max   = 10u,
+            .adc_full_cnt       = LF(14),
+            .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
-            .cur_gain           = 20u,
+            .cur_gain           = 20,
             .cur_offset         = 41.25f,
             // PWM
             .pwm_freq    = K(20.0f),
@@ -186,12 +186,12 @@ static const periph_cfg_t PERIPH_CFG[] = {
     [PERIPH_F2H54V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14u),
-            .adc_cali_cnt_max   = 10u,
+            .adc_full_cnt       = LF(14),
+            .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
-            .cur_gain           = 20u,
+            .cur_gain           = 20,
             .cur_offset         = 41.25f,
             // PWM
             .pwm_freq    = K(20.0f),
@@ -330,10 +330,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .theta_comp_gain        = 1.5f,
             .ref_theta_cali_id      = 2.0f,
             .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1u,
-            .vel_div                = 5u,
-            .pos_div                = 10u,
-            .pd_div                 = 5u,
+            .cur_div                = 1,
+            .vel_div                = 5,
+            .pos_div                = 10,
+            .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA50NV3],
             .periph_cfg = PERIPH_CFG[PERIPH_F3H58V101],
@@ -353,10 +353,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .theta_comp_gain        = 1.5f,
             .ref_theta_cali_id      = 2.0f,
             .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1u,
-            .vel_div                = 5u,
-            .pos_div                = 10u,
-            .pd_div                 = 5u,
+            .cur_div                = 1,
+            .vel_div                = 5,
+            .pos_div                = 10,
+            .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H46V100],
@@ -376,10 +376,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .theta_comp_gain        = 1.5f,
             .ref_theta_cali_id      = 2.0f,
             .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1u,
-            .vel_div                = 5u,
-            .pos_div                = 10u,
-            .pd_div                 = 5u,
+            .cur_div                = 1,
+            .vel_div                = 5,
+            .pos_div                = 10,
+            .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
@@ -399,10 +399,10 @@ static const foc_cfg_t FOC_CFG[] = {
             .theta_comp_gain        = 1.5f,
             .ref_theta_cali_id      = 2.0f,
             .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1u,
-            .vel_div                = 5u,
-            .pos_div                = 10u,
-            .pd_div                 = 5u,
+            .cur_div                = 1,
+            .vel_div                = 5,
+            .pos_div                = 10,
+            .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],

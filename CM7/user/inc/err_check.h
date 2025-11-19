@@ -23,8 +23,9 @@ fpu_check(void)
         /* 清除 FPU 所有异常 */
         // __regfpscr &= (uint32_t)~0x8F;
 
-        if ((fpscr & mask) != 0u)
+        if ((fpscr & mask) != 0)
                 return 1;
+
         return 0;
 }
 

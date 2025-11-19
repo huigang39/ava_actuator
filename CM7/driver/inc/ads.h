@@ -13,6 +13,7 @@ extern SPI_HandleTypeDef *g_sensor_spi;
 
 extern log_t g_log;
 
+#define ADS7853_BITS       (16)
 #define ADS7853_CFG_WORD   (0x8680)
 #define ADS7853_DUMMY_DATA (0x4000)
 

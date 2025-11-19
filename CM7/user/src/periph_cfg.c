@@ -76,11 +76,11 @@ set_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty)
 void
 set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty)
 {
-        HRTIM1->sCommonRegs.ODISR |= LF(0u);
-        HRTIM1->sCommonRegs.ODISR |= LF(2u);
-        HRTIM1->sCommonRegs.ODISR |= LF(4u);
+        HRTIM1->sCommonRegs.ODISR |= LF(0);
+        HRTIM1->sCommonRegs.ODISR |= LF(2);
+        HRTIM1->sCommonRegs.ODISR |= LF(4);
 
-        u32_uvw_t u32_pwm_duty_sv = {0u, 0u, 0u};
+        u32_uvw_t u32_pwm_duty_sv = {0, 0, 0};
         set_pwm(pwm_full_cnt, u32_pwm_duty_sv);
 }
 

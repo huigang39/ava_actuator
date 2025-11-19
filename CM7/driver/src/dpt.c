@@ -6,7 +6,7 @@
 #include "dpt.h"
 
 volatile dpt_raw_t g_dpt_raw;
-volatile f32       g_dpt_inner_theta;
+volatile f32       g_dpt_inner_theta, g_dpt_outer_theta;
 
 void
 dpt_init(void)
@@ -20,6 +20,7 @@ dpt_get_raw(void)
 {
         HAL_UART_Transmit_DMA(g_sensor_uart, &DPT_TX_BUF, sizeof(DPT_TX_BUF));
         g_dpt_raw.inner = (u32)LF(24) - ((u32)DPT_RX_BUF[5] << 16 | DPT_RX_BUF[4] << 8 | DPT_RX_BUF[3]);
+        g_dpt_raw.outer = (u32)LF(24) - ((u32)DPT_RX_BUF[8] << 16 | DPT_RX_BUF[7] << 8 | DPT_RX_BUF[6]);
         return g_dpt_raw;
 }
 
@@ -28,4 +29,11 @@ dpt_get_inner_theta(void)
 {
         g_dpt_inner_theta = ((f32)dpt_get_raw().inner / (f32)LF(24)) * TAU;
         return g_dpt_inner_theta;
+}
+
+f32
+dpt_get_outer_theta(void)
+{
+        g_dpt_outer_theta = ((f32)dpt_get_raw().outer / (f32)LF(24)) * TAU;
+        return g_dpt_outer_theta;
 }

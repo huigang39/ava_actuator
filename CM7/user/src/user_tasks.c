@@ -95,7 +95,7 @@ user_loop_task(void *arg)
 
         // log_info(&g_log, 1, "user loop\n");
 
-        //        set_ctl_word(&g_user, &g_foc);
-        //        set_ctl_mode(&g_user, &g_foc);
-        //        set_ctl_obs(&g_user, &g_foc);
+        // set_ctl_word(&g_user, &g_foc);
+        // set_ctl_mode(&g_user, &g_foc);
+        // set_ctl_obs(&g_user, &g_foc);
 }

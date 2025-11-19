@@ -5,7 +5,7 @@
 
 volatile ads_raw_t g_tx_ads_raw, g_rx_ads_raw;
 volatile f32       g_ads_theta;
-linerhall_t g_linerhall;
+linerhall_t        g_linerhall;
 
 void
 ads_init(void)
@@ -52,18 +52,17 @@ ads_init(void)
 
         log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_rx_ads_raw.a);
 
-        linerhall_cfg_t linerhall_cfg = 
-        {
-                .fs = 20000,
-                .amp_max = LF(17),
-                .amp_min = 0,
-                .fault_timeout = 1000,
-                .amp_tolerance = 10000,
-                .theta_rate_max = TAU,
-                .sin_gain = 1,
-                .cos_gain = 1,
-                .sin_offset = LF(15),
-                .cos_offset = LF(15),
+        linerhall_cfg_t linerhall_cfg = {
+            .fs             = 20000,
+            .amp_max        = LF(ADS7853_BITS + 1),
+            .amp_min        = 0,
+            .fault_timeout  = 1000,
+            .amp_tolerance  = 10000,
+            .theta_rate_max = TAU,
+            .sin_gain       = 1,
+            .cos_gain       = 1,
+            .sin_offset     = LF(ADS7853_BITS - 1),
+            .cos_offset     = LF(ADS7853_BITS - 1),
         };
         linerhall_init(&g_linerhall, linerhall_cfg);
 }
@@ -74,7 +73,6 @@ ads_get_raw(void)
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
         HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
-
         return g_rx_ads_raw;
 }
 
@@ -83,6 +81,5 @@ ads_get_theta(void)
 {
         ads_raw_t rx_ads_raw = ads_get_raw();
         linerhall_exec_in(&g_linerhall, rx_ads_raw.b, rx_ads_raw.c);
-        
         return g_linerhall.out.theta;
 }
