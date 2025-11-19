@@ -3,30 +3,30 @@
 #include "ads.h"
 #include "buffer_cfg.h"
 
-volatile ads_raw_t g_ads_raw;
+volatile ads_raw_t g_tx_ads_raw, g_rx_ads_raw;
 volatile f32       g_ads_theta;
 
 void
 ads_init(void)
 {
-        g_ads_raw.a = ADS7853_CFG_WORD;
-        g_ads_raw.b = g_ads_raw.c = ADS7853_DUMMY_DATA;
+        g_tx_ads_raw.a = ADS7853_CFG_WORD;
+        g_tx_ads_raw.b = g_tx_ads_raw.c = ADS7853_DUMMY_DATA;
 
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
-        HAL_SPI_Transmit(g_sensor_spi, (u8 *)&g_ads_raw, sizeof(g_ads_raw), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
 
-        switch (g_ads_raw.a & 0xF000) {
+        switch (g_tx_ads_raw.a & 0xF000) {
                 case 0x8000: {
-                        g_ads_raw.a = 0x3000;
+                        g_tx_ads_raw.a = 0x3000;
                         break;
                 }
                 case 0x9000: {
-                        g_ads_raw.a = 0x1000;
+                        g_tx_ads_raw.a = 0x1000;
                         break;
                 }
                 case 0xA000: {
-                        g_ads_raw.a = 0x2000;
+                        g_tx_ads_raw.a = 0x2000;
                         break;
                 }
                 default:
@@ -34,27 +34,28 @@ ads_init(void)
         }
 
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
-        HAL_SPI_Transmit(g_sensor_spi, (u8 *)&g_ads_raw, sizeof(g_ads_raw), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
 
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&ADS_TX_BUF, (u8 *)&g_ads_raw, sizeof(g_ads_raw), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
 
-        if ((g_ads_raw.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
+        if ((g_rx_ads_raw.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
                 ;
 
-        log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_ads_raw.a);
+        log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_rx_ads_raw.a);
 }
 
 ads_raw_t
 ads_get_raw(void)
 {
+        memset((void *)&g_tx_ads_raw, ADS7853_DUMMY_DATA, sizeof(g_tx_ads_raw));
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_RESET);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&ADS_TX_BUF, (u8 *)&g_ads_raw, sizeof(g_ads_raw), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
         HAL_GPIO_WritePin(GPIOG, GPIO_PIN_10, GPIO_PIN_SET);
 
-        return g_ads_raw;
+        return g_rx_ads_raw;
 }
 
 f32
