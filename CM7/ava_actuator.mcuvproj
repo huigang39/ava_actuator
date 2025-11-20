@@ -377,7 +377,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 1.000000
+value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
 [var26]
@@ -403,7 +403,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 2.000000
+value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
 [var28]
@@ -1157,7 +1157,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 20.000000
+value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [var86]
@@ -2105,16 +2105,16 @@ format = DEC
 [group0-plot8]
 name = hfi
 type = 0
-visibility = false
+visibility = true
 
 [group0-plot8-series0]
 name = g_foc.in.rotor.fusion_theta_err
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot8-series1]
 name = g_foc.in.rotor.sensor_theta
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot8-series2]
@@ -2139,7 +2139,7 @@ format = DEC
 
 [group0-plot8-series6]
 name = g_foc.lo.hfi.lo.hfi_theta_err
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot8-series7]
@@ -2164,7 +2164,7 @@ format = DEC
 
 [group0-plot8-series11]
 name = g_foc.lo.hfi.lo.lpf_i_dq.d
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot8-series12]
@@ -2360,7 +2360,7 @@ format = DEC
 [group0-plot15]
 name = smo
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot15-series0]
 name = g_foc.in.rotor.fusion_theta_err

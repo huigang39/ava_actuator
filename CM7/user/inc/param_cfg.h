@@ -499,9 +499,9 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fh        = 2000.0f,
+            .fh        = 3000.0f,
             .hfi_vd    = 2.0f,
-            .hfi_id    = 1.0f,
+            .hfi_id    = 0.5f,
             .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
         },
 };
@@ -529,7 +529,7 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_fc = 100.0f,
+            .lpf_fc = 1000.0f,
         },
 };
 
@@ -557,7 +557,7 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fc    = 2000.0f,
+            .fc    = 3000.0f,
             .q     = 0.5f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
