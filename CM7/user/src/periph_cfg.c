@@ -15,6 +15,40 @@ SPI_HandleTypeDef   *g_sensor_spi  = &hspi1;
 UART_HandleTypeDef  *g_sensor_uart = &huart2;
 UART_HandleTypeDef  *g_log_uart    = &huart1;
 
+static u32
+pwm_ch_to_hrtim_mask(pwm_channel_e ch)
+{
+        switch (ch) {
+                case PWM_CH_UH:
+                        return HRTIM_OUTPUT_TA1;
+                case PWM_CH_UL:
+                        return HRTIM_OUTPUT_TA2;
+
+                case PWM_CH_VH:
+                        return HRTIM_OUTPUT_TB1;
+                case PWM_CH_VL:
+                        return HRTIM_OUTPUT_TB2;
+
+                case PWM_CH_WH:
+                        return HRTIM_OUTPUT_TC1;
+                case PWM_CH_WL:
+                        return HRTIM_OUTPUT_TC2;
+
+                case PWM_CH_H:
+                        return HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TB1 | HRTIM_OUTPUT_TC1;
+
+                case PWM_CH_L:
+                        return HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB2 | HRTIM_OUTPUT_TC2;
+
+                case PWM_CH_ALL:
+                        return HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB1 | HRTIM_OUTPUT_TB2 | HRTIM_OUTPUT_TC1 |
+                               HRTIM_OUTPUT_TC2;
+
+                default:
+                        return 0;
+        }
+}
+
 void
 periph_init(void)
 {
@@ -24,9 +58,6 @@ periph_init(void)
 
         HAL_HRTIM_WaveformCounterStart(
             g_pwm, HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A | HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
-        HAL_HRTIM_WaveformOutputStart(g_pwm,
-                                      HRTIM_OUTPUT_TA1 | HRTIM_OUTPUT_TA2 | HRTIM_OUTPUT_TB1 | HRTIM_OUTPUT_TB2 |
-                                          HRTIM_OUTPUT_TC1 | HRTIM_OUTPUT_TC2);
         HAL_HRTIM_SimpleBaseStart_IT(g_pwm, HRTIM_TIMERINDEX_MASTER);
 
         HAL_ADC_Start(g_adc1);
@@ -57,42 +88,43 @@ get_adc(void)
 }
 
 void
-set_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty)
+set_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
 {
-        // HRTIM1->sCommonRegs.OENR |= LF(0u);
-        // HRTIM1->sCommonRegs.OENR |= LF(2u);
-        // HRTIM1->sCommonRegs.OENR |= LF(4u);
+        u32 half = pwm_full_cnt / 2;
 
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.u / 2.0f;
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_A].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.u / 2.0f;
+        // U 相
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, half - duty.u / 2);
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_3, half + duty.u / 2);
 
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.v / 2.0f;
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_B].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.v / 2.0f;
+        // V 相
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, half - duty.v / 2);
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_3, half + duty.v / 2);
 
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP1xR = pwm_full_cnt / 2.0f - u32_pwm_duty.w / 2.0f;
-        HRTIM1->sTimerxRegs[HRTIM_TIMERINDEX_TIMER_C].CMP3xR = pwm_full_cnt / 2.0f + u32_pwm_duty.w / 2.0f;
+        // W 相
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_C, HRTIM_COMPAREUNIT_1, half - duty.w / 2);
+        __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_C, HRTIM_COMPAREUNIT_3, half + duty.w / 2);
 }
 
 void
-set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty)
+set_pwm_status(pwm_channel_e pwm_ch, uint8_t enable)
 {
-        HRTIM1->sCommonRegs.ODISR |= LF(0);
-        HRTIM1->sCommonRegs.ODISR |= LF(2);
-        HRTIM1->sCommonRegs.ODISR |= LF(4);
+        u32 mask = pwm_ch_to_hrtim_mask(pwm_ch);
 
-        u32_uvw_t u32_pwm_duty_sv = {0, 0, 0};
-        set_pwm(pwm_full_cnt, u32_pwm_duty_sv);
+        if (mask == 0)
+                return;
+
+        enable ? HAL_HRTIM_WaveformOutputStart(g_pwm, mask) : HAL_HRTIM_WaveformOutputStop(g_pwm, mask);
 }
 
 void
-set_drv(u8 enable)
+set_drv_status(u8 enable)
 {
         enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET)
                : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET);
 }
 
 void
-set_drv_8353(u8 enable)
+set_drv_8353_status(u8 enable)
 {
         enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET)
                : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);

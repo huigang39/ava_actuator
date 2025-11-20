@@ -32,10 +32,10 @@ typedef struct {
 void periph_init(void);
 
 adc_raw_t get_adc(void);
-void      set_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
-void      set_asc_pwm(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
-void      set_drv(u8 enable);
-void      set_drv_8353(u8 enable);
+void      set_pwm_duty(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
+void      set_pwm_status(pwm_channel_e pwm_ch, u8 enable);
+void      set_drv_status(u8 enable);
+void      set_drv_8353_status(u8 enable);
 
 u64  get_ts_us(void);
 void log_uart_tx(void *uart, const void *data, const usz size);
