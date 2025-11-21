@@ -13,7 +13,7 @@
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE ACTUATOR_FSA4530E
+#define ACTUATOR_TYPE ACTUATOR_FSA361480Z
 
 typedef enum {
         ACTUATOR_FSA50N24E,
@@ -112,7 +112,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 207.2e-6f,
             .lq      = 376.2e-6f,
             .psi     = 0.005002f,
-            .wc      = 800.0f,
+            .wc      = 1500.0f,
             .j       = 1.73e-5f,
             .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
             .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
@@ -478,56 +478,60 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
 static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fh        = 3000.0f,
-            .hfi_vd    = 2.0f,
-            .hfi_id    = 0.5f,
-            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
+            .fh            = 2000.0f,
+            .hfi_vd        = 2.0f,
+            .hfi_id        = 1.0f,
+            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fh        = 3000.0f,
-            .hfi_vd    = 2.0f,
-            .hfi_id    = 0.5f,
-            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
+            .fh            = 2000.0f,
+            .hfi_vd        = 2.0f,
+            .hfi_id        = 1.0f,
+            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .fh        = 3000.0f,
-            .hfi_vd    = 2.0f,
-            .hfi_id    = 0.5f,
-            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
+            .fh            = 2000.0f,
+            .hfi_vd        = 2.0f,
+            .hfi_id        = 1.0f,
+            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fh        = 3000.0f,
-            .hfi_vd    = 2.0f,
-            .hfi_id    = 0.5f,
-            .lpf_fc_dq = {.d = 500.0f, .q = 500.0f},
+            .fh            = 2000.0f,
+            .hfi_vd        = 2.0f,
+            .hfi_id        = 1.0f,
+            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
 };
 
 static const pll_cfg_t HFI_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
@@ -536,29 +540,29 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
 static const iir_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fc    = 3000.0f,
-            .wc    = 1000.0f,
+            .fc    = 2000.0f,
+            .wc    = 2000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fc    = 3000.0f,
-            .wc    = 1000.0f,
+            .fc    = 2000.0f,
+            .wc    = 2000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .fc    = 3000.0f,
-            .wc    = 1000.0f,
+            .fc    = 2000.0f,
+            .wc    = 2000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fc    = 3000.0f,
-            .wc    = 1000.0f,
+            .fc    = 2000.0f,
+            .wc    = 2000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
