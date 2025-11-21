@@ -10,23 +10,30 @@ M         ?= 0
 # ---------------------------------------------------------------------------- #
 #                                     目录引用                                 #
 # ---------------------------------------------------------------------------- #
-DIR_MODULE     += ../module
-DIR_USER       += ./user
-DIR_DRIVER     += ./driver
+DIR_MODULE += ../module
+DIR_USER   += ./user
+DIR_DRIVER += ./driver
 
-DIR_CMSIS      += ../Drivers/CMSIS
+DIR_CMSIS        += ../Drivers/CMSIS
+DIR_CMSIS_CORE   += ${DIR_CMSIS}/Core
+DIR_CMSIS_DSP    += ${DIR_CMSIS}/DSP
+DIR_CMSIS_DEVICE += ${DIR_CMSIS}/Device
+
+DIR_CMSIS_DSP_LIB_GCC := $(DIR_CMSIS_DSP)/Lib/GCC
+DIR_CMSIS_DSP_LIB_ARM := $(DIR_CMSIS_DSP)/Lib/ARM
+
 DIR_HAL_DRIVER += ../Drivers/STM32H7xx_HAL_Driver
 
-DIR_COMMON     += ../Common
+DIR_COMMON += ../Common
 
-DIR_GCC        := ./compiler/gcc
-DIR_ARM        := ./compiler/arm
+DIR_GCC := ./compiler/gcc
+DIR_ARM := ./compiler/arm
 
 # ---------------------------------------------------------------------------- #
 #                                      头文件                                  #
 # ---------------------------------------------------------------------------- #
 DIR_INCLUDE += $(addprefix -I, ./Core/Inc)
-DIR_INCLUDE += $(addprefix -I, $(DIR_CMSIS)/Core/Include $(DIR_CMSIS)/Device/ST/STM32H7xx/Include/)
+DIR_INCLUDE += $(addprefix -I, $(DIR_CMSIS_CORE)/Include $(DIR_CMSIS_DSP)/Include $(DIR_CMSIS_DEVICE)/ST/STM32H7xx/Include)
 DIR_INCLUDE += $(addprefix -I, $(DIR_HAL_DRIVER)/Inc $(DIR_HAL_DRIVER)/Inc/Legacy)
 DIR_INCLUDE += $(addprefix -I, $(DIR_MODULE))
 DIR_INCLUDE += $(addprefix -I, $(DIR_USER)/inc $(DIR_DRIVER)/inc)
@@ -42,37 +49,8 @@ endif
 
 SRC_C += $(DIR_COMMON)/Src/system_stm32h7xx_dualcore_boot_cm4_cm7.c
 SRC_C += $(wildcard $(addsuffix /*.c, ./Core/Src))
-SRC_C += $(wildcard $(addsuffix /*.c, $(DIR_USER)/src $(DIR_DRIVER)/src))
-SRC_C += $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_exti.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_rcc.c       \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_gpio.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_ll_utils.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_adc_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_rcc_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash.c    \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_flash_ex.c \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_gpio.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hsem.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_dma_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_mdma.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_pwr_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_cortex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal.c          \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_i2c_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_exti.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_hrtim.c    \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_spi_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim.c      \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_tim_ex.c   \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart.c     \
-         $(DIR_HAL_DRIVER)/Src/stm32h7xx_hal_uart_ex.c 
- 
+SRC_C += $(wildcard $(addsuffix /*.c, $(DIR_USER)/src $(DIR_DRIVER)/src $(DIR_HAL_DRIVER)/Src))
+
 OBJ += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_ASM:.s=.o)))
 OBJ += $(addprefix $(DIR_BUILD)/, $(notdir $(SRC_C:.c=.o)))
 
@@ -93,10 +71,11 @@ endif
 # ---------------------------------------------------------------------------- #
 #                                     编译选项                                 #
 # ---------------------------------------------------------------------------- #
+DEFS += -DMCU
 DEFS += -DCORE_CM7 -DSTM32H745xx
 DEFS += -DUSE_HAL_DRIVER -DUSE_FULL_LL_DRIVER
 DEFS += -DUSE_PWR_DIRECT_SMPS_SUPPLY
-DEFS += -DARM_MATH
+#DEFS += -DARM_MATH
 
 ifeq ($(M), 1)
 	LIBS += --library_type=microlib
@@ -124,33 +103,37 @@ ifeq ($(C), ac5)
 	CPU       := --cpu Cortex-M7.fp.dp
 	MCU       := $(CPU)
 
-	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c --c99 --gnu
+	LIBS      := $(DIR_CMSIS_DSP_LIB_ARM)/arm_cortexM7lfdp_math.lib
+
+	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -std=gnu11 -c
 	FLAGS_CXX := $(FLAGS_C)
 	FLAGS_AS  := $(MCU) --apcs=interwork
 	FLAGS_LD  := $(MCU) $(LIBS) $(SCRIPT_LD) $(MAP) --strict
-	
+
 # ARMCLANG (AC6)
 else ifeq ($(C), ac6)
 	CPU       := -mcpu=cortex-m7 --target=arm-arm-none-eabi
 	FPU       := -mfpu=fpv5-d16
 	FLOAT-ABI := -mfloat-abi=hard
 	MCU       := $(CPU) $(FPU) $(FLOAT-ABI) -mthumb
-	
-	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c -Wall -Wextra
+
+	LIBS      := $(DIR_CMSIS_DSP_LIB_ARM)/arm_cortexM7lfdp_math.lib
+
+	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -std=gnu11 -c
 	FLAGS_CXX := $(FLAGS_C)
 	FLAGS_AS  := $(FLAGS_C) -masm=auto
 	FLAGS_LD  := $(LIBS) $(SCRIPT_LD) $(MAP) --cpu Cortex-M7.fp.dp --strict 
-	
+
 # GCC
 else ifeq ($(C), gcc)
 	CPU       := -mcpu=cortex-m7
 	FPU       := -mfpu=fpv5-d16
 	FLOAT-ABI := -mfloat-abi=hard
 	MCU       := $(CPU) $(FPU) $(FLOAT-ABI) -mthumb
-	
-	LIBS      := -lm
+
+	LIBS      := -lm -larm_cortexM7lfdp_math
 	SPECS     := -specs=nosys.specs -specs=rdimon.specs
-	
+
 	FLAGS_C   := $(MCU) $(DEFS) $(OPTS) -c -Wall -Wextra
 	FLAGS_CXX := $(FLAGS_C)
 	FLAGS_AS  := $(FLAGS_C) -x assembler-with-cpp

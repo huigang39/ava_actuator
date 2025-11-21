@@ -2,11 +2,13 @@
 /**/build/
 /**/compile_commands.json
 
+/**/.idea/
+
 /.mxproject
 /MDK-ARM/
 
 /CM4/
-/CM7/Core
+/CM7/Core/
 /Common/
 /Drivers/
 /Middlewares/

@@ -73,7 +73,7 @@ set_ctl_obs(user_t *user, foc_t *foc)
                         break;
                 }
                 case CTL_THETA_HFI: {
-                        user->e_ctl_mode = (lo->hfi.lo.e_polar_idf == HFI_POALR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
+                        user->e_ctl_mode = (lo->hfi.lo.e_polar_idf == HFI_POLAR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
                         lo->e_theta      = FOC_THETA_SENSORLESS;
                         lo->e_obs        = FOC_OBS_HFI;
                         break;

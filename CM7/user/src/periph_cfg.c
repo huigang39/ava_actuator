@@ -92,15 +92,15 @@ set_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
 {
         u32 half = pwm_full_cnt / 2;
 
-        // U 相
+        // u相
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_1, half - duty.u / 2);
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_A, HRTIM_COMPAREUNIT_3, half + duty.u / 2);
 
-        // V 相
+        // v相
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_1, half - duty.v / 2);
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_B, HRTIM_COMPAREUNIT_3, half + duty.v / 2);
 
-        // W 相
+        // w相
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_C, HRTIM_COMPAREUNIT_1, half - duty.w / 2);
         __HAL_HRTIM_SETCOMPARE(g_pwm, HRTIM_TIMERINDEX_TIMER_C, HRTIM_COMPAREUNIT_3, half + duty.w / 2);
 }
