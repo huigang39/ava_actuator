@@ -377,7 +377,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 3.000000
+value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
 [var26]
@@ -403,7 +403,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 1.000000
+value_to_write = 4.000000
 do_not_interpret_as_enum = false
 
 [var28]
@@ -1170,7 +1170,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 5.000000
+value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [var87]
@@ -2000,7 +2000,7 @@ format = DEC
 [group0-plot3]
 name = dpt
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot3-series0]
 name = g_dpt_raw.inner
@@ -2114,7 +2114,7 @@ format = DEC
 
 [group0-plot8-series1]
 name = g_foc.in.rotor.sensor_theta
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot8-series2]
@@ -2164,7 +2164,7 @@ format = DEC
 
 [group0-plot8-series11]
 name = g_foc.lo.hfi.lo.lpf_i_dq.d
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot8-series12]
@@ -2174,7 +2174,7 @@ format = DEC
 
 [group0-plot8-series13]
 name = g_foc.lo.hfi.lo.polar_offset
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot8-series14]
@@ -2345,7 +2345,7 @@ format = DEC
 [group0-plot14]
 name = sensor
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot14-series0]
 name = g_foc.in.rotor.sensor_omega

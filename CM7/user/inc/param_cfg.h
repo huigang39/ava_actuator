@@ -13,7 +13,7 @@
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE ACTUATOR_FSA361480Z
+#define ACTUATOR_TYPE ACTUATOR_FSA4530E
 
 typedef enum {
         ACTUATOR_FSA50N24E,
@@ -537,28 +537,28 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .fc    = 3000.0f,
-            .q     = 0.5f,
+            .wc    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .fc    = 3000.0f,
-            .q     = 0.5f,
+            .wc    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .fc    = 3000.0f,
-            .q     = 0.5f,
+            .wc    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA4530E] =
         {
             .fc    = 3000.0f,
-            .q     = 0.5f,
+            .wc    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
