@@ -86,6 +86,6 @@ ads_get_theta(void)
 {
         ads_raw_t rx_ads_raw = ads_get_raw();
         linerhall_exec_in(&g_linerhall, rx_ads_raw.b, rx_ads_raw.c);
-        g_ads_theta = g_linerhall.out.theta / 10.0f;
+        g_ads_theta = g_linerhall.out.theta;
         return g_ads_theta;
 }

@@ -513,25 +513,25 @@ static const hfi_cfg_t HFI_CFG[] = {
 static const pll_cfg_t HFI_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 1500.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 1500.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 1500.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 1500.0f,
+            .wc     = 500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },

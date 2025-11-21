@@ -28,7 +28,7 @@ f32
 dpt_get_inner_theta(void)
 {
         g_dpt_inner_theta = ((f32)dpt_get_raw().inner / (f32)LF(DPT_BITS)) * TAU;
-        return g_dpt_inner_theta;
+        return g_dpt_inner_theta * 10.0f;
 }
 
 f32

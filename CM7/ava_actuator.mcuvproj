@@ -78,7 +78,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 1.800000
+value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var3]
@@ -403,7 +403,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 4.000000
+value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
 [var28]
@@ -1170,7 +1170,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 1.000000
+value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [var87]
@@ -2074,7 +2074,7 @@ format = DEC
 
 [group0-plot5-series2]
 name = g_foc.lo.fdb_pvct.pos
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot5-series3]
@@ -2310,7 +2310,7 @@ format = DEC
 [group0-plot13]
 name = ref
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot13-series0]
 name = g_foc.lo.ref_i_dq.q
