@@ -481,7 +481,7 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .lpf_fc_dq     = {.d = 100.0f, .q = 500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA361480Z] =
@@ -489,7 +489,7 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .lpf_fc_dq     = {.d = 100.0f, .q = 500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA451780Z] =
@@ -497,7 +497,7 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .lpf_fc_dq     = {.d = 100.0f, .q = 500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA4530E] =
@@ -505,7 +505,7 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_fc_dq     = {.d = 100.0f, .q = 1000.0f},
+            .lpf_fc_dq     = {.d = 100.0f, .q = 500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
 };
@@ -513,7 +513,7 @@ static const hfi_cfg_t HFI_CFG[] = {
 static const pll_cfg_t HFI_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
@@ -525,13 +525,13 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 1000.0f,
+            .wc     = 1500.0f,
             .damp   = 0.707f,
             .lpf_fc = 1000.0f,
         },
