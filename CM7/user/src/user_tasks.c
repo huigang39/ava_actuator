@@ -73,15 +73,9 @@ set_ctl_obs(user_t *user, foc_t *foc)
                         break;
                 }
                 case CTL_THETA_SENSORLESS: {
-                        if (ABS(lo->fdb_pvct.vel) < 100.0f) {
-                                user->e_ctl_mode =
-                                    (lo->hfi.lo.e_polar_idf == HFI_POLAR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
-                                lo->e_theta = FOC_THETA_SENSORLESS;
-                                lo->e_obs   = FOC_OBS_HFI;
-                        } else if (ABS(lo->fdb_pvct.vel) > 100.0f) {
-                                lo->e_theta = FOC_THETA_SENSORLESS;
-                                lo->e_obs   = FOC_OBS_SMO;
-                        }
+                        user->e_ctl_mode = (lo->hfi.lo.e_polar_idf == HFI_POLAR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
+                        lo->e_theta      = FOC_THETA_SENSORLESS;
+                        lo->e_obs        = FOC_OBS_HFI_SMO;
                         break;
                 }
                 case CTL_THETA_HFI: {
@@ -91,7 +85,7 @@ set_ctl_obs(user_t *user, foc_t *foc)
                         break;
                 }
                 case CTL_THETA_SMO: {
-                        // lo->e_theta = FOC_THETA_SENSORLESS;
+                        lo->e_theta = FOC_THETA_SENSORLESS;
                         lo->e_obs   = FOC_OBS_SMO;
                         break;
                 }
