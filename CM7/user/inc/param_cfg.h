@@ -234,25 +234,25 @@ static const pid_cfg_t PD_CFG[] = {
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .out_max    = 1000.0f,
+            .out_max    = 10.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .out_max    = 1000.0f,
+            .out_max    = 10.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .out_max    = 1000.0f,
+            .out_max    = 10.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .out_max    = 1000.0f,
+            .out_max    = 10.0f,
         },
 };
 
@@ -425,22 +425,22 @@ static const smo_cfg_t SMO_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .ks  = 48.0f,
-            .es0 = 48.0f,
+            .es0 = 25.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .ks  = 48.0f,
-            .es0 = 48.0f,
+            .es0 = 25.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .ks  = 48.0f,
-            .es0 = 48.0f,
+            .es0 = 25.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
             .ks  = 48.0f,
-            .es0 = 48.0f,
+            .es0 = 25.0f,
         },
 };
 
@@ -594,7 +594,7 @@ static const lbg_cfg_t LBG_CFG[] = {
 static const sine_cfg_t SINE_CFG[] = {
     {
         .fs        = FOC_FREQ_HZ,
-        .wave_freq = 10.0f,
+        .wave_freq = 1.0f,
         .amp       = 1.0f,
     },
 };

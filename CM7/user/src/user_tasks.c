@@ -72,10 +72,27 @@ set_ctl_obs(user_t *user, foc_t *foc)
                         lo->e_theta = (user->e_ctl_word == CTL_WORD_CALI) ? lo->e_theta : FOC_THETA_SENSOR;
                         break;
                 }
+                case CTL_THETA_SENSORLESS: {
+                        if (ABS(lo->fdb_pvct.vel) < 100.0f) {
+                                user->e_ctl_mode =
+                                    (lo->hfi.lo.e_polar_idf == HFI_POLAR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
+                                lo->e_theta = FOC_THETA_SENSORLESS;
+                                lo->e_obs   = FOC_OBS_HFI;
+                        } else if (ABS(lo->fdb_pvct.vel) > 100.0f) {
+                                lo->e_theta = FOC_THETA_SENSORLESS;
+                                lo->e_obs   = FOC_OBS_SMO;
+                        }
+                        break;
+                }
                 case CTL_THETA_HFI: {
                         user->e_ctl_mode = (lo->hfi.lo.e_polar_idf == HFI_POLAR_IDF_FINISH) ? user->e_ctl_mode : CTL_MODE_CUR;
                         lo->e_theta      = FOC_THETA_SENSORLESS;
                         lo->e_obs        = FOC_OBS_HFI;
+                        break;
+                }
+                case CTL_THETA_SMO: {
+                        // lo->e_theta = FOC_THETA_SENSORLESS;
+                        lo->e_obs   = FOC_OBS_SMO;
                         break;
                 }
                 default:
@@ -95,7 +112,9 @@ user_loop_task(void *arg)
 
         // log_info(&g_log, 1, "user loop\n");
 
-        // set_ctl_word(&g_user, &g_foc);
-        // set_ctl_mode(&g_user, &g_foc);
-        // set_ctl_obs(&g_user, &g_foc);
+        set_ctl_word(&g_user, &g_foc);
+        set_ctl_mode(&g_user, &g_foc);
+        set_ctl_obs(&g_user, &g_foc);
+
+        // g_foc.lo.ref_pvct.pos = g_sine.out.val;
 }

@@ -10,6 +10,7 @@ typedef enum {
 
 typedef enum {
         CTL_THETA_SENSOR,
+        CTL_THETA_SENSORLESS,
         CTL_THETA_HFI,
         CTL_THETA_SMO,
 } ctl_theta_e;
