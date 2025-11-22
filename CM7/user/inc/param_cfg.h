@@ -328,7 +328,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .ref_theta_cali_omega   = 20.0f,
             .cur_div                = 1,
             .vel_div                = 5,
-            .pos_div                = 10,
+            .pos_div                = 25,
             .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA50NV3],
@@ -352,7 +352,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .ref_theta_cali_omega   = 20.0f,
             .cur_div                = 1,
             .vel_div                = 5,
-            .pos_div                = 10,
+            .pos_div                = 25,
             .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
@@ -376,7 +376,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .ref_theta_cali_omega   = 20.0f,
             .cur_div                = 1,
             .vel_div                = 5,
-            .pos_div                = 10,
+            .pos_div                = 25,
             .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
@@ -400,7 +400,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .ref_theta_cali_omega   = 20.0f,
             .cur_div                = 1,
             .vel_div                = 5,
-            .pos_div                = 10,
+            .pos_div                = 25,
             .pd_div                 = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
