@@ -234,28 +234,24 @@ static const pid_cfg_t PD_CFG[] = {
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
             .kp         = 0.01f,
             .kd         = 0.001f,
-            .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
 };
@@ -270,7 +266,7 @@ static const pid_cfg_t VEL_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = 0.05f,
+            .kp         = 0.01f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
@@ -301,10 +297,10 @@ static const pid_cfg_t POS_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = 1.0f,
+            .kp         = 0.5f,
             .ki         = 1.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
+            .ki_out_max = 50.0f,
+            .out_max    = 50.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
