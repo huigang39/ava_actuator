@@ -13,7 +13,7 @@
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE ACTUATOR_FSA361480Z
+#define ACTUATOR_TYPE ACTUATOR_FSA4530E
 
 typedef enum {
         ACTUATOR_FSA50N24E,
@@ -259,7 +259,7 @@ static const pid_cfg_t PD_CFG[] = {
 static const pid_cfg_t VEL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = 0.05f,
+            .kp         = 0.01f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
@@ -273,14 +273,14 @@ static const pid_cfg_t VEL_CFG[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = 0.05f,
+            .kp         = 0.01f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = 0.05f,
+            .kp         = 0.01f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
@@ -290,7 +290,7 @@ static const pid_cfg_t VEL_CFG[] = {
 static const pid_cfg_t POS_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = 1.0f,
+            .kp         = 0.5f,
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
@@ -304,14 +304,14 @@ static const pid_cfg_t POS_CFG[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = 1.0f,
+            .kp         = 0.5f,
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = 1.0f,
+            .kp         = 0.5f,
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
@@ -501,7 +501,7 @@ static const hfi_cfg_t HFI_CFG[] = {
             .fh            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_fc_dq     = {.d = 100.0f, .q = 500.0f},
+            .lpf_fc_dq     = {.d = 100.0f, .q = 200.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
 };
@@ -527,9 +527,9 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 1500.0f,
+            .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_fc = 1000.0f,
+            .lpf_fc = 500.0f,
         },
 };
 
@@ -558,7 +558,7 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA4530E] =
         {
             .fc    = 2000.0f,
-            .wc    = 2000.0f,
+            .wc    = 2500.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },

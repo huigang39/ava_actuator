@@ -11,7 +11,7 @@ foc_t   g_foc;
 sched_t g_sched;
 log_t   g_log;
 
-// benchmark_t benchmark_res[30];
+benchmark_t benchmark_res[30];
 
 HAPI void
 cpy_vtor_to_itcm(void)
@@ -45,7 +45,7 @@ init(void)
         // cpy_vtor_to_itcm();
 
         DWT_INIT();
-        // ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, U32_M); });
+        ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, 100); });
 
         periph_init();
 
