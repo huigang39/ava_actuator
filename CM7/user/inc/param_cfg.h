@@ -7,8 +7,6 @@
 #include "dpt.h"
 #include "periph_cfg.h"
 
-#define MCU_FREQ_MHZ  (400)
-
 // #define FOC_FREQ_HZ  (K(50.0F))
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))

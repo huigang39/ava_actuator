@@ -11,7 +11,7 @@ foc_t   g_foc;
 sched_t g_sched;
 log_t   g_log;
 
-benchmark_t benchmark_res[30];
+volatile benchmark_t benchmark_res[30];
 
 HAPI void
 cpy_vtor_to_itcm(void)
@@ -45,7 +45,7 @@ init(void)
         // cpy_vtor_to_itcm();
 
         DWT_INIT();
-        ATOMIC_EXEC({ RUN_MATH_BENCHMARKS(benchmark_res, 100); });
+        ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 100); });
 
         periph_init();
 
@@ -66,15 +66,15 @@ init(void)
 void
 foc_loop(void)
 {
-        u32 elapsed = 0;
-        MEASURE_TIME(elapsed, "foc", 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
-        g_foc.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        u32 cyccnt = 0;
+        MEASURE_TIME(cyccnt, "foc", 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
+        g_foc.lo.elapsed_us = CYCCNT2US(cyccnt);
 }
 
 void
 sched_loop(void)
 {
-        u32 elapsed = 0;
-        MEASURE_TIME(elapsed, "sched", 1, { sched_exec(&g_sched); };);
-        g_sched.lo.elapsed_us = elapsed * (1.0f / (f32)MCU_FREQ_MHZ);
+        u32 cyccnt = 0;
+        MEASURE_TIME(cyccnt, "sched", 1, { sched_exec(&g_sched); };);
+        g_sched.lo.elapsed_us = CYCCNT2US(cyccnt);
 }
