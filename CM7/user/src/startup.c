@@ -11,7 +11,7 @@ foc_t   g_foc;
 sched_t g_sched;
 log_t   g_log;
 
-volatile benchmark_t benchmark_res[30];
+benchmark_t benchmark_res[30];
 
 HAPI void
 cpy_vtor_to_itcm(void)
@@ -45,7 +45,15 @@ init(void)
         // cpy_vtor_to_itcm();
 
         DWT_INIT();
-        ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 10000); });
+        ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 100); });
+
+        for (int i = 0; i < ARRAY_LEN(benchmark_res); i++)
+                log_info(&g_log,
+                         1,
+                         "op_name: %s, total: %f us, single: %f us\n",
+                         benchmark_res[i].name,
+                         benchmark_res[i].total_elapsed_us,
+                         benchmark_res[i].single_elapsed_us);
 
         periph_init();
 
