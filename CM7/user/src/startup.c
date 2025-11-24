@@ -45,7 +45,7 @@ init(void)
         // cpy_vtor_to_itcm();
 
         DWT_INIT();
-        ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 100); });
+        ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 10000); });
 
         periph_init();
 
