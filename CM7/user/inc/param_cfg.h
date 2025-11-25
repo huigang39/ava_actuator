@@ -534,29 +534,29 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
 static const iir_cfg_t HFI_BPF_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fc    = 2000.0f,
-            .wc    = 2000.0f,
+            .fh    = 3000.0f,
+            .fl    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fc    = 2000.0f,
-            .wc    = 2000.0f,
+            .fh    = 3000.0f,
+            .fl    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .fc    = 2000.0f,
-            .wc    = 2000.0f,
+            .fh    = 3000.0f,
+            .fl    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fc    = 2000.0f,
-            .wc    = 2500.0f,
+            .fh    = 3000.0f,
+            .fl    = 1000.0f,
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
