@@ -47,13 +47,16 @@ init(void)
         DWT_INIT();
         ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 100); });
 
-        for (int i = 0; i < ARRAY_LEN(benchmark_res); i++)
-                log_info(&g_log,
-                         1,
-                         "op_name: %s, total: %f us, single: %f us\n",
-                         benchmark_res[i].name,
+        for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
+                if (!benchmark_res[i].name)
+                        continue;
+
+                log_info(&g_log, 1,
+                         "seq: %d, op_name: %s, total: %f us, single: %f us\n",
+                         i, benchmark_res[i].name,
                          benchmark_res[i].total_elapsed_us,
                          benchmark_res[i].single_elapsed_us);
+        }
 
         periph_init();
 

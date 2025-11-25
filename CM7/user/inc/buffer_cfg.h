@@ -4,8 +4,8 @@
 #include "module.h"
 
 #define DPT_RX_BUF_SIZE    (8)
-#define LOG_FLUSH_BUF_SIZE (128)
-#define LOG_BUF_SIZE       (1 * 1024)
+#define LOG_FLUSH_BUF_SIZE (1024)
+#define LOG_BUF_SIZE       (4 * 1024)
 #define LOG_PRODUCERS_NUM  (2)
 #define FFT_POINTS_NUM     (FFT_POINTS_4096)
 
