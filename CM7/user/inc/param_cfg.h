@@ -257,28 +257,28 @@ static const pid_cfg_t PD_CFG[] = {
 static const pid_cfg_t VEL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = 0.01f,
+            .kp         = 0.1f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = 0.01f,
+            .kp         = 0.1f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = 0.01f,
+            .kp         = 0.1f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = 0.01f,
+            .kp         = 0.1f,
             .ki         = 1.0f,
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
