@@ -100,7 +100,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld  = 15e-6f,
             .lq  = 17.5e-6f,
             .psi = 0.005301f,
-            .wc  = 1500.0f,
+            .wc  = 8000.0f,
             .j   = 1.48e-05f,
         },
     [MOTOR_FSA3610V0] =
@@ -110,7 +110,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 207.2e-6f,
             .lq      = 376.2e-6f,
             .psi     = 0.005002f,
-            .wc      = 1500.0f,
+            .wc      = 8000.0f,
             .j       = 1.73e-5f,
             .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
             .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
@@ -203,27 +203,27 @@ static const periph_cfg_t PERIPH_CFG[] = {
 static const pll_cfg_t OMEGA_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 200.0f,
+            .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 100.0f,
+            .lpf_wc = 500.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 200.0f,
+            .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 100.0f,
+            .lpf_wc = 500.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 200.0f,
+            .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 100.0f,
+            .lpf_wc = 500.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 200.0f,
+            .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 100.0f,
+            .lpf_wc = 500.0f,
         },
 };
 
@@ -377,7 +377,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div                = 25,
             .pd_div                 = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
+            .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
             .vel_cfg    = VEL_CFG[ACTUATOR_FSA451780Z],
             .pos_cfg    = POS_CFG[ACTUATOR_FSA451780Z],
@@ -401,7 +401,7 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div                = 25,
             .pd_div                 = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
+            .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
             .vel_cfg    = VEL_CFG[ACTUATOR_FSA451780Z],
             .pos_cfg    = POS_CFG[ACTUATOR_FSA451780Z],
