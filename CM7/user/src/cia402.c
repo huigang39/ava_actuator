@@ -301,7 +301,7 @@ cia402_set_ctl_word(cia402_t *cia402, u16 ctl_word)
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
 
         lo->ctl_word         = ctl_word;
-        comm_shm->lo.comm_ok = 1; // 收到控制字表示通信正常
+        comm_shm->lo.comm_ok = true; // 收到控制字表示通信正常
 }
 
 u16
