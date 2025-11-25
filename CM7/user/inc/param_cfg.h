@@ -227,32 +227,63 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
         },
 };
 
+static const pid_cfg_t CUR_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA50NV3].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA50NV3].rs),
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA3610V0].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA3610V0].rs),
+        },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].rs),
+        },
+    [ACTUATOR_FSA4530E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].rs),
+        },
+};
+
 static const pid_cfg_t VEL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = 0.1f,
-            .ki         = 1.0f,
+            .kp = VEL_KP(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA50NV3].psi, MOTOR_CFG[MOTOR_FSA50NV3].npp, MOTOR_CFG[MOTOR_FSA50NV3].j),
+            .ki = VEL_KI(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA50NV3].psi, MOTOR_CFG[MOTOR_FSA50NV3].npp, MOTOR_CFG[MOTOR_FSA50NV3].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = 0.1f,
-            .ki         = 1.0f,
+            .kp = VEL_KP(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA3610V0].psi, MOTOR_CFG[MOTOR_FSA3610V0].npp, MOTOR_CFG[MOTOR_FSA3610V0].j),
+            .ki = VEL_KI(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA3610V0].psi, MOTOR_CFG[MOTOR_FSA3610V0].npp, MOTOR_CFG[MOTOR_FSA3610V0].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = 0.1f,
-            .ki         = 1.0f,
+            .kp = VEL_KP(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
+            .ki = VEL_KI(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = 0.1f,
-            .ki         = 1.0f,
+            .kp = VEL_KP(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
+            .ki = VEL_KI(
+                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
@@ -314,18 +345,22 @@ static const foc_cfg_t FOC_CFG[] = {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
-            .ref_theta_cali_id      = 2.0f,
-            .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1,
-            .vel_div                = 5,
-            .pos_div                = 25,
-            .pd_div                 = 5,
+
+            .ref_theta_cali_id    = 2.0f,
+            .ref_theta_cali_omega = 20.0f,
+
+            .cur_div = 1,
+            .vel_div = 5,
+            .pos_div = 25,
+            .pd_div  = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA50NV3],
             .periph_cfg = PERIPH_CFG[PERIPH_F3H58V101],
-            .vel_cfg    = VEL_CFG[ACTUATOR_FSA50N24E],
-            .pos_cfg    = POS_CFG[ACTUATOR_FSA50N24E],
-            .pd_cfg     = PD_CFG[ACTUATOR_FSA50N24E],
+
+            .cur_cfg = CUR_CFG[ACTUATOR_FSA50N24E],
+            .vel_cfg = VEL_CFG[ACTUATOR_FSA50N24E],
+            .pos_cfg = POS_CFG[ACTUATOR_FSA50N24E],
+            .pd_cfg  = PD_CFG[ACTUATOR_FSA50N24E],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -338,18 +373,22 @@ static const foc_cfg_t FOC_CFG[] = {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
-            .ref_theta_cali_id      = 2.0f,
-            .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1,
-            .vel_div                = 5,
-            .pos_div                = 25,
-            .pd_div                 = 5,
+
+            .ref_theta_cali_id    = 2.0f,
+            .ref_theta_cali_omega = 20.0f,
+
+            .cur_div = 1,
+            .vel_div = 5,
+            .pos_div = 25,
+            .pd_div  = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H46V100],
-            .vel_cfg    = VEL_CFG[ACTUATOR_FSA361480Z],
-            .pos_cfg    = POS_CFG[ACTUATOR_FSA361480Z],
-            .pd_cfg     = PD_CFG[ACTUATOR_FSA361480Z],
+
+            .cur_cfg = CUR_CFG[ACTUATOR_FSA361480Z],
+            .vel_cfg = VEL_CFG[ACTUATOR_FSA361480Z],
+            .pos_cfg = POS_CFG[ACTUATOR_FSA361480Z],
+            .pd_cfg  = PD_CFG[ACTUATOR_FSA361480Z],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -362,18 +401,22 @@ static const foc_cfg_t FOC_CFG[] = {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
-            .ref_theta_cali_id      = 2.0f,
-            .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1,
-            .vel_div                = 5,
-            .pos_div                = 25,
-            .pd_div                 = 5,
+
+            .ref_theta_cali_id    = 2.0f,
+            .ref_theta_cali_omega = 20.0f,
+
+            .cur_div = 1,
+            .vel_div = 5,
+            .pos_div = 25,
+            .pd_div  = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
-            .vel_cfg    = VEL_CFG[ACTUATOR_FSA451780Z],
-            .pos_cfg    = POS_CFG[ACTUATOR_FSA451780Z],
-            .pd_cfg     = PD_CFG[ACTUATOR_FSA451780Z],
+
+            .cur_cfg = CUR_CFG[ACTUATOR_FSA451780Z],
+            .vel_cfg = VEL_CFG[ACTUATOR_FSA451780Z],
+            .pos_cfg = POS_CFG[ACTUATOR_FSA451780Z],
+            .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -386,18 +429,22 @@ static const foc_cfg_t FOC_CFG[] = {
             .exec_freq              = FOC_FREQ_HZ,
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
-            .ref_theta_cali_id      = 2.0f,
-            .ref_theta_cali_omega   = 20.0f,
-            .cur_div                = 1,
-            .vel_div                = 5,
-            .pos_div                = 25,
-            .pd_div                 = 5,
+
+            .ref_theta_cali_id    = 2.0f,
+            .ref_theta_cali_omega = 20.0f,
+
+            .cur_div = 1,
+            .vel_div = 5,
+            .pos_div = 25,
+            .pd_div  = 5,
 
             .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
             .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
-            .vel_cfg    = VEL_CFG[ACTUATOR_FSA451780Z],
-            .pos_cfg    = POS_CFG[ACTUATOR_FSA451780Z],
-            .pd_cfg     = PD_CFG[ACTUATOR_FSA451780Z],
+
+            .cur_cfg = CUR_CFG[ACTUATOR_FSA4530E],
+            .vel_cfg = VEL_CFG[ACTUATOR_FSA451780Z],
+            .pos_cfg = POS_CFG[ACTUATOR_FSA451780Z],
+            .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = ads_get_theta,
             .f_get_adc        = get_adc,
@@ -464,7 +511,7 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
 static const hfi_cfg_t HFI_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .fh            = 2000.0f,
+            .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
             .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
@@ -472,7 +519,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .fh            = 2000.0f,
+            .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
             .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
@@ -480,7 +527,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .fh            = 2000.0f,
+            .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
             .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
@@ -488,7 +535,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .fh            = 2000.0f,
+            .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
             .lpf_wc_dq     = {.d = 500.0f, .q = 800.0f},
