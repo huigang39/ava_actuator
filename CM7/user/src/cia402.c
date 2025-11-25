@@ -163,8 +163,9 @@ cia402_update_foc_state(cia402_t *cia402)
 
                 case CIA402_STATE_QUICK_STOP: {
                         // 快速停机：立即禁用FOC
-                        if (foc->lo.e_state != FOC_STATE_DISABLE) {
-                                foc->lo.e_state = FOC_STATE_DISABLE;
+                        if (foc->lo.e_state != FOC_STATE_ENABLE) {
+                                foc->lo.e_state = FOC_STATE_ENABLE;
+                                foc->lo.e_mode  = FOC_MODE_ASC;
                         }
                         break;
                 }
