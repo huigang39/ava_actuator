@@ -565,22 +565,22 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
 static const lbg_cfg_t LBG_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc   = 100.0f * TAU,
+            .wc   = 100.0f,
             .damp = 2.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc   = 100.0f * TAU,
+            .wc   = 100.0f,
             .damp = 2.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc   = 100.0f * TAU,
+            .wc   = 100.0f,
             .damp = 2.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc   = 100.0f * TAU,
+            .wc   = 100.0f,
             .damp = 2.0f,
         },
 };
@@ -591,7 +591,7 @@ static const lbg_cfg_t LBG_CFG[] = {
 
 static const sine_cfg_t SINE_CFG[] = {
     {
-        .fs        = FOC_FREQ_HZ,
+        .fs        = USER_FREQ_HZ,
         .wave_freq = 1.0f,
         .amp       = 1.0f,
     },
@@ -599,10 +599,10 @@ static const sine_cfg_t SINE_CFG[] = {
 
 static const square_cfg_t SQUARE_CFG[] = {
     {
-        .fs         = FOC_FREQ_HZ,
+        .fs         = USER_FREQ_HZ,
         .wave_freq  = 1.0f,
         .amp        = 1.0f,
-        .duty_cycle = 0.5f,
+        .duty       = 0.5f,
     },
 };
 
