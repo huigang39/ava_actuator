@@ -100,7 +100,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld  = 15e-6f,
             .lq  = 17.5e-6f,
             .psi = 0.005301f,
-            .wc  = 8000.0f,
+            .wc  = HZ2RADS(2000.0f),
             .j   = 1.48e-05f,
         },
     [MOTOR_FSA3610V0] =
@@ -110,7 +110,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 207.2e-6f,
             .lq      = 376.2e-6f,
             .psi     = 0.005002f,
-            .wc      = 8000.0f,
+            .wc      = HZ2RADS(2000.0f),
             .j       = 1.73e-5f,
             .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
             .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
@@ -123,7 +123,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 78.8e-6f,
             .lq      = 95.6e-6f,
             .psi     = 0.004749f,
-            .wc      = 8000.0f,
+            .wc      = HZ2RADS(2000.0f),
             .j       = 3.48e-05f,
             .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
             .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
@@ -261,31 +261,23 @@ static const pid_cfg_t VEL_CFG[] = {
 static const pid_cfg_t POS_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = 0.5f,
-            .ki         = 1.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
+            .kp      = 0.5f,
+            .out_max = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = 0.5f,
-            .ki         = 1.0f,
-            .ki_out_max = 50.0f,
-            .out_max    = 50.0f,
+            .kp      = 0.5f,
+            .out_max = 50.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = 0.5f,
-            .ki         = 1.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
+            .kp      = 0.5f,
+            .out_max = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = 0.5f,
-            .ki         = 1.0f,
-            .ki_out_max = 1000.0f,
-            .out_max    = 1000.0f,
+            .kp      = 0.5f,
+            .out_max = 1000.0f,
         },
 };
 
