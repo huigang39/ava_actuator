@@ -143,8 +143,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
             // PWM
             .pwm_freq    = K(50.0f),
             .timer_freq  = M(200.0f),
-            .mi          = 2.0f / 3.0f,
-            .f32_pwm_min = 0.0f,
+            .mi          = DIV_2_BY_3,
             .f32_pwm_max = 0.8f,
         },
     [PERIPH_F2H46V100] =
@@ -160,8 +159,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
             // PWM
             .pwm_freq    = K(20.0f),
             .timer_freq  = M(200.0f),
-            .mi          = 2.0f / 3.0f,
-            .f32_pwm_min = 0.0f,
+            .mi          = DIV_2_BY_3,
             .f32_pwm_max = 0.8f,
         },
     [PERIPH_F2H58V100] =
@@ -177,8 +175,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
             // PWM
             .pwm_freq    = K(20.0f),
             .timer_freq  = M(200.0f),
-            .mi          = 2.0f / 3.0f,
-            .f32_pwm_min = 0.0f,
+            .mi          = DIV_2_BY_3,
             .f32_pwm_max = 0.8f,
         },
     [PERIPH_F2H54V100] =
@@ -194,8 +191,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
             // PWM
             .pwm_freq    = K(20.0f),
             .timer_freq  = M(200.0f),
-            .mi          = 2.0f / 3.0f,
-            .f32_pwm_min = 0.0f,
+            .mi          = DIV_2_BY_3,
             .f32_pwm_max = 0.8f,
         },
 };
@@ -205,25 +201,25 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
         {
             .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 1500.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 1500.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 1500.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
             .wc     = 800.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 1500.0f,
         },
 };
 
