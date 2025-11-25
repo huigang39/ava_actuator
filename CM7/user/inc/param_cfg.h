@@ -123,7 +123,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
             .ld      = 78.8e-6f,
             .lq      = 95.6e-6f,
             .psi     = 0.004749f,
-            .wc      = 1500.0f,
+            .wc      = 8000.0f,
             .j       = 3.48e-05f,
             .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
             .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
@@ -203,27 +203,27 @@ static const periph_cfg_t PERIPH_CFG[] = {
 static const pll_cfg_t OMEGA_PLL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 300.0f,
+            .wc     = 200.0f,
             .damp   = 0.707f,
-            .lpf_wc = 500.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 300.0f,
+            .wc     = 200.0f,
             .damp   = 0.707f,
-            .lpf_wc = 300.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 300.0f,
+            .wc     = 200.0f,
             .damp   = 0.707f,
-            .lpf_wc = 300.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 300.0f,
+            .wc     = 200.0f,
             .damp   = 0.707f,
-            .lpf_wc = 300.0f,
+            .lpf_wc = 100.0f,
         },
 };
 
