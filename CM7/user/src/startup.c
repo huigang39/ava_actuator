@@ -51,9 +51,11 @@ init(void)
                 if (!benchmark_res[i].name)
                         continue;
 
-                log_info(&g_log, 1,
+                log_info(&g_log,
+                         1,
                          "seq: %d, op_name: %s, total: %f us, single: %f us\n",
-                         i, benchmark_res[i].name,
+                         i,
+                         benchmark_res[i].name,
                          benchmark_res[i].total_elapsed_us,
                          benchmark_res[i].single_elapsed_us);
         }

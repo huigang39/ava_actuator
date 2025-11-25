@@ -227,33 +227,6 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
         },
 };
 
-static const pid_cfg_t PD_CFG[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .kp         = 0.01f,
-            .kd         = 0.001f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .kp         = 0.01f,
-            .kd         = 0.001f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA451780Z] =
-        {
-            .kp         = 0.01f,
-            .kd         = 0.001f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA4530E] =
-        {
-            .kp         = 0.01f,
-            .kd         = 0.001f,
-            .out_max    = 10.0f,
-        },
-};
-
 static const pid_cfg_t VEL_CFG[] = {
     [ACTUATOR_FSA50N24E] =
         {
@@ -313,6 +286,33 @@ static const pid_cfg_t POS_CFG[] = {
             .ki         = 1.0f,
             .ki_out_max = 1000.0f,
             .out_max    = 1000.0f,
+        },
+};
+
+static const pid_cfg_t PD_CFG[] = {
+    [ACTUATOR_FSA50N24E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA361480Z] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA451780Z] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA4530E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
         },
 };
 
@@ -599,10 +599,10 @@ static const sine_cfg_t SINE_CFG[] = {
 
 static const square_cfg_t SQUARE_CFG[] = {
     {
-        .fs         = USER_FREQ_HZ,
-        .wave_freq  = 1.0f,
-        .amp        = 1.0f,
-        .duty       = 0.5f,
+        .fs        = USER_FREQ_HZ,
+        .wave_freq = 1.0f,
+        .amp       = 1.0f,
+        .duty      = 0.5f,
     },
 };
 
