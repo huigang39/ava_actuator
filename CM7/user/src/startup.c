@@ -75,7 +75,7 @@ void
 foc_loop(void)
 {
         u32 cyccnt = 0;
-        MEASURE_TIME(cyccnt, "foc", 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
+        MEASURE_TIME(cyccnt, 1, { ATOMIC_EXEC({ foc_exec(&g_foc); }); });
         g_foc.lo.elapsed_us = CYCCNT2US(cyccnt);
 }
 
@@ -83,6 +83,6 @@ void
 sched_loop(void)
 {
         u32 cyccnt = 0;
-        MEASURE_TIME(cyccnt, "sched", 1, { sched_exec(&g_sched); };);
+        MEASURE_TIME(cyccnt, 1, { sched_exec(&g_sched); };);
         g_sched.lo.elapsed_us = CYCCNT2US(cyccnt);
 }
