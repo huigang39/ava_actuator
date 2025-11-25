@@ -447,25 +447,25 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
         {
             .wc     = 500.0f,
             .damp   = 0.707f,
-            .lpf_fc = 500.0f,
+            .lpf_fc = 100.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
             .wc     = 500.0f,
             .damp   = 0.707f,
-            .lpf_fc = 500.0f,
+            .lpf_fc = 100.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
             .wc     = 500.0f,
             .damp   = 0.707f,
-            .lpf_fc = 500.0f,
+            .lpf_fc = 100.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
             .wc     = 500.0f,
             .damp   = 0.707f,
-            .lpf_fc = 500.0f,
+            .lpf_fc = 100.0f,
         },
 };
 
