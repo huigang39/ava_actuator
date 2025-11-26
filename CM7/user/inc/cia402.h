@@ -17,32 +17,28 @@ typedef enum
             CIA402_STATE_FAULT       // 错误 - 有故障, 已去使能
     } cia402_state_e;
 
-typedef enum
-    : u16 { CIA402_CTL_WORD_SWITCH_ON        = (1 << 0), // Bit 0: Switch on
-            CIA402_CTL_WORD_ENABLE_VOLTAGE   = (1 << 1), // Bit 1: Enable voltage
-            CIA402_CTL_WORD_QUICK_STOP       = (1 << 2), // Bit 2: Quick stop
-            CIA402_CTL_WORD_ENABLE_OPERATION = (1 << 3), // Bit 3: Enable operation
-            CIA402_CTL_WORD_OPERATION_MODE_0 = (1 << 4), // Bit 4-6: Operation mode specific
-            CIA402_CTL_WORD_OPERATION_MODE_1 = (1 << 5),
-            CIA402_CTL_WORD_OPERATION_MODE_2 = (1 << 6),
-            CIA402_CTL_WORD_FAULT_RESET      = (1 << 7), // Bit 7: Fault reset
-            CIA402_CTL_WORD_HALT             = (1 << 8), // Bit 8: Halt
-    } cia402_ctl_word_e;
+#define CIA402_CTL_WORD_SWITCH_ON          (1 << 0) // Bit 0: Switch on
+#define CIA402_CTL_WORD_ENABLE_VOLTAGE     (1 << 1) // Bit 1: Enable voltage
+#define CIA402_CTL_WORD_QUICK_STOP         (1 << 2) // Bit 2: Quick stop
+#define CIA402_CTL_WORD_ENABLE_OPERATION   (1 << 3) // Bit 3: Enable operation
+#define CIA402_CTL_WORD_OPERATION_MODE_0   (1 << 4) // Bit 4-6: Operation mode specific
+#define CIA402_CTL_WORD_OPERATION_MODE_1   (1 << 5)
+#define CIA402_CTL_WORD_OPERATION_MODE_2   (1 << 6)
+#define CIA402_CTL_WORD_FAULT_RESET        (1 << 7) // Bit 7: Fault reset
+#define CIA402_CTL_WORD_HALT               (1 << 8) // Bit 8: Halt
 
-typedef enum
-    : u16 { CIA402_STS_WORD_READY_TO_SWITCH_ON = (1 << 0),  // Bit 0: Ready to switch on
-            CIA402_STS_WORD_SWITCHED_ON        = (1 << 1),  // Bit 1: Switched on
-            CIA402_STS_WORD_OPERATION_ENABLED  = (1 << 2),  // Bit 2: Operation enabled
-            CIA402_STS_WORD_FAULT              = (1 << 3),  // Bit 3: Fault
-            CIA402_STS_WORD_VOLTAGE_ENABLED    = (1 << 4),  // Bit 4: Voltage enabled
-            CIA402_STS_WORD_QUICK_STOP         = (1 << 5),  // Bit 5: Quick stop
-            CIA402_STS_WORD_SWITCH_ON_DISABLED = (1 << 6),  // Bit 6: Switch on disabled
-            CIA402_STS_WORD_WARNING            = (1 << 7),  // Bit 7: Warning
-            CIA402_STS_WORD_MANUFACTURER_0     = (1 << 8),  // Bit 8-15: Manufacturer specific
-            CIA402_STS_WORD_REMOTE             = (1 << 9),  // Bit 9: Remote
-            CIA402_STS_WORD_TARGET_REACHED     = (1 << 10), // Bit 10: Target reached
-            CIA402_STS_WORD_INTERNAL_LIMIT     = (1 << 11), // Bit 11: Internal limit active
-    } cia402_sts_word_e;
+#define CIA402_STS_WORD_READY_TO_SWITCH_ON (1 << 0)  // Bit 0: Ready to switch on
+#define CIA402_STS_WORD_SWITCHED_ON        (1 << 1)  // Bit 1: Switched on
+#define CIA402_STS_WORD_OPERATION_ENABLED  (1 << 2)  // Bit 2: Operation enabled
+#define CIA402_STS_WORD_FAULT              (1 << 3)  // Bit 3: Fault
+#define CIA402_STS_WORD_VOLTAGE_ENABLED    (1 << 4)  // Bit 4: Voltage enabled
+#define CIA402_STS_WORD_QUICK_STOP         (1 << 5)  // Bit 5: Quick stop
+#define CIA402_STS_WORD_SWITCH_ON_DISABLED (1 << 6)  // Bit 6: Switch on disabled
+#define CIA402_STS_WORD_WARNING            (1 << 7)  // Bit 7: Warning
+#define CIA402_STS_WORD_MANUFACTURER_0     (1 << 8)  // Bit 8-15: Manufacturer specific
+#define CIA402_STS_WORD_REMOTE             (1 << 9)  // Bit 9: Remote
+#define CIA402_STS_WORD_TARGET_REACHED     (1 << 10) // Bit 10: Target reached
+#define CIA402_STS_WORD_INTERNAL_LIMIT     (1 << 11) // Bit 11: Internal limit active
 
 typedef struct {
         foc_t      *foc;
