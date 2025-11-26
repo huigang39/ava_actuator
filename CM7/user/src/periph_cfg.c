@@ -129,19 +129,19 @@ set_drv_8353_status(u8 enable)
                : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
 }
 
-u64 g_timer_overflow;
+u64 g_timer_overflow_cnt;
 u64
 get_ts_us(void)
 {
         u16 us_cnt = HAL_LPTIM_ReadCounter(g_timer);
-        return (g_timer_overflow << 16) + us_cnt;
+        return (g_timer_overflow_cnt << 16) + us_cnt;
 }
 
 void
 HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim)
 {
         if (hlptim == g_timer)
-                g_timer_overflow++;
+                g_timer_overflow_cnt++;
 }
 
 void
