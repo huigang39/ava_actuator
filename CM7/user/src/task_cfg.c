@@ -8,6 +8,6 @@ task_init(sched_t *sched)
         user_init();
         other_init();
 
-        for (u32 i = 0; i < ARRAY_LEN(TASK_LIST); i++)
-                sched_add_task(sched, TASK_LIST[i]);
+        for (u32 i = 0; i < ARRAY_LEN(g_task_list_cfg); i++)
+                sched_add_task(sched, g_task_list_cfg[i]);
 }

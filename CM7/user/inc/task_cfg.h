@@ -13,7 +13,7 @@ typedef enum {
         TASK_SINE,
 } task_e;
 
-static const sched_task_cfg_t TASK_LIST[] = {
+static const sched_task_cfg_t g_task_list_cfg[] = {
     [TASK_USER] =
         {
             .id           = TASK_USER,

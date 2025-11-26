@@ -62,18 +62,18 @@ init(void)
 
         periph_init();
 
-        sched_init(&g_sched, SCHED_CFG[ACTUATOR_TYPE]);
+        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
         task_init(&g_sched);
 
-        g_foc.lo.pll.cfg           = OMEGA_PLL_CFG[ACTUATOR_TYPE];
-        g_foc.lo.hfi.cfg           = HFI_CFG[ACTUATOR_TYPE];
-        g_foc.lo.hfi.lo.pll.cfg    = HFI_PLL_CFG[ACTUATOR_TYPE];
-        g_foc.lo.hfi.lo.id_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-        g_foc.lo.hfi.lo.iq_bpf.cfg = HFI_BPF_CFG[ACTUATOR_TYPE];
-        g_foc.lo.smo.cfg           = SMO_CFG[ACTUATOR_TYPE];
-        g_foc.lo.smo.lo.pll.cfg    = SMO_PLL_CFG[ACTUATOR_TYPE];
-        g_foc.lo.lbg.cfg           = LBG_CFG[ACTUATOR_TYPE];
-        foc_init(&g_foc, FOC_CFG[ACTUATOR_TYPE]);
+        g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
+        g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.pll.cfg    = g_hfi_pll_cfg[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.id_bpf.cfg = g_hfi_bpf_cfg[ACTUATOR_TYPE];
+        g_foc.lo.hfi.lo.iq_bpf.cfg = g_hfi_bpf_cfg[ACTUATOR_TYPE];
+        g_foc.lo.smo.cfg           = g_smo_cfg[ACTUATOR_TYPE];
+        g_foc.lo.smo.lo.pll.cfg    = g_smo_pll_cfg[ACTUATOR_TYPE];
+        g_foc.lo.lbg.cfg           = g_lbg_cfg[ACTUATOR_TYPE];
+        foc_init(&g_foc, g_foc_cfg[ACTUATOR_TYPE]);
 }
 
 void

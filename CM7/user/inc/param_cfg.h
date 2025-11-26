@@ -38,7 +38,7 @@ typedef struct {
         periph_type_e periph_type;
 } actuator_cfg_t;
 
-static const sched_cfg_t SCHED_CFG[] = {
+static const sched_cfg_t g_sched_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .e_type   = SCHED_TYPE_FCFS,
@@ -69,7 +69,7 @@ static const sched_cfg_t SCHED_CFG[] = {
 /*                                     FOC                                    */
 /* -------------------------------------------------------------------------- */
 
-static const actuator_cfg_t ACTUATOR_CFG[] = {
+static const actuator_cfg_t g_actuator_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .motor_type  = MOTOR_FSA50NV3,
@@ -92,7 +92,7 @@ static const actuator_cfg_t ACTUATOR_CFG[] = {
         },
 };
 
-static const motor_cfg_t MOTOR_CFG[] = {
+static const motor_cfg_t g_motor_cfg[] = {
     [MOTOR_FSA50NV3] =
         {
             .npp = 10,
@@ -131,7 +131,7 @@ static const motor_cfg_t MOTOR_CFG[] = {
         },
 };
 
-static const periph_cfg_t PERIPH_CFG[] = {
+static const periph_cfg_t g_periph_cfg[] = {
     [PERIPH_F3H58V101] =
         {
             // ADC
@@ -196,7 +196,7 @@ static const periph_cfg_t PERIPH_CFG[] = {
         },
 };
 
-static const pll_cfg_t OMEGA_PLL_CFG[] = {
+static const pll_cfg_t g_omega_pll_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .wc     = 800.0f,
@@ -223,69 +223,85 @@ static const pll_cfg_t OMEGA_PLL_CFG[] = {
         },
 };
 
-static const pid_cfg_t CUR_CFG[] = {
+static const pid_cfg_t g_cur_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA50NV3].ld),
-            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA50NV3].rs),
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA50NV3].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA50NV3].rs),
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA3610V0].ld),
-            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA3610V0].rs),
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA3610V0].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA3610V0].rs),
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].ld),
-            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].rs),
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].rs),
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp = CUR_KP(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].ld),
-            .ki = CUR_KI(HZ2RADS(2000.0f), MOTOR_CFG[MOTOR_FSA4515V1].rs),
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].rs),
         },
 };
 
-static const pid_cfg_t VEL_CFG[] = {
+static const pid_cfg_t g_vel_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp = VEL_KP(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA50NV3].psi, MOTOR_CFG[MOTOR_FSA50NV3].npp, MOTOR_CFG[MOTOR_FSA50NV3].j),
-            .ki = VEL_KI(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA50NV3].psi, MOTOR_CFG[MOTOR_FSA50NV3].npp, MOTOR_CFG[MOTOR_FSA50NV3].j),
+            .kp         = VEL_KP(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA50NV3].psi,
+                         g_motor_cfg[MOTOR_FSA50NV3].npp,
+                         g_motor_cfg[MOTOR_FSA50NV3].j),
+            .ki         = VEL_KI(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA50NV3].psi,
+                         g_motor_cfg[MOTOR_FSA50NV3].npp,
+                         g_motor_cfg[MOTOR_FSA50NV3].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp = VEL_KP(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA3610V0].psi, MOTOR_CFG[MOTOR_FSA3610V0].npp, MOTOR_CFG[MOTOR_FSA3610V0].j),
-            .ki = VEL_KI(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA3610V0].psi, MOTOR_CFG[MOTOR_FSA3610V0].npp, MOTOR_CFG[MOTOR_FSA3610V0].j),
+            .kp         = VEL_KP(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA3610V0].psi,
+                         g_motor_cfg[MOTOR_FSA3610V0].npp,
+                         g_motor_cfg[MOTOR_FSA3610V0].j),
+            .ki         = VEL_KI(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA3610V0].psi,
+                         g_motor_cfg[MOTOR_FSA3610V0].npp,
+                         g_motor_cfg[MOTOR_FSA3610V0].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp = VEL_KP(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
-            .ki = VEL_KI(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
+            .kp         = VEL_KP(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA4515V1].psi,
+                         g_motor_cfg[MOTOR_FSA4515V1].npp,
+                         g_motor_cfg[MOTOR_FSA4515V1].j),
+            .ki         = VEL_KI(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA4515V1].psi,
+                         g_motor_cfg[MOTOR_FSA4515V1].npp,
+                         g_motor_cfg[MOTOR_FSA4515V1].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp = VEL_KP(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
-            .ki = VEL_KI(
-                HZ2RADS(200.0f), MOTOR_CFG[MOTOR_FSA4515V1].psi, MOTOR_CFG[MOTOR_FSA4515V1].npp, MOTOR_CFG[MOTOR_FSA4515V1].j),
+            .kp         = VEL_KP(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA4515V1].psi,
+                         g_motor_cfg[MOTOR_FSA4515V1].npp,
+                         g_motor_cfg[MOTOR_FSA4515V1].j),
+            .ki         = VEL_KI(HZ2RADS(100.0f),
+                         g_motor_cfg[MOTOR_FSA4515V1].psi,
+                         g_motor_cfg[MOTOR_FSA4515V1].npp,
+                         g_motor_cfg[MOTOR_FSA4515V1].j),
             .ki_out_max = 10.0f,
             .out_max    = 10.0f,
         },
 };
 
-static const pid_cfg_t POS_CFG[] = {
+static const pid_cfg_t g_pos_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .kp      = 0.5f,
@@ -335,7 +351,7 @@ static const pid_cfg_t PD_CFG[] = {
         },
 };
 
-static const foc_cfg_t FOC_CFG[] = {
+static const foc_cfg_t g_foc_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .exec_freq              = FOC_FREQ_HZ,
@@ -350,12 +366,12 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div = 25,
             .pd_div  = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA50NV3],
-            .periph_cfg = PERIPH_CFG[PERIPH_F3H58V101],
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA50NV3],
+            .periph_cfg = g_periph_cfg[PERIPH_F3H58V101],
 
-            .cur_cfg = CUR_CFG[ACTUATOR_FSA50N24E],
-            .vel_cfg = VEL_CFG[ACTUATOR_FSA50N24E],
-            .pos_cfg = POS_CFG[ACTUATOR_FSA50N24E],
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA50N24E],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA50N24E],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
             .pd_cfg  = PD_CFG[ACTUATOR_FSA50N24E],
 
             .f_get_theta      = dpt_get_inner_theta,
@@ -378,12 +394,12 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div = 25,
             .pd_div  = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA3610V0],
-            .periph_cfg = PERIPH_CFG[PERIPH_F2H46V100],
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA3610V0],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H46V100],
 
-            .cur_cfg = CUR_CFG[ACTUATOR_FSA361480Z],
-            .vel_cfg = VEL_CFG[ACTUATOR_FSA361480Z],
-            .pos_cfg = POS_CFG[ACTUATOR_FSA361480Z],
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
             .pd_cfg  = PD_CFG[ACTUATOR_FSA361480Z],
 
             .f_get_theta      = dpt_get_inner_theta,
@@ -406,12 +422,12 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div = 25,
             .pd_div  = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
-            .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
 
-            .cur_cfg = CUR_CFG[ACTUATOR_FSA451780Z],
-            .vel_cfg = VEL_CFG[ACTUATOR_FSA451780Z],
-            .pos_cfg = POS_CFG[ACTUATOR_FSA451780Z],
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
             .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = dpt_get_inner_theta,
@@ -434,12 +450,12 @@ static const foc_cfg_t FOC_CFG[] = {
             .pos_div = 25,
             .pd_div  = 5,
 
-            .motor_cfg  = MOTOR_CFG[MOTOR_FSA4515V1],
-            .periph_cfg = PERIPH_CFG[PERIPH_F2H58V100],
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
 
-            .cur_cfg = CUR_CFG[ACTUATOR_FSA4530E],
-            .vel_cfg = VEL_CFG[ACTUATOR_FSA451780Z],
-            .pos_cfg = POS_CFG[ACTUATOR_FSA451780Z],
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
             .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = ads_get_theta,
@@ -454,7 +470,7 @@ static const foc_cfg_t FOC_CFG[] = {
 /*                                     OBS                                    */
 /* -------------------------------------------------------------------------- */
 
-static const smo_cfg_t SMO_CFG[] = {
+static const smo_cfg_t g_smo_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .ks  = 48.0f,
@@ -477,7 +493,7 @@ static const smo_cfg_t SMO_CFG[] = {
         },
 };
 
-static const pll_cfg_t SMO_PLL_CFG[] = {
+static const pll_cfg_t g_smo_pll_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .wc     = 300.0f,
@@ -504,7 +520,7 @@ static const pll_cfg_t SMO_PLL_CFG[] = {
         },
 };
 
-static const hfi_cfg_t HFI_CFG[] = {
+static const hfi_cfg_t g_hfi_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .fi            = 2000.0f,
@@ -539,7 +555,7 @@ static const hfi_cfg_t HFI_CFG[] = {
         },
 };
 
-static const pll_cfg_t HFI_PLL_CFG[] = {
+static const pll_cfg_t g_hfi_pll_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .wc     = 1500.0f,
@@ -566,7 +582,7 @@ static const pll_cfg_t HFI_PLL_CFG[] = {
         },
 };
 
-static const iir_cfg_t HFI_BPF_CFG[] = {
+static const iir_cfg_t g_hfi_bpf_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .fh    = 3000.0f,
@@ -597,7 +613,7 @@ static const iir_cfg_t HFI_BPF_CFG[] = {
         },
 };
 
-static const lbg_cfg_t LBG_CFG[] = {
+static const lbg_cfg_t g_lbg_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .wc   = 100.0f,
@@ -624,7 +640,7 @@ static const lbg_cfg_t LBG_CFG[] = {
 /*                                    WAVE                                    */
 /* -------------------------------------------------------------------------- */
 
-static const sine_cfg_t SINE_CFG[] = {
+static const sine_cfg_t g_sine_cfg[] = {
     {
         .fs        = USER_FREQ_HZ,
         .wave_freq = 1.0f,
@@ -632,7 +648,7 @@ static const sine_cfg_t SINE_CFG[] = {
     },
 };
 
-static const square_cfg_t SQUARE_CFG[] = {
+static const square_cfg_t g_square_cfg[] = {
     {
         .fs        = USER_FREQ_HZ,
         .wave_freq = 1.0f,

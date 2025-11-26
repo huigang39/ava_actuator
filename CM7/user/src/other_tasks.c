@@ -22,7 +22,7 @@ other_init(void)
         fft_init(&g_fft, fft_cfg);
         log_info(&g_log, 1, "fft init\n");
 
-        sine_init(&g_sine, SINE_CFG[0]);
+        sine_init(&g_sine, g_sine_cfg[0]);
         log_info(&g_log, 1, "sine init\n");
 }
 
