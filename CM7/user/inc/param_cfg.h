@@ -526,7 +526,7 @@ static const hfi_cfg_t g_hfi_cfg[] = {
             .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
+            .lpf_wc_dq     = {.d = 500.0f, .q = 1500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA361480Z] =
@@ -534,7 +534,7 @@ static const hfi_cfg_t g_hfi_cfg[] = {
             .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
+            .lpf_wc_dq     = {.d = 500.0f, .q = 1500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA451780Z] =
@@ -542,7 +542,7 @@ static const hfi_cfg_t g_hfi_cfg[] = {
             .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_wc_dq     = {.d = 500.0f, .q = 1000.0f},
+            .lpf_wc_dq     = {.d = 500.0f, .q = 1500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
     [ACTUATOR_FSA4530E] =
@@ -550,7 +550,7 @@ static const hfi_cfg_t g_hfi_cfg[] = {
             .fi            = 2000.0f,
             .hfi_vd        = 2.0f,
             .hfi_id        = 1.0f,
-            .lpf_wc_dq     = {.d = 500.0f, .q = 800.0f},
+            .lpf_wc_dq     = {.d = 500.0f, .q = 1500.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
 };
@@ -578,7 +578,7 @@ static const pll_cfg_t g_hfi_pll_cfg[] = {
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 5000.0f,
+            .lpf_wc = 3000.0f,
         },
 };
 
