@@ -249,11 +249,11 @@ static const pid_cfg_t g_cur_cfg[] = {
 static const pid_cfg_t g_vel_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp         = VEL_KP(HZ2RADS(100.0f),
+            .kp         = VEL_KP(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA50NV3].psi,
                          g_motor_cfg[MOTOR_FSA50NV3].npp,
                          g_motor_cfg[MOTOR_FSA50NV3].j),
-            .ki         = VEL_KI(HZ2RADS(100.0f),
+            .ki         = VEL_KI(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA50NV3].psi,
                          g_motor_cfg[MOTOR_FSA50NV3].npp,
                          g_motor_cfg[MOTOR_FSA50NV3].j),
@@ -262,11 +262,11 @@ static const pid_cfg_t g_vel_cfg[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp         = VEL_KP(HZ2RADS(100.0f),
+            .kp         = VEL_KP(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA3610V0].psi,
                          g_motor_cfg[MOTOR_FSA3610V0].npp,
                          g_motor_cfg[MOTOR_FSA3610V0].j),
-            .ki         = VEL_KI(HZ2RADS(100.0f),
+            .ki         = VEL_KI(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA3610V0].psi,
                          g_motor_cfg[MOTOR_FSA3610V0].npp,
                          g_motor_cfg[MOTOR_FSA3610V0].j),
@@ -275,11 +275,11 @@ static const pid_cfg_t g_vel_cfg[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = VEL_KP(HZ2RADS(100.0f),
+            .kp         = VEL_KP(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA4515V1].psi,
                          g_motor_cfg[MOTOR_FSA4515V1].npp,
                          g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki         = VEL_KI(HZ2RADS(100.0f),
+            .ki         = VEL_KI(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA4515V1].psi,
                          g_motor_cfg[MOTOR_FSA4515V1].npp,
                          g_motor_cfg[MOTOR_FSA4515V1].j),
@@ -288,11 +288,11 @@ static const pid_cfg_t g_vel_cfg[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp         = VEL_KP(HZ2RADS(100.0f),
+            .kp         = VEL_KP(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA4515V1].psi,
                          g_motor_cfg[MOTOR_FSA4515V1].npp,
                          g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki         = VEL_KI(HZ2RADS(100.0f),
+            .ki         = VEL_KI(HZ2RADS(10.0f),
                          g_motor_cfg[MOTOR_FSA4515V1].psi,
                          g_motor_cfg[MOTOR_FSA4515V1].npp,
                          g_motor_cfg[MOTOR_FSA4515V1].j),
@@ -454,9 +454,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
 
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA4530E],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA4530E],
 
             .f_get_theta      = ads_get_theta,
             .f_get_adc        = get_adc,
@@ -578,7 +578,7 @@ static const pll_cfg_t g_hfi_pll_cfg[] = {
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 1000.0f,
+            .lpf_wc = 5000.0f,
         },
 };
 
