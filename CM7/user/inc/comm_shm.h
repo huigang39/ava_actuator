@@ -7,7 +7,6 @@ typedef struct {
 } comm_shm_cfg_t;
 
 typedef struct {
-        bool comm_ok;
 } comm_shm_lo_t;
 
 typedef struct {

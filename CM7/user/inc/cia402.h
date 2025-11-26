@@ -51,10 +51,10 @@ typedef struct {
 } cia402_cfg_t;
 
 typedef struct {
-        cia402_state_e    e_state, e_prev_state;
-        cia402_ctl_word_e ctl_word; // 控制字
-        cia402_sts_word_e sts_word; // 状态字
-        u32               state_time;
+        cia402_state_e e_state, e_prev_state;
+        u16            ctl_word; // 控制字
+        u16            sts_word; // 状态字
+        u32            state_time;
 } cia402_lo_t;
 
 typedef struct {
