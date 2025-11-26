@@ -11,7 +11,8 @@ typedef struct {
 } comm_shm_lo_t;
 
 typedef struct {
-        comm_shm_lo_t lo;
+        comm_shm_cfg_t cfg;
+        comm_shm_lo_t  lo;
 } comm_shm_t;
 
 void comm_shm_init(comm_shm_t *comm_shm, const comm_shm_cfg_t comm_shm_cfg);
