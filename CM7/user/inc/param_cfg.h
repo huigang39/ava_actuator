@@ -324,7 +324,7 @@ static const pid_cfg_t g_pos_cfg[] = {
         },
 };
 
-static const pid_cfg_t PD_CFG[] = {
+static const pid_cfg_t g_pd_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
             .kp      = 0.01f,
@@ -372,7 +372,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA50N24E],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA50N24E],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
-            .pd_cfg  = PD_CFG[ACTUATOR_FSA50N24E],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA50N24E],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -400,7 +400,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
-            .pd_cfg  = PD_CFG[ACTUATOR_FSA361480Z],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA361480Z],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -428,7 +428,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
-            .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -456,7 +456,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
-            .pd_cfg  = PD_CFG[ACTUATOR_FSA451780Z],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
 
             .f_get_theta      = ads_get_theta,
             .f_get_adc        = get_adc,
