@@ -1,6 +1,10 @@
 #ifndef USER_TASKS_H
 #define USER_TASKS_H
 
+#include "cia402.h"
+#include "comm_shm.h"
+#include "fault.h"
+
 typedef enum {
         CTL_WORD_NULL,
         CTL_WORD_CALI,
@@ -25,12 +29,10 @@ typedef enum {
 } ctl_mode_e;
 
 typedef struct {
-        ctl_word_e          e_ctl_word;
-        ctl_theta_e         e_ctl_theta;
-        volatile ctl_mode_e e_ctl_mode;
+        ctl_word_e  e_ctl_word;
+        ctl_mode_e  e_ctl_mode;
+        ctl_theta_e e_ctl_theta;
 } user_t;
-
-extern user_t g_user;
 
 void set_ctl_word(user_t *user, foc_t *foc);
 void set_ctl_obs(user_t *user, foc_t *foc);

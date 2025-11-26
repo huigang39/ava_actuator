@@ -1,9 +1,20 @@
-#ifndef ERR_CHECK_H
-#define ERR_CHECK_H
+#include "fault.h"
 
-#include "stm32h7xx.h"
+static bool fpu_check(void);
 
-OPTNONE HAPI u32
+void
+fault_init(fault_t *fault, const fault_cfg_t fault_cfg)
+{
+        CFG_INIT(fault, fault_cfg);
+}
+
+void
+fault_exec(fault_t *fault)
+{
+        fpu_check();
+}
+
+static bool
 fpu_check(void)
 {
         enum {
@@ -25,5 +36,3 @@ fpu_check(void)
 
         return 0;
 }
-
-#endif // !ERR_CHECK_H
