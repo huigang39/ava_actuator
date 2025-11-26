@@ -275,10 +275,10 @@ static const pid_cfg_t g_vel_cfg[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp         = VEL_KP(HZ2RADS(100.0f),
-                         g_motor_cfg[MOTOR_FSA4515V1].psi,
-                         g_motor_cfg[MOTOR_FSA4515V1].npp,
-                         g_motor_cfg[MOTOR_FSA4515V1].j),
+            d.kp        = VEL_KP(HZ2RADS(100.0f),
+                          g_motor_cfg[MOTOR_FSA4515V1].psi,
+                          g_motor_cfg[MOTOR_FSA4515V1].npp,
+                          g_motor_cfg[MOTOR_FSA4515V1].j),
             .ki         = VEL_KI(HZ2RADS(100.0f),
                          g_motor_cfg[MOTOR_FSA4515V1].psi,
                          g_motor_cfg[MOTOR_FSA4515V1].npp,
