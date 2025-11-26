@@ -199,27 +199,27 @@ static const periph_cfg_t g_periph_cfg[] = {
 static const pll_cfg_t g_omega_pll_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 800.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 1500.0f,
+            .lpf_wc = 200.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 800.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 1500.0f,
+            .lpf_wc = 200.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 800.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 1500.0f,
+            .lpf_wc = 200.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 800.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 1500.0f,
+            .lpf_wc = 200.0f,
         },
 };
 
@@ -496,27 +496,27 @@ static const smo_cfg_t g_smo_cfg[] = {
 static const pll_cfg_t g_smo_pll_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 100.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .wc     = 300.0f,
+            .wc     = 1000.0f,
             .damp   = 0.707f,
-            .lpf_wc = 200.0f,
+            .lpf_wc = 100.0f,
         },
 };
 
