@@ -6,39 +6,183 @@
 #include "comm_shm.h"
 #include "fault.h"
 
-typedef enum
-    : u16 { CIA402_STATE_INIT,       // 初始化 - 正在建立通讯连接
-            CIA402_STATE_DISABLED,   // 未使能 - 通讯已连接, 未使能，无故障
-            CIA402_STATE_READY,      // 准备好 - 已经准备好, 未使能
-            CIA402_STATE_ENABLED,    // 使能状态 - 电机使能, 但不输出转矩
-            CIA402_STATE_RUNNING,    // 运行状态 - 电机使能, 可以输出转矩
-            CIA402_STATE_QUICK_STOP, // 快速停机 - 在执行快速停机功能
-            CIA402_STATE_FAULT_STOP, // 故障停机 - 在执行故障停机功能
-            CIA402_STATE_FAULT       // 错误 - 有故障, 已去使能
-    } cia402_state_e;
+#define CIA402_CTL_WORD_SWITCH_ON                 (1 << 0) // 准备运行
+#define CIA402_CTL_WORD_ENABLE_VOLTAGE            (1 << 1) // 接通主电路
+#define CIA402_CTL_WORD_QUICK_STOP                (1 << 2) // 快速停止
+#define CIA402_CTL_WORD_ENABLE_OPERATION          (1 << 3) // 使能
+#define CIA402_CTL_WORD_OPERATION_MODE_0          (1 << 4) // 操作模式
+#define CIA402_CTL_WORD_OPERATION_MODE_1          (1 << 5) // 操作模式
+#define CIA402_CTL_WORD_OPERATION_MODE_2          (1 << 6) // 操作模式
+#define CIA402_CTL_WORD_FAULT_RESET               (1 << 7) // 复位错误
+#define CIA402_CTL_WORD_HALT                      (1 << 8) // 停止
 
-#define CIA402_CTL_WORD_SWITCH_ON          (1 << 0) // Bit 0: Switch on
-#define CIA402_CTL_WORD_ENABLE_VOLTAGE     (1 << 1) // Bit 1: Enable voltage
-#define CIA402_CTL_WORD_QUICK_STOP         (1 << 2) // Bit 2: Quick stop
-#define CIA402_CTL_WORD_ENABLE_OPERATION   (1 << 3) // Bit 3: Enable operation
-#define CIA402_CTL_WORD_OPERATION_MODE_0   (1 << 4) // Bit 4-6: Operation mode specific
-#define CIA402_CTL_WORD_OPERATION_MODE_1   (1 << 5)
-#define CIA402_CTL_WORD_OPERATION_MODE_2   (1 << 6)
-#define CIA402_CTL_WORD_FAULT_RESET        (1 << 7) // Bit 7: Fault reset
-#define CIA402_CTL_WORD_HALT               (1 << 8) // Bit 8: Halt
+#define CIA402_STS_WORD_READY_TO_SWITCH_ON        (1 << 0)  // 准备好运行
+#define CIA402_STS_WORD_SWITCHED_ON               (1 << 1)  // 已运行
+#define CIA402_STS_WORD_OPERATION_ENABLED         (1 << 2)  // 已使能
+#define CIA402_STS_WORD_FAULT                     (1 << 3)  // 有故障
+#define CIA402_STS_WORD_VOLTAGE_ENABLED           (1 << 4)  // 已接通主电路
+#define CIA402_STS_WORD_QUICK_STOP                (1 << 5)  // 已快速停止
+#define CIA402_STS_WORD_SWITCH_ON_DISABLED        (1 << 6)  // 已准备好运行
+#define CIA402_STS_WORD_WARNING                   (1 << 7)  // 有警告
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_0   (1 << 8)  // 制造商特定
+#define CIA402_STS_WORD_REMOTE                    (1 << 9)  // 远程
+#define CIA402_STS_WORD_TARGET_REACHED            (1 << 10) // 目标已到达
+#define CIA402_STS_WORD_INTERNAL_LIMIT_ACTIVE     (1 << 11) // 内部限位激活
+#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_0 (1 << 12) // 操作模式特定
+#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_1 (1 << 13) // 操作模式特定
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_1   (1 << 14) // 制造商特定
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_2   (1 << 15) // 制造商特定
 
-#define CIA402_STS_WORD_READY_TO_SWITCH_ON (1 << 0)  // Bit 0: Ready to switch on
-#define CIA402_STS_WORD_SWITCHED_ON        (1 << 1)  // Bit 1: Switched on
-#define CIA402_STS_WORD_OPERATION_ENABLED  (1 << 2)  // Bit 2: Operation enabled
-#define CIA402_STS_WORD_FAULT              (1 << 3)  // Bit 3: Fault
-#define CIA402_STS_WORD_VOLTAGE_ENABLED    (1 << 4)  // Bit 4: Voltage enabled
-#define CIA402_STS_WORD_QUICK_STOP         (1 << 5)  // Bit 5: Quick stop
-#define CIA402_STS_WORD_SWITCH_ON_DISABLED (1 << 6)  // Bit 6: Switch on disabled
-#define CIA402_STS_WORD_WARNING            (1 << 7)  // Bit 7: Warning
-#define CIA402_STS_WORD_MANUFACTURER_0     (1 << 8)  // Bit 8-15: Manufacturer specific
-#define CIA402_STS_WORD_REMOTE             (1 << 9)  // Bit 9: Remote
-#define CIA402_STS_WORD_TARGET_REACHED     (1 << 10) // Bit 10: Target reached
-#define CIA402_STS_WORD_INTERNAL_LIMIT     (1 << 11) // Bit 11: Internal limit active
+typedef enum {
+        CIA402_OPERATION_MODE_CSP = 0x08, // 周期同步位置模式
+        CIA402_OPERATION_MODE_CSV = 0x09, // 周期同步速度模式
+        CIA402_OPERATION_MODE_CST = 0x0A, // 周期同步转矩模式
+        CIA402_OPERATION_MODE_PP  = 0x01, // 轮廓位置模式
+        CIA402_OPERATION_MODE_PV  = 0x03, // 轮廓速度模式
+        CIA402_OPERATION_MODE_PT  = 0x04, // 轮廓转矩模式
+        CIA402_OPERATION_MODE_PD  = 0xFF, // 力位混合模式
+        CIA402_OPERATION_MODE_HM  = 0x06, // 原点回归模式
+} cia402_operation_mode_e;
+
+/**
+ * @brief CIA402状态机实现
+ *
+ * ┌──────────────────────────────────────────┐    ┌─────────────────────────────┐
+ * │   Power Disabled                         │    │   Fault     │               │
+ * │                                          │    │             13              │
+ * │                                          │    │             ▼               │
+ * │          [Start]                         │    │   [Fault Reaction Active]   │
+ * │             │                            │    │             │               │
+ * │             0                            │    │             14              │
+ * │             ▼                            │    │             ▼               │
+ * │         [Not Ready to Switch On]         │    │          [Fault]            │
+ * │             │                            │    │             │               │
+ * │             1              ┌12───────┐   │    │             15              │
+ * │             ▼              ▼         │   │    │             │               │
+ * │   ┌───9─▶[Switch On Disabled]◀─15────┼───┼────┼─────────────┘               │
+ * │   │         │       ▲      ▲         │   │    │                             │
+ * │   │         2       7      └10──┐    │   │    │                             │
+ * │   │         ▼       │           │    │   │    │                             │
+ * │   │ ┌─8─▶[Ready to Switch On]   │    │   │    │                             │
+ * │   │ │       │       ▲           │    │   │    │                             │
+ * │   │ │       3       6           │    │   │    │                             │
+ * │   │ │       │       │           │    │   │    │                             │
+ * └───┼─┼───────┼───────┼───────────┼────┼───┘    └─────────────────────────────┘
+ *     │ │       │       │           │    └───────┐
+ * ┌───┼─┼───────┼───────┼───────────┼────────────┼──────────────────────────────┐
+ * │   │ │       │       │           │            │              Power Enabled   │
+ * │   │ │       3       6           │            │                              │
+ * │   │ │       ▼       │           │            │                              │
+ * │   │ │     [Switched On]─10──────┘            │                              │
+ * │   │ │       │       ▲                        │                              │
+ * │   │ │       4       5                        12                             │
+ * │   │ │       ▼       │                        │                              │
+ * │   │ └─8─[Operation Enable]──────11─▶[Quick Stop Active]                     │
+ * │   │         │       ▲                        │                              │
+ * │   └────────9┘       └16┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄16┘                              │
+ * └─────────────────────────────────────────────────────────────────────────────┘
+ *
+ * Power Disabled:
+ *
+ *  转换 0: [Start] → [Not Ready to Switch On]
+ *   触发：上电
+ *   条件：自动转换(初始化完成)
+ *
+ *  转换 1: [Not Ready to Switch On] → [Switch On Disabled]
+ *   触发：通信建立完成
+ *   条件：!fault->lo.err.COMM_SHM(通信故障清除)
+ *
+ *  转换 2: [Switch On Disabled] → [Ready to Switch On]
+ *   触发：
+ *   条件：
+ *
+ *  转换 7: [Ready to Switch On] → [Switched On Disabled]
+ *   触发：
+ *   条件：
+ *
+ * Power Enabled:
+ *
+ *  转换 3: [Ready to Switch On] → [Switched On]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 4: [Switched On] → [Operation Enable]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 5: [Operation Enable] → [Switched On]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 6: [Switched On] → [Ready to Switch On]
+ *   触发：
+ *   条件：
+ *
+ *  转换 8: [Operation Enable] → [Ready to Switch On]
+ *   触发：
+ *   条件：
+ *
+ *  转换 9: [Operation Enable] → [Switch On Disabled]
+ *   触发：
+ *   条件：
+ *
+ *  转换 10: [Switched On] → [Switched On Disabled]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 11: [Operation Enable] → [Quick Stop Active]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 12: [Quick Stop Active] → [Switched On Disabled]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *   转换 16: [Quick Stop Active] → [Operation Enable]
+ *    触发：
+ *    条件：
+ *    说明：
+ *
+ * Fault:
+ *
+ *  转换 13: [] → [Fault Reaction Active]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 14: [Fault Reaction Active] → [Fault]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ *  转换 15: [Fault] → [Switch On Disabled]
+ *   触发：
+ *   条件：
+ *   说明：
+ *
+ */
+typedef enum : u16 {
+        // Power Disabled
+        CIA402_STATE_START,                  // 上电
+        CIA402_STATE_NOT_READY_TO_SWITCH_ON, // 未准备好运行
+        CIA402_STATE_SWITCH_ON_DISABLED,     // 失能
+        CIA402_STATE_READY_TO_SWITCH_ON,     // 已准备好运行
+
+        // Power Enabled
+        CIA402_STATE_SWITCHED_ON,       // 使能驱动
+        CIA402_STATE_OPERATION_ENABLE,  // 使能控制模式
+        CIA402_STATE_QUICK_STOP_ACTIVE, // 快速停止
+
+        // Fault
+        CIA402_STATE_FAULT,                 // 故障
+        CIA402_STATE_FAULT_REACTION_ACTIVE, // 故障反应激活
+} cia402_state_e;
 
 typedef struct {
         foc_t      *foc;
@@ -47,10 +191,9 @@ typedef struct {
 } cia402_cfg_t;
 
 typedef struct {
-        cia402_state_e e_state, e_prev_state;
-        u16            ctl_word; // 控制字
-        u16            sts_word; // 状态字
-        u32            state_time;
+        u16            ctl_word;
+        u16            sts_word;
+        cia402_state_e e_state;
 } cia402_lo_t;
 
 typedef struct {

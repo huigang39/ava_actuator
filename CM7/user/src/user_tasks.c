@@ -113,15 +113,7 @@ user_loop_task(void *arg)
 {
         ARG_UNUSED(arg);
 
-        // log_info(&g_log, 1, "user loop\n");
-
-        // set_ctl_word(&g_user, &g_foc);
-        // set_ctl_mode(&g_user, &g_foc);
-        // set_ctl_obs(&g_user, &g_foc);
-
-        // g_foc.lo.ref_pvct.pos = g_sine.out.val;
-
+        fault_exec(&g_fault);
         comm_shm_exec(&g_comm_shm);
         cia402_exec(&g_cia402);
-        fault_exec(&g_fault);
 }

@@ -304,22 +304,22 @@ static const pid_cfg_t g_vel_cfg[] = {
 static const pid_cfg_t g_pos_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .kp      = 0.5f,
+            .kp      = 1.0f,
             .out_max = 1000.0f,
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .kp      = 0.5f,
+            .kp      = 1.0f,
             .out_max = 50.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp      = 0.5f,
+            .kp      = 1.0f,
             .out_max = 1000.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp      = 0.5f,
+            .kp      = 1.0f,
             .out_max = 1000.0f,
         },
 };
