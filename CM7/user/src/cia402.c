@@ -328,44 +328,39 @@ cia402_update_foc_mode(cia402_t *cia402)
         DECL_PTRS(cia402, cfg, lo);
         DECL_PTR_RENAME(cfg->foc, foc);
 
-        // 只在Operation Enable状态下更新控制模式
-        if (lo->e_state != CIA402_STATE_OPERATION_ENABLE) {
+        if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
                 return;
-        }
 
         switch (lo->e_operation_mode) {
-                case CIA402_OPERATION_MODE_PP:  // 轮廓位置模式 (0x01)
-                case CIA402_OPERATION_MODE_CSP: // 周期同步位置模式 (0x08)
+                case CIA402_OPERATION_MODE_PP:
+                case CIA402_OPERATION_MODE_CSP: {
                         foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_mode  = FOC_MODE_POS;
                         break;
-
-                case CIA402_OPERATION_MODE_PV:  // 轮廓速度模式 (0x03)
-                case CIA402_OPERATION_MODE_CSV: // 周期同步速度模式 (0x09)
+                }
+                case CIA402_OPERATION_MODE_PV:
+                case CIA402_OPERATION_MODE_CSV: {
                         foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_mode  = FOC_MODE_VEL;
                         break;
-
-                case CIA402_OPERATION_MODE_PT:  // 轮廓转矩模式 (0x04)
-                case CIA402_OPERATION_MODE_CST: // 周期同步转矩模式 (0x0A)
+                }
+                case CIA402_OPERATION_MODE_PT:
+                case CIA402_OPERATION_MODE_CST: {
                         foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_mode  = FOC_MODE_CUR;
                         break;
-
-                case CIA402_OPERATION_MODE_PD: // 力位混合模式 (0xFF)
+                }
+                case CIA402_OPERATION_MODE_PD: {
                         foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_mode  = FOC_MODE_PD;
                         break;
-
-                case CIA402_OPERATION_MODE_HM: // 原点回归模式 (0x06)
-                        // 原点回归模式通常使用位置控制
+                }
+                case CIA402_OPERATION_MODE_HM: {
                         foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_mode  = FOC_MODE_POS;
                         break;
-
+                }
                 default:
-                        // 未知模式，保持当前模式或设置为NULL
-                        // foc->lo.e_mode = FOC_MODE_NULL;
                         break;
         }
 }
