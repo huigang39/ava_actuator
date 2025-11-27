@@ -56,6 +56,19 @@ value_to_write = 15.000000
 do_not_interpret_as_enum = false
 
 [var1]
+name = g_cia402.lo.e_operation_mode
+tracked_name = g_cia402.lo.e_operation_mode
+address = 536871758
+type = 2
+color = 3445445601
+should_update_from_elf = true
+shift = 0
+mask = 4294967295
+high_level_type = 3
+value_to_write = 1.000000
+do_not_interpret_as_enum = false
+
+[var2]
 name = g_cia402.lo.e_state
 tracked_name = g_cia402.lo.e_state
 address = 536871756
@@ -68,7 +81,7 @@ high_level_type = 3
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var2]
+[var3]
 name = g_cia402.lo.sts_word
 tracked_name = g_cia402.lo.sts_word
 address = 536871754
@@ -81,7 +94,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var3]
+[var4]
 name = g_dpt_raw.inner
 tracked_name = g_dpt_raw.inner
 address = 536871760
@@ -94,7 +107,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var4]
+[var5]
 name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
 tracked_name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
 address = 536871964
@@ -107,7 +120,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var5]
+[var6]
 name = g_foc.cfg.theta_offset
 tracked_name = g_foc.cfg.theta_offset
 address = 536872032
@@ -120,7 +133,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var6]
+[var7]
 name = g_foc.in.f32_i_uvw.u
 tracked_name = g_foc.in.f32_i_uvw.u
 address = 536872272
@@ -133,7 +146,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var7]
+[var8]
 name = g_foc.in.f32_i_uvw.v
 tracked_name = g_foc.in.f32_i_uvw.v
 address = 536872276
@@ -146,7 +159,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var8]
+[var9]
 name = g_foc.in.f32_i_uvw.w
 tracked_name = g_foc.in.f32_i_uvw.w
 address = 536872280
@@ -159,7 +172,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var9]
+[var10]
 name = g_foc.in.i_ab.a
 tracked_name = g_foc.in.i_ab.a
 address = 536872284
@@ -172,7 +185,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var10]
+[var11]
 name = g_foc.in.i_ab.b
 tracked_name = g_foc.in.i_ab.b
 address = 536872288
@@ -185,7 +198,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var11]
+[var12]
 name = g_foc.in.i_dq.d
 tracked_name = g_foc.in.i_dq.d
 address = 536872292
@@ -198,7 +211,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var12]
+[var13]
 name = g_foc.in.i_dq.q
 tracked_name = g_foc.in.i_dq.q
 address = 536872296
@@ -211,7 +224,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var13]
+[var14]
 name = g_foc.in.rotor.force_omega
 tracked_name = g_foc.in.rotor.force_omega
 address = 536872232
@@ -224,7 +237,7 @@ high_level_type = 0
 value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
-[var14]
+[var15]
 name = g_foc.in.rotor.force_theta
 tracked_name = g_foc.in.rotor.force_theta
 address = 536872228
@@ -237,7 +250,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var15]
+[var16]
 name = g_foc.in.rotor.fusion_theta_err
 tracked_name = g_foc.in.rotor.fusion_theta_err
 address = 536872256
@@ -250,7 +263,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var16]
+[var17]
 name = g_foc.in.rotor.mech_omega
 tracked_name = g_foc.in.rotor.mech_omega
 address = 536872268
@@ -263,7 +276,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var17]
+[var18]
 name = g_foc.in.rotor.mech_theta
 tracked_name = g_foc.in.rotor.mech_theta
 address = 536872260
@@ -276,7 +289,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var18]
+[var19]
 name = g_foc.in.rotor.mech_total_theta
 tracked_name = g_foc.in.rotor.mech_total_theta
 address = 536872264
@@ -289,7 +302,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var19]
+[var20]
 name = g_foc.in.rotor.obs_omega
 tracked_name = g_foc.in.rotor.obs_omega
 address = 536872252
@@ -302,7 +315,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var20]
+[var21]
 name = g_foc.in.rotor.obs_theta
 tracked_name = g_foc.in.rotor.obs_theta
 address = 536872248
@@ -315,7 +328,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var21]
+[var22]
 name = g_foc.in.rotor.omega
 tracked_name = g_foc.in.rotor.omega
 address = 536872224
@@ -328,7 +341,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var22]
+[var23]
 name = g_foc.in.rotor.sensor_omega
 tracked_name = g_foc.in.rotor.sensor_omega
 address = 536872244
@@ -341,7 +354,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var23]
+[var24]
 name = g_foc.in.rotor.sensor_theta
 tracked_name = g_foc.in.rotor.sensor_theta
 address = 536872236
@@ -354,7 +367,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var24]
+[var25]
 name = g_foc.in.rotor.theta
 tracked_name = g_foc.in.rotor.theta
 address = 536872208
@@ -367,7 +380,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var25]
+[var26]
 name = g_foc.in.v_bus
 tracked_name = g_foc.in.v_bus
 address = 536872200
@@ -380,7 +393,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var26]
+[var27]
 name = g_foc.lo.comp_i_dq.q
 tracked_name = g_foc.lo.comp_i_dq.q
 address = 536873692
@@ -393,7 +406,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var27]
+[var28]
 name = g_foc.lo.cur_div_cnt
 tracked_name = g_foc.lo.cur_div_cnt
 address = 536872704
@@ -406,7 +419,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var28]
+[var29]
 name = g_foc.lo.e_cali
 tracked_name = g_foc.lo.e_cali
 address = 536872401
@@ -419,7 +432,7 @@ high_level_type = 3
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var29]
+[var30]
 name = g_foc.lo.e_mode
 tracked_name = g_foc.lo.e_mode
 address = 536872398
@@ -429,10 +442,10 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 5.000000
+value_to_write = 4.000000
 do_not_interpret_as_enum = false
 
-[var30]
+[var31]
 name = g_foc.lo.e_obs
 tracked_name = g_foc.lo.e_obs
 address = 536872400
@@ -445,7 +458,7 @@ high_level_type = 3
 value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
-[var31]
+[var32]
 name = g_foc.lo.e_state
 tracked_name = g_foc.lo.e_state
 address = 536872396
@@ -458,7 +471,7 @@ high_level_type = 3
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var32]
+[var33]
 name = g_foc.lo.e_theta
 tracked_name = g_foc.lo.e_theta
 address = 536872397
@@ -471,7 +484,7 @@ high_level_type = 3
 value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
-[var33]
+[var34]
 name = g_foc.lo.elapsed_us
 tracked_name = g_foc.lo.elapsed_us
 address = 536872372
@@ -484,7 +497,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var34]
+[var35]
 name = g_foc.lo.exec_cnt
 tracked_name = g_foc.lo.exec_cnt
 address = 536872376
@@ -497,7 +510,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var35]
+[var36]
 name = g_foc.lo.fdb_pvct.cur
 tracked_name = g_foc.lo.fdb_pvct.cur
 address = 536873736
@@ -510,7 +523,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var36]
+[var37]
 name = g_foc.lo.fdb_pvct.load_tor
 tracked_name = g_foc.lo.fdb_pvct.load_tor
 address = 536873744
@@ -523,7 +536,7 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var37]
+[var38]
 name = g_foc.lo.fdb_pvct.pos
 tracked_name = g_foc.lo.fdb_pvct.pos
 address = 536873728
@@ -536,7 +549,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var38]
+[var39]
 name = g_foc.lo.fdb_pvct.vel
 tracked_name = g_foc.lo.fdb_pvct.vel
 address = 536873732
@@ -549,7 +562,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var39]
+[var40]
 name = g_foc.lo.hfi.cfg.hfi_vd
 tracked_name = g_foc.lo.hfi.cfg.hfi_vd
 address = 536873028
@@ -562,7 +575,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var40]
+[var41]
 name = g_foc.lo.hfi.lo.est_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.est_i_dq.d
 address = 536873100
@@ -575,7 +588,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var41]
+[var42]
 name = g_foc.lo.hfi.lo.est_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.est_i_dq.q
 address = 536873104
@@ -588,7 +601,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var42]
+[var43]
 name = g_foc.lo.hfi.lo.hfi_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.hfi_i_dq.d
 address = 536873112
@@ -601,7 +614,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var43]
+[var44]
 name = g_foc.lo.hfi.lo.hfi_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.hfi_i_dq.q
 address = 536873116
@@ -614,7 +627,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var44]
+[var45]
 name = g_foc.lo.hfi.lo.hfi_theta
 tracked_name = g_foc.lo.hfi.lo.hfi_theta
 address = 536873108
@@ -627,7 +640,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var45]
+[var46]
 name = g_foc.lo.hfi.lo.id_bpf.out.y
 tracked_name = g_foc.lo.hfi.lo.id_bpf.out.y
 address = 536873168
@@ -640,7 +653,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var46]
+[var47]
 name = g_foc.lo.hfi.lo.id_neg
 tracked_name = g_foc.lo.hfi.lo.id_neg
 address = 536873140
@@ -653,7 +666,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var47]
+[var48]
 name = g_foc.lo.hfi.lo.id_pos
 tracked_name = g_foc.lo.hfi.lo.id_pos
 address = 536873136
@@ -666,7 +679,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var48]
+[var49]
 name = g_foc.lo.hfi.lo.lpf_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.lpf_i_dq.d
 address = 536873120
@@ -679,7 +692,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var49]
+[var50]
 name = g_foc.lo.hfi.lo.lpf_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.lpf_i_dq.q
 address = 536873124
@@ -692,7 +705,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var50]
+[var51]
 name = g_foc.lo.hfi.lo.polar_cnt
 tracked_name = g_foc.lo.hfi.lo.polar_cnt
 address = 536873132
@@ -705,7 +718,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var51]
+[var52]
 name = g_foc.lo.hfi.lo.polar_offset
 tracked_name = g_foc.lo.hfi.lo.polar_offset
 address = 536873144
@@ -718,7 +731,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var52]
+[var53]
 name = g_foc.lo.hfi.out.est_omega
 tracked_name = g_foc.lo.hfi.out.est_omega
 address = 536873060
@@ -731,7 +744,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var53]
+[var54]
 name = g_foc.lo.hfi.out.est_theta
 tracked_name = g_foc.lo.hfi.out.est_theta
 address = 536873056
@@ -744,7 +757,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var54]
+[var55]
 name = g_foc.lo.hfi.out.id
 tracked_name = g_foc.lo.hfi.out.id
 address = 536873064
@@ -757,7 +770,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var55]
+[var56]
 name = g_foc.lo.hfi.out.vd
 tracked_name = g_foc.lo.hfi.out.vd
 address = 536873068
@@ -770,7 +783,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var56]
+[var57]
 name = g_foc.lo.id_pid.cfg.ki
 tracked_name = g_foc.lo.id_pid.cfg.ki
 address = 536872412
@@ -783,7 +796,7 @@ high_level_type = 0
 value_to_write = 100.000000
 do_not_interpret_as_enum = false
 
-[var57]
+[var58]
 name = g_foc.lo.id_pid.cfg.kp
 tracked_name = g_foc.lo.id_pid.cfg.kp
 address = 536872408
@@ -796,7 +809,7 @@ high_level_type = 0
 value_to_write = 0.001000
 do_not_interpret_as_enum = false
 
-[var58]
+[var59]
 name = g_foc.lo.id_pid.in.fdb
 tracked_name = g_foc.lo.id_pid.in.fdb
 address = 536872432
@@ -809,7 +822,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var59]
+[var60]
 name = g_foc.lo.id_pid.in.ref
 tracked_name = g_foc.lo.id_pid.in.ref
 address = 536872428
@@ -822,7 +835,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var60]
+[var61]
 name = g_foc.lo.id_pid.lo.err
 tracked_name = g_foc.lo.id_pid.lo.err
 address = 536872444
@@ -835,7 +848,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var61]
+[var62]
 name = g_foc.lo.lbg.cfg.damp
 tracked_name = g_foc.lo.lbg.cfg.damp
 address = 536873484
@@ -848,7 +861,7 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var62]
+[var63]
 name = g_foc.lo.lbg.cfg.wc
 tracked_name = g_foc.lo.lbg.cfg.wc
 address = 536873480
@@ -861,7 +874,7 @@ high_level_type = 0
 value_to_write = 1000.000000
 do_not_interpret_as_enum = false
 
-[var63]
+[var64]
 name = g_foc.lo.lbg.lo.cfg.wc
 tracked_name = g_foc.lo.lbg.lo.cfg.wc
 address = 536873580
@@ -874,7 +887,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var64]
+[var65]
 name = g_foc.lo.lbg.out.est_load_tor
 tracked_name = g_foc.lo.lbg.out.est_load_tor
 address = 536873568
@@ -887,7 +900,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var65]
+[var66]
 name = g_foc.lo.lbg.out.est_omega
 tracked_name = g_foc.lo.lbg.out.est_omega
 address = 536873564
@@ -900,7 +913,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var66]
+[var67]
 name = g_foc.lo.lbg.out.est_theta
 tracked_name = g_foc.lo.lbg.out.est_theta
 address = 536873560
@@ -913,7 +926,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var67]
+[var68]
 name = g_foc.lo.lbg.out.sum_tor
 tracked_name = g_foc.lo.lbg.out.sum_tor
 address = 536873572
@@ -926,7 +939,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var68]
+[var69]
 name = g_foc.lo.pd_div_cnt
 tracked_name = g_foc.lo.pd_div_cnt
 address = 536872716
@@ -939,7 +952,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var69]
+[var70]
 name = g_foc.lo.pd_pid.cfg.kd
 tracked_name = g_foc.lo.pd_pid.cfg.kd
 address = 536872656
@@ -952,7 +965,7 @@ high_level_type = 0
 value_to_write = 0.010000
 do_not_interpret_as_enum = false
 
-[var70]
+[var71]
 name = g_foc.lo.pd_pid.cfg.kp
 tracked_name = g_foc.lo.pd_pid.cfg.kp
 address = 536872648
@@ -965,7 +978,7 @@ high_level_type = 0
 value_to_write = 0.010000
 do_not_interpret_as_enum = false
 
-[var71]
+[var72]
 name = g_foc.lo.pll.in.theta
 tracked_name = g_foc.lo.pll.in.theta
 address = 536872744
@@ -978,7 +991,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var72]
+[var73]
 name = g_foc.lo.pll.lo.prev_theta
 tracked_name = g_foc.lo.pll.lo.prev_theta
 address = 536872792
@@ -991,7 +1004,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var73]
+[var74]
 name = g_foc.lo.pll.lo.theta_err
 tracked_name = g_foc.lo.pll.lo.theta_err
 address = 536872796
@@ -1004,7 +1017,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var74]
+[var75]
 name = g_foc.lo.pll.out.theta
 tracked_name = g_foc.lo.pll.out.theta
 address = 536872748
@@ -1017,7 +1030,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var75]
+[var76]
 name = g_foc.lo.pos_div_cnt
 tracked_name = g_foc.lo.pos_div_cnt
 address = 536872712
@@ -1030,7 +1043,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var76]
+[var77]
 name = g_foc.lo.pos_pid.cfg.ki
 tracked_name = g_foc.lo.pos_pid.cfg.ki
 address = 536872592
@@ -1043,7 +1056,7 @@ high_level_type = 0
 value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
-[var77]
+[var78]
 name = g_foc.lo.pos_pid.cfg.kp
 tracked_name = g_foc.lo.pos_pid.cfg.kp
 address = 536872588
@@ -1056,7 +1069,7 @@ high_level_type = 0
 value_to_write = 0.800000
 do_not_interpret_as_enum = false
 
-[var78]
+[var79]
 name = g_foc.lo.ref_i_dq.d
 tracked_name = g_foc.lo.ref_i_dq.d
 address = 536873680
@@ -1069,7 +1082,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var79]
+[var80]
 name = g_foc.lo.ref_i_dq.q
 tracked_name = g_foc.lo.ref_i_dq.q
 address = 536873684
@@ -1082,7 +1095,7 @@ high_level_type = 0
 value_to_write = 0.300000
 do_not_interpret_as_enum = false
 
-[var80]
+[var81]
 name = g_foc.lo.ref_pvct.cur
 tracked_name = g_foc.lo.ref_pvct.cur
 address = 536873720
@@ -1095,7 +1108,7 @@ high_level_type = 0
 value_to_write = 0.100000
 do_not_interpret_as_enum = false
 
-[var81]
+[var82]
 name = g_foc.lo.ref_pvct.elec_tor
 tracked_name = g_foc.lo.ref_pvct.elec_tor
 address = 536873724
@@ -1108,7 +1121,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var82]
+[var83]
 name = g_foc.lo.ref_pvct.ffd_cur
 tracked_name = g_foc.lo.ref_pvct.ffd_cur
 address = 536873716
@@ -1121,7 +1134,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var83]
+[var84]
 name = g_foc.lo.ref_pvct.ffd_vel
 tracked_name = g_foc.lo.ref_pvct.ffd_vel
 address = 536873708
@@ -1134,7 +1147,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var84]
+[var85]
 name = g_foc.lo.ref_pvct.pos
 tracked_name = g_foc.lo.ref_pvct.pos
 address = 536873704
@@ -1144,10 +1157,10 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 50.000000
+value_to_write = 500.000000
 do_not_interpret_as_enum = false
 
-[var85]
+[var86]
 name = g_foc.lo.ref_pvct.vel
 tracked_name = g_foc.lo.ref_pvct.vel
 address = 536873712
@@ -1160,7 +1173,7 @@ high_level_type = 0
 value_to_write = 20.000000
 do_not_interpret_as_enum = false
 
-[var86]
+[var87]
 name = g_foc.lo.smo.cfg.es0
 tracked_name = g_foc.lo.smo.cfg.es0
 address = 536872816
@@ -1173,7 +1186,7 @@ high_level_type = 0
 value_to_write = 25.000000
 do_not_interpret_as_enum = false
 
-[var87]
+[var88]
 name = g_foc.lo.smo.cfg.ks
 tracked_name = g_foc.lo.smo.cfg.ks
 address = 536872812
@@ -1186,7 +1199,7 @@ high_level_type = 0
 value_to_write = 48.000000
 do_not_interpret_as_enum = false
 
-[var88]
+[var89]
 name = g_foc.lo.smo.in.i_ab.a
 tracked_name = g_foc.lo.smo.in.i_ab.a
 address = 536872884
@@ -1199,7 +1212,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var89]
+[var90]
 name = g_foc.lo.smo.in.i_ab.b
 tracked_name = g_foc.lo.smo.in.i_ab.b
 address = 536872888
@@ -1212,7 +1225,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var90]
+[var91]
 name = g_foc.lo.smo.lo.est_emf_v_ab.a
 tracked_name = g_foc.lo.smo.lo.est_emf_v_ab.a
 address = 536872924
@@ -1225,7 +1238,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var91]
+[var92]
 name = g_foc.lo.smo.lo.est_emf_v_ab.b
 tracked_name = g_foc.lo.smo.lo.est_emf_v_ab.b
 address = 536872928
@@ -1238,7 +1251,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var92]
+[var93]
 name = g_foc.lo.smo.lo.est_i_ab.a
 tracked_name = g_foc.lo.smo.lo.est_i_ab.a
 address = 536872908
@@ -1251,7 +1264,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var93]
+[var94]
 name = g_foc.lo.smo.lo.est_i_ab.b
 tracked_name = g_foc.lo.smo.lo.est_i_ab.b
 address = 536872912
@@ -1264,7 +1277,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var94]
+[var95]
 name = g_foc.lo.smo.lo.est_i_ab_err.a
 tracked_name = g_foc.lo.smo.lo.est_i_ab_err.a
 address = 536872916
@@ -1277,7 +1290,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var95]
+[var96]
 name = g_foc.lo.smo.lo.est_i_ab_err.b
 tracked_name = g_foc.lo.smo.lo.est_i_ab_err.b
 address = 536872920
@@ -1290,7 +1303,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var96]
+[var97]
 name = g_foc.lo.smo.lo.pll.cfg.wc
 tracked_name = g_foc.lo.smo.lo.pll.cfg.wc
 address = 536872936
@@ -1303,7 +1316,7 @@ high_level_type = 0
 value_to_write = 2000.000000
 do_not_interpret_as_enum = false
 
-[var97]
+[var98]
 name = g_foc.lo.smo.lo.pll.lo.cfg.wc
 tracked_name = g_foc.lo.smo.lo.pll.lo.cfg.wc
 address = 536872976
@@ -1316,7 +1329,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var98]
+[var99]
 name = g_foc.lo.smo.out.est_omega
 tracked_name = g_foc.lo.smo.out.est_omega
 address = 536872904
@@ -1329,7 +1342,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var99]
+[var100]
 name = g_foc.lo.smo.out.est_theta
 tracked_name = g_foc.lo.smo.out.est_theta
 address = 536872900
@@ -1342,7 +1355,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var100]
+[var101]
 name = g_foc.lo.theta_cali_cnt
 tracked_name = g_foc.lo.theta_cali_cnt
 address = 536872384
@@ -1355,7 +1368,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var101]
+[var102]
 name = g_foc.lo.theta_cali_hold_cnt
 tracked_name = g_foc.lo.theta_cali_hold_cnt
 address = 536872388
@@ -1368,7 +1381,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var102]
+[var103]
 name = g_foc.lo.theta_offset_sum
 tracked_name = g_foc.lo.theta_offset_sum
 address = 536872392
@@ -1381,7 +1394,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var103]
+[var104]
 name = g_foc.lo.vel_div_cnt
 tracked_name = g_foc.lo.vel_div_cnt
 address = 536872708
@@ -1394,7 +1407,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var104]
+[var105]
 name = g_foc.lo.vel_pid.cfg.ki
 tracked_name = g_foc.lo.vel_pid.cfg.ki
 address = 536872532
@@ -1407,7 +1420,7 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var105]
+[var106]
 name = g_foc.lo.vel_pid.cfg.kp
 tracked_name = g_foc.lo.vel_pid.cfg.kp
 address = 536872528
@@ -1420,7 +1433,7 @@ high_level_type = 0
 value_to_write = 0.030000
 do_not_interpret_as_enum = false
 
-[var106]
+[var107]
 name = g_foc.out.f32_v_uvw.u
 tracked_name = g_foc.out.f32_v_uvw.u
 address = 536872324
@@ -1433,7 +1446,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var107]
+[var108]
 name = g_foc.out.f32_v_uvw.v
 tracked_name = g_foc.out.f32_v_uvw.v
 address = 536872328
@@ -1446,7 +1459,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var108]
+[var109]
 name = g_foc.out.f32_v_uvw.w
 tracked_name = g_foc.out.f32_v_uvw.w
 address = 536872332
@@ -1459,7 +1472,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var109]
+[var110]
 name = g_foc.out.svpwm.f32_pwm_duty.u
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.u
 address = 536872348
@@ -1472,7 +1485,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var110]
+[var111]
 name = g_foc.out.svpwm.f32_pwm_duty.v
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.v
 address = 536872352
@@ -1485,7 +1498,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var111]
+[var112]
 name = g_foc.out.svpwm.f32_pwm_duty.w
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.w
 address = 536872356
@@ -1498,7 +1511,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var112]
+[var113]
 name = g_foc.out.svpwm.u32_pwm_duty.u
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.u
 address = 536872360
@@ -1511,7 +1524,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var113]
+[var114]
 name = g_foc.out.svpwm.u32_pwm_duty.v
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.v
 address = 536872364
@@ -1524,7 +1537,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var114]
+[var115]
 name = g_foc.out.svpwm.u32_pwm_duty.w
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.w
 address = 536872368
@@ -1537,7 +1550,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var115]
+[var116]
 name = g_foc.out.v_ab.a
 tracked_name = g_foc.out.v_ab.a
 address = 536872308
@@ -1550,7 +1563,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var116]
+[var117]
 name = g_foc.out.v_ab.b
 tracked_name = g_foc.out.v_ab.b
 address = 536872312
@@ -1563,7 +1576,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var117]
+[var118]
 name = g_foc.out.v_ab_sv.a
 tracked_name = g_foc.out.v_ab_sv.a
 address = 536872316
@@ -1576,7 +1589,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var118]
+[var119]
 name = g_foc.out.v_ab_sv.b
 tracked_name = g_foc.out.v_ab_sv.b
 address = 536872320
@@ -1589,7 +1602,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var119]
+[var120]
 name = g_foc.out.v_dq.d
 tracked_name = g_foc.out.v_dq.d
 address = 536872300
@@ -1602,7 +1615,7 @@ high_level_type = 0
 value_to_write = 2.000000
 do_not_interpret_as_enum = false
 
-[var120]
+[var121]
 name = g_foc.out.v_dq.q
 tracked_name = g_foc.out.v_dq.q
 address = 536872304
@@ -1615,7 +1628,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var121]
+[var122]
 name = g_linerhall.lo.theta_rate
 tracked_name = g_linerhall.lo.theta_rate
 address = 536873824
@@ -1628,7 +1641,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var122]
+[var123]
 name = g_linerhall.out.cos_norm
 tracked_name = g_linerhall.out.cos_norm
 address = 536873808
@@ -1641,7 +1654,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var123]
+[var124]
 name = g_linerhall.out.sin_norm
 tracked_name = g_linerhall.out.sin_norm
 address = 536873804
@@ -1654,7 +1667,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var124]
+[var125]
 name = g_linerhall.out.theta
 tracked_name = g_linerhall.out.theta
 address = 536873800
@@ -1667,7 +1680,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var125]
+[var126]
 name = g_rx_ads_raw.a
 tracked_name = g_rx_ads_raw.a
 address = 536873916
@@ -1680,7 +1693,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var126]
+[var127]
 name = g_rx_ads_raw.b
 tracked_name = g_rx_ads_raw.b
 address = 536873918
@@ -1693,7 +1706,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var127]
+[var128]
 name = g_rx_ads_raw.c
 tracked_name = g_rx_ads_raw.c
 address = 536873920
@@ -1706,7 +1719,7 @@ high_level_type = 0
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var128]
+[var129]
 name = g_sine.cfg.amp
 tracked_name = g_sine.cfg.amp
 address = 536874448
@@ -1719,7 +1732,7 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var129]
+[var130]
 name = g_sine.cfg.wave_freq
 tracked_name = g_sine.cfg.wave_freq
 address = 536874444
@@ -1802,156 +1815,161 @@ visibility = true
 format = DEC
 
 [group0-plot2-series1]
-name = g_cia402.lo.e_state
+name = g_cia402.lo.e_operation_mode
 visibility = true
 format = DEC
 
 [group0-plot2-series2]
-name = g_cia402.lo.sts_word
+name = g_cia402.lo.e_state
 visibility = true
 format = DEC
 
 [group0-plot2-series3]
+name = g_cia402.lo.sts_word
+visibility = true
+format = DEC
+
+[group0-plot2-series4]
 name = g_foc.cfg.theta_offset
 visibility = false
 format = DEC
 
-[group0-plot2-series4]
+[group0-plot2-series5]
 name = g_foc.in.rotor.force_omega
 visibility = false
 format = DEC
 
-[group0-plot2-series5]
+[group0-plot2-series6]
 name = g_foc.lo.e_cali
 visibility = false
 format = DEC
 
-[group0-plot2-series6]
+[group0-plot2-series7]
 name = g_foc.lo.e_mode
 visibility = true
 format = DEC
 
-[group0-plot2-series7]
+[group0-plot2-series8]
 name = g_foc.lo.e_obs
 visibility = true
 format = DEC
 
-[group0-plot2-series8]
+[group0-plot2-series9]
 name = g_foc.lo.e_state
 visibility = true
 format = DEC
 
-[group0-plot2-series9]
+[group0-plot2-series10]
 name = g_foc.lo.e_theta
 visibility = true
 format = DEC
 
-[group0-plot2-series10]
+[group0-plot2-series11]
 name = g_foc.lo.elapsed_us
 visibility = false
 format = DEC
 
-[group0-plot2-series11]
+[group0-plot2-series12]
 name = g_foc.lo.id_pid.cfg.ki
 visibility = false
 format = DEC
 
-[group0-plot2-series12]
+[group0-plot2-series13]
 name = g_foc.lo.id_pid.cfg.kp
 visibility = false
 format = DEC
 
-[group0-plot2-series13]
+[group0-plot2-series14]
 name = g_foc.lo.lbg.cfg.damp
 visibility = false
 format = DEC
 
-[group0-plot2-series14]
+[group0-plot2-series15]
 name = g_foc.lo.lbg.cfg.wc
 visibility = false
 format = DEC
 
-[group0-plot2-series15]
+[group0-plot2-series16]
 name = g_foc.lo.pd_pid.cfg.kd
 visibility = true
 format = DEC
 
-[group0-plot2-series16]
+[group0-plot2-series17]
 name = g_foc.lo.pd_pid.cfg.kp
 visibility = true
 format = DEC
 
-[group0-plot2-series17]
+[group0-plot2-series18]
 name = g_foc.lo.pos_pid.cfg.kp
 visibility = true
 format = DEC
 
-[group0-plot2-series18]
+[group0-plot2-series19]
 name = g_foc.lo.ref_i_dq.d
 visibility = false
 format = DEC
 
-[group0-plot2-series19]
+[group0-plot2-series20]
 name = g_foc.lo.ref_i_dq.q
 visibility = false
 format = DEC
 
-[group0-plot2-series20]
+[group0-plot2-series21]
 name = g_foc.lo.ref_pvct.cur
 visibility = true
 format = DEC
 
-[group0-plot2-series21]
+[group0-plot2-series22]
 name = g_foc.lo.ref_pvct.ffd_cur
 visibility = false
 format = DEC
 
-[group0-plot2-series22]
+[group0-plot2-series23]
 name = g_foc.lo.ref_pvct.pos
 visibility = true
 format = DEC
 
-[group0-plot2-series23]
+[group0-plot2-series24]
 name = g_foc.lo.ref_pvct.vel
 visibility = true
 format = DEC
 
-[group0-plot2-series24]
+[group0-plot2-series25]
 name = g_foc.lo.smo.cfg.es0
 visibility = false
 format = DEC
 
-[group0-plot2-series25]
+[group0-plot2-series26]
 name = g_foc.lo.smo.cfg.ks
 visibility = false
 format = DEC
 
-[group0-plot2-series26]
+[group0-plot2-series27]
 name = g_foc.lo.smo.lo.pll.cfg.wc
 visibility = false
 format = DEC
 
-[group0-plot2-series27]
+[group0-plot2-series28]
 name = g_foc.lo.vel_pid.cfg.ki
 visibility = false
 format = DEC
 
-[group0-plot2-series28]
+[group0-plot2-series29]
 name = g_foc.lo.vel_pid.cfg.kp
 visibility = false
 format = DEC
 
-[group0-plot2-series29]
+[group0-plot2-series30]
 name = g_foc.out.v_dq.d
 visibility = false
 format = DEC
 
-[group0-plot2-series30]
+[group0-plot2-series31]
 name = g_sine.cfg.amp
 visibility = false
 format = DEC
 
-[group0-plot2-series31]
+[group0-plot2-series32]
 name = g_sine.cfg.wave_freq
 visibility = false
 format = DEC

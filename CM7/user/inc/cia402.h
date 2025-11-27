@@ -191,9 +191,10 @@ typedef struct {
 } cia402_cfg_t;
 
 typedef struct {
-        u16            ctl_word;
-        u16            sts_word;
-        cia402_state_e e_state;
+        u16                     ctl_word;
+        u16                     sts_word;
+        cia402_state_e          e_state;
+        cia402_operation_mode_e e_operation_mode;
 } cia402_lo_t;
 
 typedef struct {

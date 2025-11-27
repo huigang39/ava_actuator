@@ -2,6 +2,7 @@
 
 static void cia402_state_machine(cia402_t *cia402);
 static void cia402_update_foc_state(cia402_t *cia402);
+static void cia402_update_foc_mode(cia402_t *cia402);
 static void cia402_update_sts_word(cia402_t *cia402);
 
 void
@@ -25,6 +26,9 @@ cia402_exec(cia402_t *cia402)
 
         // 更新FOC状态
         cia402_update_foc_state(cia402);
+
+        // 更新FOC控制模式
+        cia402_update_foc_mode(cia402);
 
         // 更新状态字
         cia402_update_sts_word(cia402);
@@ -196,7 +200,6 @@ cia402_update_foc_state(cia402_t *cia402)
                 }
                 case CIA402_STATE_READY_TO_SWITCH_ON: {
                         // 已准备好运行：FOC就绪(PWM关闭，但系统就绪)
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
                         foc->lo.e_state = FOC_STATE_READY;
                         break;
                 }
@@ -316,5 +319,53 @@ cia402_update_sts_word(cia402_t *cia402)
         }
         if (op_mode & 0x02) {
                 lo->sts_word |= CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_1;
+        }
+}
+
+static void
+cia402_update_foc_mode(cia402_t *cia402)
+{
+        DECL_PTRS(cia402, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
+
+        // 只在Operation Enable状态下更新控制模式
+        if (lo->e_state != CIA402_STATE_OPERATION_ENABLE) {
+                return;
+        }
+
+        switch (lo->e_operation_mode) {
+                case CIA402_OPERATION_MODE_PP:  // 轮廓位置模式 (0x01)
+                case CIA402_OPERATION_MODE_CSP: // 周期同步位置模式 (0x08)
+                        foc->lo.e_theta = FOC_THETA_SENSOR;
+                        foc->lo.e_mode  = FOC_MODE_POS;
+                        break;
+
+                case CIA402_OPERATION_MODE_PV:  // 轮廓速度模式 (0x03)
+                case CIA402_OPERATION_MODE_CSV: // 周期同步速度模式 (0x09)
+                        foc->lo.e_theta = FOC_THETA_SENSOR;
+                        foc->lo.e_mode  = FOC_MODE_VEL;
+                        break;
+
+                case CIA402_OPERATION_MODE_PT:  // 轮廓转矩模式 (0x04)
+                case CIA402_OPERATION_MODE_CST: // 周期同步转矩模式 (0x0A)
+                        foc->lo.e_theta = FOC_THETA_SENSOR;
+                        foc->lo.e_mode  = FOC_MODE_CUR;
+                        break;
+
+                case CIA402_OPERATION_MODE_PD: // 力位混合模式 (0xFF)
+                        foc->lo.e_theta = FOC_THETA_SENSOR;
+                        foc->lo.e_mode  = FOC_MODE_PD;
+                        break;
+
+                case CIA402_OPERATION_MODE_HM: // 原点回归模式 (0x06)
+                        // 原点回归模式通常使用位置控制
+                        foc->lo.e_theta = FOC_THETA_SENSOR;
+                        foc->lo.e_mode  = FOC_MODE_POS;
+                        break;
+
+                default:
+                        // 未知模式，保持当前模式或设置为NULL
+                        // foc->lo.e_mode = FOC_MODE_NULL;
+                        break;
         }
 }
