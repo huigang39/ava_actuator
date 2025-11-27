@@ -45,7 +45,7 @@ typedef enum {
 } cia402_operation_mode_e;
 
 /**
- * @brief CIA402状态机实现
+ * @brief CIA402状态机
  *
  * ┌──────────────────────────────────────────┐    ┌─────────────────────────────┐
  * │   Power Disabled                         │    │   Fault     │               │
