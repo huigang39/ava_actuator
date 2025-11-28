@@ -11,10 +11,10 @@ typedef enum {
 } comm_shm_addr_e;
 
 typedef enum {
-        COMM_SHM_SIZE_BASE = 0x20000,
-        COMM_SHM_SIZE_UID  = 0x00010,
-        COMM_SHM_SIZE_CFG  = 0x01000,
-        COMM_SHM_SIZE_RT   = 0x00400,
+        COMM_SHM_SIZE_BASE = 0xFFFF,
+        COMM_SHM_SIZE_UID  = 0x0010,
+        COMM_SHM_SIZE_CFG  = 0x1000,
+        COMM_SHM_SIZE_RT   = 0x0400,
 } comm_shm_size_e;
 
 typedef enum {
