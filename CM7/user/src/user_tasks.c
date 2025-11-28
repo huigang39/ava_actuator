@@ -9,7 +9,7 @@
 user_t   g_user;
 cia402_t g_cia402;
 fault_t  g_fault;
-AT(".comm_shm") comm_shm_t g_comm_shm;
+AT("comm_shm") comm_shm_t g_comm_shm;
 
 void
 set_ctl_word(user_t *user, foc_t *foc)

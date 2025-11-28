@@ -16,7 +16,7 @@ UART_HandleTypeDef  *g_sensor_uart = &huart2;
 UART_HandleTypeDef  *g_log_uart    = NULL;
 
 static u32
-get_pwm_ch_mask(pwm_channel_e ch)
+get_pwm_ch_mask_hrtim(pwm_channel_e ch)
 {
         switch (ch) {
                 case PWM_CH_UH:
@@ -88,7 +88,7 @@ get_adc(void)
 }
 
 void
-set_hrtim_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
+set_pwm_duty_hrtim(u32 pwm_full_cnt, u32_uvw_t duty)
 {
         u32 half = pwm_full_cnt / 2;
 
@@ -106,9 +106,9 @@ set_hrtim_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
 }
 
 void
-set_hrtim_pwm_status(pwm_channel_e pwm_ch, uint8_t enable)
+set_pwm_status_hrtim(pwm_channel_e pwm_ch, uint8_t enable)
 {
-        u32 mask = get_pwm_ch_mask(pwm_ch);
+        u32 mask = get_pwm_ch_mask_hrtim(pwm_ch);
         if (mask == 0)
                 return;
 
@@ -123,7 +123,7 @@ set_drv_status(u8 enable)
 }
 
 void
-set_drv_8353_status(u8 enable)
+set_drv_status_8353(u8 enable)
 {
         enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET)
                : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);

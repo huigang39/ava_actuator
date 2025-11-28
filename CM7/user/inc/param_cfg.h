@@ -376,8 +376,8 @@ static const foc_cfg_t g_foc_cfg[] = {
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
-            .f_set_pwm_duty   = set_hrtim_pwm_duty,
-            .f_set_pwm_status = set_hrtim_pwm_status,
+            .f_set_pwm_duty   = set_pwm_duty_hrtim,
+            .f_set_pwm_status = set_pwm_status_hrtim,
             .f_set_drv_status = set_drv_status,
         },
     [ACTUATOR_FSA361480Z] =
@@ -404,9 +404,9 @@ static const foc_cfg_t g_foc_cfg[] = {
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
-            .f_set_pwm_duty   = set_hrtim_pwm_duty,
-            .f_set_pwm_status = set_hrtim_pwm_status,
-            .f_set_drv_status = set_drv_8353_status,
+            .f_set_pwm_duty   = set_pwm_duty_hrtim,
+            .f_set_pwm_status = set_pwm_status_hrtim,
+            .f_set_drv_status = set_drv_status_8353,
         },
     [ACTUATOR_FSA451780Z] =
         {
@@ -432,9 +432,9 @@ static const foc_cfg_t g_foc_cfg[] = {
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
-            .f_set_pwm_duty   = set_hrtim_pwm_duty,
-            .f_set_pwm_status = set_hrtim_pwm_status,
-            .f_set_drv_status = set_drv_8353_status,
+            .f_set_pwm_duty   = set_pwm_duty_hrtim,
+            .f_set_pwm_status = set_pwm_status_hrtim,
+            .f_set_drv_status = set_drv_status_8353,
         },
     [ACTUATOR_FSA4530E] =
         {
@@ -460,9 +460,9 @@ static const foc_cfg_t g_foc_cfg[] = {
 
             .f_get_theta      = ads_get_theta,
             .f_get_adc        = get_adc,
-            .f_set_pwm_duty   = set_hrtim_pwm_duty,
-            .f_set_pwm_status = set_hrtim_pwm_status,
-            .f_set_drv_status = set_drv_8353_status,
+            .f_set_pwm_duty   = set_pwm_duty_hrtim,
+            .f_set_pwm_status = set_pwm_status_hrtim,
+            .f_set_drv_status = set_drv_status_8353,
         },
 };
 

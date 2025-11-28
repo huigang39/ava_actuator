@@ -25,6 +25,10 @@ cpy_vtor_to_itcm(void)
 void
 init(void)
 {
+        DWT_INIT();
+
+        // cpy_vtor_to_itcm();
+
         log_cfg_t log_cfg = {
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
@@ -42,25 +46,23 @@ init(void)
         log_info(&g_log, 1, "---\n");
         log_info(&g_log, 1, "logger init\n");
 
-        // cpy_vtor_to_itcm();
+        // ATOMIC_EXEC({
+        //         RUN_MATH_BENCHMARK(benchmark_res, 100);
+        //         for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
+        //                 if (!benchmark_res[i].name)
+        //                         continue;
 
-        DWT_INIT();
-        // ATOMIC_EXEC({ RUN_MATH_BENCHMARK(benchmark_res, 100); });
+        //                 log_info(&g_log,
+        //                          1,
+        //                          "seq: %d, op_name: %s, total: %f us, single: %f us\n",
+        //                          i,
+        //                          benchmark_res[i].name,
+        //                          benchmark_res[i].total_elapsed_us,
+        //                          benchmark_res[i].single_elapsed_us);
+        //         }
+        // });
 
-        for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
-                if (!benchmark_res[i].name)
-                        continue;
-
-                log_info(&g_log,
-                         1,
-                         "seq: %d, op_name: %s, total: %f us, single: %f us\n",
-                         i,
-                         benchmark_res[i].name,
-                         benchmark_res[i].total_elapsed_us,
-                         benchmark_res[i].single_elapsed_us);
-        }
-
-        periph_init();
+//        periph_init();
 
         sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
         task_init(&g_sched);
