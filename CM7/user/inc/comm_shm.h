@@ -40,15 +40,15 @@ typedef struct {
 } comm_shm_ver_t;
 
 typedef struct {
-        float tor_pos_kp;
-        float tor_vel_kp;
-        float tor_vel_ki;
-        float pd_kp;
-        float pd_kd;
-        float cur_pos_kp;
-        float cur_vel_kp;
-        float cur_vel_ki;
-        u32   res1[5];
+        f32 tor_pos_kp;
+        f32 tor_vel_kp;
+        f32 tor_vel_ki;
+        f32 pd_kp;
+        f32 pd_kd;
+        f32 cur_pos_kp;
+        f32 cur_vel_kp;
+        f32 cur_vel_ki;
+        u32 res1[5];
 } comm_shm_pid_param_t;
 
 typedef struct {
