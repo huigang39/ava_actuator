@@ -13,7 +13,7 @@ HRTIM_HandleTypeDef *g_pwm         = &hhrtim;
 LPTIM_HandleTypeDef *g_timer       = &hlptim1;
 SPI_HandleTypeDef   *g_sensor_spi  = &hspi1;
 UART_HandleTypeDef  *g_sensor_uart = &huart2;
-UART_HandleTypeDef  *g_log_uart    = &huart1;
+UART_HandleTypeDef  *g_log_uart    = NULL;
 
 static u32
 get_pwm_ch_mask(pwm_channel_e ch)
@@ -88,7 +88,7 @@ get_adc(void)
 }
 
 void
-set_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
+set_hrtim_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
 {
         u32 half = pwm_full_cnt / 2;
 
@@ -106,7 +106,7 @@ set_pwm_duty(u32 pwm_full_cnt, u32_uvw_t duty)
 }
 
 void
-set_pwm_status(pwm_channel_e pwm_ch, uint8_t enable)
+set_hrtim_pwm_status(pwm_channel_e pwm_ch, uint8_t enable)
 {
         u32 mask = get_pwm_ch_mask(pwm_ch);
         if (mask == 0)
@@ -147,7 +147,8 @@ HAL_LPTIM_AutoReloadMatchCallback(LPTIM_HandleTypeDef *hlptim)
 void
 log_uart_tx(void *uart, const void *src, const usz size)
 {
-        HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, src, size);
+        if (!uart)
+                HAL_UART_Transmit_DMA((UART_HandleTypeDef *)uart, src, size);
 }
 
 void
