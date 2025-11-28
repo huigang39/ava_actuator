@@ -16,7 +16,7 @@ UART_HandleTypeDef  *g_sensor_uart = &huart2;
 UART_HandleTypeDef  *g_log_uart    = NULL;
 
 static u32
-get_pwm_ch_mask_hrtim(pwm_channel_e ch)
+get_pwm_ch_mask_hrtim(pwm_ch_e ch)
 {
         switch (ch) {
                 case PWM_CH_UH:
@@ -106,7 +106,7 @@ set_pwm_duty_hrtim(u32 pwm_full_cnt, u32_uvw_t duty)
 }
 
 void
-set_pwm_status_hrtim(pwm_channel_e pwm_ch, uint8_t enable)
+set_pwm_status_hrtim(pwm_ch_e pwm_ch, uint8_t enable)
 {
         u32 mask = get_pwm_ch_mask_hrtim(pwm_ch);
         if (mask == 0)

@@ -1,9 +1,8 @@
 #include "cia402.h"
 
-static void cia402_state_machine(cia402_t *cia402);
-static void cia402_update_foc_state(cia402_t *cia402);
-static void cia402_update_foc_mode(cia402_t *cia402);
-static void cia402_update_sts_word(cia402_t *cia402);
+static void cia402_state_update(cia402_t *cia402);
+static void cia402_foc_update(cia402_t *cia402);
+static void cia402_sts_update(cia402_t *cia402);
 
 void
 cia402_init(cia402_t *cia402, const cia402_cfg_t cia402_cfg)
@@ -20,33 +19,22 @@ void
 cia402_exec(cia402_t *cia402)
 {
         DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
 
-        // 执行状态机
-        cia402_state_machine(cia402);
-
-        // 更新FOC状态
-        cia402_update_foc_state(cia402);
-
-        // 更新FOC控制模式
-        cia402_update_foc_mode(cia402);
-
-        // 更新状态字
-        cia402_update_sts_word(cia402);
-
-        cfg->comm_shm->rt.fdb_pvct = foc->lo.fdb_pvct;
+        cia402_state_update(cia402);
+        cia402_foc_update(cia402);
+        cia402_sts_update(cia402);
 }
 
 static void
-cia402_state_machine(cia402_t *cia402)
+cia402_state_update(cia402_t *cia402)
 {
         DECL_PTRS(cia402, cfg, lo);
         DECL_PTR_RENAME(cfg->foc, foc);
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
-        DECL_PTR_RENAME(cfg->fault, fault);
+        DECL_PTR_RENAME(cfg->check, check);
 
         const u16  ctl_word  = lo->ctl_word;
-        const bool has_fault = fault->lo.err.all != 0;
+        const bool has_fault = check->lo.err.all != 0;
 
         // 检查故障状态转换(转换13和14)
         if (has_fault && lo->e_state != CIA402_STATE_FAULT_REACTION_ACTIVE && lo->e_state != CIA402_STATE_FAULT) {
@@ -75,7 +63,7 @@ cia402_state_machine(cia402_t *cia402)
                 case CIA402_STATE_NOT_READY_TO_SWITCH_ON: {
                         // 转换1: Not Ready to Switch On -> Switch On Disabled
                         // 条件：通信建立完成且无通信故障
-                        if (!fault->lo.err.COMM_SHM) {
+                        if (!check->lo.err.COMM_SHM) {
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
                         }
                         break;
@@ -181,7 +169,7 @@ cia402_state_machine(cia402_t *cia402)
 }
 
 static void
-cia402_update_foc_state(cia402_t *cia402)
+cia402_foc_update(cia402_t *cia402)
 {
         DECL_PTRS(cia402, cfg, lo);
         DECL_PTR_RENAME(cfg->foc, foc);
@@ -214,7 +202,7 @@ cia402_update_foc_state(cia402_t *cia402)
                 }
                 case CIA402_STATE_OPERATION_ENABLE: {
                         // 使能控制模式：FOC使能(驱动和控制都使能，PWM开启)
-                        if (foc->lo.e_cali == FOC_CALI_FINISH)
+                        if (foc->lo.e_cali == FOC_THETA_CALI_FINISH)
                                 foc->lo.e_state = FOC_STATE_ENABLE;
                         else
                                 foc->lo.e_state = FOC_STATE_CALI;
@@ -235,23 +223,53 @@ cia402_update_foc_state(cia402_t *cia402)
                 default:
                         break;
         }
+
+        if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
+                return;
+
+        switch (lo->e_operation_mode) {
+                case CIA402_OPERATION_MODE_PP:
+                case CIA402_OPERATION_MODE_CSP: {
+                        foc->lo.e_mode = FOC_MODE_POS;
+                        break;
+                }
+                case CIA402_OPERATION_MODE_PV:
+                case CIA402_OPERATION_MODE_CSV: {
+                        foc->lo.e_mode = FOC_MODE_VEL;
+                        break;
+                }
+                case CIA402_OPERATION_MODE_PT:
+                case CIA402_OPERATION_MODE_CST: {
+                        foc->lo.e_mode = FOC_MODE_CUR;
+                        break;
+                }
+                case CIA402_OPERATION_MODE_PD: {
+                        foc->lo.e_mode = FOC_MODE_PD;
+                        break;
+                }
+                case CIA402_OPERATION_MODE_HM: {
+                        foc->lo.e_mode = FOC_MODE_POS;
+                        break;
+                }
+                default:
+                        break;
+        }
 }
 
 static void
-cia402_update_sts_word(cia402_t *cia402)
+cia402_sts_update(cia402_t *cia402)
 {
         DECL_PTRS(cia402, cfg, lo);
         DECL_PTR_RENAME(cfg->foc, foc);
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
-        DECL_PTR_RENAME(cfg->fault, fault);
+        DECL_PTR_RENAME(cfg->check, check);
 
-        const bool has_fault       = fault->lo.err.all != 0;
-        const bool has_warning     = fault->lo.warn.all != 0;
+        const bool has_fault       = check->lo.err.all != 0;
+        const bool has_warning     = check->lo.warn.all != 0;
         const bool voltage_enabled = (lo->e_state >= CIA402_STATE_SWITCHED_ON && lo->e_state != CIA402_STATE_FAULT &&
                                       lo->e_state != CIA402_STATE_FAULT_REACTION_ACTIVE);
         const bool foc_enabled     = (foc->lo.e_state == FOC_STATE_ENABLE);
 
-        // 清零状态字
         lo->sts_word = 0;
 
         switch (lo->e_state) {
@@ -305,63 +323,9 @@ cia402_update_sts_word(cia402_t *cia402)
                         break;
         }
 
-        // 通用状态位（所有状态都可能设置）
-        if (has_fault) {
+        if (has_fault)
                 lo->sts_word |= CIA402_STS_WORD_FAULT;
-        }
-        if (has_warning) {
+
+        if (has_warning)
                 lo->sts_word |= CIA402_STS_WORD_WARNING;
-        }
-
-        // 远程模式（通常总是设置为1，表示远程控制）
-        lo->sts_word |= CIA402_STS_WORD_REMOTE;
-
-        // 操作模式特定位（根据控制字的操作模式位设置）
-        const u16 op_mode = (lo->ctl_word >> 4) & 0x07; // 提取bit 4-6
-        if (op_mode & 0x01) {
-                lo->sts_word |= CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_0;
-        }
-        if (op_mode & 0x02) {
-                lo->sts_word |= CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_1;
-        }
-}
-
-static void
-cia402_update_foc_mode(cia402_t *cia402)
-{
-        DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
-
-        if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
-                return;
-
-        foc->lo.ref_pvct = cfg->comm_shm->rt.ref_pvct;
-
-        switch (lo->e_operation_mode) {
-                case CIA402_OPERATION_MODE_PP:
-                case CIA402_OPERATION_MODE_CSP: {
-                        foc->lo.e_mode = FOC_MODE_POS;
-                        break;
-                }
-                case CIA402_OPERATION_MODE_PV:
-                case CIA402_OPERATION_MODE_CSV: {
-                        foc->lo.e_mode = FOC_MODE_VEL;
-                        break;
-                }
-                case CIA402_OPERATION_MODE_PT:
-                case CIA402_OPERATION_MODE_CST: {
-                        foc->lo.e_mode = FOC_MODE_CUR;
-                        break;
-                }
-                case CIA402_OPERATION_MODE_PD: {
-                        foc->lo.e_mode = FOC_MODE_PD;
-                        break;
-                }
-                case CIA402_OPERATION_MODE_HM: {
-                        foc->lo.e_mode = FOC_MODE_POS;
-                        break;
-                }
-                default:
-                        break;
-        }
 }

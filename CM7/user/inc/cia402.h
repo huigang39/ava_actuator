@@ -3,8 +3,8 @@
 
 #include "module.h"
 
+#include "check.h"
 #include "comm_shm.h"
-#include "fault.h"
 
 #define CIA402_CTL_WORD_SWITCH_ON                 (1 << 0) // 准备运行
 #define CIA402_CTL_WORD_ENABLE_VOLTAGE            (1 << 1) // 接通主电路
@@ -187,7 +187,7 @@ typedef enum : u16 {
 typedef struct {
         foc_t      *foc;
         comm_shm_t *comm_shm;
-        fault_t    *fault;
+        check_t    *check;
 } cia402_cfg_t;
 
 typedef struct {

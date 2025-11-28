@@ -1,17 +1,17 @@
-#include "fault.h"
+#include "check.h"
 
 static bool fpu_check(void);
 
 void
-fault_init(fault_t *fault, const fault_cfg_t fault_cfg)
+check_init(check_t *check, const check_cfg_t check_cfg)
 {
-        CFG_INIT(fault, fault_cfg);
+        CFG_INIT(check, check_cfg);
 }
 
 void
-fault_exec(fault_t *fault)
+check_exec(check_t *check)
 {
-        fpu_check();
+        check->lo.warn.FPU_EXCEPTION = fpu_check();
 }
 
 static bool

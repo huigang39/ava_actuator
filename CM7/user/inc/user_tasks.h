@@ -1,9 +1,9 @@
 #ifndef USER_TASKS_H
 #define USER_TASKS_H
 
+#include "check.h"
 #include "cia402.h"
 #include "comm_shm.h"
-#include "fault.h"
 
 typedef enum {
         CTL_WORD_NULL,

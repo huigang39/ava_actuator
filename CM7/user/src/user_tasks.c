@@ -8,7 +8,7 @@
 
 user_t   g_user;
 cia402_t g_cia402;
-fault_t  g_fault;
+check_t  g_check;
 AT("comm_shm") comm_shm_t g_comm_shm;
 
 void
@@ -18,7 +18,7 @@ set_ctl_word(user_t *user, foc_t *foc)
 
         switch (user->e_ctl_word) {
                 case CTL_WORD_CALI: {
-                        lo->e_state = (lo->e_cali == FOC_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
+                        lo->e_state = (lo->e_cali == FOC_THETA_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
                         break;
                 }
                 case CTL_WORD_DISABLE: {
@@ -105,7 +105,7 @@ user_init(void)
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
             .comm_shm = &g_comm_shm,
-            .fault    = &g_fault,
+            .check    = &g_check,
         };
         cia402_init(&g_cia402, cia402_cfg);
 }
@@ -115,6 +115,7 @@ user_loop_task(void *arg)
 {
         ARG_UNUSED(arg);
 
-        fault_exec(&g_fault);
+        check_exec(&g_check);
+        comm_shm_sync_rt(&g_comm_shm, &g_foc);
         cia402_exec(&g_cia402);
 }
