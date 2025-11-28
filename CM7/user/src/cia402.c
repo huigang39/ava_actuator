@@ -212,9 +212,9 @@ cia402_update_foc_state(cia402_t *cia402)
                         // 使能控制模式：FOC使能(驱动和控制都使能，PWM开启)
                         if (foc->lo.e_cali == FOC_CALI_FINISH)
                                 foc->lo.e_state = FOC_STATE_ENABLE;
-                        else {
+                        else
                                 foc->lo.e_state = FOC_STATE_CALI;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_QUICK_STOP_ACTIVE: {
@@ -331,6 +331,8 @@ cia402_update_foc_mode(cia402_t *cia402)
         if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
                 return;
 
+        foc->lo.ref_pvct = cfg->comm_shm->ref_pvct;
+
         switch (lo->e_operation_mode) {
                 case CIA402_OPERATION_MODE_PP:
                 case CIA402_OPERATION_MODE_CSP: {
@@ -363,4 +365,6 @@ cia402_update_foc_mode(cia402_t *cia402)
                 default:
                         break;
         }
+
+        cfg->comm_shm->fdb_pvct = foc->lo.fdb_pvct;
 }

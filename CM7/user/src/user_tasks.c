@@ -6,10 +6,10 @@
 
 #include "user_tasks.h"
 
-user_t     g_user;
-cia402_t   g_cia402;
-fault_t    g_fault;
-comm_shm_t g_comm_shm;
+user_t   g_user;
+cia402_t g_cia402;
+fault_t  g_fault;
+AT(".comm_shm") comm_shm_t g_comm_shm;
 
 void
 set_ctl_word(user_t *user, foc_t *foc)
@@ -100,6 +100,8 @@ set_ctl_obs(user_t *user, foc_t *foc)
 void
 user_init(void)
 {
+        comm_shm_init(&g_comm_shm);
+
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
             .comm_shm = &g_comm_shm,
@@ -114,6 +116,5 @@ user_loop_task(void *arg)
         ARG_UNUSED(arg);
 
         fault_exec(&g_fault);
-        comm_shm_exec(&g_comm_shm);
         cia402_exec(&g_cia402);
 }
