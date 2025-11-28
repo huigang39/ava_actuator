@@ -19,7 +19,8 @@ cia402_init(cia402_t *cia402, const cia402_cfg_t cia402_cfg)
 void
 cia402_exec(cia402_t *cia402)
 {
-        DECL_PTRS(cia402, lo);
+        DECL_PTRS(cia402, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
 
         // 执行状态机
         cia402_state_machine(cia402);
@@ -32,6 +33,8 @@ cia402_exec(cia402_t *cia402)
 
         // 更新状态字
         cia402_update_sts_word(cia402);
+
+        cfg->comm_shm->rt.fdb_pvct = foc->lo.fdb_pvct;
 }
 
 static void
@@ -189,6 +192,7 @@ cia402_update_foc_state(cia402_t *cia402)
                         // 初始化和未准备好状态：保持FOC当前状态或设置为READY
                         // 如果FOC处于NULL状态，设置为READY
                         if (foc->lo.e_state == FOC_STATE_NULL) {
+                                foc->lo.e_theta = FOC_THETA_SENSOR;
                                 foc->lo.e_state = FOC_STATE_READY;
                         }
                         break;
@@ -331,40 +335,33 @@ cia402_update_foc_mode(cia402_t *cia402)
         if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
                 return;
 
-        foc->lo.ref_pvct = cfg->comm_shm->ref_pvct;
+        foc->lo.ref_pvct = cfg->comm_shm->rt.ref_pvct;
 
         switch (lo->e_operation_mode) {
                 case CIA402_OPERATION_MODE_PP:
                 case CIA402_OPERATION_MODE_CSP: {
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
-                        foc->lo.e_mode  = FOC_MODE_POS;
+                        foc->lo.e_mode = FOC_MODE_POS;
                         break;
                 }
                 case CIA402_OPERATION_MODE_PV:
                 case CIA402_OPERATION_MODE_CSV: {
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
-                        foc->lo.e_mode  = FOC_MODE_VEL;
+                        foc->lo.e_mode = FOC_MODE_VEL;
                         break;
                 }
                 case CIA402_OPERATION_MODE_PT:
                 case CIA402_OPERATION_MODE_CST: {
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
-                        foc->lo.e_mode  = FOC_MODE_CUR;
+                        foc->lo.e_mode = FOC_MODE_CUR;
                         break;
                 }
                 case CIA402_OPERATION_MODE_PD: {
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
-                        foc->lo.e_mode  = FOC_MODE_PD;
+                        foc->lo.e_mode = FOC_MODE_PD;
                         break;
                 }
                 case CIA402_OPERATION_MODE_HM: {
-                        foc->lo.e_theta = FOC_THETA_SENSOR;
-                        foc->lo.e_mode  = FOC_MODE_POS;
+                        foc->lo.e_mode = FOC_MODE_POS;
                         break;
                 }
                 default:
                         break;
         }
-
-        cfg->comm_shm->fdb_pvct = foc->lo.fdb_pvct;
 }

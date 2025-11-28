@@ -3,18 +3,27 @@
 
 #include "module.h"
 
+#define SIZE_1KB  (0x400)
+#define SIZE_2KB  (0x800)
+#define SIZE_4KB  (0x1000)
+#define SIZE_6KB  (0x1800)
+#define SIZE_8KB  (0x2000)
+#define SIZE_14KB (0x3800)
+#define SIZE_24KB (0x6000)
+#define SIZE_64KB (0x10000)
+
 typedef enum {
-        COMM_SHM_ADDR_BASE = 0x38000000,
-        COMM_SHM_ADDR_UID  = 0x38004C00,
-        COMM_SHM_ADDR_CFG  = 0x3800E000,
-        COMM_SHM_ADDR_RT   = 0x3800F000,
+        COMM_SHM_ADDR_BASE  = 0x38000000,
+        COMM_SHM_ADDR_UID   = 0x38004C00,
+        COMM_SHM_ADDR_PARAM = 0x3800E000,
+        COMM_SHM_ADDR_RT    = 0x3800F000,
 } comm_shm_addr_e;
 
 typedef enum {
-        COMM_SHM_SIZE_BASE = 0xFFFF,
-        COMM_SHM_SIZE_UID  = 0x0010,
-        COMM_SHM_SIZE_CFG  = 0x1000,
-        COMM_SHM_SIZE_RT   = 0x0400,
+        COMM_SHM_SIZE_BASE  = 0xFFFF,
+        COMM_SHM_SIZE_UID   = 0x0010,
+        COMM_SHM_SIZE_PARAM = 0x1000,
+        COMM_SHM_SIZE_RT    = 0x0400,
 } comm_shm_size_e;
 
 typedef enum {
@@ -26,9 +35,64 @@ typedef enum {
 } comm_shm_op_e;
 
 typedef struct {
+        u32 num;
+        u8  str[124];
+} comm_shm_ver_t;
+
+typedef struct {
+        float tor_pos_kp;
+        float tor_vel_kp;
+        float tor_vel_ki;
+        float pd_kp;
+        float pd_kd;
+        float cur_pos_kp;
+        float cur_vel_kp;
+        float cur_vel_ki;
+        u32   res1[5];
+} comm_shm_pid_param_t;
+
+typedef struct {
+        u32                  res1[10];
+        foc_ref_pvct_t       ref_pvct;
+        u32                  res2[8];
+        foc_fdb_pvct_t       fdb_pvct;
+        u32                  res3[7];
+        comm_shm_pid_param_t pid_param;
+} comm_shm_rt_t;
+
+typedef struct {
+        u8 res1[SIZE_4KB];
+} comm_shm_param_t;
+
+typedef struct {
+        u8 res1[SIZE_4KB];
+
+        u8 foc_sensor_cali_data[SIZE_2KB];
+        u8 outshaft_sensor_cali_data[SIZE_2KB];
+        u8 res2[SIZE_2KB];
+        u8 res3[SIZE_2KB];
+        u8 res4[SIZE_2KB];
+        u8 res5[SIZE_2KB];
+        u8 res6[SIZE_2KB];
+
+        u8 m7_app_log_ctrl[12];
+        u8 res7[1012];
+
         u32            uid[4];
-        foc_ref_pvct_t ref_pvct;
-        foc_fdb_pvct_t fdb_pvct;
+        u8             res8[240];
+        comm_shm_ver_t m7_ver;
+        comm_shm_ver_t m4_ver;
+
+        u8 res9[512];
+
+        u8 m7_app_log[SIZE_4KB];
+
+        u8 res10[SIZE_24KB];
+
+        u8 rma_m4_status[SIZE_8KB];
+
+        comm_shm_param_t param;
+        comm_shm_rt_t    rt;
 } comm_shm_t;
 
 void comm_shm_init(comm_shm_t *comm_shm);

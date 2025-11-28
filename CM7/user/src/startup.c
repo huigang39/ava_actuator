@@ -13,7 +13,7 @@ log_t   g_log;
 
 benchmark_t benchmark_res[30];
 
-HAPI void
+static void
 cpy_vtor_to_itcm(void)
 {
         const u32 *src = (u32 *)FLASH_BANK1_BASE;
@@ -22,12 +22,30 @@ cpy_vtor_to_itcm(void)
         SCB->VTOR = D1_ITCMRAM_BASE;
 }
 
+static void
+run_math_benchmark(void)
+{
+        ATOMIC_EXEC({
+                RUN_MATH_BENCHMARK(benchmark_res, 100);
+                for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
+                        if (!benchmark_res[i].name)
+                                continue;
+
+                        log_info(&g_log,
+                                 1,
+                                 "seq: %d, op_name: %s, total: %f us, single: %f us\n",
+                                 i,
+                                 benchmark_res[i].name,
+                                 benchmark_res[i].total_elapsed_us,
+                                 benchmark_res[i].single_elapsed_us);
+                }
+        });
+}
+
 void
 init(void)
 {
         DWT_INIT();
-
-        // cpy_vtor_to_itcm();
 
         log_cfg_t log_cfg = {
             .e_mode     = LOG_MODE_ASYNC,
@@ -46,27 +64,6 @@ init(void)
         log_info(&g_log, 1, "---\n");
         log_info(&g_log, 1, "logger init\n");
 
-        // ATOMIC_EXEC({
-        //         RUN_MATH_BENCHMARK(benchmark_res, 100);
-        //         for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
-        //                 if (!benchmark_res[i].name)
-        //                         continue;
-
-        //                 log_info(&g_log,
-        //                          1,
-        //                          "seq: %d, op_name: %s, total: %f us, single: %f us\n",
-        //                          i,
-        //                          benchmark_res[i].name,
-        //                          benchmark_res[i].total_elapsed_us,
-        //                          benchmark_res[i].single_elapsed_us);
-        //         }
-        // });
-
-//        periph_init();
-
-        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
-        task_init(&g_sched);
-
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.lo.pll.cfg    = g_hfi_pll_cfg[ACTUATOR_TYPE];
@@ -76,6 +73,14 @@ init(void)
         g_foc.lo.smo.lo.pll.cfg    = g_smo_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.lbg.cfg           = g_lbg_cfg[ACTUATOR_TYPE];
         foc_init(&g_foc, g_foc_cfg[ACTUATOR_TYPE]);
+        log_info(&g_log, 1, "foc init\n");
+
+        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
+        task_init(&g_sched);
+        log_info(&g_log, 1, "sched init\n");
+
+        periph_init();
+        log_info(&g_log, 1, "periph init\n");
 }
 
 void

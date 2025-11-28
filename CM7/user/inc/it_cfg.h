@@ -14,11 +14,11 @@
         do {                        \
         } while (0)
 
-#define HAL_HRTIM_IRQHandler(hhrtim, HRTIM_TIMERINDEX_MASTER)          \
-        do {                                                           \
-                HAL_HRTIM_IRQHandler_ENTRY();                          \
-                HAL_HRTIM_IRQHandler(hhrtim, HRTIM_TIMERINDEX_MASTER); \
-                HAL_HRTIM_IRQHandler_EXIT();                           \
+#define HAL_HRTIM_IRQHandler(hhrtim, idx)          \
+        do {                                       \
+                HAL_HRTIM_IRQHandler_ENTRY();      \
+                HAL_HRTIM_IRQHandler(hhrtim, idx); \
+                HAL_HRTIM_IRQHandler_EXIT();       \
         } while (0)
 
 #endif // !IT_CFG_H

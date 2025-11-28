@@ -4,6 +4,7 @@
 
 static void comm_shm_hsem_init(void);
 static void comm_shm_uid_init(comm_shm_t *comm_shm);
+static void comm_shm_ver_init(comm_shm_t *comm_shm);
 
 void
 comm_shm_init(comm_shm_t *comm_shm)
@@ -12,6 +13,7 @@ comm_shm_init(comm_shm_t *comm_shm)
 
         comm_shm_hsem_init();
         comm_shm_uid_init(comm_shm);
+        comm_shm_ver_init(comm_shm);
 }
 
 static void
@@ -30,4 +32,12 @@ comm_shm_uid_init(comm_shm_t *comm_shm)
         uid[1] = HAL_GetUIDw1();
         uid[2] = HAL_GetUIDw2();
         uid[3] = uid[0] + uid[1] + uid[2];
+}
+
+static void
+comm_shm_ver_init(comm_shm_t *comm_shm)
+{
+        comm_shm_ver_t *m7_ver = &comm_shm->m7_ver;
+        m7_ver->num            = 333;
+        memcpy(m7_ver->str, "AvA", strlen("AvA"));
 }
