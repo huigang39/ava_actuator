@@ -64,10 +64,9 @@ init(void)
             .f_flush    = log_uart_tx,
         };
         log_init(&g_log, log_cfg);
-        log_info(&g_log, 1, "---\n");
-        log_info(&g_log, 1, "logger init\n");
+        log_info(&g_log, 1, "---\nlogger init\n");
 
-        comm_shm_init(&g_comm_shm, &g_foc);
+        comm_shm_init(&g_comm_shm);
         log_info(&g_log, 1, "comm_shm init\n");
 
         sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);

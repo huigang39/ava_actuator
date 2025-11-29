@@ -94,7 +94,7 @@ typedef struct {
         comm_shm_rt_t    rt;
 } comm_shm_t;
 
-void comm_shm_init(comm_shm_t *comm_shm, foc_t *foc);
+void comm_shm_init(comm_shm_t *comm_shm);
 void comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc);
 void comm_shm_store(void *dst, void *src, usz size);
 void comm_shm_load(void *dst, void *src, usz size);

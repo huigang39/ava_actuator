@@ -11,14 +11,13 @@ static void comm_shm_init_pid_param(comm_shm_t *comm_shm, foc_t *foc);
 static void comm_shm_sync_pid_param(comm_shm_t *comm_shm, foc_t *foc);
 
 void
-comm_shm_init(comm_shm_t *comm_shm, foc_t *foc)
+comm_shm_init(comm_shm_t *comm_shm)
 {
         memset((void *)COMM_SHM_ADDR_BASE, 0, COMM_SHM_SIZE_BASE);
 
         comm_shm_init_hsem();
         comm_shm_init_uid(comm_shm);
         comm_shm_init_ver(comm_shm);
-        comm_shm_init_pid_param(comm_shm, foc);
 }
 
 // TODO: 写入失败检测, 放入check.c中实现
@@ -52,6 +51,11 @@ void
 comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc)
 {
         DECL_PTRS(foc, lo);
+
+        if (!lo->fault.PARAM_SYNC) {
+                comm_shm_init_pid_param(comm_shm, foc);
+                lo->fault.PARAM_SYNC = true;
+        }
 
         comm_shm_sync_pid_param(comm_shm, foc);
         lo->ref_pvct = comm_shm->rt.ref_pvct;
