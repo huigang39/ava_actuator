@@ -68,6 +68,11 @@ init(void)
         log_info(&g_log, 1, "logger init\n");
 
         comm_shm_init(&g_comm_shm, &g_foc);
+        log_info(&g_log, 1, "comm_shm init\n");
+
+        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
+        task_init(&g_sched);
+        log_info(&g_log, 1, "sched init\n");
 
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
@@ -79,10 +84,6 @@ init(void)
         g_foc.lo.lbg.cfg           = g_lbg_cfg[ACTUATOR_TYPE];
         foc_init(&g_foc, g_foc_cfg[ACTUATOR_TYPE]);
         log_info(&g_log, 1, "foc init\n");
-
-        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
-        task_init(&g_sched);
-        log_info(&g_log, 1, "sched init\n");
 
         periph_init();
         log_info(&g_log, 1, "periph init\n");

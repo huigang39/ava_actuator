@@ -1170,7 +1170,7 @@ should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 0
-value_to_write = 20.000000
+value_to_write = 10.000000
 do_not_interpret_as_enum = false
 
 [var87]
@@ -2522,7 +2522,7 @@ format = DEC
 [group0-plot17]
 name = theta
 type = 0
-visibility = false
+visibility = true
 
 [group0-plot17-series0]
 name = g_foc.in.rotor.force_theta
@@ -2586,17 +2586,17 @@ visibility = true
 
 [group0-plot18-series0]
 name = g_foc.in.f32_i_uvw.u
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot18-series1]
 name = g_foc.in.f32_i_uvw.v
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot18-series2]
 name = g_foc.in.f32_i_uvw.w
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot18-series3]
@@ -2606,17 +2606,17 @@ format = DEC
 
 [group0-plot18-series4]
 name = g_foc.out.f32_v_uvw.u
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot18-series5]
 name = g_foc.out.f32_v_uvw.v
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot18-series6]
 name = g_foc.out.f32_v_uvw.w
-visibility = false
+visibility = true
 format = DEC
 
 [group0-plot19]
