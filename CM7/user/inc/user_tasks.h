@@ -5,6 +5,9 @@
 #include "cia402.h"
 #include "comm_shm.h"
 
+extern check_t    g_check;
+extern comm_shm_t g_comm_shm;
+
 typedef enum {
         CTL_WORD_NULL,
         CTL_WORD_CALI,

@@ -352,10 +352,26 @@ static const pid_cfg_t g_pd_cfg[] = {
         },
 };
 
+static const foc_store_addr_t g_store_addr = {
+    .offset_cali          = COMM_SHM_ADDR_OFFSET_CALI,
+    .foc_sensor_cali      = COMM_SHM_ADDR_FOC_SENSOR_CALI,
+    .outshaft_sensor_cali = COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI,
+};
+
 static const foc_cfg_t g_foc_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
-            .exec_freq              = FOC_FREQ_HZ,
+            .exec_freq  = FOC_FREQ_HZ,
+            .store_addr = g_store_addr,
+
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA50NV3],
+            .periph_cfg = g_periph_cfg[PERIPH_F3H58V101],
+
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA50N24E],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA50N24E],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA50N24E],
+
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
@@ -366,14 +382,6 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_div = 5,
             .pos_div = 25,
             .pd_div  = 5,
-
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA50NV3],
-            .periph_cfg = g_periph_cfg[PERIPH_F3H58V101],
-
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA50N24E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA50N24E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA50N24E],
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -386,7 +394,17 @@ static const foc_cfg_t g_foc_cfg[] = {
         },
     [ACTUATOR_FSA361480Z] =
         {
-            .exec_freq              = FOC_FREQ_HZ,
+            .exec_freq  = FOC_FREQ_HZ,
+            .store_addr = g_store_addr,
+
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA3610V0],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H46V100],
+
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA361480Z],
+
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
@@ -397,14 +415,6 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_div = 5,
             .pos_div = 25,
             .pd_div  = 5,
-
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA3610V0],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H46V100],
-
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA361480Z],
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -417,7 +427,17 @@ static const foc_cfg_t g_foc_cfg[] = {
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .exec_freq              = FOC_FREQ_HZ,
+            .exec_freq  = FOC_FREQ_HZ,
+            .store_addr = g_store_addr,
+
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
+
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
+
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
@@ -428,14 +448,6 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_div = 5,
             .pos_div = 25,
             .pd_div  = 5,
-
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
-
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -448,7 +460,17 @@ static const foc_cfg_t g_foc_cfg[] = {
         },
     [ACTUATOR_FSA4530E] =
         {
-            .exec_freq              = FOC_FREQ_HZ,
+            .exec_freq  = FOC_FREQ_HZ,
+            .store_addr = g_store_addr,
+
+            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
+
+            .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
+            .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
+            .pos_cfg = g_pos_cfg[ACTUATOR_FSA4530E],
+            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA4530E],
+
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
@@ -459,14 +481,6 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_div = 5,
             .pos_div = 25,
             .pd_div  = 5,
-
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
-
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA4530E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA4530E],
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,

@@ -194,7 +194,7 @@ cia402_foc_update(cia402_t *cia402)
                 }
                 case CIA402_STATE_OPERATION_ENABLE: {
                         // 使能控制模式：FOC使能(驱动和控制都使能，PWM开启)
-                        if (foc->lo.e_cali == FOC_THETA_CALI_FINISH)
+                        if (foc->lo.e_theta_cali == FOC_THETA_CALI_FINISH)
                                 foc->lo.e_state = FOC_STATE_ENABLE;
                         else
                                 foc->lo.e_state = FOC_STATE_CALI;

@@ -3,25 +3,27 @@
 
 #include "module.h"
 
-#define SIZE_1KB                      (0x400)
-#define SIZE_2KB                      (0x800)
-#define SIZE_4KB                      (0x1000)
-#define SIZE_6KB                      (0x1800)
-#define SIZE_8KB                      (0x2000)
-#define SIZE_14KB                     (0x3800)
-#define SIZE_24KB                     (0x6000)
-#define SIZE_64KB                     (0x10000)
+#define SIZE_1KB                           (0x400)
+#define SIZE_2KB                           (0x800)
+#define SIZE_4KB                           (0x1000)
+#define SIZE_6KB                           (0x1800)
+#define SIZE_8KB                           (0x2000)
+#define SIZE_14KB                          (0x3800)
+#define SIZE_24KB                          (0x6000)
+#define SIZE_64KB                          (0x10000)
 
-#define COMM_SHM_ADDR_BASE            (0x38000000)
-#define COMM_SHM_ADDR_FOC_SENSOR_CALI (0x38)
-#define COMM_SHM_ADDR_UID             (0x38004C00)
-#define COMM_SHM_ADDR_PARAM           (0x3800E000)
-#define COMM_SHM_ADDR_RT              (0x3800F000)
+#define COMM_SHM_ADDR_BASE                 (0x38000000)
+#define COMM_SHM_ADDR_OFFSET_CALI          (0x38002000)
+#define COMM_SHM_ADDR_FOC_SENSOR_CALI      (0x38001000)
+#define COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI (0x38001800)
+#define COMM_SHM_ADDR_UID                  (0x38004C00)
+#define COMM_SHM_ADDR_PARAM                (0x3800E000)
+#define COMM_SHM_ADDR_RT                   (0x3800F000)
 
-#define COMM_SHM_SIZE_BASE            (0xFFFF)
-#define COMM_SHM_SIZE_UID             (0x0010)
-#define COMM_SHM_SIZE_PARAM           (0x1000)
-#define COMM_SHM_SIZE_RT              (0x0400)
+#define COMM_SHM_SIZE_BASE                 (0xFFFF)
+#define COMM_SHM_SIZE_UID                  (0x0010)
+#define COMM_SHM_SIZE_PARAM                (0x1000)
+#define COMM_SHM_SIZE_RT                   (0x0400)
 
 typedef enum {
         COMM_SHM_OP_NONE  = 0x00000000,
@@ -66,7 +68,7 @@ typedef struct {
 
         u8 foc_sensor_cali_file[SIZE_2KB];
         u8 outshaft_sensor_cali_file[SIZE_2KB];
-        u8 res2[SIZE_2KB];
+        u8 offset_cali_file[SIZE_2KB];
         u8 res3[SIZE_2KB];
         u8 res4[SIZE_2KB];
         u8 res5[SIZE_2KB];
@@ -92,7 +94,7 @@ typedef struct {
         comm_shm_rt_t    rt;
 } comm_shm_t;
 
-void comm_shm_init(comm_shm_t *comm_shm);
+void comm_shm_init(comm_shm_t *comm_shm, foc_t *foc);
 void comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc);
 void comm_shm_store(void *dst, void *src, usz size);
 void comm_shm_load(void *dst, void *src, usz size);

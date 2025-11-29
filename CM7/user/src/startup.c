@@ -11,6 +11,9 @@ foc_t   g_foc;
 sched_t g_sched;
 log_t   g_log;
 
+check_t g_check;
+AT("comm_shm") comm_shm_t g_comm_shm;
+
 benchmark_t benchmark_res[30];
 
 static void
@@ -63,6 +66,8 @@ init(void)
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "---\n");
         log_info(&g_log, 1, "logger init\n");
+
+        comm_shm_init(&g_comm_shm, &g_foc);
 
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];

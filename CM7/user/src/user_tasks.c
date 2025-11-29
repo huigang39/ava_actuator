@@ -8,8 +8,6 @@
 
 user_t   g_user;
 cia402_t g_cia402;
-check_t  g_check;
-AT("comm_shm") comm_shm_t g_comm_shm;
 
 void
 set_ctl_word(user_t *user, foc_t *foc)
@@ -18,7 +16,7 @@ set_ctl_word(user_t *user, foc_t *foc)
 
         switch (user->e_ctl_word) {
                 case CTL_WORD_CALI: {
-                        lo->e_state = (lo->e_cali == FOC_THETA_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
+                        lo->e_state = (lo->e_theta_cali == FOC_THETA_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
                         break;
                 }
                 case CTL_WORD_DISABLE: {
@@ -100,8 +98,6 @@ set_ctl_obs(user_t *user, foc_t *foc)
 void
 user_init(void)
 {
-        comm_shm_init(&g_comm_shm);
-
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
             .comm_shm = &g_comm_shm,
