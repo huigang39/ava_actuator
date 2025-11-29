@@ -94,7 +94,7 @@ typedef struct {
 
 void comm_shm_init(comm_shm_t *comm_shm);
 void comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc);
-void comm_shm_write_file(u32 file_addr, void *src, u32 size);
-void comm_shm_read_file(u32 file_addr, void *dst, u32 size);
+void comm_shm_store(void *dst, void *src, usz size);
+void comm_shm_load(void *dst, void *src, usz size);
 
 #endif // !COMM_SHM_H

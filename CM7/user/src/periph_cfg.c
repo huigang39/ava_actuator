@@ -106,7 +106,7 @@ set_pwm_duty_hrtim(u32 pwm_full_cnt, u32_uvw_t duty)
 }
 
 void
-set_pwm_status_hrtim(pwm_ch_e pwm_ch, uint8_t enable)
+set_pwm_status_hrtim(pwm_ch_e pwm_ch, u8 enable)
 {
         u32 mask = get_pwm_ch_mask_hrtim(pwm_ch);
         if (mask == 0)

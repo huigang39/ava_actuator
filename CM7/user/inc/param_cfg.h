@@ -4,6 +4,7 @@
 #include "module.h"
 
 #include "ads.h"
+#include "comm_shm.h"
 #include "dpt.h"
 #include "periph_cfg.h"
 
@@ -374,6 +375,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
             .pd_cfg  = g_pd_cfg[ACTUATOR_FSA50N24E],
 
+            .f_store = comm_shm_store,
+            .f_load  = comm_shm_load,
+
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
             .f_set_pwm_duty   = set_pwm_duty_hrtim,
@@ -401,6 +405,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
             .pd_cfg  = g_pd_cfg[ACTUATOR_FSA361480Z],
+
+            .f_store = comm_shm_store,
+            .f_load  = comm_shm_load,
 
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
@@ -430,6 +437,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
             .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
 
+            .f_store = comm_shm_store,
+            .f_load  = comm_shm_load,
+
             .f_get_theta      = dpt_get_inner_theta,
             .f_get_adc        = get_adc,
             .f_set_pwm_duty   = set_pwm_duty_hrtim,
@@ -457,6 +467,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
             .pos_cfg = g_pos_cfg[ACTUATOR_FSA4530E],
             .pd_cfg  = g_pd_cfg[ACTUATOR_FSA4530E],
+
+            .f_store = comm_shm_store,
+            .f_load  = comm_shm_load,
 
             .f_get_theta      = ads_get_theta,
             .f_get_adc        = get_adc,

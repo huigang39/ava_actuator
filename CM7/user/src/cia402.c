@@ -57,107 +57,99 @@ cia402_state_update(cia402_t *cia402)
                         // 转换0: Start -> Not Ready to Switch On
                         // 自动转换(初始化完成)
                         lo->e_state = CIA402_STATE_NOT_READY_TO_SWITCH_ON;
-
                         break;
                 }
                 case CIA402_STATE_NOT_READY_TO_SWITCH_ON: {
                         // 转换1: Not Ready to Switch On -> Switch On Disabled
                         // 条件：通信建立完成且无通信故障
-                        if (!check->lo.err.COMM_SHM) {
+                        if (!check->lo.err.COMM_SHM)
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_SWITCH_ON_DISABLED: {
                         // 转换2: Switch On Disabled -> Ready to Switch On
                         // 条件：控制字bit0=1, bit1=1, bit2=1
                         if ((ctl_word & CIA402_CTL_WORD_SWITCH_ON) && (ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE) &&
-                            (ctl_word & CIA402_CTL_WORD_QUICK_STOP)) {
+                            (ctl_word & CIA402_CTL_WORD_QUICK_STOP))
                                 lo->e_state = CIA402_STATE_READY_TO_SWITCH_ON;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_READY_TO_SWITCH_ON: {
                         // 转换3: Ready to Switch On -> Switched On
                         // 条件：控制字bit0=1, bit1=1, bit2=1
                         if ((ctl_word & CIA402_CTL_WORD_SWITCH_ON) && (ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE) &&
-                            (ctl_word & CIA402_CTL_WORD_QUICK_STOP)) {
+                            (ctl_word & CIA402_CTL_WORD_QUICK_STOP))
                                 lo->e_state = CIA402_STATE_SWITCHED_ON;
 
-                        }
                         // 转换7: Ready to Switch On -> Switch On Disabled
                         // 条件：控制字bit1=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE))
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_SWITCHED_ON: {
                         // 转换4: Switched On -> Operation Enable
                         // 条件：控制字bit3=1
-                        if (ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION) {
+                        if (ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION)
                                 lo->e_state = CIA402_STATE_OPERATION_ENABLE;
 
-                        }
                         // 转换6: Switched On -> Ready to Switch On
                         // 条件：控制字bit0=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_SWITCH_ON)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_SWITCH_ON))
                                 lo->e_state = CIA402_STATE_READY_TO_SWITCH_ON;
 
-                        }
                         // 转换10: Switched On -> Switch On Disabled
                         // 条件：控制字bit1=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE))
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_OPERATION_ENABLE: {
                         // 转换5: Operation Enable -> Switched On
                         // 条件：控制字bit3=0
-                        if (!(ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION)) {
+                        if (!(ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION))
                                 lo->e_state = CIA402_STATE_SWITCHED_ON;
 
-                        }
                         // 转换8: Operation Enable -> Ready to Switch On
                         // 条件：控制字bit0=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_SWITCH_ON)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_SWITCH_ON))
                                 lo->e_state = CIA402_STATE_READY_TO_SWITCH_ON;
 
-                        }
                         // 转换9: Operation Enable -> Switch On Disabled
                         // 条件：控制字bit1=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE))
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
 
-                        }
                         // 转换11: Operation Enable -> Quick Stop Active
                         // 条件：控制字bit2=0
-                        else if (!(ctl_word & CIA402_CTL_WORD_QUICK_STOP)) {
+                        else if (!(ctl_word & CIA402_CTL_WORD_QUICK_STOP))
                                 lo->e_state = CIA402_STATE_QUICK_STOP_ACTIVE;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_QUICK_STOP_ACTIVE: {
                         // 转换12: Quick Stop Active -> Switch On Disabled
                         // 条件：控制字bit1=0
-                        if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE)) {
+                        if (!(ctl_word & CIA402_CTL_WORD_ENABLE_VOLTAGE))
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
 
-                        }
                         // 转换16: Quick Stop Active -> Operation Enable
                         // 条件：控制字bit2=1, bit3=1
-                        else if ((ctl_word & CIA402_CTL_WORD_QUICK_STOP) && (ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION)) {
+                        else if ((ctl_word & CIA402_CTL_WORD_QUICK_STOP) && (ctl_word & CIA402_CTL_WORD_ENABLE_OPERATION))
                                 lo->e_state = CIA402_STATE_OPERATION_ENABLE;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_FAULT: {
                         // 转换15: Fault -> Switch On Disabled
                         // 条件：控制字bit7=1(故障复位)且故障已清除
-                        if ((ctl_word & CIA402_CTL_WORD_FAULT_RESET) && !has_fault) {
+                        if ((ctl_word & CIA402_CTL_WORD_FAULT_RESET) && !has_fault)
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
-                        }
+
                         break;
                 }
                 case CIA402_STATE_FAULT_REACTION_ACTIVE: {
