@@ -11,4 +11,16 @@ LR_IROM1 0x24000000 0x00040000  {    ; load region size_region
   RW_IRAM1 0x24040000 0x00040000{  ; RW data
    .ANY (+RW +ZI)
   }
+
+  SRAM1_SENSOR 0x38000000 0x00001000{
+    *(sensor)
+  }
+
+  SRAM1_LOG 0x38001000 0x00002000{
+    *(log)
+  }
+
+  SRAM1_FFT 0x38003000 0x00010000{
+    *(fft)
+  }
 }
