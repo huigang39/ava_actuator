@@ -5,7 +5,6 @@
 #include "periph_cfg.h"
 
 spi_t       g_spi;
-ads_raw_t   g_tx_ads_raw, g_rx_ads_raw;
 f32         g_ads_theta;
 linerhall_t g_linerhall;
 
@@ -15,47 +14,47 @@ ads_init(void)
         g_spi.cs_port = GPIOG;
         g_spi.cs_pin  = GPIO_PIN_10;
 
-        g_tx_ads_raw.a = ADS7853_CFG_WORD;
-        g_tx_ads_raw.b = g_tx_ads_raw.c = ADS7853_DUMMY_DATA;
+        g_ads_tx_raw.a = ADS7853_CFG_WORD;
+        g_ads_tx_raw.b = g_ads_tx_raw.c = ADS7853_DUMMY_DATA;
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t), 1000);
         SPI_CS_HIGH(&g_spi);
 
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t), 1000);
         SPI_CS_HIGH(&g_spi);
 
-        switch (g_tx_ads_raw.a & 0xF000) {
+        switch (g_ads_tx_raw.a & 0xF000) {
                 case 0x8000: {
-                        g_tx_ads_raw.a = 0x3000;
+                        g_ads_tx_raw.a = 0x3000;
                         break;
                 }
                 case 0x9000: {
-                        g_tx_ads_raw.a = 0x1000;
+                        g_ads_tx_raw.a = 0x1000;
                         break;
                 }
                 case 0xA000: {
-                        g_tx_ads_raw.a = 0x2000;
+                        g_ads_tx_raw.a = 0x2000;
                         break;
                 }
                 default:
                         break;
         }
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t), 1000);
         SPI_CS_HIGH(&g_spi);
 
-        g_tx_ads_raw.a = ADS7853_DUMMY_DATA;
+        g_ads_tx_raw.a = ADS7853_DUMMY_DATA;
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t), 1000);
         SPI_CS_HIGH(&g_spi);
 
-        if ((g_rx_ads_raw.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
+        if ((g_ads_rx_raw.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
                 ;
 
-        memset((void *)&g_tx_ads_raw, ADS7853_DUMMY_DATA, sizeof(g_tx_ads_raw));
+        memset((void *)&g_ads_tx_raw, ADS7853_DUMMY_DATA, sizeof(g_ads_tx_raw));
 
-        log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_rx_ads_raw.a);
+        log_info(&g_log, 1, "ads cfg rx: 0x%04X\n", g_ads_rx_raw.a);
 
         linerhall_cfg_t linerhall_cfg = {
             .fs             = 20000,
@@ -76,9 +75,9 @@ ads_raw_t
 ads_get_raw(void)
 {
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_tx_ads_raw, (u8 *)&g_rx_ads_raw, sizeof(ads_raw_t), 1000);
+        HAL_SPI_TransmitReceive_DMA(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t));
         SPI_CS_HIGH(&g_spi);
-        return g_rx_ads_raw;
+        return g_ads_rx_raw;
 }
 
 f32

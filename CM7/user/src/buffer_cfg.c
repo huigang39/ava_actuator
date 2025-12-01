@@ -1,7 +1,7 @@
 #include "buffer_cfg.h"
 
-AT("sensor") u8 g_dpt_tx_buf;
-AT("sensor") u8 g_dpt_rx_buf[DPT_RX_BUF_SIZE];
+AT("sensor") u8 g_dpt_tx_buf, g_dpt_rx_buf[DPT_RX_BUF_SIZE];
+AT("sensor") ads_raw_t g_ads_tx_raw, g_ads_rx_raw;
 
 AT("log") u8 g_log_flush_buf[LOG_FLUSH_BUF_SIZE];
 AT("log") u8 g_log_buf[LOG_BUF_SIZE];

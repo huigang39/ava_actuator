@@ -3,14 +3,17 @@
 
 #include "module.h"
 
+#include "ads.h"
+
 #define DPT_RX_BUF_SIZE    (8)
 #define LOG_FLUSH_BUF_SIZE (1024)
 #define LOG_BUF_SIZE       (4 * 1024)
 #define LOG_PRODUCERS_NUM  (2)
 #define FFT_POINTS_NUM     (FFT_POINTS_4096)
 
-extern u8 g_dpt_tx_buf;
-extern u8 g_dpt_rx_buf[DPT_RX_BUF_SIZE];
+extern u8        g_dpt_tx_buf;
+extern u8        g_dpt_rx_buf[DPT_RX_BUF_SIZE];
+extern ads_raw_t g_ads_tx_raw, g_ads_rx_raw;
 
 extern u8       g_log_flush_buf[LOG_FLUSH_BUF_SIZE];
 extern u8       g_log_buf[LOG_BUF_SIZE];
