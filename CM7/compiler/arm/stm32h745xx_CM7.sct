@@ -20,4 +20,8 @@ LR_IROM1 0x08080000 0x00040000 {
         SRAM1_FFT 0x24003000 0x00010000 {
                 *(fft)
         }
+
+        SRAM4_COMM_SHM 0x38000000 0x0000FFFF {
+                *(comm_shm)
+        }
 }

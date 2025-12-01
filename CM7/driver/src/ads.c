@@ -75,7 +75,7 @@ ads_raw_t
 ads_get_raw(void)
 {
         SPI_CS_LOW(&g_spi);
-        HAL_SPI_TransmitReceive_DMA(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t));
+        HAL_SPI_TransmitReceive(g_sensor_spi, (u8 *)&g_ads_tx_raw, (u8 *)&g_ads_rx_raw, sizeof(ads_raw_t), 1);
         SPI_CS_HIGH(&g_spi);
         return g_ads_rx_raw;
 }
