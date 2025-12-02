@@ -58,7 +58,7 @@ comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc)
         }
 
         comm_shm_sync_pid_param(comm_shm, foc);
-        lo->ref_pvct = comm_shm->rt.ref_pvct;
+        foc_set_ref(foc, comm_shm->rt.ref_pvct);
 
         comm_shm->rt.fdb_pvct = lo->fdb_pvct;
 }
