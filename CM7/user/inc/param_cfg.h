@@ -138,7 +138,7 @@ static const periph_cfg_t g_periph_cfg[] = {
             // ADC
             .adc_full_cnt       = LF(14),
             .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = 1024,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 55.0f,
             .vbus_range         = 60.0f,
             // PWM
@@ -152,7 +152,7 @@ static const periph_cfg_t g_periph_cfg[] = {
             // ADC
             .adc_full_cnt       = LF(14),
             .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
             .cur_gain           = 20,
@@ -168,7 +168,7 @@ static const periph_cfg_t g_periph_cfg[] = {
             // ADC
             .adc_full_cnt       = LF(14),
             .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
             .cur_gain           = 20,
@@ -184,7 +184,7 @@ static const periph_cfg_t g_periph_cfg[] = {
             // ADC
             .adc_full_cnt       = LF(14),
             .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = FOC_FREQ_HZ / 10.0f,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,
             .vbus_range         = 60.0f,
             .cur_gain           = 20,
@@ -375,8 +375,8 @@ static const foc_cfg_t g_foc_cfg[] = {
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
-            .ref_theta_cali_id    = 2.0f,
-            .ref_theta_cali_omega = 20.0f,
+            .ref_theta_cali_id    = 5.0f,
+            .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
             .vel_div = 5,
@@ -408,8 +408,8 @@ static const foc_cfg_t g_foc_cfg[] = {
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
-            .ref_theta_cali_id    = 2.0f,
-            .ref_theta_cali_omega = 20.0f,
+            .ref_theta_cali_id    = 5.0f,
+            .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
             .vel_div = 5,
@@ -441,8 +441,8 @@ static const foc_cfg_t g_foc_cfg[] = {
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
-            .ref_theta_cali_id    = 2.0f,
-            .ref_theta_cali_omega = 20.0f,
+            .ref_theta_cali_id    = 5.0f,
+            .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
             .vel_div = 5,
@@ -474,8 +474,8 @@ static const foc_cfg_t g_foc_cfg[] = {
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
-            .ref_theta_cali_id    = 2.0f,
-            .ref_theta_cali_omega = 20.0f,
+            .ref_theta_cali_id    = 5.0f,
+            .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
             .vel_div = 5,

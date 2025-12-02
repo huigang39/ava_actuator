@@ -409,7 +409,7 @@ do_not_interpret_as_enum = false
 [var28]
 name = g_foc.lo.e_cali
 tracked_name = g_foc.lo.e_cali
-address = 536871709
+address = 536871753
 type = 1
 color = 2120326101
 should_update_from_elf = true
@@ -1683,7 +1683,7 @@ do_not_interpret_as_enum = false
 [var126]
 name = g_rx_ads_raw.a
 tracked_name = g_rx_ads_raw.a
-address = 603979792
+address = 536873276
 type = 3
 color = 2382429958
 should_update_from_elf = true
@@ -1696,7 +1696,7 @@ do_not_interpret_as_enum = false
 [var127]
 name = g_rx_ads_raw.b
 tracked_name = g_rx_ads_raw.b
-address = 603979794
+address = 536873278
 type = 3
 color = 536871167
 should_update_from_elf = true
@@ -1709,7 +1709,7 @@ do_not_interpret_as_enum = false
 [var128]
 name = g_rx_ads_raw.c
 tracked_name = g_rx_ads_raw.c
-address = 603979796
+address = 536873280
 type = 3
 color = 687818496
 should_update_from_elf = true
