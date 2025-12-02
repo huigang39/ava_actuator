@@ -124,7 +124,7 @@ static const motor_cfg_t g_motor_cfg[] = {
             .ld      = 78.8e-6f,
             .lq      = 95.6e-6f,
             .psi     = 0.004749f,
-            .wc      = HZ2RADS(2000.0f),
+            .wc      = HZ2RADS(1500.0f),
             .j       = 3.48e-05f,
             .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
             .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
@@ -379,9 +379,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
-            .vel_div = 5,
-            .pos_div = 25,
-            .pd_div  = 5,
+            .vel_div = 2,
+            .pos_div = 4,
+            .pd_div  = 2,
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -412,9 +412,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
-            .vel_div = 5,
-            .pos_div = 25,
-            .pd_div  = 5,
+            .vel_div = 2,
+            .pos_div = 4,
+            .pd_div  = 2,
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -445,9 +445,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
-            .vel_div = 5,
-            .pos_div = 25,
-            .pd_div  = 5,
+            .vel_div = 2,
+            .pos_div = 4,
+            .pd_div  = 2,
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
@@ -478,9 +478,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
-            .vel_div = 5,
-            .pos_div = 25,
-            .pd_div  = 5,
+            .vel_div = 2,
+            .pos_div = 4,
+            .pd_div  = 2,
 
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
