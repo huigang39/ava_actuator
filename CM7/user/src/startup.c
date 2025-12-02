@@ -1,20 +1,22 @@
 #include "stm32h745xx.h"
 
 #include "buffer_cfg.h"
+#include "check.h"
 #include "param_cfg.h"
 #include "periph_cfg.h"
-#include "task_cfg.h"
+#include "user.h"
 
 #include "startup.h"
 
-foc_t   g_foc;
 sched_t g_sched;
 log_t   g_log;
 
+foc_t   g_foc;
+user_t  g_user;
 check_t g_check;
 AT("comm_shm") comm_shm_t g_comm_shm;
 
-benchmark_t benchmark_res[30];
+benchmark_t g_benchmark_res[30];
 
 static void
 cpy_vtor_to_itcm(void)
@@ -29,18 +31,18 @@ static void
 run_math_benchmark(void)
 {
         ATOMIC_EXEC({
-                RUN_MATH_BENCHMARK(benchmark_res, 100);
-                for (u32 i = 0; i < ARRAY_LEN(benchmark_res); i++) {
-                        if (!benchmark_res[i].name)
+                RUN_MATH_BENCHMARK(g_benchmark_res, 100);
+                for (u32 i = 0; i < ARRAY_LEN(g_benchmark_res); i++) {
+                        if (!g_benchmark_res[i].name)
                                 continue;
 
                         log_info(&g_log,
                                  1,
                                  "seq: %d, op_name: %s, total: %f us, single: %f us\n",
                                  i,
-                                 benchmark_res[i].name,
-                                 benchmark_res[i].total_elapsed_us,
-                                 benchmark_res[i].single_elapsed_us);
+                                 g_benchmark_res[i].name,
+                                 g_benchmark_res[i].total_elapsed_us,
+                                 g_benchmark_res[i].single_elapsed_us);
                 }
         });
 }
@@ -69,9 +71,8 @@ init(void)
         comm_shm_init(&g_comm_shm);
         log_info(&g_log, 1, "comm_shm init\n");
 
-        sched_init(&g_sched, g_sched_cfg[ACTUATOR_TYPE]);
-        task_init(&g_sched);
-        log_info(&g_log, 1, "sched init\n");
+        user_init(&g_sched);
+        log_info(&g_log, 1, "user init\n");
 
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];

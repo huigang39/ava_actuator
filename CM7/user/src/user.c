@@ -1,13 +1,16 @@
 #include "periph_cfg.h"
 #include "startup.h"
 
-#include "other_tasks.h"
+#include "buffer_cfg.h"
 #include "param_cfg.h"
 
-#include "user_tasks.h"
+#include "user.h"
 
-user_t   g_user;
 cia402_t g_cia402;
+
+sine_t   g_sine;
+square_t g_square;
+fft_t    g_fft;
 
 void
 set_ctl_word(user_t *user, foc_t *foc)
@@ -96,7 +99,7 @@ set_ctl_obs(user_t *user, foc_t *foc)
 }
 
 void
-user_init(void)
+user_init(sched_t *sched)
 {
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
@@ -104,6 +107,24 @@ user_init(void)
             .check    = &g_check,
         };
         cia402_init(&g_cia402, cia402_cfg);
+
+        fft_cfg_t fft_cfg = {
+            .fs      = FOC_FREQ_HZ,
+            .npoints = FFT_POINTS_NUM,
+            .buf     = g_fft_buf,
+            .in_buf  = g_fft_in_buf,
+            .out_buf = g_fft_out_buf,
+            .mag_buf = g_fft_mag_buf,
+        };
+        fft_init(&g_fft, fft_cfg);
+        log_info(&g_log, 1, "fft init\n");
+
+        sine_init(&g_sine, g_sine_cfg[0]);
+        log_info(&g_log, 1, "sine init\n");
+
+        sched_init(sched, g_sched_cfg[ACTUATOR_TYPE]);
+        for (u32 i = 0; i < ARRAY_LEN(g_task_list_cfg); i++)
+                sched_add_task(sched, g_task_list_cfg[i]);
 }
 
 void
@@ -114,4 +135,28 @@ user_loop_task(void *arg)
         check_exec(&g_check);
         comm_shm_sync_rt(&g_comm_shm, &g_foc);
         cia402_exec(&g_cia402);
+}
+
+void
+fft_loop_task(void *arg)
+{
+        fft_exec(&g_fft);
+}
+
+void
+log_loop_task(void *arg)
+{
+        log_flush(&g_log);
+}
+
+void
+sine_loop_task(void *arg)
+{
+        sine_exec(&g_sine);
+}
+
+void
+square_loop_task(void *arg)
+{
+        square_exec(&g_square);
 }
