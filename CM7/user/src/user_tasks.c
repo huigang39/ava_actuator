@@ -111,7 +111,7 @@ user_loop_task(void *arg)
 {
         ARG_UNUSED(arg);
 
-        //        check_exec(&g_check);
-        //        comm_shm_sync_rt(&g_comm_shm, &g_foc);
-        //        cia402_exec(&g_cia402);
+        check_exec(&g_check);
+        comm_shm_sync_rt(&g_comm_shm, &g_foc);
+        cia402_exec(&g_cia402);
 }
