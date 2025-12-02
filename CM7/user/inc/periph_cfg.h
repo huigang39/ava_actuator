@@ -31,13 +31,13 @@ typedef struct {
 
 void periph_init(void);
 
-adc_raw_t get_adc(void);
-void      set_pwm_duty_hrtim(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
-void      set_pwm_status_hrtim(pwm_ch_e pwm_ch, u8 enable);
-void      set_drv_status(u8 enable);
-void      set_drv_status_8353(u8 enable);
+adc_raw_t periph_get_adc(void);
+void      periph_set_pwm_duty_hrtim(u32 pwm_full_cnt, u32_uvw_t u32_pwm_duty);
+void      periph_set_pwm_status_hrtim(pwm_ch_e pwm_ch, u8 enable);
+void      periph_set_drv_status(u8 enable);
+void      periph_set_drv_status_8353(u8 enable);
 
-u64  get_ts_us(void);
-void log_uart_tx(void *uart, const void *data, const usz size);
+u64  periph_get_ts_us(void);
+void periph_log_uart_tx(void *uart, const void *data, const usz size);
 
 #endif // !PERIPH_CFG_H

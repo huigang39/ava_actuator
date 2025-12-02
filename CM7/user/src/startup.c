@@ -60,8 +60,8 @@ init(void)
             .nproducers = ARRAY_LEN(g_log_producers),
             .flush_buf  = g_log_flush_buf,
             .flush_cap  = sizeof(g_log_flush_buf),
-            .f_get_ts   = get_ts_us,
-            .f_flush    = log_uart_tx,
+            .f_get_ts   = periph_get_ts_us,
+            .f_flush    = periph_log_uart_tx,
         };
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "---\nlogger init\n");
