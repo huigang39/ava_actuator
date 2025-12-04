@@ -38,6 +38,26 @@ typedef struct {
         u8  str[124];
 } comm_shm_ver_t;
 
+typedef enum {
+        COMM_SHM_WORD_NONE,
+        COMM_SHM_WORD_DISABLE = 0xF001,
+        COMM_SHM_WORD_ENABLE  = 0xF002,
+        COMM_SHM_WORD_CALI    = 0x101F,
+} comm_shm_word_e;
+
+typedef enum {
+        COMM_SHM_MODE_CUR = 1,
+        COMM_SHM_MODE_VEL = 2,
+        COMM_SHM_MODE_POS = 3,
+        COMM_SHM_MODE_PD  = 7,
+} comm_shm_mode_e;
+
+typedef struct {
+        comm_shm_mode_e e_mode;
+        comm_shm_word_e e_word;
+        u32             res1[8];
+} comm_shm_ctl_t;
+
 typedef struct {
         f32 tor_pos_kp;
         f32 tor_vel_kp;
@@ -51,7 +71,7 @@ typedef struct {
 } comm_shm_pid_param_t;
 
 typedef struct {
-        u32                  res1[10];
+        comm_shm_ctl_t       ctl;
         foc_ref_pvct_t       ref_pvct;
         u32                  res2[8];
         foc_fdb_pvct_t       fdb_pvct;
