@@ -34,15 +34,21 @@
 #define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_2   (1 << 15) // 制造商特定
 
 typedef enum {
-        CIA402_OPERATION_MODE_CSP = 0x08, // 周期同步位置模式
-        CIA402_OPERATION_MODE_CSV = 0x09, // 周期同步速度模式
-        CIA402_OPERATION_MODE_CST = 0x0A, // 周期同步转矩模式
-        CIA402_OPERATION_MODE_PP  = 0x01, // 轮廓位置模式
-        CIA402_OPERATION_MODE_PV  = 0x03, // 轮廓速度模式
-        CIA402_OPERATION_MODE_PT  = 0x04, // 轮廓转矩模式
-        CIA402_OPERATION_MODE_PD  = 0xFF, // 力位混合模式
-        CIA402_OPERATION_MODE_HM  = 0x06, // 原点回归模式
-} cia402_operation_mode_e;
+        CIA402_MODE_CSP = 0x08, // 周期同步位置模式
+        CIA402_MODE_CSV = 0x09, // 周期同步速度模式
+        CIA402_MODE_CST = 0x0A, // 周期同步转矩模式
+        CIA402_MODE_PP  = 0x01, // 轮廓位置模式
+        CIA402_MODE_PV  = 0x03, // 轮廓速度模式
+        CIA402_MODE_PT  = 0x04, // 轮廓转矩模式
+        CIA402_MODE_PD  = 0xFF, // 力位混合模式
+        CIA402_MODE_HM  = 0x06, // 原点回归模式
+} cia402_mode_e;
+
+typedef enum {
+        SPEC_CMD_NONE,
+        SPEC_CMD_CALI,
+        SPEC_CMD_SENSORLESS,
+} spec_cmd_e;
 
 /**
  * @brief CIA402状态机
@@ -191,10 +197,11 @@ typedef struct {
 } cia402_cfg_t;
 
 typedef struct {
-        u16                     ctl_word;
-        u16                     sts_word;
-        cia402_state_e          e_state;
-        cia402_operation_mode_e e_operation_mode;
+        u16            ctl_word;
+        u16            sts_word;
+        cia402_state_e e_state;
+        cia402_mode_e  e_mode;
+        spec_cmd_e     e_spec_cmd;
 } cia402_lo_t;
 
 typedef struct {

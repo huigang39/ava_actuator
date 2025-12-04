@@ -40,7 +40,6 @@ cia402_state_update(cia402_t *cia402)
         if (has_fault && lo->e_state != CIA402_STATE_FAULT_REACTION_ACTIVE && lo->e_state != CIA402_STATE_FAULT) {
                 // 转换13: 任意状态 -> Fault Reaction Active
                 lo->e_state = CIA402_STATE_FAULT_REACTION_ACTIVE;
-
                 return;
         }
 
@@ -48,7 +47,6 @@ cia402_state_update(cia402_t *cia402)
                 // 转换14: Fault Reaction Active -> Fault
                 // 故障反应完成
                 lo->e_state = CIA402_STATE_FAULT;
-
                 return;
         }
 
@@ -194,10 +192,12 @@ cia402_foc_update(cia402_t *cia402)
                 }
                 case CIA402_STATE_OPERATION_ENABLE: {
                         // 使能控制模式：FOC使能(驱动和控制都使能，PWM开启)
-                        if (foc->lo.e_theta_cali == FOC_THETA_CALI_FINISH)
-                                foc->lo.e_state = FOC_STATE_ENABLE;
-                        else
+                        if (lo->e_spec_cmd == SPEC_CMD_CALI) {
                                 foc->lo.e_state = FOC_STATE_CALI;
+                                if (foc->lo.e_cali_state == FOC_CALI_FINISH)
+                                        lo->e_spec_cmd = SPEC_CMD_NONE;
+                        } else
+                                foc->lo.e_state = FOC_STATE_ENABLE;
 
                         break;
                 }
@@ -219,27 +219,27 @@ cia402_foc_update(cia402_t *cia402)
         if (lo->e_state != CIA402_STATE_OPERATION_ENABLE)
                 return;
 
-        switch (lo->e_operation_mode) {
-                case CIA402_OPERATION_MODE_PP:
-                case CIA402_OPERATION_MODE_CSP: {
+        switch (lo->e_mode) {
+                case CIA402_MODE_PP:
+                case CIA402_MODE_CSP: {
                         foc->lo.e_mode = FOC_MODE_POS;
                         break;
                 }
-                case CIA402_OPERATION_MODE_PV:
-                case CIA402_OPERATION_MODE_CSV: {
+                case CIA402_MODE_PV:
+                case CIA402_MODE_CSV: {
                         foc->lo.e_mode = FOC_MODE_VEL;
                         break;
                 }
-                case CIA402_OPERATION_MODE_PT:
-                case CIA402_OPERATION_MODE_CST: {
+                case CIA402_MODE_PT:
+                case CIA402_MODE_CST: {
                         foc->lo.e_mode = FOC_MODE_CUR;
                         break;
                 }
-                case CIA402_OPERATION_MODE_PD: {
+                case CIA402_MODE_PD: {
                         foc->lo.e_mode = FOC_MODE_PD;
                         break;
                 }
-                case CIA402_OPERATION_MODE_HM: {
+                case CIA402_MODE_HM: {
                         foc->lo.e_mode = FOC_MODE_POS;
                         break;
                 }

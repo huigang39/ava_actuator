@@ -19,7 +19,7 @@ set_ctl_word(user_t *user, foc_t *foc)
 
         switch (user->e_ctl_word) {
                 case CTL_WORD_CALI: {
-                        lo->e_state = (lo->e_theta_cali == FOC_THETA_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
+                        lo->e_state = (lo->e_cali_state == FOC_OFFSET_THETA_CALI_FINISH) ? lo->e_state : FOC_STATE_CALI;
                         break;
                 }
                 case CTL_WORD_DISABLE: {
