@@ -169,7 +169,7 @@ cia402_foc_update(cia402_t *cia402)
                 case CIA402_STATE_NOT_READY_TO_SWITCH_ON: {
                         // 初始化和未准备好状态：保持FOC当前状态或设置为READY
                         // 如果FOC处于NULL状态，设置为READY
-                        if (foc->lo.e_state == FOC_STATE_NULL) {
+                        if (foc->lo.e_state == FOC_STATE_NONE) {
                                 foc->lo.e_theta = FOC_THETA_SENSOR;
                                 foc->lo.e_state = FOC_STATE_READY;
                         }

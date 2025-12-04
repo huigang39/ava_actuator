@@ -29,7 +29,7 @@ fpu_check(void)
         u32 fpscr = __get_FPSCR();
 
         /* 构造掩码, 用于仅判断 IOC 和 DZC 异常 */
-        u32 mask = (u32)(LF(FPU_EXCEPTION_IOC) | LF(FPU_EXCEPTION_DZC)) & (u32)0x3F;
+        u32 mask = (u32)(BIT(FPU_EXCEPTION_IOC) | BIT(FPU_EXCEPTION_DZC)) & (u32)0x3F;
 
         if ((fpscr & mask) != 0)
                 return 1;

@@ -136,7 +136,7 @@ static const periph_cfg_t g_periph_cfg[] = {
     [PERIPH_F3H58V101] =
         {
             // ADC
-            .adc_full_cnt       = LF(14),
+            .adc_full_cnt       = BIT(14),
             .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 55.0f,
@@ -150,7 +150,7 @@ static const periph_cfg_t g_periph_cfg[] = {
     [PERIPH_F2H46V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14),
+            .adc_full_cnt       = BIT(14),
             .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,
@@ -166,7 +166,7 @@ static const periph_cfg_t g_periph_cfg[] = {
     [PERIPH_F2H58V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14),
+            .adc_full_cnt       = BIT(14),
             .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,
@@ -182,7 +182,7 @@ static const periph_cfg_t g_periph_cfg[] = {
     [PERIPH_F2H54V100] =
         {
             // ADC
-            .adc_full_cnt       = LF(14),
+            .adc_full_cnt       = BIT(14),
             .adc_cali_cnt_max   = 10,
             .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
             .cur_range          = 82.5f,

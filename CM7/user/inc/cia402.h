@@ -6,32 +6,32 @@
 #include "check.h"
 #include "comm_shm.h"
 
-#define CIA402_CTL_WORD_SWITCH_ON                 (1 << 0) // 准备运行
-#define CIA402_CTL_WORD_ENABLE_VOLTAGE            (1 << 1) // 接通主电路
-#define CIA402_CTL_WORD_QUICK_STOP                (1 << 2) // 快速停止
-#define CIA402_CTL_WORD_ENABLE_OPERATION          (1 << 3) // 使能
-#define CIA402_CTL_WORD_OPERATION_MODE_0          (1 << 4) // 操作模式
-#define CIA402_CTL_WORD_OPERATION_MODE_1          (1 << 5) // 操作模式
-#define CIA402_CTL_WORD_OPERATION_MODE_2          (1 << 6) // 操作模式
-#define CIA402_CTL_WORD_FAULT_RESET               (1 << 7) // 复位错误
-#define CIA402_CTL_WORD_HALT                      (1 << 8) // 停止
+#define CIA402_CTL_WORD_SWITCH_ON                 (BIT(0)) // 准备运行
+#define CIA402_CTL_WORD_ENABLE_VOLTAGE            (BIT(1)) // 接通主电路
+#define CIA402_CTL_WORD_QUICK_STOP                (BIT(2)) // 快速停止
+#define CIA402_CTL_WORD_ENABLE_OPERATION          (BIT(3)) // 使能
+#define CIA402_CTL_WORD_OPERATION_MODE_0          (BIT(4)) // 操作模式
+#define CIA402_CTL_WORD_OPERATION_MODE_1          (BIT(5)) // 操作模式
+#define CIA402_CTL_WORD_OPERATION_MODE_2          (BIT(6)) // 操作模式
+#define CIA402_CTL_WORD_FAULT_RESET               (BIT(7)) // 复位错误
+#define CIA402_CTL_WORD_HALT                      (BIT(8)) // 停止
 
-#define CIA402_STS_WORD_READY_TO_SWITCH_ON        (1 << 0)  // 准备好运行
-#define CIA402_STS_WORD_SWITCHED_ON               (1 << 1)  // 已运行
-#define CIA402_STS_WORD_OPERATION_ENABLED         (1 << 2)  // 已使能
-#define CIA402_STS_WORD_FAULT                     (1 << 3)  // 有故障
-#define CIA402_STS_WORD_VOLTAGE_ENABLED           (1 << 4)  // 已接通主电路
-#define CIA402_STS_WORD_QUICK_STOP                (1 << 5)  // 已快速停止
-#define CIA402_STS_WORD_SWITCH_ON_DISABLED        (1 << 6)  // 已准备好运行
-#define CIA402_STS_WORD_WARNING                   (1 << 7)  // 有警告
-#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_0   (1 << 8)  // 制造商特定
-#define CIA402_STS_WORD_REMOTE                    (1 << 9)  // 远程
-#define CIA402_STS_WORD_TARGET_REACHED            (1 << 10) // 目标已到达
-#define CIA402_STS_WORD_INTERNAL_LIMIT_ACTIVE     (1 << 11) // 内部限位激活
-#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_0 (1 << 12) // 操作模式特定
-#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_1 (1 << 13) // 操作模式特定
-#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_1   (1 << 14) // 制造商特定
-#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_2   (1 << 15) // 制造商特定
+#define CIA402_STS_WORD_READY_TO_SWITCH_ON        (BIT(0))  // 准备好运行
+#define CIA402_STS_WORD_SWITCHED_ON               (BIT(1))  // 已运行
+#define CIA402_STS_WORD_OPERATION_ENABLED         (BIT(2))  // 已使能
+#define CIA402_STS_WORD_FAULT                     (BIT(3))  // 有故障
+#define CIA402_STS_WORD_VOLTAGE_ENABLED           (BIT(4))  // 已接通主电路
+#define CIA402_STS_WORD_QUICK_STOP                (BIT(5))  // 已快速停止
+#define CIA402_STS_WORD_SWITCH_ON_DISABLED        (BIT(6))  // 已准备好运行
+#define CIA402_STS_WORD_WARNING                   (BIT(7))  // 有警告
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_0   (BIT(8))  // 制造商特定
+#define CIA402_STS_WORD_REMOTE                    (BIT(9))  // 远程
+#define CIA402_STS_WORD_TARGET_REACHED            (BIT(10)) // 目标已到达
+#define CIA402_STS_WORD_INTERNAL_LIMIT_ACTIVE     (BIT(11)) // 内部限位激活
+#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_0 (BIT(12)) // 操作模式特定
+#define CIA402_STS_WORD_OPERATION_MODE_SPECIFIC_1 (BIT(13)) // 操作模式特定
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_1   (BIT(14)) // 制造商特定
+#define CIA402_STS_WORD_MANUFACTURER_SPECIFIC_2   (BIT(15)) // 制造商特定
 
 typedef enum {
         CIA402_MODE_CSP = 0x08, // 周期同步位置模式

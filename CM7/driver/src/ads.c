@@ -58,15 +58,15 @@ ads_init(void)
 
         linerhall_cfg_t linerhall_cfg = {
             .fs             = 20000,
-            .amp_max        = LF(ADS7853_BITS + 1),
+            .amp_max        = BIT(ADS7853_BITS + 1),
             .amp_min        = 0,
             .fault_timeout  = 1000,
             .amp_tolerance  = 10000,
             .theta_rate_max = TAU,
             .sin_gain       = 1,
             .cos_gain       = 1,
-            .sin_offset     = LF(ADS7853_BITS - 1),
-            .cos_offset     = LF(ADS7853_BITS - 1),
+            .sin_offset     = BIT(ADS7853_BITS - 1),
+            .cos_offset     = BIT(ADS7853_BITS - 1),
         };
         linerhall_init(&g_linerhall, linerhall_cfg);
 }
