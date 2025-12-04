@@ -33,6 +33,45 @@ cia402_state_update(cia402_t *cia402)
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
         DECL_PTR_RENAME(cfg->check, check);
 
+        switch (cfg->comm_shm->rt.ctl.e_word) {
+                case COMM_SHM_WORD_ENABLE: {
+                        lo->ctl_word = 0x000F;
+                        break;
+                }
+                case COMM_SHM_WORD_DISABLE: {
+                        lo->ctl_word = 0xF001;
+                        break;
+                }
+                case COMM_SHM_WORD_CALI: {
+                        lo->ctl_word   = 0x000F;
+                        lo->e_spec_cmd = CIA402_SPEC_CMD_CALI;
+                        break;
+                }
+                default:
+                        break;
+        }
+
+        switch (cfg->comm_shm->rt.ctl.e_mode) {
+                case COMM_SHM_MODE_CUR: {
+                        lo->e_mode = CIA402_MODE_PT;
+                        break;
+                }
+                case COMM_SHM_MODE_VEL: {
+                        lo->e_mode = CIA402_MODE_PV;
+                        break;
+                }
+                case COMM_SHM_MODE_POS: {
+                        lo->e_mode = CIA402_MODE_PP;
+                        break;
+                }
+                case COMM_SHM_MODE_PD: {
+                        lo->e_mode = CIA402_MODE_PD;
+                        break;
+                }
+                default:
+                        break;
+        }
+
         const u16  ctl_word  = lo->ctl_word;
         const bool has_fault = check->lo.err.all != 0;
 
@@ -192,10 +231,10 @@ cia402_foc_update(cia402_t *cia402)
                 }
                 case CIA402_STATE_OPERATION_ENABLE: {
                         // 使能控制模式：FOC使能(驱动和控制都使能，PWM开启)
-                        if (lo->e_spec_cmd == SPEC_CMD_CALI) {
+                        if (lo->e_spec_cmd == CIA402_SPEC_CMD_CALI) {
                                 foc->lo.e_state = FOC_STATE_CALI;
                                 if (foc->lo.e_cali_state == FOC_CALI_FINISH)
-                                        lo->e_spec_cmd = SPEC_CMD_NONE;
+                                        lo->e_spec_cmd = CIA402_SPEC_CMD_NONE;
                         } else
                                 foc->lo.e_state = FOC_STATE_ENABLE;
 

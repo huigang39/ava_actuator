@@ -45,9 +45,9 @@ typedef enum {
 } cia402_mode_e;
 
 typedef enum {
-        SPEC_CMD_NONE,
-        SPEC_CMD_CALI,
-        SPEC_CMD_SENSORLESS,
+        CIA402_SPEC_CMD_NONE,
+        CIA402_SPEC_CMD_CALI,
+        CIA402_SPEC_CMD_SENSORLESS,
 } spec_cmd_e;
 
 /**

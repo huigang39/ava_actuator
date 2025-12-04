@@ -25,32 +25,32 @@
 #define COMM_SHM_SIZE_PARAM                (0x1000)
 #define COMM_SHM_SIZE_RT                   (0x0400)
 
-typedef enum {
-        COMM_SHM_OP_NONE  = 0x00000000,
-        COMM_SHM_OP_IDLE  = 0x11111111,
-        COMM_SHM_OP_READ  = 0x22222222,
-        COMM_SHM_OP_WRITE = 0x33333333,
-        COMM_SHM_OP_ERROR = 0x44444444,
-} comm_shm_op_e;
+typedef enum
+    : u32 { COMM_SHM_OP_NONE  = 0x00000000,
+            COMM_SHM_OP_IDLE  = 0x11111111,
+            COMM_SHM_OP_READ  = 0x22222222,
+            COMM_SHM_OP_WRITE = 0x33333333,
+            COMM_SHM_OP_ERROR = 0x44444444,
+    } comm_shm_op_e;
 
 typedef struct {
         u32 num;
         u8  str[124];
 } comm_shm_ver_t;
 
-typedef enum {
-        COMM_SHM_WORD_NONE,
-        COMM_SHM_WORD_DISABLE = 0xF001,
-        COMM_SHM_WORD_ENABLE  = 0xF002,
-        COMM_SHM_WORD_CALI    = 0x101F,
-} comm_shm_word_e;
+typedef enum
+    : u32 { COMM_SHM_WORD_NONE,
+            COMM_SHM_WORD_DISABLE = 0xF001,
+            COMM_SHM_WORD_ENABLE  = 0xF002,
+            COMM_SHM_WORD_CALI    = 0x101F,
+    } comm_shm_word_e;
 
-typedef enum {
-        COMM_SHM_MODE_CUR = 1,
-        COMM_SHM_MODE_VEL = 2,
-        COMM_SHM_MODE_POS = 3,
-        COMM_SHM_MODE_PD  = 7,
-} comm_shm_mode_e;
+typedef enum
+    : u32 { COMM_SHM_MODE_CUR = 1,
+            COMM_SHM_MODE_VEL = 2,
+            COMM_SHM_MODE_POS = 3,
+            COMM_SHM_MODE_PD  = 7,
+    } comm_shm_mode_e;
 
 typedef struct {
         comm_shm_mode_e e_mode;
