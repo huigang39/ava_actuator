@@ -50,17 +50,35 @@ static const ntc_t g_ntc_cfg[] = {
     [NTC_COIL_0] =
         {
             .type         = NTC_TYPE_PT5_25E2,
+            .v_ref        = 3.3f,
+            .r_pullup     = K(10.0f),
             .adc_full_cnt = BIT(14),
+            .temp_min     = -50.0f,
+            .temp_max     = 300.0f,
+            .temp_step    = 0.1f,
+            .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_COIL_1] =
         {
             .type         = NTC_TYPE_PT5_25E2,
+            .v_ref        = 3.3f,
+            .r_pullup     = K(10.0f),
             .adc_full_cnt = BIT(14),
+            .temp_min     = -50.0f,
+            .temp_max     = 300.0f,
+            .temp_step    = 0.1f,
+            .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_MOS] =
         {
             .type         = NTC_TYPE_NCP15XV103J03RC,
+            .v_ref        = 3.3f,
+            .r_pullup     = K(3.3f),
             .adc_full_cnt = BIT(14),
+            .temp_min     = -50.0f,
+            .temp_max     = 300.0f,
+            .temp_step    = 0.1f,
+            .ntc_table    = &g_ntc_table[NTC_TYPE_NCP15XV103J03RC],
         },
 };
 

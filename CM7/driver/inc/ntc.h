@@ -46,14 +46,14 @@ static const ntc_table_t g_ntc_table[] = {
 };
 
 typedef struct {
-        ntc_type_e   type;         // NTC型号
-        f32          v_ref;        // ADC参考电压 (V)
-        f32          r_pullup;     // 上拉电阻 (Ω)，通常为10kΩ
-        u32          adc_full_cnt; // ADC满量程计数值
-        f32          temp_min;     // 温度表最小值 (°C)
-        f32          temp_max;     // 温度表最大值 (°C)
-        f32          temp_step;    // 温度步进 (°C)
-        ntc_table_t *ntc_table;    // 电阻值表 (Ω)
+        ntc_type_e         type;         // NTC型号
+        f32                v_ref;        // ADC参考电压 (V)
+        f32                r_pullup;     // 上拉电阻 (Ω)，通常为10kΩ
+        u32                adc_full_cnt; // ADC满量程计数值
+        f32                temp_min;     // 温度表最小值 (°C)
+        f32                temp_max;     // 温度表最大值 (°C)
+        f32                temp_step;    // 温度步进 (°C)
+        const ntc_table_t *ntc_table;    // 电阻值表 (Ω)
 } ntc_t;
 
 f32 ntc_get_temp(ntc_t *ntc, i32 adc_raw);
