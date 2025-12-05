@@ -421,7 +421,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .sensor_theta_comp_gain = 1.0f,
             .theta_comp_gain        = 1.5f,
 
-            .ref_theta_cali_id    = 5.0f,
+            .ref_theta_cali_id    = 2.0f,
             .ref_theta_cali_omega = 10.0f,
 
             .cur_div = 1,
