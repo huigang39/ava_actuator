@@ -19,8 +19,6 @@ extern SPI_HandleTypeDef   *g_sensor_spi;
 extern UART_HandleTypeDef  *g_sensor_uart;
 extern UART_HandleTypeDef  *g_log_uart;
 
-extern log_t g_log;
-
 typedef struct {
         GPIO_TypeDef *cs_port;
         u16           cs_pin;

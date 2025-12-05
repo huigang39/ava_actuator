@@ -6,6 +6,8 @@
 
 #include "periph_cfg.h"
 
+extern log_t g_log;
+
 ADC_HandleTypeDef   *g_adc1        = &hadc1;
 ADC_HandleTypeDef   *g_adc2        = &hadc2;
 ADC_HandleTypeDef   *g_adc3        = &hadc3;
@@ -76,13 +78,17 @@ periph_init(void)
 adc_raw_t
 periph_get_adc(void)
 {
-        adc_raw_t adc_raw = {0};
+        adc_raw_t adc_raw;
 
         adc_raw.i32_i_uvw.u = g_adc1->Instance->JDR1;
         adc_raw.i32_i_uvw.v = g_adc2->Instance->JDR1;
         adc_raw.i32_i_uvw.w = g_adc3->Instance->JDR1;
 
         adc_raw.i32_v_bus = g_adc1->Instance->JDR2;
+
+        adc_raw.mos_ntc     = g_adc2->Instance->JDR2;
+        adc_raw.coil_ntc[0] = g_adc2->Instance->JDR3;
+        adc_raw.coil_ntc[1] = g_adc2->Instance->JDR4;
 
         return adc_raw;
 }

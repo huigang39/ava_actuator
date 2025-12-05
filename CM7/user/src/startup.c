@@ -71,8 +71,12 @@ init(void)
         comm_shm_init(&g_comm_shm);
         log_info(&g_log, 1, "comm_shm init\n");
 
-        user_init(&g_sched);
+        user_init();
         log_info(&g_log, 1, "user init\n");
+
+        sched_init(&g_sched, g_sched_cfg);
+        for (u32 i = 0; i < ARRAY_LEN(g_task_list_cfg); i++)
+                sched_add_task(&g_sched, g_task_list_cfg[i]);
 
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
@@ -87,6 +91,10 @@ init(void)
 
         periph_init();
         log_info(&g_log, 1, "periph init\n");
+
+        g_user.coil_ntc[0] = g_ntc_cfg[NTC_COIL_0];
+        g_user.coil_ntc[1] = g_ntc_cfg[NTC_COIL_1];
+        g_user.mos_ntc     = g_ntc_cfg[NTC_MOS];
 }
 
 void

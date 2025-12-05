@@ -6,6 +6,7 @@
 #include "ads.h"
 #include "comm_shm.h"
 #include "dpt.h"
+#include "ntc.h"
 #include "periph_cfg.h"
 
 // #define FOC_FREQ_HZ  (K(50.0F))
@@ -39,30 +40,27 @@ typedef struct {
         periph_type_e periph_type;
 } actuator_cfg_t;
 
-static const sched_cfg_t g_sched_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
+static const sched_cfg_t g_sched_cfg = {
+    .e_type   = SCHED_TYPE_FCFS,
+    .e_tick   = SCHED_TICK_US,
+    .f_get_ts = periph_get_ts_us,
+};
+
+static const ntc_t g_ntc_cfg[] = {
+    [NTC_COIL_0] =
         {
-            .e_type   = SCHED_TYPE_FCFS,
-            .e_tick   = SCHED_TICK_US,
-            .f_get_ts = periph_get_ts_us,
+            .type         = NTC_TYPE_PT5_25E2,
+            .adc_full_cnt = BIT(14),
         },
-    [ACTUATOR_FSA361480Z] =
+    [NTC_COIL_1] =
         {
-            .e_type   = SCHED_TYPE_FCFS,
-            .e_tick   = SCHED_TICK_US,
-            .f_get_ts = periph_get_ts_us,
+            .type         = NTC_TYPE_PT5_25E2,
+            .adc_full_cnt = BIT(14),
         },
-    [ACTUATOR_FSA451780Z] =
+    [NTC_MOS] =
         {
-            .e_type   = SCHED_TYPE_FCFS,
-            .e_tick   = SCHED_TICK_US,
-            .f_get_ts = periph_get_ts_us,
-        },
-    [ACTUATOR_FSA4530E] =
-        {
-            .e_type   = SCHED_TYPE_FCFS,
-            .e_tick   = SCHED_TICK_US,
-            .f_get_ts = periph_get_ts_us,
+            .type         = NTC_TYPE_NCP15XV103J03RC,
+            .adc_full_cnt = BIT(14),
         },
 };
 
@@ -661,27 +659,6 @@ static const lbg_cfg_t g_lbg_cfg[] = {
             .wc   = 100.0f,
             .damp = 2.0f,
         },
-};
-
-/* -------------------------------------------------------------------------- */
-/*                                    WAVE                                    */
-/* -------------------------------------------------------------------------- */
-
-static const sine_cfg_t g_sine_cfg[] = {
-    {
-        .fs        = USER_FREQ_HZ,
-        .wave_freq = 1.0f,
-        .amp       = 1.0f,
-    },
-};
-
-static const square_cfg_t g_square_cfg[] = {
-    {
-        .fs        = USER_FREQ_HZ,
-        .wave_freq = 1.0f,
-        .amp       = 1.0f,
-        .duty      = 0.5f,
-    },
 };
 
 #endif // !PARAM_CFG_H

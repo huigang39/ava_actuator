@@ -3,6 +3,8 @@
                 "algorithm": "c",
                 "xiosbase": "c",
                 "xlocale": "c",
-                "xutility": "c"
+                "xutility": "c",
+                "vector": "c",
+                "xstring": "c"
         }
 }
