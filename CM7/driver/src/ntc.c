@@ -27,7 +27,7 @@ ntc_get_temp(ntc_t *ntc, i32 adc_raw)
         if (r_ntc <= table_data[table_len - 1])
                 return ntc->temp_max;
 
-        // 4. 二分查找或线性查找（这里用线性查找，因为表通常不大）
+        // 4. 线性查找
         u32 idx = 0;
         for (u32 i = 0; i < table_len - 1; i++) {
                 if (r_ntc <= table_data[i] && r_ntc >= table_data[i + 1]) {

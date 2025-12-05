@@ -71,7 +71,7 @@ do_not_interpret_as_enum = false
 [var2]
 name = g_foc.in.f32_i_uvw.u
 tracked_name = g_foc.in.f32_i_uvw.u
-address = 536871556
+address = 536871472
 type = 7
 color = 3238002943
 should_update_from_elf = true
@@ -84,7 +84,7 @@ do_not_interpret_as_enum = false
 [var3]
 name = g_foc.in.f32_i_uvw.v
 tracked_name = g_foc.in.f32_i_uvw.v
-address = 536871560
+address = 536871476
 type = 7
 color = 1157686271
 should_update_from_elf = true
@@ -97,7 +97,7 @@ do_not_interpret_as_enum = false
 [var4]
 name = g_foc.in.f32_i_uvw.w
 tracked_name = g_foc.in.f32_i_uvw.w
-address = 536871564
+address = 536871480
 type = 7
 color = 33497088
 should_update_from_elf = true
@@ -110,7 +110,7 @@ do_not_interpret_as_enum = false
 [var5]
 name = g_foc.in.i_ab.a
 tracked_name = g_foc.in.i_ab.a
-address = 536871568
+address = 536871484
 type = 7
 color = 2271404653
 should_update_from_elf = true
@@ -123,7 +123,7 @@ do_not_interpret_as_enum = false
 [var6]
 name = g_foc.in.i_ab.b
 tracked_name = g_foc.in.i_ab.b
-address = 536871572
+address = 536871488
 type = 7
 color = 3129941982
 should_update_from_elf = true
@@ -136,7 +136,7 @@ do_not_interpret_as_enum = false
 [var7]
 name = g_foc.in.i_dq.d
 tracked_name = g_foc.in.i_dq.d
-address = 536871576
+address = 536871492
 type = 7
 color = 2365652781
 should_update_from_elf = true
@@ -149,7 +149,7 @@ do_not_interpret_as_enum = false
 [var8]
 name = g_foc.in.i_dq.q
 tracked_name = g_foc.in.i_dq.q
-address = 536871580
+address = 536871496
 type = 7
 color = 2650800383
 should_update_from_elf = true
@@ -162,7 +162,7 @@ do_not_interpret_as_enum = false
 [var9]
 name = g_foc.in.rotor.force_omega
 tracked_name = g_foc.in.rotor.force_omega
-address = 536871516
+address = 536871528
 type = 7
 color = 3791600128
 should_update_from_elf = true
@@ -175,7 +175,7 @@ do_not_interpret_as_enum = false
 [var10]
 name = g_foc.in.rotor.force_theta
 tracked_name = g_foc.in.rotor.force_theta
-address = 536871512
+address = 536871524
 type = 7
 color = 2719612672
 should_update_from_elf = true
@@ -188,7 +188,7 @@ do_not_interpret_as_enum = false
 [var11]
 name = g_foc.in.rotor.fusion_theta_err
 tracked_name = g_foc.in.rotor.fusion_theta_err
-address = 536871540
+address = 536871552
 type = 7
 color = 1593901038
 should_update_from_elf = true
@@ -201,7 +201,7 @@ do_not_interpret_as_enum = false
 [var12]
 name = g_foc.in.rotor.mech_omega
 tracked_name = g_foc.in.rotor.mech_omega
-address = 536871552
+address = 536871564
 type = 7
 color = 3585994098
 should_update_from_elf = true
@@ -214,7 +214,7 @@ do_not_interpret_as_enum = false
 [var13]
 name = g_foc.in.rotor.mech_theta
 tracked_name = g_foc.in.rotor.mech_theta
-address = 536871544
+address = 536871556
 type = 7
 color = 2970790472
 should_update_from_elf = true
@@ -227,7 +227,7 @@ do_not_interpret_as_enum = false
 [var14]
 name = g_foc.in.rotor.mech_total_theta
 tracked_name = g_foc.in.rotor.mech_total_theta
-address = 536871548
+address = 536871560
 type = 7
 color = 4263814863
 should_update_from_elf = true
@@ -240,7 +240,7 @@ do_not_interpret_as_enum = false
 [var15]
 name = g_foc.in.rotor.obs_omega
 tracked_name = g_foc.in.rotor.obs_omega
-address = 536871536
+address = 536871548
 type = 7
 color = 2315200000
 should_update_from_elf = true
@@ -253,7 +253,7 @@ do_not_interpret_as_enum = false
 [var16]
 name = g_foc.in.rotor.obs_theta
 tracked_name = g_foc.in.rotor.obs_theta
-address = 536871532
+address = 536871544
 type = 7
 color = 2902458623
 should_update_from_elf = true
@@ -266,7 +266,7 @@ do_not_interpret_as_enum = false
 [var17]
 name = g_foc.in.rotor.omega
 tracked_name = g_foc.in.rotor.omega
-address = 536871508
+address = 536871520
 type = 7
 color = 939213692
 should_update_from_elf = true
@@ -279,7 +279,7 @@ do_not_interpret_as_enum = false
 [var18]
 name = g_foc.in.rotor.sensor_omega
 tracked_name = g_foc.in.rotor.sensor_omega
-address = 536871528
+address = 536871540
 type = 7
 color = 3374776064
 should_update_from_elf = true
@@ -292,7 +292,7 @@ do_not_interpret_as_enum = false
 [var19]
 name = g_foc.in.rotor.sensor_theta
 tracked_name = g_foc.in.rotor.sensor_theta
-address = 536871520
+address = 536871532
 type = 7
 color = 3388997887
 should_update_from_elf = true
@@ -305,7 +305,7 @@ do_not_interpret_as_enum = false
 [var20]
 name = g_foc.in.rotor.theta
 tracked_name = g_foc.in.rotor.theta
-address = 536871492
+address = 536871504
 type = 7
 color = 570402560
 should_update_from_elf = true
@@ -318,7 +318,7 @@ do_not_interpret_as_enum = false
 [var21]
 name = g_foc.in.v_bus
 tracked_name = g_foc.in.v_bus
-address = 536871472
+address = 536871568
 type = 7
 color = 2180972750
 should_update_from_elf = true

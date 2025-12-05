@@ -55,7 +55,7 @@ static const ntc_t g_ntc_cfg[] = {
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,
-            .temp_step    = 0.1f,
+            .temp_step    = 1.0f,
             .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_COIL_1] =
@@ -66,7 +66,7 @@ static const ntc_t g_ntc_cfg[] = {
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,
-            .temp_step    = 0.1f,
+            .temp_step    = 1.0f,
             .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_MOS] =
@@ -77,7 +77,7 @@ static const ntc_t g_ntc_cfg[] = {
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,
-            .temp_step    = 0.1f,
+            .temp_step    = 1.0f,
             .ntc_table    = &g_ntc_table[NTC_TYPE_NCP15XV103J03RC],
         },
 };
