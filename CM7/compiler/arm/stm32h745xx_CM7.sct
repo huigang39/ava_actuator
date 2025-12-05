@@ -9,15 +9,15 @@ LR_IROM1 0x08080000 0x00040000 {
                 .ANY (+RW +ZI)
         }
 
-        SRAM1_SENSOR 0x24000000 0x00001000 {
+        AXIRAM_SENSOR 0x24000000 0x00001000 {
                 *(sensor)
         }
 
-        SRAM1_LOG 0x24001000 0x00002000 {
+        AXIRAM_LOG 0x24001000 0x00002000 {
                 *(log)
         }
 
-        SRAM1_FFT 0x24003000 0x00010000 {
+        AXIRAM_FFT 0x24003000 0x00010000 {
                 *(fft)
         }
 

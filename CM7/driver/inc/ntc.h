@@ -420,8 +420,7 @@ static const ntc_table_t g_ntc_table[] = {
 
 typedef struct {
         ntc_type_e         type;         // NTC型号
-        f32                v_ref;        // ADC参考电压 (V)
-        f32                r_pullup;     // 上拉电阻 (Ω)，通常为10kΩ
+        f32                r_gnd;        // 上拉电阻 (Ω)，通常为10kΩ
         u32                adc_full_cnt; // ADC满量程计数值
         f32                temp_min;     // 温度表最小值 (°C)
         f32                temp_max;     // 温度表最大值 (°C)

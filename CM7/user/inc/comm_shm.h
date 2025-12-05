@@ -71,12 +71,22 @@ typedef struct {
 } comm_shm_pid_param_t;
 
 typedef struct {
-        comm_shm_ctl_t       ctl;
-        foc_ref_pvct_t       ref_pvct;
-        u32                  res2[8];
-        foc_fdb_pvct_t       fdb_pvct;
-        u32                  res3[7];
-        comm_shm_pid_param_t pid_param;
+        f32 mos_temp;
+        f32 coil_temp0;
+        f32 v_bus;
+        f32 coil_temp1;
+        u32 res[7];
+} comm_shm_inv_status_t;
+
+typedef struct {
+        comm_shm_ctl_t        ctl;
+        foc_ref_pvct_t        ref_pvct;
+        u32                   res2[8];
+        foc_fdb_pvct_t        fdb_pvct;
+        u32                   res3[7];
+        comm_shm_pid_param_t  pid_param;
+        u32                   errcode[8];
+        comm_shm_inv_status_t inv_status;
 } comm_shm_rt_t;
 
 typedef struct {

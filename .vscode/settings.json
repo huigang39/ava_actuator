@@ -5,6 +5,7 @@
                 "xlocale": "c",
                 "xutility": "c",
                 "vector": "c",
-                "xstring": "c"
+                "xstring": "c",
+                "system_error": "c"
         }
 }

@@ -13,7 +13,7 @@
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE ACTUATOR_FSA4530E
+#define ACTUATOR_TYPE ACTUATOR_FSA361480Z
 
 typedef enum {
         ACTUATOR_FSA50N24E,
@@ -50,8 +50,7 @@ static const ntc_t g_ntc_cfg[] = {
     [NTC_COIL_0] =
         {
             .type         = NTC_TYPE_PT5_25E2,
-            .v_ref        = 3.3f,
-            .r_pullup     = K(10.0f),
+            .r_gnd        = K(10.0f),
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,
@@ -61,8 +60,7 @@ static const ntc_t g_ntc_cfg[] = {
     [NTC_COIL_1] =
         {
             .type         = NTC_TYPE_PT5_25E2,
-            .v_ref        = 3.3f,
-            .r_pullup     = K(10.0f),
+            .r_gnd        = K(10.0f),
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,
@@ -72,8 +70,7 @@ static const ntc_t g_ntc_cfg[] = {
     [NTC_MOS] =
         {
             .type         = NTC_TYPE_NCP15XV103J03RC,
-            .v_ref        = 3.3f,
-            .r_pullup     = K(3.3f),
+            .r_gnd        = K(3.3f),
             .adc_full_cnt = BIT(14),
             .temp_min     = -50.0f,
             .temp_max     = 300.0f,

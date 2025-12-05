@@ -50,7 +50,7 @@ comm_shm_init_hsem(void)
 void
 comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc)
 {
-        DECL_PTRS(foc, lo);
+        DECL_PTRS(foc, in, lo);
 
         if (!lo->fault.PARAM_SYNC) {
                 comm_shm_init_pid_param(comm_shm, foc);
@@ -60,7 +60,11 @@ comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc)
         comm_shm_sync_pid_param(comm_shm, foc);
         foc_set_ref(foc, comm_shm->rt.ref_pvct);
 
-        comm_shm->rt.fdb_pvct = foc_get_fdb(foc);
+        comm_shm->rt.fdb_pvct              = foc_get_fdb(foc);
+        comm_shm->rt.inv_status.mos_temp   = in->temp.mos;
+        comm_shm->rt.inv_status.coil_temp0 = in->temp.coil[0];
+        comm_shm->rt.inv_status.coil_temp1 = in->temp.coil[1];
+        comm_shm->rt.inv_status.v_bus      = in->v_bus;
 }
 
 static void

@@ -49,9 +49,9 @@ user_loop_task(void *arg)
         comm_shm_sync_rt(&g_comm_shm, &g_foc);
         cia402_exec(&g_user.cia402);
 
-        g_foc.in.temp.coil_temp[0] = ntc_get_temp(&g_user.coil_ntc[0], g_foc.in.adc_raw.coil_ntc[0]);
-        g_foc.in.temp.coil_temp[1] = ntc_get_temp(&g_user.coil_ntc[1], g_foc.in.adc_raw.coil_ntc[1]);
-        g_foc.in.temp.mos_temp     = ntc_get_temp(&g_user.mos_ntc, g_foc.in.adc_raw.mos_ntc);
+        g_foc.in.temp.coil[0] = ntc_get_temp(&g_user.coil_ntc[0], g_foc.in.adc_raw.coil_ntc[0]);
+        g_foc.in.temp.coil[1] = ntc_get_temp(&g_user.coil_ntc[1], g_foc.in.adc_raw.coil_ntc[1]);
+        g_foc.in.temp.mos     = ntc_get_temp(&g_user.mos_ntc, g_foc.in.adc_raw.mos_ntc);
 }
 
 void
