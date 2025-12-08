@@ -628,7 +628,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_load  = comm_shm_load,
 
             .f_get_adc            = periph_get_adc,
-            .f_get_elec_theta     = dpt_get_outer_theta,
+            .f_get_theta          = dpt_get_outer_theta,
             .f_get_outshaft_theta = dpt_get_inner_theta,
 
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
@@ -664,7 +664,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_load  = comm_shm_load,
 
             .f_get_adc            = periph_get_adc,
-            .f_get_elec_theta     = dpt_get_outer_theta,
+            .f_get_theta          = dpt_get_outer_theta,
             .f_get_outshaft_theta = dpt_get_inner_theta,
 
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
@@ -699,8 +699,8 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_adc        = periph_get_adc,
-            .f_get_elec_theta = ads_get_theta,
+            .f_get_adc   = periph_get_adc,
+            .f_get_theta = ads_get_theta,
 
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
