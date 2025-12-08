@@ -15,31 +15,6 @@
 
 #define ACTUATOR_TYPE ACTUATOR_FSA361480Z
 
-typedef enum {
-        ACTUATOR_FSA50N24E,
-        ACTUATOR_FSA361480Z,
-        ACTUATOR_FSA451780Z,
-        ACTUATOR_FSA4530E,
-} actuator_type_e;
-
-typedef enum {
-        MOTOR_FSA50NV3,
-        MOTOR_FSA3610V0,
-        MOTOR_FSA4515V1,
-} motor_type_e;
-
-typedef enum {
-        PERIPH_F3H58V101,
-        PERIPH_F2H46V100,
-        PERIPH_F2H58V100,
-        PERIPH_F2H54V100,
-} periph_type_e;
-
-typedef struct {
-        motor_type_e  motor_type;
-        periph_type_e periph_type;
-} actuator_cfg_t;
-
 static const sched_cfg_t g_sched_cfg = {
     .e_type   = SCHED_TYPE_FCFS,
     .e_tick   = SCHED_TICK_US,
@@ -83,6 +58,42 @@ static const ntc_t g_ntc_cfg[] = {
 /*                                     FOC                                    */
 /* -------------------------------------------------------------------------- */
 
+typedef enum {
+        ACTUATOR_FSA50N24E,
+        ACTUATOR_FSA361480Z,
+        ACTUATOR_FSA451780Z,
+        ACTUATOR_FSA4530E,
+        ACTUATOR_FSA601780Z,
+        ACTUATOR_FSA6043E,
+        ACTUATOR_FSA8029E,
+        ACTUATOR_FSA10020E,
+        ACTUATOR_FSA10043E,
+} actuator_type_e;
+
+typedef enum {
+        MOTOR_FSA50NV3,
+        MOTOR_FSA3610V0,
+        MOTOR_FSA4515V1,
+        MOTOR_FSA6015V25,
+        MOTOR_FSA8015V25,
+        MOTOR_FSA10020V25,
+} motor_type_e;
+
+typedef enum {
+        PERIPH_F3H58V101,
+        PERIPH_F2H46V100,
+        PERIPH_F2H54V100,
+        PERIPH_F2H58V100,
+        PERIPH_F2H66V100,
+        PERIPH_F2H80V100,
+        PERIPH_F2H100V100,
+} periph_type_e;
+
+typedef struct {
+        motor_type_e  motor_type;
+        periph_type_e periph_type;
+} actuator_cfg_t;
+
 static const actuator_cfg_t g_actuator_cfg[] = {
     [ACTUATOR_FSA50N24E] =
         {
@@ -103,6 +114,26 @@ static const actuator_cfg_t g_actuator_cfg[] = {
         {
             .motor_type  = MOTOR_FSA4515V1,
             .periph_type = PERIPH_F2H54V100,
+        },
+    [ACTUATOR_FSA601780Z] =
+        {
+            .motor_type  = MOTOR_FSA6015V25,
+            .periph_type = PERIPH_F2H66V100,
+        },
+    [ACTUATOR_FSA6043E] =
+        {
+            .motor_type  = MOTOR_FSA6015V25,
+            .periph_type = PERIPH_F2H54V100,
+        },
+    [ACTUATOR_FSA8029E] =
+        {
+            .motor_type  = MOTOR_FSA8015V25,
+            .periph_type = PERIPH_F2H80V100,
+        },
+    [ACTUATOR_FSA10020E] =
+        {
+            .motor_type  = MOTOR_FSA10020V25,
+            .periph_type = PERIPH_F2H100V100,
         },
 };
 
@@ -399,7 +430,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_theta      = dpt_get_inner_theta,
+            .f_get_elec_theta = dpt_get_inner_theta,
             .f_get_adc        = periph_get_adc,
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -432,7 +463,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_theta      = dpt_get_inner_theta,
+            .f_get_elec_theta = dpt_get_inner_theta,
             .f_get_adc        = periph_get_adc,
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -465,7 +496,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_theta      = dpt_get_inner_theta,
+            .f_get_elec_theta = dpt_get_inner_theta,
             .f_get_adc        = periph_get_adc,
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -498,7 +529,7 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_theta      = ads_get_theta,
+            .f_get_elec_theta = ads_get_theta,
             .f_get_adc        = periph_get_adc,
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
