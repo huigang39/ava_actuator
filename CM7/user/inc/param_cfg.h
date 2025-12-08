@@ -59,7 +59,6 @@ static const ntc_t g_ntc_cfg[] = {
 /* -------------------------------------------------------------------------- */
 
 typedef enum {
-        ACTUATOR_FSA50N24E,
         ACTUATOR_FSA361480Z,
         ACTUATOR_FSA451780Z,
         ACTUATOR_FSA4530E,
@@ -71,7 +70,6 @@ typedef enum {
 } actuator_type_e;
 
 typedef enum {
-        MOTOR_FSA50NV3,
         MOTOR_FSA3610V0,
         MOTOR_FSA4515V1,
         MOTOR_FSA6015V25,
@@ -80,7 +78,6 @@ typedef enum {
 } motor_type_e;
 
 typedef enum {
-        PERIPH_F3H58V101,
         PERIPH_F2H46V100,
         PERIPH_F2H54V100,
         PERIPH_F2H58V100,
@@ -95,11 +92,6 @@ typedef struct {
 } actuator_cfg_t;
 
 static const actuator_cfg_t g_actuator_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .motor_type  = MOTOR_FSA50NV3,
-            .periph_type = PERIPH_F3H58V101,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .motor_type  = MOTOR_FSA3610V0,
@@ -138,16 +130,6 @@ static const actuator_cfg_t g_actuator_cfg[] = {
 };
 
 static const motor_cfg_t g_motor_cfg[] = {
-    [MOTOR_FSA50NV3] =
-        {
-            .npp = 10,
-            .rs  = 0.38f,
-            .ld  = 15e-6f,
-            .lq  = 17.5e-6f,
-            .psi = 0.005301f,
-            .wc  = HZ2RADS(2000.0f),
-            .j   = 1.48e-05f,
-        },
     [MOTOR_FSA3610V0] =
         {
             .npp     = 10,
@@ -174,40 +156,49 @@ static const motor_cfg_t g_motor_cfg[] = {
             .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
             .max_tor = 3.0f,
         },
+    [MOTOR_FSA6015V25] =
+        {
+            .npp     = 10,
+            .rs      = 0.135f,
+            .ld      = 94.23e-6f,
+            .lq      = 113.98e-6f,
+            .psi     = 0.00727f,
+            .wc      = HZ2RADS(1500.0f),
+            .j       = 9.23e-05f,
+            .cur2tor = {-7e-6f, 0.0001f, 0.0994f, 0.0f},
+            .tor2cur = {0.2677f, -1.1434f, 11.394f, 0.0f},
+            .max_tor = 5.031f,
+        },
+    [MOTOR_FSA8015V25] =
+        {
+            .npp     = 21,
+            .rs      = 0.0504f,
+            .ld      = 24.7e-6f,
+            .lq      = 34.4e-6f,
+            .psi     = 0.003259f,
+            .wc      = HZ2RADS(1500.0f),
+            .j       = 3.48e-05f,
+            .cur2tor = {-3e-6f, 0.0002f, 0.0785f, 0.0f},
+            .tor2cur = {0.1644f, -0.9912f, 14.024f, 0.0f},
+            .max_tor = 6.0f,
+        },
+    [MOTOR_FSA10020V25] =
+        {
+            .npp     = 21,
+            .rs      = 0.0385f,
+            .ld      = 6.88e-6f,
+            .lq      = 10.2e-6f,
+            .psi     = 0.003979f,
+            .wc      = HZ2RADS(1500.0f),
+            .j       = 3.48e-05f,
+            .cur2tor = {-7e-7f, -5e-5f, 0.1276f, 0.0f},
+            .tor2cur = {0.0127f, -0.1202f, 8.5115f, 0.0f},
+            .max_tor = 18.18f,
+        },
 };
 
 static const periph_cfg_t g_periph_cfg[] = {
-    [PERIPH_F3H58V101] =
-        {
-            // ADC
-            .adc_full_cnt       = BIT(14),
-            .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
-            .cur_range          = 55.0f,
-            .vbus_range         = 60.0f,
-            // PWM
-            .pwm_freq    = K(50.0f),
-            .timer_freq  = M(200.0f),
-            .mi          = DIV_2_BY_3,
-            .f32_pwm_max = 0.8f,
-        },
     [PERIPH_F2H46V100] =
-        {
-            // ADC
-            .adc_full_cnt       = BIT(14),
-            .adc_cali_cnt_max   = 10,
-            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
-            .cur_range          = 82.5f,
-            .vbus_range         = 60.0f,
-            .cur_gain           = 20,
-            .cur_offset         = 41.25f,
-            // PWM
-            .pwm_freq    = K(20.0f),
-            .timer_freq  = M(200.0f),
-            .mi          = DIV_2_BY_3,
-            .f32_pwm_max = 0.8f,
-        },
-    [PERIPH_F2H58V100] =
         {
             // ADC
             .adc_full_cnt       = BIT(14),
@@ -239,15 +230,73 @@ static const periph_cfg_t g_periph_cfg[] = {
             .mi          = DIV_2_BY_3,
             .f32_pwm_max = 0.8f,
         },
+    [PERIPH_F2H58V100] =
+        {
+            // ADC
+            .adc_full_cnt       = BIT(14),
+            .adc_cali_cnt_max   = 10,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
+            .cur_range          = 82.5f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 20,
+            .cur_offset         = 41.25f,
+            // PWM
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = DIV_2_BY_3,
+            .f32_pwm_max = 0.8f,
+        },
+    [PERIPH_F2H66V100] =
+        {
+            // ADC
+            .adc_full_cnt       = BIT(14),
+            .adc_cali_cnt_max   = 10,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
+            .cur_range          = 82.5f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 20,
+            .cur_offset         = 41.25f,
+            // PWM
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = DIV_2_BY_3,
+            .f32_pwm_max = 0.8f,
+        },
+    [PERIPH_F2H80V100] =
+        {
+            // ADC
+            .adc_full_cnt       = BIT(14),
+            .adc_cali_cnt_max   = 10,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
+            .cur_range          = 440.0f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 10,
+            .cur_offset         = 220.0f,
+            // PWM
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = DIV_2_BY_3,
+            .f32_pwm_max = 0.8f,
+        },
+    [PERIPH_F2H100V100] =
+        {
+            // ADC
+            .adc_full_cnt       = BIT(14),
+            .adc_cali_cnt_max   = 10,
+            .theta_cali_cnt_max = FOC_FREQ_HZ / 5.0f,
+            .cur_range          = 507.0f,
+            .vbus_range         = 60.0f,
+            .cur_gain           = 10,
+            .cur_offset         = 253.5,
+            // PWM
+            .pwm_freq    = K(20.0f),
+            .timer_freq  = M(200.0f),
+            .mi          = DIV_2_BY_3,
+            .f32_pwm_max = 0.8f,
+        },
 };
 
 static const pll_cfg_t g_omega_pll_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .wc     = 1000.0f,
-            .damp   = 0.707f,
-            .lpf_wc = 200.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .wc     = 1000.0f,
@@ -266,14 +315,39 @@ static const pll_cfg_t g_omega_pll_cfg[] = {
             .damp   = 0.707f,
             .lpf_wc = 200.0f,
         },
+    [ACTUATOR_FSA601780Z] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_wc = 200.0f,
+        },
+    [ACTUATOR_FSA6043E] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_wc = 200.0f,
+        },
+    [ACTUATOR_FSA8029E] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_wc = 200.0f,
+        },
+    [ACTUATOR_FSA10020E] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_wc = 200.0f,
+        },
+    [ACTUATOR_FSA10043E] =
+        {
+            .wc     = 1000.0f,
+            .damp   = 0.707f,
+            .lpf_wc = 200.0f,
+        },
 };
 
 static const pid_cfg_t g_cur_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA50NV3].ld),
-            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA50NV3].rs),
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA3610V0].ld),
@@ -289,69 +363,142 @@ static const pid_cfg_t g_cur_cfg[] = {
             .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].ld),
             .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA4515V1].rs),
         },
+    [ACTUATOR_FSA601780Z] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].rs),
+        },
+    [ACTUATOR_FSA6043E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].rs),
+        },
+    [ACTUATOR_FSA8029E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA8015V25].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA8015V25].rs),
+        },
+    [ACTUATOR_FSA10020E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA10020V25].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA10020V25].rs),
+        },
+    [ACTUATOR_FSA10043E] =
+        {
+            .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA10020V25].ld),
+            .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA10020V25].rs),
+        },
 };
 
-static const pid_cfg_t g_vel_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .kp         = VEL_KP(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA50NV3].psi,
-                         g_motor_cfg[MOTOR_FSA50NV3].npp,
-                         g_motor_cfg[MOTOR_FSA50NV3].j),
-            .ki         = VEL_KI(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA50NV3].psi,
-                         g_motor_cfg[MOTOR_FSA50NV3].npp,
-                         g_motor_cfg[MOTOR_FSA50NV3].j),
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA361480Z] =
-        {
-            .kp         = VEL_KP(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA3610V0].psi,
-                         g_motor_cfg[MOTOR_FSA3610V0].npp,
-                         g_motor_cfg[MOTOR_FSA3610V0].j),
-            .ki         = VEL_KI(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA3610V0].psi,
-                         g_motor_cfg[MOTOR_FSA3610V0].npp,
-                         g_motor_cfg[MOTOR_FSA3610V0].j),
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA451780Z] =
-        {
-            .kp         = VEL_KP(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA4515V1].psi,
-                         g_motor_cfg[MOTOR_FSA4515V1].npp,
-                         g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki         = VEL_KI(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA4515V1].psi,
-                         g_motor_cfg[MOTOR_FSA4515V1].npp,
-                         g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
-    [ACTUATOR_FSA4530E] =
-        {
-            .kp         = VEL_KP(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA4515V1].psi,
-                         g_motor_cfg[MOTOR_FSA4515V1].npp,
-                         g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki         = VEL_KI(HZ2RADS(10.0f),
-                         g_motor_cfg[MOTOR_FSA4515V1].psi,
-                         g_motor_cfg[MOTOR_FSA4515V1].npp,
-                         g_motor_cfg[MOTOR_FSA4515V1].j),
-            .ki_out_max = 10.0f,
-            .out_max    = 10.0f,
-        },
+static const pid_cfg_t g_vel_cfg[] =
+    {
+        [ACTUATOR_FSA361480Z] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA3610V0].psi,
+                             g_motor_cfg[MOTOR_FSA3610V0].npp,
+                             g_motor_cfg[MOTOR_FSA3610V0].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA3610V0].psi,
+                             g_motor_cfg[MOTOR_FSA3610V0].npp,
+                             g_motor_cfg[MOTOR_FSA3610V0].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA451780Z] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA4515V1].psi,
+                             g_motor_cfg[MOTOR_FSA4515V1].npp,
+                             g_motor_cfg[MOTOR_FSA4515V1].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA4515V1].psi,
+                             g_motor_cfg[MOTOR_FSA4515V1].npp,
+                             g_motor_cfg[MOTOR_FSA4515V1].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA4530E] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA4515V1].psi,
+                             g_motor_cfg[MOTOR_FSA4515V1].npp,
+                             g_motor_cfg[MOTOR_FSA4515V1].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA4515V1].psi,
+                             g_motor_cfg[MOTOR_FSA4515V1].npp,
+                             g_motor_cfg[MOTOR_FSA4515V1].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA601780Z] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA6015V25].psi,
+                             g_motor_cfg[MOTOR_FSA6015V25].npp,
+                             g_motor_cfg[MOTOR_FSA6015V25].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA6015V25].psi,
+                             g_motor_cfg[MOTOR_FSA6015V25].npp,
+                             g_motor_cfg[MOTOR_FSA6015V25].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA6043E] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA6015V25].psi,
+                             g_motor_cfg[MOTOR_FSA6015V25].npp,
+                             g_motor_cfg[MOTOR_FSA6015V25].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA6015V25].psi,
+                             g_motor_cfg[MOTOR_FSA6015V25].npp,
+                             g_motor_cfg[MOTOR_FSA6015V25].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA8029E] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA8015V25].psi,
+                             g_motor_cfg[MOTOR_FSA8015V25].npp,
+                             g_motor_cfg[MOTOR_FSA8015V25].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA8015V25].psi,
+                             g_motor_cfg[MOTOR_FSA8015V25].npp,
+                             g_motor_cfg[MOTOR_FSA8015V25].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA10020E] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA10020V25].psi,
+                             g_motor_cfg[MOTOR_FSA10020V25].npp,
+                             g_motor_cfg[MOTOR_FSA10020V25].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA10020V25].psi,
+                             g_motor_cfg[MOTOR_FSA10020V25].npp,
+                             g_motor_cfg[MOTOR_FSA10020V25].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
+        [ACTUATOR_FSA10043E] =
+            {
+                .kp         = VEL_KP(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA10020V25].psi,
+                             g_motor_cfg[MOTOR_FSA10020V25].npp,
+                             g_motor_cfg[MOTOR_FSA10020V25].j),
+                .ki         = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA10020V25].psi,
+                             g_motor_cfg[MOTOR_FSA10020V25].npp,
+                             g_motor_cfg[MOTOR_FSA10020V25].j),
+                .ki_out_max = 10.0f,
+                .out_max    = 10.0f,
+            },
 };
 
 static const pid_cfg_t g_pos_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .kp      = 1.0f,
@@ -367,15 +514,34 @@ static const pid_cfg_t g_pos_cfg[] = {
             .kp      = 1.0f,
             .out_max = 1000.0f,
         },
+    [ACTUATOR_FSA601780Z] =
+        {
+            .kp      = 1.0f,
+            .out_max = 1000.0f,
+        },
+    [ACTUATOR_FSA6043E] =
+        {
+            .kp      = 1.0f,
+            .out_max = 1000.0f,
+        },
+    [ACTUATOR_FSA8029E] =
+        {
+            .kp      = 1.0f,
+            .out_max = 1000.0f,
+        },
+    [ACTUATOR_FSA10020E] =
+        {
+            .kp      = 1.0f,
+            .out_max = 1000.0f,
+        },
+    [ACTUATOR_FSA10043E] =
+        {
+            .kp      = 1.0f,
+            .out_max = 1000.0f,
+        },
 };
 
 static const pid_cfg_t g_pd_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .kp      = 0.01f,
-            .kd      = 0.001f,
-            .out_max = 10.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .kp      = 0.01f,
@@ -394,6 +560,36 @@ static const pid_cfg_t g_pd_cfg[] = {
             .kd      = 0.001f,
             .out_max = 10.0f,
         },
+    [ACTUATOR_FSA601780Z] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA6043E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA8029E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA10020E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
+    [ACTUATOR_FSA10043E] =
+        {
+            .kp      = 0.01f,
+            .kd      = 0.001f,
+            .out_max = 10.0f,
+        },
 };
 
 static const foc_store_addr_t g_store_addr = {
@@ -403,46 +599,14 @@ static const foc_store_addr_t g_store_addr = {
 };
 
 static const foc_cfg_t g_foc_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .exec_freq  = FOC_FREQ_HZ,
-            .store_addr = g_store_addr,
-
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA50NV3],
-            .periph_cfg = g_periph_cfg[PERIPH_F3H58V101],
-
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA50N24E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA50N24E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA50N24E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA50N24E],
-
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
-
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
-
-            .cur_div = 1,
-            .vel_div = 2,
-            .pos_div = 4,
-            .pd_div  = 2,
-
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
-
-            .f_get_elec_theta = dpt_get_inner_theta,
-            .f_get_adc        = periph_get_adc,
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .exec_freq  = FOC_FREQ_HZ,
             .store_addr = g_store_addr,
 
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA3610V0],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H46V100],
+            .outshaft_ratio = 80.0f,
+            .motor_cfg      = g_motor_cfg[MOTOR_FSA3610V0],
+            .periph_cfg     = g_periph_cfg[PERIPH_F2H46V100],
 
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
@@ -463,8 +627,10 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_elec_theta = dpt_get_inner_theta,
-            .f_get_adc        = periph_get_adc,
+            .f_get_adc            = periph_get_adc,
+            .f_get_elec_theta     = dpt_get_outer_theta,
+            .f_get_outshaft_theta = dpt_get_inner_theta,
+
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
             .f_set_drv_status = periph_set_drv_status_8353,
@@ -474,8 +640,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .exec_freq  = FOC_FREQ_HZ,
             .store_addr = g_store_addr,
 
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
+            .outshaft_ratio = 80.0f,
+            .motor_cfg      = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg     = g_periph_cfg[PERIPH_F2H58V100],
 
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
@@ -496,8 +663,10 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_elec_theta = dpt_get_inner_theta,
-            .f_get_adc        = periph_get_adc,
+            .f_get_adc            = periph_get_adc,
+            .f_get_elec_theta     = dpt_get_outer_theta,
+            .f_get_outshaft_theta = dpt_get_inner_theta,
+
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
             .f_set_drv_status = periph_set_drv_status_8353,
@@ -507,8 +676,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .exec_freq  = FOC_FREQ_HZ,
             .store_addr = g_store_addr,
 
-            .motor_cfg  = g_motor_cfg[MOTOR_FSA4515V1],
-            .periph_cfg = g_periph_cfg[PERIPH_F2H58V100],
+            .outshaft_ratio = 30.2514f,
+            .motor_cfg      = g_motor_cfg[MOTOR_FSA4515V1],
+            .periph_cfg     = g_periph_cfg[PERIPH_F2H58V100],
 
             .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
             .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
@@ -529,8 +699,9 @@ static const foc_cfg_t g_foc_cfg[] = {
             .f_store = comm_shm_store,
             .f_load  = comm_shm_load,
 
-            .f_get_elec_theta = ads_get_theta,
             .f_get_adc        = periph_get_adc,
+            .f_get_elec_theta = ads_get_theta,
+
             .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
             .f_set_pwm_status = periph_set_pwm_status_hrtim,
             .f_set_drv_status = periph_set_drv_status_8353,
@@ -542,11 +713,6 @@ static const foc_cfg_t g_foc_cfg[] = {
 /* -------------------------------------------------------------------------- */
 
 static const smo_cfg_t g_smo_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .ks  = 48.0f,
-            .es0 = 25.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .ks  = 48.0f,
@@ -565,12 +731,6 @@ static const smo_cfg_t g_smo_cfg[] = {
 };
 
 static const pll_cfg_t g_smo_pll_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .wc     = 1000.0f,
-            .damp   = 0.707f,
-            .lpf_wc = 100.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .wc     = 1000.0f,
@@ -592,14 +752,6 @@ static const pll_cfg_t g_smo_pll_cfg[] = {
 };
 
 static const hfi_cfg_t g_hfi_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .fi            = 3000.0f,
-            .hfi_vd        = 2.0f,
-            .hfi_id        = 1.0f,
-            .lpf_wc_dq     = {.d = 3000.0f, .q = 3000.0f},
-            .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .fi            = 3000.0f,
@@ -627,12 +779,6 @@ static const hfi_cfg_t g_hfi_cfg[] = {
 };
 
 static const pll_cfg_t g_hfi_pll_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .wc     = 1000.0f,
-            .damp   = 0.707f,
-            .lpf_wc = 100.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .wc     = 1000.0f,
@@ -654,13 +800,6 @@ static const pll_cfg_t g_hfi_pll_cfg[] = {
 };
 
 static const iir_cfg_t g_hfi_bpf_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .fh    = 4000.0f,
-            .fl    = 2000.0f,
-            .order = IIR_2,
-            .type  = IIR_BANDPASS,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .fh    = 4000.0f,
@@ -685,11 +824,6 @@ static const iir_cfg_t g_hfi_bpf_cfg[] = {
 };
 
 static const lbg_cfg_t g_lbg_cfg[] = {
-    [ACTUATOR_FSA50N24E] =
-        {
-            .wc   = 100.0f,
-            .damp = 2.0f,
-        },
     [ACTUATOR_FSA361480Z] =
         {
             .wc   = 100.0f,

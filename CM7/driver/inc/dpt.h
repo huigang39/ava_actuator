@@ -27,11 +27,14 @@ extern UART_HandleTypeDef *g_sensor_uart;
 typedef struct {
         u32 inner;
         u32 outer;
+        u8  status;
+        u8  crc;
 } dpt_raw_t;
 
 void      dpt_init(void);
 dpt_raw_t dpt_get_raw(void);
 f32       dpt_get_inner_theta(void);
+f32       dpt_get_outer_theta(void);
 
 #ifdef __cplusplus
 }
