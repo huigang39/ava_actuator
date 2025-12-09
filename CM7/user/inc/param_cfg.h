@@ -657,14 +657,16 @@ static const foc_cfg_t
                             .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA361480Z].periph_type],
                         },
                         
-                        .cali_cfg = {
+                        .cali_cfg = 
+                        {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -706,14 +708,16 @@ static const foc_cfg_t
                             .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA451780Z].periph_type],
                         },
 
-                        .cali_cfg = {
+                    .cali_cfg = 
+                    {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -757,12 +761,13 @@ static const foc_cfg_t
 
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -806,12 +811,13 @@ static const foc_cfg_t
 
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -855,12 +861,13 @@ static const foc_cfg_t
                         
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -904,12 +911,13 @@ static const foc_cfg_t
 
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -953,12 +961,13 @@ static const foc_cfg_t
 
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -1002,12 +1011,13 @@ static const foc_cfg_t
                         
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =
@@ -1051,12 +1061,13 @@ static const foc_cfg_t
                         
                         .cali_cfg = {
                             .cnt = g_cali_cnt_cfg,
+                             .id    = 5.0f,
+                            .omega = 10.0f,
                         },
 
                     .force_cfg =
                         {
-                            .ref_theta_id    = 5.0f,
-                            .ref_theta_omega = 10.0f,
+                           .id = 5.0f,
                         },
 
                     .sensor_cfg =

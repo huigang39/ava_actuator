@@ -22,7 +22,22 @@
 
 #define COMM_SHM_SIZE_BASE                 (0xFFFF)
 #define COMM_SHM_SIZE_UID                  (0x0010)
+
 #define COMM_SHM_SIZE_PARAM                (0x1000)
+#define COMM_SHM_SIZE_BASE_PARAM           (0x12C)
+#define COMM_SHM_SIZE_SENSOR_PARAM         (0xF0)
+#define COMM_SHM_SIZE_CONTROL_PARAM        (0x74)
+#define COMM_SHM_SIZE_FUNC_PARAM           (0x58)
+#define COMM_SHM_SIZE_MOTOR_PARAM          (0x5C)
+#define COMM_SHM_SIZE_HARDWARE_PARAM       (0x6C)
+#define COMM_SHM_SIZE_FORCE_PARAM          (0x54)
+#define COMM_SHM_SIZE_FULX_OBS_PARAM       (0x60)
+#define COMM_SHM_SIZE_TORQUE_CALIB_PARAM   (0x5C)
+#define COMM_SHM_SIZE_FRICTION_PARAM       (0x58)
+#define COMM_SHM_SIZE_TEMP_CUR_PARAM       (0x64)
+#define COMM_SHM_SIZE_ERR_DECT_PARAM       (0x7C)
+#define COMM_SHM_SIZE_HFI_PARAM            (0x6C)
+
 #define COMM_SHM_SIZE_RT                   (0x0400)
 
 typedef enum
@@ -55,7 +70,7 @@ typedef enum
 typedef struct {
         comm_shm_mode_e e_mode;
         comm_shm_word_e e_word;
-        u32             res1[8];
+        u32             res0[8];
 } comm_shm_ctl_t;
 
 typedef struct {
@@ -67,7 +82,7 @@ typedef struct {
         f32 cur_pos_kp;
         f32 cur_vel_kp;
         f32 cur_vel_ki;
-        u32 res1[5];
+        u32 res0[5];
 } comm_shm_pid_param_t;
 
 typedef struct {
@@ -75,53 +90,101 @@ typedef struct {
         f32 coil_temp0;
         f32 v_bus;
         f32 coil_temp1;
-        u32 res[7];
+        u32 res0[7];
 } comm_shm_inv_status_t;
 
 typedef struct {
         comm_shm_ctl_t        ctl;
         foc_ref_pvct_t        ref_pvct;
-        u32                   res2[8];
+        u32                   res0[8];
         foc_fdb_pvct_t        fdb_pvct;
-        u32                   res3[7];
+        u32                   res1[7];
         comm_shm_pid_param_t  pid_param;
         u32                   errcode[8];
         comm_shm_inv_status_t inv_status;
 } comm_shm_rt_t;
 
 typedef struct {
-        u8 res1[SIZE_4KB];
+        comm_shm_op_e op;
+
+        u32 base[11];
+        u32 res0[64];
+
+        u32 sensor[23];
+        u32 res1[13];
+
+        u32 control[19];
+        u32 res2[10];
+
+        u32 func[10];
+        u32 res3[12];
+
+        u32 motor[7];
+        u32 res4[16];
+
+        u32 hardware[12];
+        u32 res5[15];
+
+        u32 force[5];
+        u32 res6[16];
+
+        u32 flux[11];
+        u32 res7[13];
+
+        u32 torcali[7];
+        u32 res8[16];
+
+        u32 friction[6];
+        u32 res9[16];
+
+        u32 overload[9];
+        u32 res10[16];
+
+        u32 errdect[18];
+        u32 res11[13];
+
+        u32 hfi[11];
+        u32 res12[16];
+
+        u32 res13[597];
+
+        u32  ver;
+        char type[32];
+        char subver[32];
 } comm_shm_param_t;
 
 typedef struct {
-        u8 res1[SIZE_4KB];
+        u8 res0[SIZE_4KB];
 
         u8 foc_sensor_cali_file[SIZE_2KB];
         u8 outshaft_sensor_cali_file[SIZE_2KB];
         u8 offset_cali_file[SIZE_2KB];
-        u8 res3[SIZE_2KB];
-        u8 res4[SIZE_2KB];
-        u8 res5[SIZE_2KB];
-        u8 res6[SIZE_2KB];
+        u8 file3[SIZE_2KB];
+        u8 file4[SIZE_2KB];
+        u8 file5[SIZE_2KB];
+        u8 file6[SIZE_2KB];
 
         u8 m7_app_log_ctrl[12];
-        u8 res7[1012];
+        u8 res1[1012];
 
         u32            uid[4];
-        u8             res8[240];
+        u8             res2[240];
         comm_shm_ver_t m7_ver;
         comm_shm_ver_t m4_ver;
 
-        u8 res9[512];
+        u8 res3[512];
 
         u8 m7_app_log[SIZE_4KB];
 
-        u8 res10[SIZE_24KB];
+        u8 res4[SIZE_24KB];
 
         u8 rma_m4_status[SIZE_8KB];
 
         comm_shm_param_t param_file;
         comm_shm_rt_t    rt;
+
+        u8 m4_comm_data[SIZE_1KB];
+        u8 res5[SIZE_2KB];
 } comm_shm_t;
 
 void comm_shm_init(comm_shm_t *comm_shm);

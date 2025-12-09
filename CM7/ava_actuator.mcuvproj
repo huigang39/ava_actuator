@@ -56,8 +56,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var1]
-name = g_foc.cfg.periph.theta_cali_cnt_max
-tracked_name = g_foc.cfg.periph.theta_cali_cnt_max
+name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
+tracked_name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
 address = 536871224
 type = 5
 color = 1606282834
@@ -1291,8 +1291,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var96]
-name = g_foc.lo.store_data.offset_cali.theta
-tracked_name = g_foc.lo.store_data.offset_cali.theta
+name = g_foc.lo.store.offset_cali.theta
+tracked_name = g_foc.lo.store.offset_cali.theta
 address = 536871732
 type = 7
 color = 434464097
@@ -1938,7 +1938,7 @@ visibility = false
 format = DEC
 
 [group0-plot2-series23]
-name = g_foc.lo.store_data.offset_cali.theta
+name = g_foc.lo.store.offset_cali.theta
 visibility = true
 format = DEC
 
@@ -2463,7 +2463,7 @@ type = 0
 visibility = false
 
 [group0-plot16-series0]
-name = g_foc.cfg.periph.theta_cali_cnt_max
+name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
 visibility = false
 format = DEC
 
