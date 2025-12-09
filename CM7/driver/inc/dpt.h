@@ -1,10 +1,6 @@
 #ifndef DPT_H
 #define DPT_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "usart.h"
 
 #include "module.h"
@@ -35,9 +31,5 @@ void      dpt_init(void);
 dpt_raw_t dpt_get_raw(void);
 f32       dpt_get_inner_theta(void);
 f32       dpt_get_outer_theta(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

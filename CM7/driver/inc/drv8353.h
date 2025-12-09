@@ -1,10 +1,6 @@
 #ifndef DRV8353_H
 #define DRV8353_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #define CSA_GAIN                      (6)
 
 #define Register_CSA_Control          (6)
@@ -29,9 +25,5 @@ typedef enum {
 } drv8353_gain_e;
 
 int drv8353_init(drv8353_gain_e gain);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // !DRV8353_H

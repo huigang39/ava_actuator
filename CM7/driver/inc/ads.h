@@ -1,10 +1,6 @@
 #ifndef ADS_H
 #define ADS_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "spi.h"
 
 #include "module.h"
@@ -26,9 +22,5 @@ typedef struct {
 void      ads_init(void);
 ads_raw_t ads_get_raw(void);
 f32       ads_get_theta(void);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif // !ADS_H
