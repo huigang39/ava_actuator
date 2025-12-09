@@ -56,8 +56,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var1]
-name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
-tracked_name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
+name = g_foc.cfg.periph.theta_cali_cnt_max
+tracked_name = g_foc.cfg.periph.theta_cali_cnt_max
 address = 536871224
 type = 5
 color = 1606282834
@@ -2463,7 +2463,7 @@ type = 0
 visibility = false
 
 [group0-plot16-series0]
-name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
+name = g_foc.cfg.periph.theta_cali_cnt_max
 visibility = false
 format = DEC
 

@@ -65,7 +65,7 @@ typedef enum {
         ACTUATOR_FSA601780Z,
         ACTUATOR_FSA6030E,
         ACTUATOR_FSA6043E,
-        ACTUATOR_FSA8029E,
+        ACTUATOR_FSA8028E,
         ACTUATOR_FSA10020E,
         ACTUATOR_FSA10043E,
 } actuator_type_e;
@@ -123,7 +123,7 @@ static const actuator_cfg_t g_actuator_cfg[] = {
             .motor_type  = MOTOR_FSA6015V25,
             .periph_type = PERIPH_F2H54V100,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .motor_type  = MOTOR_FSA8015V25,
             .periph_type = PERIPH_F2H80V100,
@@ -327,7 +327,7 @@ static const pll_cfg_t g_omega_pll_cfg[] = {
             .damp   = 0.707f,
             .lpf_wc = 200.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
@@ -378,7 +378,7 @@ static const pid_cfg_t g_cur_cfg[] = {
             .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].ld),
             .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA6015V25].rs),
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .kp = CUR_KP(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA8015V25].ld),
             .ki = CUR_KI(HZ2RADS(2000.0f), g_motor_cfg[MOTOR_FSA8015V25].rs),
@@ -475,7 +475,7 @@ static const pid_cfg_t g_vel_cfg[] =
                 .ki_out_max = 10.0f,
                 .out_max    = 10.0f,
             },
-        [ACTUATOR_FSA8029E] =
+        [ACTUATOR_FSA8028E] =
             {
                 .kp =
                     VEL_KP(HZ2RADS(100.0f),
@@ -548,7 +548,7 @@ static const pid_cfg_t g_pos_cfg[] = {
             .kp      = 1.0f,
             .out_max = 1000.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .kp      = 1.0f,
             .out_max = 1000.0f,
@@ -602,7 +602,7 @@ static const pid_cfg_t g_pd_cfg[] = {
             .kd      = 1.0f,
             .out_max = 10.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .kp      = 10.0f,
             .kd      = 1.0f,
@@ -628,7 +628,7 @@ static const foc_store_addr_t g_store_addr = {
     .outshaft_sensor_cali = COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI,
 };
 
-static const foc_freq_cnt_t g_freq_cnt_cfg = {
+static const foc_div_cnt_t g_freq_cnt_cfg = {
     .cur = 1,
     .vel = 2,
     .pos = 4,
@@ -641,304 +641,450 @@ static const foc_cali_cnt_t g_cali_cnt_cfg = {
     .theta_cali_hold  = MS2CNT(500, FOC_FREQ_HZ),
 };
 
-static const foc_cfg_t g_foc_cfg[] = {
-    [ACTUATOR_FSA361480Z] =
+static const foc_cfg_t
+    g_foc_cfg[] =
         {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+            [ACTUATOR_FSA361480Z] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .outshaft_ratio = 80.0f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA361480Z].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA361480Z].periph_type],
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 80.0f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA361480Z].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA361480Z].periph_type],
+                        },
+                        
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA361480Z],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA361480Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA361480Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA361480Z],
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .ref_theta_cali_id    = 2.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA361480Z],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA361480Z],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA361480Z],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA361480Z],
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = dpt_get_outer_theta,
-            .f_get_outshaft_theta = dpt_get_inner_theta,
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = dpt_get_outer_theta,
+                    .f_get_outshaft_theta = dpt_get_inner_theta,
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA451780Z] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA451780Z] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .outshaft_ratio = 80.0f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA451780Z].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA451780Z].periph_type],
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 80.0f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA451780Z].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA451780Z].periph_type],
+                        },
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA451780Z],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA451780Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA451780Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA451780Z],
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA451780Z],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA451780Z],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA451780Z],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA451780Z],
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = dpt_get_outer_theta,
-            .f_get_outshaft_theta = dpt_get_inner_theta,
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA4530E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = dpt_get_outer_theta,
+                    .f_get_outshaft_theta = dpt_get_inner_theta,
 
-            .outshaft_ratio = 30.2514f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA4530E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA4530E].periph_type],
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA4530E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA4530E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA4530E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA4530E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA4530E],
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 30.2514f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA4530E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA4530E].periph_type],
+                        },
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA4530E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA4530E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA4530E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA4530E],
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA601780Z] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .outshaft_ratio = 81.0f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA601780Z].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA601780Z].periph_type],
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA601780Z],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA601780Z],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA601780Z],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA601780Z],
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA601780Z] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 81.0f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA601780Z].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA601780Z].periph_type],
+                        },
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA6030E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA601780Z],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA601780Z],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA601780Z],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA601780Z],
+                        },
 
-            .outshaft_ratio = 29.9854f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA6030E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA6030E].periph_type],
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA6030E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA6030E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA6030E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA6030E],
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA6030E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 29.9854f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA6030E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA6030E].periph_type],
+                        },
+                        
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA6043E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA6030E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA6030E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA6030E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA6030E],
+                        },
 
-            .outshaft_ratio = 42.2937f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA6043E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA6043E].periph_type],
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA6043E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA6043E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA6043E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA6043E],
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA6043E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 42.2937f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA6043E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA6043E].periph_type],
+                        },
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA8029E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .outshaft_ratio = 28.2352f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA8029E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA8029E].periph_type],
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA6043E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA6043E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA6043E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA6043E],
+                        },
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA8029E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA8029E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA8029E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA8029E],
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA8028E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 28.2352f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA8028E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA8028E].periph_type],
+                        },
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA10020E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .outshaft_ratio = 20.5511f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA10020E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA10020E].periph_type],
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA10020E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA10020E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA10020E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA10020E],
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA8028E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA8028E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA8028E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA8028E],
+                        },
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA10020E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 20.5511f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA10020E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA10020E].periph_type],
+                        },
+                        
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
-    [ACTUATOR_FSA10043E] =
-        {
-            .exec_freq      = FOC_FREQ_HZ,
-            .store_addr_cfg = g_store_addr,
-            .freq_cnt_cfg   = g_freq_cnt_cfg,
-            .cali_cnt_cfg   = g_cali_cnt_cfg,
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
 
-            .outshaft_ratio = 42.4286f,
-            .motor_cfg      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA10043E].motor_type],
-            .periph_cfg     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA10043E].periph_type],
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
 
-            .cur_cfg = g_cur_cfg[ACTUATOR_FSA10043E],
-            .vel_cfg = g_vel_cfg[ACTUATOR_FSA10043E],
-            .pos_cfg = g_pos_cfg[ACTUATOR_FSA10043E],
-            .pd_cfg  = g_pd_cfg[ACTUATOR_FSA10043E],
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA10020E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA10020E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA10020E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA10020E],
+                        },
 
-            .sensor_theta_comp_gain = 1.0f,
-            .theta_comp_gain        = 1.5f,
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
 
-            .ref_theta_cali_id    = 5.0f,
-            .ref_theta_cali_omega = 10.0f,
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
 
-            .f_store = comm_shm_store,
-            .f_load  = comm_shm_load,
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
+            [ACTUATOR_FSA10043E] =
+                {
+                    .exec_freq      = FOC_FREQ_HZ,
+                    .store_addr_cfg = g_store_addr,
 
-            .f_get_adc            = periph_get_adc,
-            .f_get_theta          = ads_get_theta,
-            .f_get_outshaft_theta = f32_null_func,
+                    .base_cfg =
+                        {
+                            .dir            = 1,
+                            .outshaft_ratio = 42.4286f,
+                            .motor      = g_motor_cfg[g_actuator_cfg[ACTUATOR_FSA10043E].motor_type],
+                            .periph     = g_periph_cfg[g_actuator_cfg[ACTUATOR_FSA10043E].periph_type],
+                        },
+                        
+                        .cali_cfg = {
+                            .cnt = g_cali_cnt_cfg,
+                        },
 
-            .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
-            .f_set_pwm_status = periph_set_pwm_status_hrtim,
-            .f_set_drv_status = periph_set_drv_status_8353,
-        },
+                    .force_cfg =
+                        {
+                            .ref_theta_id    = 5.0f,
+                            .ref_theta_omega = 10.0f,
+                        },
+
+                    .sensor_cfg =
+                        {
+                            .sensor_theta_comp_gain = 1.0f,
+                            .theta_comp_gain        = 1.5f,
+                        },
+
+                    .ctl_cfg =
+                        {
+                            .cnt = g_freq_cnt_cfg,
+                            .cur      = g_cur_cfg[ACTUATOR_FSA10043E],
+                            .vel      = g_vel_cfg[ACTUATOR_FSA10043E],
+                            .pos      = g_pos_cfg[ACTUATOR_FSA10043E],
+                            .pd       = g_pd_cfg[ACTUATOR_FSA10043E],
+                        },
+
+                    .f_store = comm_shm_store,
+                    .f_load  = comm_shm_load,
+
+                    .f_get_adc            = periph_get_adc,
+                    .f_get_theta          = ads_get_theta,
+                    .f_get_outshaft_theta = f32_null_func,
+
+                    .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
+                    .f_set_pwm_status = periph_set_pwm_status_hrtim,
+                    .f_set_drv_status = periph_set_drv_status_8353,
+                },
 };
 
 /* -------------------------------------------------------------------------- */
@@ -976,7 +1122,7 @@ static const smo_cfg_t g_smo_cfg[] = {
             .ks  = 48.0f,
             .es0 = 25.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .ks  = 48.0f,
             .es0 = 25.0f,
@@ -1030,7 +1176,7 @@ static const pll_cfg_t g_smo_pll_cfg[] = {
             .damp   = 0.707f,
             .lpf_wc = 100.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
@@ -1099,7 +1245,7 @@ static const hfi_cfg_t g_hfi_cfg[] = {
             .lpf_wc_dq     = {.d = 3000.0f, .q = 3000.0f},
             .polar_cnt_max = FOC_FREQ_HZ / 3.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .fi            = 3000.0f,
             .hfi_vd        = 2.0f,
@@ -1162,7 +1308,7 @@ static const pll_cfg_t g_hfi_pll_cfg[] = {
             .damp   = 0.707f,
             .lpf_wc = 100.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .wc     = 1000.0f,
             .damp   = 0.707f,
@@ -1225,7 +1371,7 @@ static const iir_cfg_t g_hfi_bpf_cfg[] = {
             .order = IIR_2,
             .type  = IIR_BANDPASS,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .fh    = 4000.0f,
             .fl    = 2000.0f,
@@ -1279,7 +1425,7 @@ static const lbg_cfg_t g_lbg_cfg[] = {
             .wc   = 100.0f,
             .damp = 2.0f,
         },
-    [ACTUATOR_FSA8029E] =
+    [ACTUATOR_FSA8028E] =
         {
             .wc   = 100.0f,
             .damp = 2.0f,
