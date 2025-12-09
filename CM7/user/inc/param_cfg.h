@@ -477,10 +477,11 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA8029E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
-                             g_motor_cfg[MOTOR_FSA8015V25].psi,
-                             g_motor_cfg[MOTOR_FSA8015V25].npp,
-                             g_motor_cfg[MOTOR_FSA8015V25].j),
+                .kp =
+                    VEL_KP(HZ2RADS(100.0f),
+                           g_motor_cfg[MOTOR_FSA8015V25].psi,
+                           g_motor_cfg[MOTOR_FSA8015V25].npp,
+                           g_motor_cfg[MOTOR_FSA8015V25].j),
                 .ki         = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA8015V25].psi,
                              g_motor_cfg[MOTOR_FSA8015V25].npp,
