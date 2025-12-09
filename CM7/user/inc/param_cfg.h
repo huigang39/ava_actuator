@@ -13,7 +13,7 @@
 #define FOC_FREQ_HZ   (K(20.0F))
 #define USER_FREQ_HZ  (K(1.0F))
 
-#define ACTUATOR_TYPE ACTUATOR_FSA6043E
+#define ACTUATOR_TYPE ACTUATOR_FSA6030E
 
 static const sched_cfg_t g_sched_cfg = {
     .e_type   = SCHED_TYPE_FCFS,
@@ -399,7 +399,7 @@ static const pid_cfg_t g_vel_cfg[] =
     {
         [ACTUATOR_FSA361480Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA3610V0].psi,
                              g_motor_cfg[MOTOR_FSA3610V0].npp,
                              g_motor_cfg[MOTOR_FSA3610V0].j),
@@ -412,7 +412,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA451780Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
@@ -425,7 +425,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA4530E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
@@ -438,7 +438,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA601780Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
@@ -451,7 +451,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA6030E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
@@ -464,7 +464,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA6043E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
@@ -477,7 +477,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA8029E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA8015V25].psi,
                              g_motor_cfg[MOTOR_FSA8015V25].npp,
                              g_motor_cfg[MOTOR_FSA8015V25].j),
@@ -490,7 +490,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA10020E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
@@ -503,7 +503,7 @@ static const pid_cfg_t g_vel_cfg[] =
             },
         [ACTUATOR_FSA10043E] =
             {
-                .kp         = VEL_KP(HZ2RADS(10.0f),
+                .kp         = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
