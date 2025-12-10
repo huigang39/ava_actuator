@@ -177,6 +177,71 @@ typedef struct {
 } comm_shm_hardware_t;
 
 typedef struct {
+        f32 acc;
+        f32 vel;
+        f32 theta;
+        f32 cur;
+        f32 vol;
+} comm_shm_force_t;
+
+typedef struct {
+        f32 pll_wc;
+        f32 critica_vel;
+        f32 pll_lpf_wc;
+        f32 comp_vel;
+        f32 comp_id;
+        f32 comp_gain;
+        f32 dead_vel;
+        f32 fusion_min_vel;
+        f32 fusion_err_max;
+        f32 ks;
+        f32 es0;
+} comm_shm_flux_t;
+
+typedef struct {
+        f32 tor2cur[3];
+        f32 cur2tor[3];
+        f32 tor_max;
+} comm_shm_torcali_t;
+
+typedef struct {
+        f32 fc;
+        f32 fs;
+        f32 b;
+        f32 dead_vel;
+        u32 cali_flag;
+        f32 percent;
+} comm_shm_friction_t;
+
+typedef struct {
+        f32 cur2temp[6];
+        f32 temp_max;
+        f32 normal_cur;
+        f32 iq_max;
+} comm_shm_overload_t;
+
+typedef struct {
+        f32 overcur, overcur_time;
+        f32 chip_overtemp, mos_overtemp, coil_overtemp, overtemp_time;
+        f32 mos_tempwarn, coil_tempwarn;
+        f32 pos_max, pos_min;
+        f32 mos_overtemp_rec_time, coil_overtemp_rec_time;
+        f32 loss_phase_check_min_vel;
+        f32 overvbus, undervbus;
+        f32 double_encoder_err_max;
+        f32 runaway_time, runaway_theta_err_max;
+} comm_shm_errdect_t;
+
+typedef struct {
+        f32 exec_time;
+        f32 fh;
+        f32 vh, ih;
+        f32 bpf_fc, bpf_wc;
+        f32 pll_wc, pll_damp, pll_lpf_fc;
+        f32 iq_lpf_fc, id_lpf_fc;
+} comm_shm_hfi_t;
+
+typedef struct {
         comm_shm_op_e op;
 
         comm_shm_base_t base;
@@ -197,26 +262,26 @@ typedef struct {
         comm_shm_hardware_t hardware;
         u32                 res5[15];
 
-        u32 force[5];
-        u32 res6[16];
+        comm_shm_force_t force;
+        u32              res6[16];
 
-        u32 flux[11];
-        u32 res7[13];
+        comm_shm_flux_t flux;
+        u32             res7[13];
 
-        u32 torcali[7];
-        u32 res8[16];
+        comm_shm_torcali_t torcali;
+        u32                res8[16];
 
-        u32 friction[6];
-        u32 res9[16];
+        comm_shm_friction_t friction;
+        u32                 res9[16];
 
-        u32 overload[9];
-        u32 res10[16];
+        comm_shm_overload_t overload;
+        u32                 res10[16];
 
-        u32 errdect[18];
-        u32 res11[13];
+        comm_shm_errdect_t errdect;
+        u32                res11[13];
 
-        u32 hfi[11];
-        u32 res12[16];
+        comm_shm_hfi_t hfi;
+        u32            res12[16];
 
         u32 res13[597];
 
