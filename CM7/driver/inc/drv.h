@@ -22,8 +22,8 @@ typedef enum {
         DRV8353_GAIN_X10 = 0x0001,
         DRV8353_GAIN_X20 = 0x0002,
         DRV8353_GAIN_X40 = 0x0003,
-} drv8353_gain_e;
+} drv_gain_e;
 
-int drv8353_init(drv8353_gain_e gain);
+int drv_init(drv_gain_e gain);
 
 #endif // !DRV8353_H

@@ -5,7 +5,7 @@
 
 #include "module.h"
 
-extern UART_HandleTypeDef *g_sensor_uart;
+extern UART_HandleTypeDef *g_dpt_uart;
 
 #define DPT_BITS                  (24)
 

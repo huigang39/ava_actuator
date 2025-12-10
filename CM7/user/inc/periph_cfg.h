@@ -15,17 +15,18 @@ extern ADC_HandleTypeDef   *g_adc2;
 extern ADC_HandleTypeDef   *g_adc3;
 extern HRTIM_HandleTypeDef *g_pwm;
 extern LPTIM_HandleTypeDef *g_timer;
-extern SPI_HandleTypeDef   *g_sensor_spi;
-extern UART_HandleTypeDef  *g_sensor_uart;
+extern SPI_HandleTypeDef   *g_ads_spi;
+extern SPI_HandleTypeDef   *g_tmr_spi;
+extern UART_HandleTypeDef  *g_dpt_uart;
 extern UART_HandleTypeDef  *g_log_uart;
 
 typedef struct {
-        GPIO_TypeDef *cs_port;
-        u16           cs_pin;
-} spi_t;
+        GPIO_TypeDef *port;
+        u16           pin;
+} gpio_t;
 
-#define SPI_CS_HIGH(spi) HAL_GPIO_WritePin((spi)->cs_port, (spi)->cs_pin, GPIO_PIN_SET)
-#define SPI_CS_LOW(spi)  HAL_GPIO_WritePin((spi)->cs_port, (spi)->cs_pin, GPIO_PIN_RESET)
+#define GPIO_HIGH(gpio) HAL_GPIO_WritePin((gpio)->port, (gpio)->pin, GPIO_PIN_SET)
+#define GPIO_LOW(gpio)  HAL_GPIO_WritePin((gpio)->port, (gpio)->pin, GPIO_PIN_RESET)
 
 void periph_init(void);
 

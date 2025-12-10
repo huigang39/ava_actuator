@@ -16,8 +16,6 @@ void user_init(void);
 void user_loop_task(void *arg);
 void log_loop_task(void *arg);
 void fft_loop_task(void *arg);
-void sine_loop_task(void *arg);
-void square_loop_task(void *arg);
 
 typedef enum {
         TASK_USER,

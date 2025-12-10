@@ -47,6 +47,7 @@ typedef enum {
 typedef enum {
         CIA402_SPEC_CMD_NONE,
         CIA402_SPEC_CMD_CALI,
+        CIA402_SPEC_CMD_SET_ZERO,
         CIA402_SPEC_CMD_SENSORLESS,
 } spec_cmd_e;
 

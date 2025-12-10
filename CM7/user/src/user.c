@@ -14,9 +14,7 @@ extern user_t     g_user;
 extern check_t    g_check;
 extern comm_shm_t g_comm_shm;
 
-sine_t   g_sine;
-square_t g_square;
-fft_t    g_fft;
+fft_t g_fft;
 
 void
 user_init(void)
@@ -68,16 +66,4 @@ void
 log_loop_task(void *arg)
 {
         log_flush(&g_log);
-}
-
-void
-sine_loop_task(void *arg)
-{
-        sine_exec(&g_sine);
-}
-
-void
-square_loop_task(void *arg)
-{
-        square_exec(&g_square);
 }

@@ -3,13 +3,13 @@
 
 #include "module.h"
 
-#include "drv8353.h"
+#include "drv.h"
 
 u16 tx_buf = ((6 << 11) | 0x8000);
 u16 rx_buf;
 
 int
-drv8353_set_gain(drv8353_gain_e gain)
+drv_set_gain(drv_gain_e gain)
 {
         __disable_irq();
         HAL_GPIO_WritePin(GATE_DRIVER_CS_GPIO_Port, GATE_DRIVER_CS_Pin, GPIO_PIN_RESET);
@@ -32,7 +32,7 @@ drv8353_set_gain(drv8353_gain_e gain)
 }
 
 int
-drv8353_init(drv8353_gain_e gain)
+drv_init(drv_gain_e gain)
 {
         HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
         HAL_Delay(2);
@@ -41,7 +41,7 @@ drv8353_init(drv8353_gain_e gain)
 
         HAL_GPIO_WritePin(GATE_DRIVER_CS_GPIO_Port, GATE_DRIVER_CS_Pin, GPIO_PIN_SET);
 
-        drv8353_set_gain(gain);
+        drv_set_gain(gain);
 
         HAL_Delay(1);
 

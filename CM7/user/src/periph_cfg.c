@@ -1,6 +1,7 @@
 #include "ads.h"
 #include "dpt.h"
-#include "drv8353.h"
+#include "drv.h"
+#include "tmr.h"
 
 #include "buffer_cfg.h"
 
@@ -8,14 +9,17 @@
 
 extern log_t g_log;
 
-ADC_HandleTypeDef   *g_adc1        = &hadc1;
-ADC_HandleTypeDef   *g_adc2        = &hadc2;
-ADC_HandleTypeDef   *g_adc3        = &hadc3;
-HRTIM_HandleTypeDef *g_pwm         = &hhrtim;
-LPTIM_HandleTypeDef *g_timer       = &hlptim1;
-SPI_HandleTypeDef   *g_sensor_spi  = &hspi1;
-UART_HandleTypeDef  *g_sensor_uart = &huart2;
-UART_HandleTypeDef  *g_log_uart    = NULL;
+ADC_HandleTypeDef   *g_adc1     = &hadc1;
+ADC_HandleTypeDef   *g_adc2     = &hadc2;
+ADC_HandleTypeDef   *g_adc3     = &hadc3;
+HRTIM_HandleTypeDef *g_pwm      = &hhrtim;
+LPTIM_HandleTypeDef *g_timer    = &hlptim1;
+SPI_HandleTypeDef   *g_ads_spi  = &hspi1;
+SPI_HandleTypeDef   *g_tmr_spi  = &hspi4;
+UART_HandleTypeDef  *g_dpt_uart = &huart2;
+UART_HandleTypeDef  *g_log_uart = NULL;
+
+gpio_t g_drv_en;
 
 static u32
 periph_get_pwm_ch_mask_hrtim(pwm_ch_e ch)
@@ -54,9 +58,13 @@ periph_get_pwm_ch_mask_hrtim(pwm_ch_e ch)
 void
 periph_init(void)
 {
-        // drv8353_init(DRV8353_GAIN_X20);
+        // drv_init(DRV8353_GAIN_X20);
+        g_drv_en.port = GATE_EN_GPIO_Port;
+        g_drv_en.pin  = GATE_EN_Pin;
+
         dpt_init();
         ads_init();
+        tmr_init();
 
         HAL_HRTIM_WaveformCounterStart(
             g_pwm, HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A | HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
@@ -124,15 +132,13 @@ periph_set_pwm_status_hrtim(pwm_ch_e pwm_ch, u8 enable)
 void
 periph_set_drv_status(u8 enable)
 {
-        enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET)
-               : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET);
+        enable ? GPIO_LOW(&g_drv_en) : GPIO_HIGH(&g_drv_en);
 }
 
 void
 periph_set_drv_status_8353(u8 enable)
 {
-        enable ? HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_SET)
-               : HAL_GPIO_WritePin(GATE_EN_GPIO_Port, GATE_EN_Pin, GPIO_PIN_RESET);
+        enable ? GPIO_HIGH(&g_drv_en) : GPIO_LOW(&g_drv_en);
 }
 
 u64 g_timer_overflow_cnt;

@@ -5,7 +5,7 @@
 
 #include "module.h"
 
-extern SPI_HandleTypeDef *g_sensor_spi;
+extern SPI_HandleTypeDef *g_ads_spi;
 
 extern log_t g_log;
 

@@ -6,6 +6,8 @@
 #include "ads.h"
 
 #define DPT_RX_BUF_SIZE    (8)
+#define TMR_RX_BUF_SIZE    (2)
+
 #define LOG_FLUSH_BUF_SIZE (1024)
 #define LOG_BUF_SIZE       (4 * 1024)
 #define LOG_PRODUCERS_NUM  (2)
@@ -13,7 +15,8 @@
 
 extern u8        g_dpt_tx_buf;
 extern u8        g_dpt_rx_buf[DPT_RX_BUF_SIZE];
-extern ads_raw_t g_ads_tx_raw, g_ads_rx_raw;
+extern ads_raw_t g_ads_tx_buf, g_ads_rx_buf;
+extern u16       g_tmr_tx_buf, g_tmr_rx_buf[TMR_RX_BUF_SIZE];
 
 extern u8       g_log_flush_buf[LOG_FLUSH_BUF_SIZE];
 extern u8       g_log_buf[LOG_BUF_SIZE];

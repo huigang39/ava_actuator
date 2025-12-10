@@ -8,6 +8,7 @@
 #include "dpt.h"
 #include "ntc.h"
 #include "periph_cfg.h"
+#include "tmr.h"
 
 // #define FOC_FREQ_HZ  (K(50.0F))
 #define FOC_FREQ_HZ   (K(20.0F))
@@ -797,7 +798,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -850,7 +851,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -903,7 +904,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -956,7 +957,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -1009,7 +1010,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -1062,7 +1063,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
@@ -1115,7 +1116,7 @@ static const foc_cfg_t
 
                                 .f_get_adc            = periph_get_adc,
                                 .f_get_theta          = ads_get_theta,
-                                .f_get_outshaft_theta = f32_null_func,
+                                .f_get_outshaft_theta = tmr_get_theta,
 
                                 .f_set_pwm_duty   = periph_set_pwm_duty_hrtim,
                                 .f_set_pwm_status = periph_set_pwm_status_hrtim,
