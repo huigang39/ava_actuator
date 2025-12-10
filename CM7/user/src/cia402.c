@@ -72,6 +72,11 @@ cia402_state_update(cia402_t *cia402)
                         break;
         }
 
+        if (lo->e_spec_cmd == CIA402_SPEC_CMD_SET_ZERO) {
+                foc_set_zero(foc);
+                lo->e_spec_cmd = CIA402_SPEC_CMD_NONE;
+        }
+
         const u16  ctl_word  = lo->ctl_word;
         const bool has_fault = check->lo.err.all != 0;
 

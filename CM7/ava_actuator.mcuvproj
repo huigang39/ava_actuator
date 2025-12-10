@@ -2327,10 +2327,15 @@ visibility = true
 
 [group0-plot10-series0]
 name = g_foc.in.rotor.est_outshaft_theta
-visibility = true
+visibility = false
 format = DEC
 
 [group0-plot10-series1]
+name = g_foc.in.rotor.est_outshaft_total_theta
+visibility = true
+format = DEC
+
+[group0-plot10-series2]
 name = g_foc.in.rotor.outshaft_theta
 visibility = true
 format = DEC
