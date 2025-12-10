@@ -17,11 +17,11 @@ ads_init(void)
         g_ads_tx_buf.a = ADS7853_CFG_WORD;
         g_ads_tx_buf.b = g_ads_tx_buf.c = ADS7853_DUMMY_DATA;
         GPIO_LOW(&g_ads_spi_cs);
-        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf), 1000);
+        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf) / sizeof(u16), 1000);
         GPIO_HIGH(&g_ads_spi_cs);
 
         GPIO_LOW(&g_ads_spi_cs);
-        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf), 1000);
+        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf) / sizeof(u16), 1000);
         GPIO_HIGH(&g_ads_spi_cs);
 
         switch (g_ads_tx_buf.a & 0xF000) {
@@ -41,12 +41,12 @@ ads_init(void)
                         break;
         }
         GPIO_LOW(&g_ads_spi_cs);
-        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf), 1000);
+        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf) / sizeof(u16), 1000);
         GPIO_HIGH(&g_ads_spi_cs);
 
         g_ads_tx_buf.a = ADS7853_DUMMY_DATA;
         GPIO_LOW(&g_ads_spi_cs);
-        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf), 1000);
+        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf) / sizeof(u16), 1000);
         GPIO_HIGH(&g_ads_spi_cs);
 
         if ((g_ads_rx_buf.a & 0x0FFF) == (ADS7853_CFG_WORD & 0x0FFF))
@@ -75,7 +75,7 @@ ads_raw_t
 ads_get_raw(void)
 {
         GPIO_LOW(&g_ads_spi_cs);
-        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf), 1);
+        HAL_SPI_TransmitReceive(g_ads_spi, (u8 *)&g_ads_tx_buf, (u8 *)&g_ads_rx_buf, sizeof(g_ads_rx_buf) / sizeof(u16), 1);
         GPIO_HIGH(&g_ads_spi_cs);
         return g_ads_rx_buf;
 }

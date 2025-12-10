@@ -19,7 +19,7 @@ u32
 tmr_get_raw(void)
 {
         GPIO_LOW(&g_tmr_spi_cs);
-        HAL_SPI_TransmitReceive(g_tmr_spi, (u8 *)&g_tmr_tx_buf, (u8 *)&g_tmr_rx_buf, sizeof(g_tmr_rx_buf), 1);
+        HAL_SPI_TransmitReceive(g_tmr_spi, (u8 *)&g_tmr_tx_buf, (u8 *)&g_tmr_rx_buf, sizeof(g_tmr_rx_buf) / sizeof(u16), 1);
         GPIO_HIGH(&g_tmr_spi_cs);
 
         g_tmr_raw = (((u32)g_tmr_rx_buf[0] << 16 | (u32)g_tmr_rx_buf[1]) >> 5) & 0x07FFFFF;
