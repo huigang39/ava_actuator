@@ -25,32 +25,32 @@ static const ntc_t g_ntc_cfg[] = {
     [NTC_COIL_0] =
         {
             .type         = NTC_TYPE_PT5_25E2,
-            .r_gnd        = K(10.0f),
+            .v_gnd        = K(10.0f),
             .adc_full_cnt = BIT(14),
-            .temp_min     = -50.0f,
-            .temp_max     = 300.0f,
-            .temp_step    = 1.0f,
-            .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
+            .min          = -50.0f,
+            .max          = 300.0f,
+            .step         = 1.0f,
+            .table        = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_COIL_1] =
         {
             .type         = NTC_TYPE_PT5_25E2,
-            .r_gnd        = K(10.0f),
+            .v_gnd        = K(10.0f),
             .adc_full_cnt = BIT(14),
-            .temp_min     = -50.0f,
-            .temp_max     = 300.0f,
-            .temp_step    = 1.0f,
-            .ntc_table    = &g_ntc_table[NTC_TYPE_PT5_25E2],
+            .min          = -50.0f,
+            .max          = 300.0f,
+            .step         = 1.0f,
+            .table        = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
     [NTC_MOS] =
         {
             .type         = NTC_TYPE_NCP15XV103J03RC,
-            .r_gnd        = K(3.3f),
+            .v_gnd        = K(3.3f),
             .adc_full_cnt = BIT(14),
-            .temp_min     = -50.0f,
-            .temp_max     = 300.0f,
-            .temp_step    = 1.0f,
-            .ntc_table    = &g_ntc_table[NTC_TYPE_NCP15XV103J03RC],
+            .min          = -40.0f,
+            .max          = 125.0f,
+            .step         = 5.0f,
+            .table        = &g_ntc_table[NTC_TYPE_NCP15XV103J03RC],
         },
 };
 
@@ -623,9 +623,9 @@ static const pid_cfg_t g_pd_cfg[] = {
 };
 
 static const foc_store_addr_t g_store_addr_cfg = {
-    .offset_cali          = COMM_SHM_ADDR_OFFSET_CALI,
-    .foc_sensor_cali      = COMM_SHM_ADDR_FOC_SENSOR_CALI,
-    .outshaft_sensor_cali = COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI,
+    .offset                    = COMM_SHM_ADDR_OFFSET_CALI,
+    .foc_sensor_nonlinear      = COMM_SHM_ADDR_FOC_SENSOR_CALI,
+    .outshaft_sensor_nonlinear = COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI,
 };
 
 static const foc_freq_div_t g_freq_div_cfg = {

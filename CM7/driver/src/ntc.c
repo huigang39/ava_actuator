@@ -4,20 +4,20 @@ f32
 ntc_get_temp(ntc_t *ntc, i32 adc_raw)
 {
         if (adc_raw >= (i32)ntc->adc_full_cnt - 1)
-                return ntc->temp_min;
+                return ntc->min;
         else if (adc_raw <= 1)
-                return ntc->temp_max;
+                return ntc->max;
 
-        f32 r_ntc = ((f32)ntc->adc_full_cnt - (f32)adc_raw) * ntc->r_gnd / adc_raw;
+        f32 r_ntc = ((f32)ntc->adc_full_cnt - (f32)adc_raw) * ntc->v_gnd / adc_raw;
 
-        const f32 *table_data = ntc->ntc_table->data;
-        u32        table_len  = ntc->ntc_table->len;
+        const f32 *table_data = ntc->table->data;
+        u32        table_len  = ntc->table->len;
 
         if (r_ntc >= table_data[0])
-                return ntc->temp_min;
+                return ntc->min;
 
         if (r_ntc <= table_data[table_len - 1])
-                return ntc->temp_max;
+                return ntc->max;
 
         u32 idx = 0;
         for (u32 i = 0; i < table_len - 1; i++) {
@@ -29,8 +29,8 @@ ntc_get_temp(ntc_t *ntc, i32 adc_raw)
 
         f32 r1 = table_data[idx];
         f32 r2 = table_data[idx + 1];
-        f32 t1 = ntc->temp_min + (f32)idx * ntc->temp_step;
-        f32 t2 = t1 + ntc->temp_step;
+        f32 t1 = ntc->min + (f32)idx * ntc->step;
+        f32 t2 = t1 + ntc->step;
 
         f32 temp = t1 + (t2 - t1) * (r_ntc - r1) / (r2 - r1);
         return temp;
@@ -40,14 +40,14 @@ f32
 ntc_get_temp_simple(ntc_t *ntc, i32 adc_raw)
 {
         if (adc_raw >= (i32)ntc->adc_full_cnt - 1)
-                return ntc->temp_min;
+                return ntc->min;
         else if (adc_raw <= 1)
-                return ntc->temp_max;
+                return ntc->max;
 
-        f32 r_ntc = ((f32)ntc->adc_full_cnt - (f32)adc_raw) * ntc->r_gnd / adc_raw;
+        f32 r_ntc = ((f32)ntc->adc_full_cnt - (f32)adc_raw) * ntc->v_gnd / adc_raw;
 
-        const f32 *table_data = ntc->ntc_table->data;
-        u32        table_len  = ntc->ntc_table->len;
+        const f32 *table_data = ntc->table->data;
+        u32        table_len  = ntc->table->len;
         u32        idx        = 0;
         f32        min_diff   = ABS(r_ntc - table_data[0]);
 
@@ -59,5 +59,5 @@ ntc_get_temp_simple(ntc_t *ntc, i32 adc_raw)
                 }
         }
 
-        return ntc->temp_min + (f32)idx * ntc->temp_step;
+        return ntc->min + (f32)idx * ntc->step;
 }

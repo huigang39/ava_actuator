@@ -1291,8 +1291,8 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var96]
-name = g_foc.lo.store.offset_cali.theta
-tracked_name = g_foc.lo.store.offset_cali.theta
+name = g_foc.lo.store.offset.theta
+tracked_name = g_foc.lo.store.offset.theta
 address = 536871732
 type = 7
 color = 434464097
@@ -1938,7 +1938,7 @@ visibility = false
 format = DEC
 
 [group0-plot2-series23]
-name = g_foc.lo.store.offset_cali.theta
+name = g_foc.lo.store.offset.theta
 visibility = true
 format = DEC
 

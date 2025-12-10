@@ -399,10 +399,10 @@ static const f32 g_ntc_pt5_25e2[] = {
 };
 
 static const f32 g_ntc_ncp15xv103j03rc[] = {
-    1.0f,
-    2.0f,
-    3.0f,
-    4.0f,
+    K(328.996), K(237.387), K(173.185), K(127.773), K(95.327), K(71.746), K(54.564), K(41.813), K(32.330),
+    K(25.194),  K(19.785),  K(15.651),  K(12.468),  K(10.000), K(8.072),  K(6.556),  K(5.356),  K(4.401),
+    K(3.635),   K(3.019),   K(2.521),   K(2.115),   K(1.781),  K(1.509),  K(1.284),  K(1.097),  K(0.941),
+    K(0.810),   K(0.701),   K(0.608),   K(0.530),   K(0.463),  K(0.406),  K(0.358),
 };
 
 static const ntc_table_t g_ntc_table[] = {
@@ -420,12 +420,12 @@ static const ntc_table_t g_ntc_table[] = {
 
 typedef struct {
         ntc_type_e         type;         // NTC型号
-        f32                r_gnd;        // 上拉电阻 (Ω)，通常为10kΩ
+        f32                v_gnd;        // 上拉电阻 (Ω)，通常为10kΩ
         u32                adc_full_cnt; // ADC满量程计数值
-        f32                temp_min;     // 温度表最小值 (°C)
-        f32                temp_max;     // 温度表最大值 (°C)
-        f32                temp_step;    // 温度步进 (°C)
-        const ntc_table_t *ntc_table;    // 电阻值表 (Ω)
+        f32                min;          // 温度表最小值 (°C)
+        f32                max;          // 温度表最大值 (°C)
+        f32                step;         // 温度步进 (°C)
+        const ntc_table_t *table;        // 电阻值表 (Ω)
 } ntc_t;
 
 f32 ntc_get_temp(ntc_t *ntc, i32 adc_raw);

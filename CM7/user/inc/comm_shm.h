@@ -215,7 +215,7 @@ typedef struct {
 
 typedef struct {
         f32 cur2temp[6];
-        f32 temp_max;
+        f32 max;
         f32 normal_cur;
         f32 iq_max;
 } comm_shm_overload_t;
