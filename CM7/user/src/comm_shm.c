@@ -18,6 +18,9 @@ comm_shm_init(comm_shm_t *comm_shm)
         comm_shm_init_hsem();
         comm_shm_init_uid(comm_shm);
         comm_shm_init_ver(comm_shm);
+
+        // 获取参数文件
+        comm_shm->param_file.op = COMM_SHM_OP_READ;
 }
 
 // TODO: 写入失败检测, 放入check.c中实现

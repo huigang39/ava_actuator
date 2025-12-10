@@ -105,25 +105,97 @@ typedef struct {
 } comm_shm_rt_t;
 
 typedef struct {
+        i32 dir;
+        f32 outshaft_ratio;
+        f32 pos_max, pos_min;
+        f32 vel_max;
+        f32 cur_max;
+        f32 tor_max;
+        f32 acc_max;
+        f32 lpf_wc[3];
+} comm_shm_base_t;
+
+typedef struct {
+        u32 coil_ntc[20], mos_ntc[20];
+        u32 theta_sensor_type;
+        u32 theta_reversal_flag;
+        u32 outshaft_theta_sensor_type;
+        u32 outshaft_theta_reversal_flag;
+        f32 outshaft_theta_offset;
+        u32 coil_ntc_enable;
+        u32 theta_sensor_baudrate;
+} comm_shm_sensor_t;
+
+typedef struct {
+        u32 pos_div;
+        f32 cur_pos_kp, cur_pos_kd;
+        u32 vel_div;
+        f32 cur_vel_kp, cur_vel_ki, vel_fdb_lpf_wc;
+        u32 cur_div;
+        f32 cur_wc, cur_low_freq_gain;
+        u32 pd_div;
+        f32 pd_kp, pd_kd;
+        f32 tor_pos_kp, tor_vel_kp, tor_vel_ki;
+        f32 break_pos_kp, break_vel_kp, break_vel_ki;
+} comm_shm_control_t;
+
+typedef struct {
+        foc_mode_e  e_mode;
+        foc_theta_e e_theta;
+        u32         friction_comp_enable;
+        u32         load_tor_comp_enable;
+        u32         cogging_comp_enable;
+        u32         outshaft_theta_sensor_enable;
+        u32         soft_pos_limit_enable;
+        f32         soft_pos_limit_buf_len;
+        u32         runaway_protect_enable;
+        u32         selfcheck_snesor_enable;
+} comm_shm_func_t;
+
+typedef struct {
+        u32 npp;
+        f32 rs;
+        f32 ld, lq;
+        f32 flux;
+        f32 kv;
+        f32 rotor_inertia;
+} comm_shm_motor_t;
+
+typedef struct {
+        u32 adc_full_cnt;
+        f32 timer_freq;
+        u32 center_align_flag;
+        f32 pwm_freq;
+        f32 v_bus_range;
+        f32 phase_cur_range;
+        f32 phase_cur_offset;
+        f32 phase_vol_range;
+        f32 sample_rs_num;
+        f32 deadtime;
+        f32 cur_amp_gain;
+        u32 driver_type;
+} comm_shm_hardware_t;
+
+typedef struct {
         comm_shm_op_e op;
 
-        u32 base[11];
-        u32 res0[64];
+        comm_shm_base_t base;
+        u32             res0[64];
 
-        u32 sensor[47];
-        u32 res1[13];
+        comm_shm_sensor_t sensor;
+        u32               res1[13];
 
-        u32 control[19];
-        u32 res2[10];
+        comm_shm_control_t control;
+        u32                res2[10];
 
-        u32 func[10];
-        u32 res3[12];
+        comm_shm_func_t func;
+        u32             res3[12];
 
-        u32 motor[7];
-        u32 res4[16];
+        comm_shm_motor_t motor;
+        u32              res4[16];
 
-        u32 hardware[12];
-        u32 res5[15];
+        comm_shm_hardware_t hardware;
+        u32                 res5[15];
 
         u32 force[5];
         u32 res6[16];

@@ -628,7 +628,7 @@ static const foc_store_addr_t g_store_addr_cfg = {
     .outshaft_sensor_cali = COMM_SHM_ADDR_OUTSHAFT_SENSOR_CALI,
 };
 
-static const foc_freq_div_t g_freq_cnt_cfg = {
+static const foc_freq_div_t g_freq_div_cfg = {
     .cur = 1,
     .vel = 2,
     .pos = 4,
@@ -636,9 +636,9 @@ static const foc_freq_div_t g_freq_cnt_cfg = {
 };
 
 static const foc_cali_cnt_t g_cali_cnt_cfg = {
-    .adc_cali         = MS2CNT(10, FOC_FREQ_HZ),
-    .theta_cali_cycle = S2CNT(5, FOC_FREQ_HZ),
-    .theta_cali_hold  = MS2CNT(500, FOC_FREQ_HZ),
+    .adc_cali = MS2CNT(10, FOC_FREQ_HZ),
+    // .theta_cali_cycle = S2CNT(5, FOC_FREQ_HZ),
+    .theta_cali_hold = MS2CNT(500, FOC_FREQ_HZ),
 };
 
 static const foc_cfg_t
@@ -677,7 +677,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA361480Z],
                                 .vel = g_vel_cfg[ACTUATOR_FSA361480Z],
                                 .pos = g_pos_cfg[ACTUATOR_FSA361480Z],
@@ -730,7 +730,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA451780Z],
                                 .vel = g_vel_cfg[ACTUATOR_FSA451780Z],
                                 .pos = g_pos_cfg[ACTUATOR_FSA451780Z],
@@ -783,7 +783,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA4530E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA4530E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA4530E],
@@ -836,7 +836,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA601780Z],
                                 .vel = g_vel_cfg[ACTUATOR_FSA601780Z],
                                 .pos = g_pos_cfg[ACTUATOR_FSA601780Z],
@@ -889,7 +889,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA6030E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA6030E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA6030E],
@@ -942,7 +942,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA6043E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA6043E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA6043E],
@@ -995,7 +995,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA8028E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA8028E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA8028E],
@@ -1048,7 +1048,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA10020E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA10020E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA10020E],
@@ -1101,7 +1101,7 @@ static const foc_cfg_t
 
                         .ctl_cfg =
                             {
-                                .div = g_freq_cnt_cfg,
+                                .div = g_freq_div_cfg,
                                 .cur = g_cur_cfg[ACTUATOR_FSA10043E],
                                 .vel = g_vel_cfg[ACTUATOR_FSA10043E],
                                 .pos = g_pos_cfg[ACTUATOR_FSA10043E],
