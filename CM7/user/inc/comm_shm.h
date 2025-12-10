@@ -110,7 +110,7 @@ typedef struct {
         u32 base[11];
         u32 res0[64];
 
-        u32 sensor[23];
+        u32 sensor[47];
         u32 res1[13];
 
         u32 control[19];

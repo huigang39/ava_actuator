@@ -91,10 +91,6 @@ init(void)
 
         periph_init();
         log_info(&g_log, 1, "periph init\n");
-
-        g_user.coil_ntc[0] = g_ntc_cfg[NTC_COIL_0];
-        g_user.coil_ntc[1] = g_ntc_cfg[NTC_COIL_1];
-        g_user.mos_ntc     = g_ntc_cfg[NTC_MOS];
 }
 
 void
