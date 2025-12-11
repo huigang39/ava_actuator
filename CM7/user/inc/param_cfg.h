@@ -671,6 +671,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -728,6 +730,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -785,6 +789,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -842,6 +848,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -899,6 +907,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = -1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -956,6 +966,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -1013,6 +1025,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -1070,6 +1084,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
@@ -1127,6 +1143,8 @@ static const foc_cfg_t
 
                     .sensor_cfg =
                         {
+                            .theta_dir              = 1,
+                            .outshaft_theta_dir     = 1,
                             .sensor_theta_comp_gain = 1.0f,
                             .theta_comp_gain        = 1.5f,
                         },
