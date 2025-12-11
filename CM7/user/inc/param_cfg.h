@@ -152,7 +152,8 @@ static const motor_cfg_t g_motor_cfg[] = {
             .j       = 1.73e-5f,
             .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
             .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
-            .max_tor = 0.747f,
+            .cur_max = 20.0f,
+            .tor_max = 0.747f,
         },
     [MOTOR_FSA4515V1] =
         {
@@ -164,7 +165,8 @@ static const motor_cfg_t g_motor_cfg[] = {
             .j       = 3.48e-05f,
             .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
             .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
-            .max_tor = 3.0f,
+            .cur_max = 29.0f,
+            .tor_max = 3.0f,
         },
     [MOTOR_FSA6015V25] =
         {
@@ -176,7 +178,8 @@ static const motor_cfg_t g_motor_cfg[] = {
             .j       = 9.23e-05f,
             .cur2tor = {-7e-6f, 0.0001f, 0.0994f, 0.0f},
             .tor2cur = {0.2677f, -1.1434f, 11.394f, 0.0f},
-            .max_tor = 5.031f,
+            .cur_max = 59.0f,
+            .tor_max = 5.031f,
         },
     [MOTOR_FSA8015V25] =
         {
@@ -188,7 +191,8 @@ static const motor_cfg_t g_motor_cfg[] = {
             .j       = 3.48e-05f,
             .cur2tor = {-3e-6f, 0.0002f, 0.0785f, 0.0f},
             .tor2cur = {0.1644f, -0.9912f, 14.024f, 0.0f},
-            .max_tor = 6.0f,
+            .cur_max = 79.0f,
+            .tor_max = 6.0f,
         },
     [MOTOR_FSA10020V25] =
         {
@@ -200,7 +204,8 @@ static const motor_cfg_t g_motor_cfg[] = {
             .j       = 3.48e-05f,
             .cur2tor = {-7e-7f, -5e-5f, 0.1276f, 0.0f},
             .tor2cur = {0.0127f, -0.1202f, 8.5115f, 0.0f},
-            .max_tor = 18.18f,
+            .cur_max = 160.0f,
+            .tor_max = 18.18f,
         },
 };
 
@@ -209,8 +214,8 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 82.5f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 41.25f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 20,
             .cur_offset   = 41.25f,
             // PWM
@@ -223,8 +228,8 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 82.5f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 41.25f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 20,
             .cur_offset   = 41.25f,
             // PWM
@@ -237,8 +242,8 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 82.5f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 41.25f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 20,
             .cur_offset   = 41.25f,
             // PWM
@@ -251,8 +256,8 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 82.5f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 41.25f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 20,
             .cur_offset   = 41.25f,
             // PWM
@@ -265,8 +270,8 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 440.0f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 220.0f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 10,
             .cur_offset   = 220.0f,
             // PWM
@@ -279,10 +284,10 @@ static const periph_cfg_t g_periph_cfg[] = {
         {
             // ADC
             .adc_full_cnt = BIT(14),
-            .cur_range    = 507.0f,
-            .vbus_range   = 60.0f,
+            .cur_max      = 253.5f,
+            .vbus_max     = 60.0f,
             .cur_gain     = 10,
-            .cur_offset   = 253.5,
+            .cur_offset   = 253.5f,
             // PWM
             .pwm_freq    = K(20.0f),
             .timer_freq  = M(200.0f),
@@ -400,121 +405,102 @@ static const pid_cfg_t g_vel_cfg[] =
     {
         [ACTUATOR_FSA361480Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA3610V0].psi,
                              g_motor_cfg[MOTOR_FSA3610V0].npp,
                              g_motor_cfg[MOTOR_FSA3610V0].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA3610V0].psi,
                              g_motor_cfg[MOTOR_FSA3610V0].npp,
                              g_motor_cfg[MOTOR_FSA3610V0].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA451780Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA4530E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA4515V1].psi,
                              g_motor_cfg[MOTOR_FSA4515V1].npp,
                              g_motor_cfg[MOTOR_FSA4515V1].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA601780Z] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA6030E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA6043E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA6015V25].psi,
                              g_motor_cfg[MOTOR_FSA6015V25].npp,
                              g_motor_cfg[MOTOR_FSA6015V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA8028E] =
             {
-                .kp =
-                    VEL_KP(HZ2RADS(100.0f),
-                           g_motor_cfg[MOTOR_FSA8015V25].psi,
-                           g_motor_cfg[MOTOR_FSA8015V25].npp,
-                           g_motor_cfg[MOTOR_FSA8015V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA8015V25].psi,
                              g_motor_cfg[MOTOR_FSA8015V25].npp,
                              g_motor_cfg[MOTOR_FSA8015V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
+                .ki = VEL_KI(HZ2RADS(10.0f),
+                             g_motor_cfg[MOTOR_FSA8015V25].psi,
+                             g_motor_cfg[MOTOR_FSA8015V25].npp,
+                             g_motor_cfg[MOTOR_FSA8015V25].j),
             },
         [ACTUATOR_FSA10020E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
         [ACTUATOR_FSA10043E] =
             {
-                .kp         = VEL_KP(HZ2RADS(100.0f),
+                .kp = VEL_KP(HZ2RADS(100.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
-                .ki         = VEL_KI(HZ2RADS(10.0f),
+                .ki = VEL_KI(HZ2RADS(10.0f),
                              g_motor_cfg[MOTOR_FSA10020V25].psi,
                              g_motor_cfg[MOTOR_FSA10020V25].npp,
                              g_motor_cfg[MOTOR_FSA10020V25].j),
-                .ki_out_max = 10.0f,
-                .out_max    = 10.0f,
             },
 };
 
@@ -637,9 +623,9 @@ static const foc_freq_div_t g_freq_div_cfg = {
 };
 
 static const foc_cali_cnt_t g_cali_cnt_cfg = {
-    .adc_cali = MS2CNT(10, FOC_FREQ_HZ),
-    // .theta_cali_cycle = S2CNT(5, FOC_FREQ_HZ),
-    .theta_cali_hold = MS2CNT(500, FOC_FREQ_HZ),
+    .adc = MS2CNT(10, FOC_FREQ_HZ),
+    // .theta_cycle = S2CNT(5, FOC_FREQ_HZ),
+    .theta_hold = MS2CNT(500, FOC_FREQ_HZ),
 };
 
 static const foc_cfg_t
