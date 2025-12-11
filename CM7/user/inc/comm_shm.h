@@ -55,9 +55,10 @@ typedef struct {
 
 typedef enum
     : u32 { COMM_SHM_WORD_NONE,
-            COMM_SHM_WORD_DISABLE = 0xF001,
-            COMM_SHM_WORD_ENABLE  = 0xF002,
-            COMM_SHM_WORD_CALI    = 0x101F,
+            COMM_SHM_WORD_DISABLE  = 0xF001,
+            COMM_SHM_WORD_ENABLE   = 0xF002,
+            COMM_SHM_WORD_CALI     = 0x101F,
+            COMM_SHM_WORD_SET_ZERO = 0x104F,
     } comm_shm_word_e;
 
 typedef enum

@@ -47,6 +47,10 @@ cia402_state_update(cia402_t *cia402)
                         lo->e_spec_cmd = CIA402_SPEC_CMD_CALI;
                         break;
                 }
+                case COMM_SHM_WORD_SET_ZERO: {
+                        lo->e_spec_cmd = CIA402_SPEC_CMD_SET_ZERO;
+                        break;
+                }
                 default:
                         break;
         }
@@ -73,8 +77,11 @@ cia402_state_update(cia402_t *cia402)
         }
 
         if (lo->e_spec_cmd == CIA402_SPEC_CMD_SET_ZERO) {
-                foc_set_zero(foc);
-                lo->e_spec_cmd = CIA402_SPEC_CMD_NONE;
+                foc->lo.cali_flag = 0;
+                BIT_SET(foc->lo.cali_flag, FOC_OFFSET_OUTSHAFT_THETA_CALI_FLAG);
+                foc->lo.e_state = FOC_STATE_CALI;
+                if (foc->lo.e_cali_state == FOC_CALI_FINISH)
+                        lo->e_spec_cmd = CIA402_SPEC_CMD_NONE;
         }
 
         const u16  ctl_word  = lo->ctl_word;
