@@ -62,10 +62,6 @@ periph_init(void)
         g_drv_en.port = GATE_EN_GPIO_Port;
         g_drv_en.pin  = GATE_EN_Pin;
 
-        dpt_init();
-        ads_init();
-        tmr_init();
-
         HAL_HRTIM_WaveformCounterStart(
             g_pwm, HRTIM_TIMERID_MASTER | HRTIM_TIMERID_TIMER_A | HRTIM_TIMERID_TIMER_B | HRTIM_TIMERID_TIMER_C);
         HAL_HRTIM_SimpleBaseStart_IT(g_pwm, HRTIM_TIMERINDEX_MASTER);
