@@ -19,6 +19,17 @@ fft_t g_fft;
 void
 user_init(void)
 {
+        check_cfg_t check_cfg = {
+            .foc = &g_foc,
+            .cnt =
+                {
+                    .vbus = 1000,
+                },
+            .vbus_max = 60.0f,
+            .vbus_min = 24.0f,
+        };
+        check_init(&g_check, check_cfg);
+
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
             .comm_shm = &g_comm_shm,

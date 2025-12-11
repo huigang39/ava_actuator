@@ -6,13 +6,24 @@
 #include "module.h"
 
 typedef struct {
-        f32 comm_timeout_ms;
+        u32 comm;
+        u32 vbus;
+        u32 cur;
+} check_cnt_t;
+
+typedef struct {
+        foc_t      *foc;
+        check_cnt_t cnt;
+        f32         vbus_max, vbus_min;
+        f32         cur_max;
 } check_cfg_t;
 
 typedef union {
         u32 all;
         struct {
                 u32 COMM_SHM : 1;
+                u32 UNDER_VBUS : 1;
+                u32 OVER_VBUS : 1;
         };
 } check_err_t;
 
@@ -27,6 +38,7 @@ typedef union {
 typedef struct {
         check_err_t  err;
         check_warn_t warn;
+        check_cnt_t  cnt;
 } check_lo_t;
 
 typedef struct {
