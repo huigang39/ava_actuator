@@ -75,6 +75,14 @@ init(void)
                 sched_add_task(&g_sched, g_task_list_cfg[i]);
         log_info(&g_log, 1, "sched init\n");
 
+        const user_cfg_t user_cfg = {
+            .foc   = &g_foc,
+            .sched = &g_sched,
+            .log   = &g_log,
+        };
+        user_init(&g_user, user_cfg);
+        log_info(&g_log, 1, "user init\n");
+
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.lo.pll.cfg    = g_hfi_pll_cfg[ACTUATOR_TYPE];
@@ -85,14 +93,6 @@ init(void)
         g_foc.lo.lbg.cfg           = g_lbg_cfg[ACTUATOR_TYPE];
         foc_init(&g_foc, g_foc_cfg[ACTUATOR_TYPE]);
         log_info(&g_log, 1, "foc init\n");
-
-        const user_cfg_t user_cfg = {
-            .foc   = &g_foc,
-            .sched = &g_sched,
-            .log   = &g_log,
-        };
-        user_init(&g_user, user_cfg);
-        log_info(&g_log, 1, "user init\n");
 
         periph_init();
         log_info(&g_log, 1, "periph init\n");
