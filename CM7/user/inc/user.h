@@ -24,6 +24,8 @@ typedef struct {
         user_lo_t  lo;
 } user_t;
 
+extern user_t g_user;
+
 void user_init(user_t *user, const user_cfg_t user_cfg);
 
 void user_exec(user_t *user);
@@ -45,7 +47,7 @@ static const sched_task_cfg_t g_task_list_cfg[] = {
             .delay_tick   = 0,
             .exec_cnt_max = 0,
             .f_cb         = (sched_cb_f)user_exec,
-            .arg          = NULL,
+            .arg          = &g_user,
         },
     [TASK_LOG] =
         {
