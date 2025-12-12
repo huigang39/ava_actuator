@@ -43,7 +43,7 @@ static const ntc_t g_ntc_cfg[] = {
             .step         = 1.0f,
             .table        = &g_ntc_table[NTC_TYPE_PT5_25E2],
         },
-    [NTC_MOS] =
+    [NTC_INVERTER] =
         {
             .type         = NTC_TYPE_NCP15XV103J03RC,
             .v_gnd        = K(3.3f),

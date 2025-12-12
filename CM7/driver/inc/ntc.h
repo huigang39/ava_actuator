@@ -6,7 +6,7 @@
 typedef enum {
         NTC_COIL_0,
         NTC_COIL_1,
-        NTC_MOS,
+        NTC_INVERTER,
 } ntc_e;
 
 typedef enum {

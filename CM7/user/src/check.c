@@ -4,6 +4,9 @@ static bool over_vbus_check(check_t *check);
 static bool under_vbus_check(check_t *check);
 static bool over_cur_check(check_t *check);
 
+static bool coil_over_temp_check(check_t *check);
+static bool inverter_over_temp_check(check_t *check);
+
 static bool fpu_check(check_t *check);
 
 void
@@ -15,10 +18,16 @@ check_init(check_t *check, const check_cfg_t check_cfg)
 void
 check_exec(check_t *check)
 {
-        check->lo.warn.bit.FPU_EXCEPTION = fpu_check(check);
-        check->lo.err.bit.OVER_VBUS      = over_vbus_check(check);
-        check->lo.err.bit.UNDER_VBUS     = under_vbus_check(check);
-        check->lo.err.bit.OVER_CUR       = over_cur_check(check);
+        DECL_PTR_RENAME(&check->lo.warn, warn);
+        DECL_PTR_RENAME(&check->lo.err, err);
+
+        warn->bit.FPU_EXCEPTION = fpu_check(check);
+
+        err->bit.OVER_VBUS          = over_vbus_check(check);
+        err->bit.UNDER_VBUS         = under_vbus_check(check);
+        err->bit.OVER_CUR           = over_cur_check(check);
+        err->bit.COIL_OVER_TEMP     = coil_over_temp_check(check);
+        err->bit.INVERTER_OVER_TEMP = inverter_over_temp_check(check);
 }
 
 static bool
@@ -39,12 +48,14 @@ over_vbus_check(check_t *check)
         }
 
         if (foc->in.v_bus > cfg->vbus_max) {
+                lo->cnt.over_vbus_rec > 0 ? lo->cnt.over_vbus_rec-- : lo->cnt.over_vbus_rec;
                 if (lo->cnt.over_vbus < cfg->cnt.over_vbus) {
                         lo->cnt.over_vbus++;
                         return false;
                 } else
                         return true;
-        }
+        } else
+                lo->cnt.over_vbus > 0 ? lo->cnt.over_vbus-- : lo->cnt.over_vbus;
 
         return false;
 }
@@ -67,12 +78,14 @@ under_vbus_check(check_t *check)
         }
 
         if (foc->in.v_bus < cfg->vbus_min) {
+                lo->cnt.under_vbus_rec > 0 ? lo->cnt.under_vbus_rec-- : lo->cnt.under_vbus_rec;
                 if (lo->cnt.under_vbus < cfg->cnt.under_vbus) {
                         lo->cnt.under_vbus++;
                         return false;
                 } else
                         return true;
-        }
+        } else
+                lo->cnt.under_vbus > 0 ? lo->cnt.under_vbus-- : lo->cnt.under_vbus;
 
         return false;
 }
@@ -92,7 +105,10 @@ over_cur_check(check_t *check)
                         lo->cnt.over_cur_rec = 0;
                         return false;
                 }
+                lo->cnt.over_cur > 0 ? lo->cnt.over_cur-- : lo->cnt.over_cur;
         }
+
+        lo->cnt.over_cur_rec > 0 ? lo->cnt.over_cur_rec-- : lo->cnt.over_cur_rec;
 
         if (lo->cnt.over_cur < cfg->cnt.over_cur) {
                 lo->cnt.over_cur++;
@@ -101,6 +117,60 @@ over_cur_check(check_t *check)
                 return true;
 
         return false;
+}
+
+static bool
+coil_over_temp_check(check_t *check)
+{
+        DECL_PTRS(check, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
+
+        if (MAX(foc->in.temp.coil[0], foc->in.temp.coil[1]) < cfg->coil_temp_max) {
+                if (lo->cnt.coil_over_temp_rec < cfg->cnt.coil_over_temp_rec) {
+                        lo->cnt.coil_over_temp_rec++;
+                        return check->lo.err.bit.COIL_OVER_TEMP;
+                } else {
+                        lo->cnt.coil_over_temp     = 0;
+                        lo->cnt.coil_over_temp_rec = 0;
+                        return false;
+                }
+                lo->cnt.coil_over_temp > 0 ? lo->cnt.coil_over_temp-- : lo->cnt.coil_over_temp;
+        }
+
+        lo->cnt.coil_over_temp_rec > 0 ? lo->cnt.coil_over_temp_rec-- : lo->cnt.coil_over_temp_rec;
+
+        if (lo->cnt.coil_over_temp < cfg->cnt.coil_over_temp) {
+                lo->cnt.coil_over_temp++;
+                return false;
+        } else
+                return true;
+}
+
+static bool
+inverter_over_temp_check(check_t *check)
+{
+        DECL_PTRS(check, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
+
+        if (foc->in.temp.inverter < cfg->inverter_temp_max) {
+                if (lo->cnt.inverter_over_temp_rec < cfg->cnt.inverter_over_temp_rec) {
+                        lo->cnt.inverter_over_temp_rec++;
+                        return check->lo.err.bit.INVERTER_OVER_TEMP;
+                } else {
+                        lo->cnt.inverter_over_temp     = 0;
+                        lo->cnt.inverter_over_temp_rec = 0;
+                        return false;
+                }
+                lo->cnt.inverter_over_temp > 0 ? lo->cnt.inverter_over_temp-- : lo->cnt.inverter_over_temp;
+        }
+
+        lo->cnt.inverter_over_temp_rec > 0 ? lo->cnt.inverter_over_temp_rec-- : lo->cnt.inverter_over_temp_rec;
+
+        if (lo->cnt.inverter_over_temp < cfg->cnt.inverter_over_temp) {
+                lo->cnt.inverter_over_temp++;
+                return false;
+        } else
+                return true;
 }
 
 static bool

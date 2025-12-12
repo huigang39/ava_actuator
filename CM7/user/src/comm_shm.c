@@ -77,11 +77,11 @@ comm_shm_sync_rt(comm_shm_t *comm_shm)
         comm_shm_sync_pid_param(comm_shm);
         foc_set_ref(foc, rt->ref_pvct);
 
-        rt->fdb_pvct              = foc_get_fdb(foc);
-        rt->inv_status.mos_temp   = foc->in.temp.mos;
-        rt->inv_status.coil_temp0 = foc->in.temp.coil[0];
-        rt->inv_status.coil_temp1 = foc->in.temp.coil[1];
-        rt->inv_status.v_bus      = foc->in.v_bus;
+        rt->fdb_pvct                 = foc_get_fdb(foc);
+        rt->inv_status.inverter_temp = foc->in.temp.inverter;
+        rt->inv_status.coil_temp0    = foc->in.temp.coil[0];
+        rt->inv_status.coil_temp1    = foc->in.temp.coil[1];
+        rt->inv_status.v_bus         = foc->in.v_bus;
         comm_shm_sync_errcode(comm_shm);
 }
 
@@ -141,7 +141,9 @@ comm_shm_sync_errcode(comm_shm_t *comm_shm)
         DECL_PTR_RENAME(&cfg->map->rt, rt);
         DECL_PTR_RENAME(&cfg->check->lo.err, err);
 
-        rt->errcode.ext1.bit.under_vbus = err->bit.UNDER_VBUS;
-        rt->errcode.ext1.bit.over_vbus  = err->bit.OVER_VBUS;
-        rt->errcode.ext1.bit.over_cur   = err->bit.OVER_CUR;
+        rt->errcode.ext1.bit.under_vbus         = err->bit.UNDER_VBUS;
+        rt->errcode.ext1.bit.over_vbus          = err->bit.OVER_VBUS;
+        rt->errcode.ext1.bit.over_cur           = err->bit.OVER_CUR;
+        rt->errcode.ext1.bit.coil_over_temp     = err->bit.COIL_OVER_TEMP;
+        rt->errcode.ext1.bit.inverter_over_temp = err->bit.INVERTER_OVER_TEMP;
 }

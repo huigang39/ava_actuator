@@ -102,10 +102,10 @@ typedef struct {
                         u32 outshaft_sensor : 1;     // 低速编码器错误
                         u32 over_load : 1;           // 电机过载过温错误
 
-                        u32 mos : 1;            // MOS自检错误
-                        u32 coil_over_temp : 1; // 绕组过温
-                        u32 mos_over_temp : 1;  // MOS过温错误
-                        u32 mcu_over_temp : 1;  // 芯片过温错误
+                        u32 inverter : 1;           // INVERTER自检错误
+                        u32 coil_over_temp : 1;     // 绕组过温
+                        u32 inverter_over_temp : 1; // INVERTER过温错误
+                        u32 mcu_over_temp : 1;      // 芯片过温错误
 
                         u32 u_phase_loss : 1; // U相缺失
                         u32 v_phase_loss : 1; // V相缺失
@@ -127,10 +127,10 @@ typedef struct {
         union {
                 u32 all;
                 struct {
-                        u32 mos_over_temp : 1;  // 电机MOS过温警告
-                        u32 coil_over_temp : 1; // 电机绕组过温警告
-                        u32 ntc : 1;            // NTC异常
-                        u32 double_encoder : 1; // 双编码器异常
+                        u32 inverter_over_temp : 1; // 电机INVERTER过温警告
+                        u32 coil_over_temp : 1;     // 电机绕组过温警告
+                        u32 ntc : 1;                // NTC异常
+                        u32 double_encoder : 1;     // 双编码器异常
 
                         u32 fpu : 1;                // FPU浮点计算异常
                         u32 soft_pos_limit : 1;     // 软限位警告
@@ -149,7 +149,7 @@ typedef struct {
 } comm_shm_errcode_t;
 
 typedef struct {
-        f32 mos_temp;
+        f32 inverter_temp;
         f32 coil_temp0;
         f32 v_bus;
         f32 coil_temp1;
@@ -179,7 +179,7 @@ typedef struct {
 } comm_shm_base_t;
 
 typedef struct {
-        u32 coil_ntc[20], mos_ntc[20];
+        u32 coil_ntc[20], inverter_ntc[20];
         u32 theta_sensor_type;
         u32 theta_reversal_flag;
         u32 outshaft_theta_sensor_type;
@@ -285,10 +285,10 @@ typedef struct {
 
 typedef struct {
         f32 overcur, overcur_time;
-        f32 chip_overtemp, mos_overtemp, coil_overtemp, overtemp_time;
-        f32 mos_tempwarn, coil_tempwarn;
+        f32 chip_overtemp, inverter_overtemp, coil_overtemp, overtemp_time;
+        f32 inverter_tempwarn, coil_tempwarn;
         f32 pos_max, pos_min;
-        f32 mos_overtemp_rec_time, coil_overtemp_rec_time;
+        f32 inverter_overtemp_rec_time, coil_overtemp_rec_time;
         f32 loss_phase_check_min_vel;
         f32 overvbus, undervbus;
         f32 double_encoder_err_max;

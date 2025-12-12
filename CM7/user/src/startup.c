@@ -83,10 +83,18 @@ init(void)
 
                     .over_cur     = S2CNT(1, USER_FREQ_HZ),
                     .over_cur_rec = S2CNT(5, USER_FREQ_HZ),
+
+                    .coil_over_temp     = S2CNT(1, USER_FREQ_HZ),
+                    .coil_over_temp_rec = S2CNT(1, USER_FREQ_HZ),
+
+                    .inverter_over_temp     = S2CNT(1, USER_FREQ_HZ),
+                    .inverter_over_temp_rec = S2CNT(1, USER_FREQ_HZ),
                 },
-            .vbus_max = 60.0f,
-            .vbus_min = 24.0f,
-            .cur_max  = 10.0f,
+            .vbus_max          = 60.0f,
+            .vbus_min          = 24.0f,
+            .cur_max           = 10.0f,
+            .coil_temp_max     = 40.0f,
+            .inverter_temp_max = 40.0f,
         };
         check_init(&g_check, check_cfg);
         log_info(&g_log, 1, "check init\n");

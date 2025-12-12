@@ -8,7 +8,7 @@
 
 typedef struct {
         cia402_t cia402;
-        ntc_t    mos_ntc, coil_ntc[2];
+        ntc_t    inverter_ntc, coil_ntc[2];
 } user_t;
 
 void user_init(void);

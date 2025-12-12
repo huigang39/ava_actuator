@@ -90,9 +90,9 @@ periph_get_adc(void)
 
         adc_raw.i32_v_bus = g_adc1->Instance->JDR2;
 
-        adc_raw.mos_ntc     = g_adc2->Instance->JDR2;
-        adc_raw.coil_ntc[0] = g_adc2->Instance->JDR3;
-        adc_raw.coil_ntc[1] = g_adc2->Instance->JDR4;
+        adc_raw.inverter_ntc = g_adc2->Instance->JDR2;
+        adc_raw.coil_ntc[0]  = g_adc2->Instance->JDR3;
+        adc_raw.coil_ntc[1]  = g_adc2->Instance->JDR4;
 
         return adc_raw;
 }
