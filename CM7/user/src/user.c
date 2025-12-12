@@ -19,17 +19,6 @@ fft_t g_fft;
 void
 user_init(void)
 {
-        check_cfg_t check_cfg = {
-            .foc = &g_foc,
-            .cnt =
-                {
-                    .vbus = 1000,
-                },
-            .vbus_max = 60.0f,
-            .vbus_min = 24.0f,
-        };
-        check_init(&g_check, check_cfg);
-
         cia402_cfg_t cia402_cfg = {
             .foc      = &g_foc,
             .comm_shm = &g_comm_shm,
@@ -59,7 +48,7 @@ user_loop_task(void *arg)
         ARG_UNUSED(arg);
 
         check_exec(&g_check);
-        comm_shm_sync_rt(&g_comm_shm, &g_foc);
+        comm_shm_sync_rt(&g_comm_shm);
         cia402_exec(&g_user.cia402);
 
         g_foc.in.temp.coil[0] = ntc_get_temp(&g_user.coil_ntc[0], g_foc.in.adc_raw.coil_ntc[0]);

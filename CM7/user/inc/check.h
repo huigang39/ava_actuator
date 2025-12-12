@@ -6,17 +6,11 @@
 #include "module.h"
 
 typedef struct {
-        u32 comm;
-        u32 vbus;
-        u32 cur;
+        u32 comm, comm_rec;
+        u32 over_vbus, over_vbus_rec;
+        u32 under_vbus, under_vbus_rec;
+        u32 over_cur, over_cur_rec;
 } check_cnt_t;
-
-typedef struct {
-        foc_t      *foc;
-        check_cnt_t cnt;
-        f32         vbus_max, vbus_min;
-        f32         cur_max;
-} check_cfg_t;
 
 typedef union {
         u32 all;
@@ -24,7 +18,9 @@ typedef union {
                 u32 COMM_SHM : 1;
                 u32 UNDER_VBUS : 1;
                 u32 OVER_VBUS : 1;
-        };
+                u32 PARAM_SYNC : 1;
+                u32 OVER_CUR : 1;
+        } bit;
 } check_err_t;
 
 typedef union {
@@ -32,8 +28,15 @@ typedef union {
         struct {
                 u32 COMM_SHM : 1;
                 u32 FPU_EXCEPTION : 1;
-        };
+        } bit;
 } check_warn_t;
+
+typedef struct {
+        foc_t      *foc;
+        check_cnt_t cnt;
+        f32         vbus_max, vbus_min;
+        f32         cur_max;
+} check_cfg_t;
 
 typedef struct {
         check_err_t  err;

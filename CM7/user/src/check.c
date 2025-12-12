@@ -1,6 +1,9 @@
 #include "check.h"
 
-static bool vbus_check(check_t *check);
+static bool over_vbus_check(check_t *check);
+static bool under_vbus_check(check_t *check);
+static bool over_cur_check(check_t *check);
+
 static bool fpu_check(check_t *check);
 
 void
@@ -12,23 +15,91 @@ check_init(check_t *check, const check_cfg_t check_cfg)
 void
 check_exec(check_t *check)
 {
-        check->lo.warn.FPU_EXCEPTION |= fpu_check(check);
-        check->lo.err.UNDER_VBUS     |= vbus_check(check);
+        check->lo.warn.bit.FPU_EXCEPTION = fpu_check(check);
+        check->lo.err.bit.OVER_VBUS      = over_vbus_check(check);
+        check->lo.err.bit.UNDER_VBUS     = under_vbus_check(check);
+        check->lo.err.bit.OVER_CUR       = over_cur_check(check);
 }
 
 static bool
-vbus_check(check_t *check)
+over_vbus_check(check_t *check)
 {
         DECL_PTRS(check, cfg, lo);
         DECL_PTR_RENAME(cfg->foc, foc);
 
-        if (IS_IN_RANGE(foc->in.v_bus, cfg->vbus_min, cfg->vbus_max))
-                return false;
-
-        if (++lo->cnt.vbus > cfg->cnt.vbus) {
-                lo->cnt.vbus = 0;
-                return true;
+        if (IS_IN_RANGE(foc->in.v_bus, cfg->vbus_min, cfg->vbus_max)) {
+                if (lo->cnt.over_vbus_rec < cfg->cnt.over_vbus_rec) {
+                        lo->cnt.over_vbus_rec++;
+                        return check->lo.err.bit.OVER_VBUS;
+                } else {
+                        lo->cnt.over_vbus     = 0;
+                        lo->cnt.over_vbus_rec = 0;
+                        return false;
+                }
         }
+
+        if (foc->in.v_bus > cfg->vbus_max) {
+                if (lo->cnt.over_vbus < cfg->cnt.over_vbus) {
+                        lo->cnt.over_vbus++;
+                        return false;
+                } else
+                        return true;
+        }
+
+        return false;
+}
+
+static bool
+under_vbus_check(check_t *check)
+{
+        DECL_PTRS(check, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
+
+        if (IS_IN_RANGE(foc->in.v_bus, cfg->vbus_min, cfg->vbus_max)) {
+                if (lo->cnt.under_vbus_rec < cfg->cnt.under_vbus_rec) {
+                        lo->cnt.under_vbus_rec++;
+                        return check->lo.err.bit.UNDER_VBUS;
+                } else {
+                        lo->cnt.under_vbus     = 0;
+                        lo->cnt.under_vbus_rec = 0;
+                        return false;
+                }
+        }
+
+        if (foc->in.v_bus < cfg->vbus_min) {
+                if (lo->cnt.under_vbus < cfg->cnt.under_vbus) {
+                        lo->cnt.under_vbus++;
+                        return false;
+                } else
+                        return true;
+        }
+
+        return false;
+}
+
+static bool
+over_cur_check(check_t *check)
+{
+        DECL_PTRS(check, cfg, lo);
+        DECL_PTR_RENAME(cfg->foc, foc);
+
+        if (IS_IN_RANGE(foc->in.i_dq.q, -cfg->cur_max, cfg->cur_max)) {
+                if (lo->cnt.over_cur_rec < cfg->cnt.over_cur_rec) {
+                        lo->cnt.over_cur_rec++;
+                        return check->lo.err.bit.OVER_CUR;
+                } else {
+                        lo->cnt.over_cur     = 0;
+                        lo->cnt.over_cur_rec = 0;
+                        return false;
+                }
+        }
+
+        if (lo->cnt.over_cur < cfg->cnt.over_cur) {
+                lo->cnt.over_cur++;
+                return false;
+        } else
+                return true;
+
         return false;
 }
 

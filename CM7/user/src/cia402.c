@@ -8,7 +8,6 @@ void
 cia402_init(cia402_t *cia402, const cia402_cfg_t cia402_cfg)
 {
         CFG_INIT(cia402, cia402_cfg);
-
         DECL_PTRS(cia402, cfg, lo);
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
 
@@ -33,7 +32,7 @@ cia402_state_update(cia402_t *cia402)
         DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
         DECL_PTR_RENAME(cfg->check, check);
 
-        switch (cfg->comm_shm->rt.ctl.e_word) {
+        switch (comm_shm->cfg.map->rt.ctl.e_word) {
                 case COMM_SHM_WORD_ENABLE: {
                         lo->ctl_word = 0x000F;
                         break;
@@ -55,7 +54,7 @@ cia402_state_update(cia402_t *cia402)
                         break;
         }
 
-        switch (cfg->comm_shm->rt.ctl.e_mode) {
+        switch (comm_shm->cfg.map->rt.ctl.e_mode) {
                 case COMM_SHM_MODE_CUR: {
                         lo->e_mode = CIA402_MODE_PT;
                         break;
@@ -111,7 +110,7 @@ cia402_state_update(cia402_t *cia402)
                 case CIA402_STATE_NOT_READY_TO_SWITCH_ON: {
                         // 转换1: Not Ready to Switch On -> Switch On Disabled
                         // 条件：通信建立完成且无通信故障
-                        if (!check->lo.err.COMM_SHM)
+                        if (!check->lo.err.bit.COMM_SHM)
                                 lo->e_state = CIA402_STATE_SWITCH_ON_DISABLED;
 
                         break;

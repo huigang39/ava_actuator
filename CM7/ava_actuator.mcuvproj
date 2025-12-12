@@ -45,7 +45,7 @@ log_directory =
 [var0]
 name = g_dpt_raw.inner
 tracked_name = g_dpt_raw.inner
-address = 536871152
+address = 536871164
 type = 5
 color = 1845494015
 should_update_from_elf = true
@@ -71,7 +71,7 @@ do_not_interpret_as_enum = false
 [var2]
 name = g_foc.in.f32_i_uvw.u
 tracked_name = g_foc.in.f32_i_uvw.u
-address = 536871640
+address = 536871600
 type = 7
 color = 3238002943
 should_update_from_elf = true
@@ -84,7 +84,7 @@ do_not_interpret_as_enum = false
 [var3]
 name = g_foc.in.f32_i_uvw.v
 tracked_name = g_foc.in.f32_i_uvw.v
-address = 536871644
+address = 536871604
 type = 7
 color = 1157686271
 should_update_from_elf = true
@@ -97,7 +97,7 @@ do_not_interpret_as_enum = false
 [var4]
 name = g_foc.in.f32_i_uvw.w
 tracked_name = g_foc.in.f32_i_uvw.w
-address = 536871648
+address = 536871608
 type = 7
 color = 33497088
 should_update_from_elf = true
@@ -110,7 +110,7 @@ do_not_interpret_as_enum = false
 [var5]
 name = g_foc.in.i_ab.a
 tracked_name = g_foc.in.i_ab.a
-address = 536871652
+address = 536871612
 type = 7
 color = 2271404653
 should_update_from_elf = true
@@ -123,7 +123,7 @@ do_not_interpret_as_enum = false
 [var6]
 name = g_foc.in.i_ab.b
 tracked_name = g_foc.in.i_ab.b
-address = 536871656
+address = 536871616
 type = 7
 color = 3129941982
 should_update_from_elf = true
@@ -136,7 +136,7 @@ do_not_interpret_as_enum = false
 [var7]
 name = g_foc.in.i_dq.d
 tracked_name = g_foc.in.i_dq.d
-address = 536871660
+address = 536871620
 type = 7
 color = 2365652781
 should_update_from_elf = true
@@ -149,7 +149,7 @@ do_not_interpret_as_enum = false
 [var8]
 name = g_foc.in.i_dq.q
 tracked_name = g_foc.in.i_dq.q
-address = 536871664
+address = 536871624
 type = 7
 color = 2650800383
 should_update_from_elf = true
@@ -162,7 +162,7 @@ do_not_interpret_as_enum = false
 [var9]
 name = g_foc.in.rotor.est_outshaft_omega
 tracked_name = g_foc.in.rotor.est_outshaft_omega
-address = 536871768
+address = 536871728
 type = 7
 color = 2828079592
 should_update_from_elf = true
@@ -175,7 +175,7 @@ do_not_interpret_as_enum = false
 [var10]
 name = g_foc.in.rotor.est_outshaft_theta
 tracked_name = g_foc.in.rotor.est_outshaft_theta
-address = 536871764
+address = 536871724
 type = 7
 color = 572670955
 should_update_from_elf = true
@@ -188,7 +188,7 @@ do_not_interpret_as_enum = false
 [var11]
 name = g_foc.in.rotor.est_outshaft_total_theta
 tracked_name = g_foc.in.rotor.est_outshaft_total_theta
-address = 536871760
+address = 536871720
 type = 7
 color = 713259538
 should_update_from_elf = true
@@ -201,7 +201,7 @@ do_not_interpret_as_enum = false
 [var12]
 name = g_foc.in.rotor.force_omega
 tracked_name = g_foc.in.rotor.force_omega
-address = 536871696
+address = 536871656
 type = 7
 color = 3791600128
 should_update_from_elf = true
@@ -214,7 +214,7 @@ do_not_interpret_as_enum = false
 [var13]
 name = g_foc.in.rotor.force_theta
 tracked_name = g_foc.in.rotor.force_theta
-address = 536871692
+address = 536871652
 type = 7
 color = 2719612672
 should_update_from_elf = true
@@ -227,7 +227,7 @@ do_not_interpret_as_enum = false
 [var14]
 name = g_foc.in.rotor.fusion_theta_err
 tracked_name = g_foc.in.rotor.fusion_theta_err
-address = 536871724
+address = 536871684
 type = 7
 color = 1593901038
 should_update_from_elf = true
@@ -240,7 +240,7 @@ do_not_interpret_as_enum = false
 [var15]
 name = g_foc.in.rotor.mech_omega
 tracked_name = g_foc.in.rotor.mech_omega
-address = 536871736
+address = 536871696
 type = 7
 color = 3585994098
 should_update_from_elf = true
@@ -253,7 +253,7 @@ do_not_interpret_as_enum = false
 [var16]
 name = g_foc.in.rotor.mech_theta
 tracked_name = g_foc.in.rotor.mech_theta
-address = 536871728
+address = 536871688
 type = 7
 color = 2986301952
 should_update_from_elf = true
@@ -266,7 +266,7 @@ do_not_interpret_as_enum = false
 [var17]
 name = g_foc.in.rotor.mech_total_theta
 tracked_name = g_foc.in.rotor.mech_total_theta
-address = 536871732
+address = 536871692
 type = 7
 color = 4263814863
 should_update_from_elf = true
@@ -279,7 +279,7 @@ do_not_interpret_as_enum = false
 [var18]
 name = g_foc.in.rotor.obs_omega
 tracked_name = g_foc.in.rotor.obs_omega
-address = 536871720
+address = 536871680
 type = 7
 color = 2315200000
 should_update_from_elf = true
@@ -292,7 +292,7 @@ do_not_interpret_as_enum = false
 [var19]
 name = g_foc.in.rotor.obs_theta
 tracked_name = g_foc.in.rotor.obs_theta
-address = 536871716
+address = 536871676
 type = 7
 color = 2902458623
 should_update_from_elf = true
@@ -305,7 +305,7 @@ do_not_interpret_as_enum = false
 [var20]
 name = g_foc.in.rotor.omega
 tracked_name = g_foc.in.rotor.omega
-address = 536871688
+address = 536871648
 type = 7
 color = 939213692
 should_update_from_elf = true
@@ -318,7 +318,7 @@ do_not_interpret_as_enum = false
 [var21]
 name = g_foc.in.rotor.outshaft_omega
 tracked_name = g_foc.in.rotor.outshaft_omega
-address = 536871756
+address = 536871716
 type = 7
 color = 3673510616
 should_update_from_elf = true
@@ -331,7 +331,7 @@ do_not_interpret_as_enum = false
 [var22]
 name = g_foc.in.rotor.outshaft_theta
 tracked_name = g_foc.in.rotor.outshaft_theta
-address = 536871744
+address = 536871704
 type = 7
 color = 2920859716
 should_update_from_elf = true
@@ -344,7 +344,7 @@ do_not_interpret_as_enum = false
 [var23]
 name = g_foc.in.rotor.outshaft_total_theta
 tracked_name = g_foc.in.rotor.outshaft_total_theta
-address = 536871752
+address = 536871712
 type = 7
 color = 4117952786
 should_update_from_elf = true
@@ -357,7 +357,7 @@ do_not_interpret_as_enum = false
 [var24]
 name = g_foc.in.rotor.sensor_omega
 tracked_name = g_foc.in.rotor.sensor_omega
-address = 536871708
+address = 536871668
 type = 7
 color = 3374776064
 should_update_from_elf = true
@@ -370,7 +370,7 @@ do_not_interpret_as_enum = false
 [var25]
 name = g_foc.in.rotor.sensor_theta
 tracked_name = g_foc.in.rotor.sensor_theta
-address = 536871700
+address = 536871660
 type = 7
 color = 3388997887
 should_update_from_elf = true
@@ -383,7 +383,7 @@ do_not_interpret_as_enum = false
 [var26]
 name = g_foc.in.rotor.theta
 tracked_name = g_foc.in.rotor.theta
-address = 536871672
+address = 536871632
 type = 7
 color = 570402560
 should_update_from_elf = true
@@ -396,7 +396,7 @@ do_not_interpret_as_enum = false
 [var27]
 name = g_foc.in.v_bus
 tracked_name = g_foc.in.v_bus
-address = 536871772
+address = 536871732
 type = 7
 color = 2180972750
 should_update_from_elf = true
@@ -409,7 +409,7 @@ do_not_interpret_as_enum = false
 [var28]
 name = g_foc.lo.comp_i_dq.q
 tracked_name = g_foc.lo.comp_i_dq.q
-address = 536873240
+address = 536873200
 type = 7
 color = 3170631963
 should_update_from_elf = true
@@ -448,7 +448,7 @@ do_not_interpret_as_enum = false
 [var31]
 name = g_foc.lo.e_mode
 tracked_name = g_foc.lo.e_mode
-address = 536871956
+address = 536871916
 type = 5
 color = 1202283002
 should_update_from_elf = true
@@ -461,7 +461,7 @@ do_not_interpret_as_enum = false
 [var32]
 name = g_foc.lo.e_obs
 tracked_name = g_foc.lo.e_obs
-address = 536871964
+address = 536871924
 type = 5
 color = 834850109
 should_update_from_elf = true
@@ -474,7 +474,7 @@ do_not_interpret_as_enum = false
 [var33]
 name = g_foc.lo.e_state
 tracked_name = g_foc.lo.e_state
-address = 536871948
+address = 536871908
 type = 5
 color = 3835008575
 should_update_from_elf = true
@@ -487,20 +487,20 @@ do_not_interpret_as_enum = false
 [var34]
 name = g_foc.lo.e_theta
 tracked_name = g_foc.lo.e_theta
-address = 536871952
+address = 536871912
 type = 5
 color = 2712006534
 should_update_from_elf = true
 shift = 0
 mask = 4294967295
 high_level_type = 3
-value_to_write = 2.000000
+value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
 [var35]
 name = g_foc.lo.elapsed_us
 tracked_name = g_foc.lo.elapsed_us
-address = 536871860
+address = 536871820
 type = 7
 color = 3422617356
 should_update_from_elf = true
@@ -513,7 +513,7 @@ do_not_interpret_as_enum = false
 [var36]
 name = g_foc.lo.exec_cnt
 tracked_name = g_foc.lo.exec_cnt
-address = 536871864
+address = 536871824
 type = 5
 color = 1344869523
 should_update_from_elf = true
@@ -526,7 +526,7 @@ do_not_interpret_as_enum = false
 [var37]
 name = g_foc.lo.fdb_pvct.cur
 tracked_name = g_foc.lo.fdb_pvct.cur
-address = 536873288
+address = 536873248
 type = 7
 color = 994343219
 should_update_from_elf = true
@@ -539,7 +539,7 @@ do_not_interpret_as_enum = false
 [var38]
 name = g_foc.lo.fdb_pvct.load_tor
 tracked_name = g_foc.lo.fdb_pvct.load_tor
-address = 536873296
+address = 536873256
 type = 7
 color = 1649134438
 should_update_from_elf = true
@@ -552,7 +552,7 @@ do_not_interpret_as_enum = false
 [var39]
 name = g_foc.lo.fdb_pvct.pos
 tracked_name = g_foc.lo.fdb_pvct.pos
-address = 536873280
+address = 536873240
 type = 7
 color = 301990143
 should_update_from_elf = true
@@ -565,7 +565,7 @@ do_not_interpret_as_enum = false
 [var40]
 name = g_foc.lo.fdb_pvct.vel
 tracked_name = g_foc.lo.fdb_pvct.vel
-address = 536873284
+address = 536873244
 type = 7
 color = 3936755402
 should_update_from_elf = true
@@ -578,7 +578,7 @@ do_not_interpret_as_enum = false
 [var41]
 name = g_foc.lo.hfi.cfg.hfi_vd
 tracked_name = g_foc.lo.hfi.cfg.hfi_vd
-address = 536872576
+address = 536872536
 type = 7
 color = 2054215836
 should_update_from_elf = true
@@ -591,7 +591,7 @@ do_not_interpret_as_enum = false
 [var42]
 name = g_foc.lo.hfi.lo.est_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.est_i_dq.d
-address = 536872648
+address = 536872608
 type = 7
 color = 1092185135
 should_update_from_elf = true
@@ -604,7 +604,7 @@ do_not_interpret_as_enum = false
 [var43]
 name = g_foc.lo.hfi.lo.est_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.est_i_dq.q
-address = 536872652
+address = 536872612
 type = 7
 color = 3873643637
 should_update_from_elf = true
@@ -617,7 +617,7 @@ do_not_interpret_as_enum = false
 [var44]
 name = g_foc.lo.hfi.lo.hfi_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.hfi_i_dq.d
-address = 536872660
+address = 536872620
 type = 7
 color = 3759845976
 should_update_from_elf = true
@@ -630,7 +630,7 @@ do_not_interpret_as_enum = false
 [var45]
 name = g_foc.lo.hfi.lo.hfi_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.hfi_i_dq.q
-address = 536872664
+address = 536872624
 type = 7
 color = 2246967483
 should_update_from_elf = true
@@ -643,7 +643,7 @@ do_not_interpret_as_enum = false
 [var46]
 name = g_foc.lo.hfi.lo.hfi_theta
 tracked_name = g_foc.lo.hfi.lo.hfi_theta
-address = 536872656
+address = 536872616
 type = 7
 color = 919184112
 should_update_from_elf = true
@@ -656,7 +656,7 @@ do_not_interpret_as_enum = false
 [var47]
 name = g_foc.lo.hfi.lo.id_bpf.out.y
 tracked_name = g_foc.lo.hfi.lo.id_bpf.out.y
-address = 536872716
+address = 536872676
 type = 7
 color = 2864246576
 should_update_from_elf = true
@@ -669,7 +669,7 @@ do_not_interpret_as_enum = false
 [var48]
 name = g_foc.lo.hfi.lo.id_neg
 tracked_name = g_foc.lo.hfi.lo.id_neg
-address = 536872688
+address = 536872648
 type = 7
 color = 237564030
 should_update_from_elf = true
@@ -682,7 +682,7 @@ do_not_interpret_as_enum = false
 [var49]
 name = g_foc.lo.hfi.lo.id_pos
 tracked_name = g_foc.lo.hfi.lo.id_pos
-address = 536872684
+address = 536872644
 type = 7
 color = 3525770736
 should_update_from_elf = true
@@ -695,7 +695,7 @@ do_not_interpret_as_enum = false
 [var50]
 name = g_foc.lo.hfi.lo.lpf_i_dq.d
 tracked_name = g_foc.lo.hfi.lo.lpf_i_dq.d
-address = 536872668
+address = 536872628
 type = 7
 color = 3478017488
 should_update_from_elf = true
@@ -708,7 +708,7 @@ do_not_interpret_as_enum = false
 [var51]
 name = g_foc.lo.hfi.lo.lpf_i_dq.q
 tracked_name = g_foc.lo.hfi.lo.lpf_i_dq.q
-address = 536872672
+address = 536872632
 type = 7
 color = 4212454133
 should_update_from_elf = true
@@ -721,7 +721,7 @@ do_not_interpret_as_enum = false
 [var52]
 name = g_foc.lo.hfi.lo.polar_cnt
 tracked_name = g_foc.lo.hfi.lo.polar_cnt
-address = 536872680
+address = 536872640
 type = 5
 color = 554453178
 should_update_from_elf = true
@@ -734,7 +734,7 @@ do_not_interpret_as_enum = false
 [var53]
 name = g_foc.lo.hfi.lo.polar_offset
 tracked_name = g_foc.lo.hfi.lo.polar_offset
-address = 536872692
+address = 536872652
 type = 7
 color = 306566144
 should_update_from_elf = true
@@ -747,7 +747,7 @@ do_not_interpret_as_enum = false
 [var54]
 name = g_foc.lo.hfi.out.est_omega
 tracked_name = g_foc.lo.hfi.out.est_omega
-address = 536872608
+address = 536872568
 type = 7
 color = 4178553644
 should_update_from_elf = true
@@ -760,7 +760,7 @@ do_not_interpret_as_enum = false
 [var55]
 name = g_foc.lo.hfi.out.est_theta
 tracked_name = g_foc.lo.hfi.out.est_theta
-address = 536872604
+address = 536872564
 type = 7
 color = 4019995320
 should_update_from_elf = true
@@ -773,7 +773,7 @@ do_not_interpret_as_enum = false
 [var56]
 name = g_foc.lo.hfi.out.id
 tracked_name = g_foc.lo.hfi.out.id
-address = 536872612
+address = 536872572
 type = 7
 color = 3270614191
 should_update_from_elf = true
@@ -786,7 +786,7 @@ do_not_interpret_as_enum = false
 [var57]
 name = g_foc.lo.hfi.out.vd
 tracked_name = g_foc.lo.hfi.out.vd
-address = 536872616
+address = 536872576
 type = 7
 color = 2340696777
 should_update_from_elf = true
@@ -799,7 +799,7 @@ do_not_interpret_as_enum = false
 [var58]
 name = g_foc.lo.id_pid.cfg.ki
 tracked_name = g_foc.lo.id_pid.cfg.ki
-address = 536871976
+address = 536871936
 type = 7
 color = 2310290789
 should_update_from_elf = true
@@ -812,7 +812,7 @@ do_not_interpret_as_enum = false
 [var59]
 name = g_foc.lo.id_pid.cfg.kp
 tracked_name = g_foc.lo.id_pid.cfg.kp
-address = 536871972
+address = 536871932
 type = 7
 color = 2509984536
 should_update_from_elf = true
@@ -825,7 +825,7 @@ do_not_interpret_as_enum = false
 [var60]
 name = g_foc.lo.id_pid.in.fdb
 tracked_name = g_foc.lo.id_pid.in.fdb
-address = 536871996
+address = 536871956
 type = 7
 color = 1905097428
 should_update_from_elf = true
@@ -838,7 +838,7 @@ do_not_interpret_as_enum = false
 [var61]
 name = g_foc.lo.id_pid.in.ref
 tracked_name = g_foc.lo.id_pid.in.ref
-address = 536871992
+address = 536871952
 type = 7
 color = 3085606317
 should_update_from_elf = true
@@ -851,7 +851,7 @@ do_not_interpret_as_enum = false
 [var62]
 name = g_foc.lo.id_pid.lo.err
 tracked_name = g_foc.lo.id_pid.lo.err
-address = 536872008
+address = 536871968
 type = 7
 color = 794991594
 should_update_from_elf = true
@@ -864,7 +864,7 @@ do_not_interpret_as_enum = false
 [var63]
 name = g_foc.lo.lbg.cfg.damp
 tracked_name = g_foc.lo.lbg.cfg.damp
-address = 536873032
+address = 536872992
 type = 7
 color = 3701713187
 should_update_from_elf = true
@@ -877,7 +877,7 @@ do_not_interpret_as_enum = false
 [var64]
 name = g_foc.lo.lbg.cfg.wc
 tracked_name = g_foc.lo.lbg.cfg.wc
-address = 536873028
+address = 536872988
 type = 7
 color = 3415716232
 should_update_from_elf = true
@@ -890,7 +890,7 @@ do_not_interpret_as_enum = false
 [var65]
 name = g_foc.lo.lbg.lo.cfg.wc
 tracked_name = g_foc.lo.lbg.lo.cfg.wc
-address = 536873128
+address = 536873088
 type = 7
 color = 3242301222
 should_update_from_elf = true
@@ -903,7 +903,7 @@ do_not_interpret_as_enum = false
 [var66]
 name = g_foc.lo.lbg.out.est_load_tor
 tracked_name = g_foc.lo.lbg.out.est_load_tor
-address = 536873116
+address = 536873076
 type = 7
 color = 3814784768
 should_update_from_elf = true
@@ -916,7 +916,7 @@ do_not_interpret_as_enum = false
 [var67]
 name = g_foc.lo.lbg.out.est_omega
 tracked_name = g_foc.lo.lbg.out.est_omega
-address = 536873112
+address = 536873072
 type = 7
 color = 1896860197
 should_update_from_elf = true
@@ -929,7 +929,7 @@ do_not_interpret_as_enum = false
 [var68]
 name = g_foc.lo.lbg.out.est_theta
 tracked_name = g_foc.lo.lbg.out.est_theta
-address = 536873108
+address = 536873068
 type = 7
 color = 234946529
 should_update_from_elf = true
@@ -942,7 +942,7 @@ do_not_interpret_as_enum = false
 [var69]
 name = g_foc.lo.lbg.out.sum_tor
 tracked_name = g_foc.lo.lbg.out.sum_tor
-address = 536873120
+address = 536873080
 type = 7
 color = 2219023479
 should_update_from_elf = true
@@ -968,7 +968,7 @@ do_not_interpret_as_enum = false
 [var71]
 name = g_foc.lo.pd_pid.cfg.kd
 tracked_name = g_foc.lo.pd_pid.cfg.kd
-address = 536872220
+address = 536872180
 type = 7
 color = 242048004
 should_update_from_elf = true
@@ -981,7 +981,7 @@ do_not_interpret_as_enum = false
 [var72]
 name = g_foc.lo.pd_pid.cfg.kp
 tracked_name = g_foc.lo.pd_pid.cfg.kp
-address = 536872212
+address = 536872172
 type = 7
 color = 2232885220
 should_update_from_elf = true
@@ -994,7 +994,7 @@ do_not_interpret_as_enum = false
 [var73]
 name = g_foc.lo.pll.in.theta
 tracked_name = g_foc.lo.pll.in.theta
-address = 536872292
+address = 536872252
 type = 7
 color = 1040187647
 should_update_from_elf = true
@@ -1007,7 +1007,7 @@ do_not_interpret_as_enum = false
 [var74]
 name = g_foc.lo.pll.lo.prev_theta
 tracked_name = g_foc.lo.pll.lo.prev_theta
-address = 536872340
+address = 536872300
 type = 7
 color = 1661009664
 should_update_from_elf = true
@@ -1020,7 +1020,7 @@ do_not_interpret_as_enum = false
 [var75]
 name = g_foc.lo.pll.lo.theta_err
 tracked_name = g_foc.lo.pll.lo.theta_err
-address = 536872344
+address = 536872304
 type = 7
 color = 67168511
 should_update_from_elf = true
@@ -1033,7 +1033,7 @@ do_not_interpret_as_enum = false
 [var76]
 name = g_foc.lo.pll.out.theta
 tracked_name = g_foc.lo.pll.out.theta
-address = 536872296
+address = 536872256
 type = 7
 color = 872367872
 should_update_from_elf = true
@@ -1059,7 +1059,7 @@ do_not_interpret_as_enum = false
 [var78]
 name = g_foc.lo.pos_pid.cfg.ki
 tracked_name = g_foc.lo.pos_pid.cfg.ki
-address = 536872156
+address = 536872116
 type = 7
 color = 3941210325
 should_update_from_elf = true
@@ -1072,7 +1072,7 @@ do_not_interpret_as_enum = false
 [var79]
 name = g_foc.lo.pos_pid.cfg.kp
 tracked_name = g_foc.lo.pos_pid.cfg.kp
-address = 536872152
+address = 536872112
 type = 7
 color = 438334801
 should_update_from_elf = true
@@ -1085,7 +1085,7 @@ do_not_interpret_as_enum = false
 [var80]
 name = g_foc.lo.ref_i_dq.d
 tracked_name = g_foc.lo.ref_i_dq.d
-address = 536873228
+address = 536873188
 type = 7
 color = 3504079284
 should_update_from_elf = true
@@ -1098,7 +1098,7 @@ do_not_interpret_as_enum = false
 [var81]
 name = g_foc.lo.ref_i_dq.q
 tracked_name = g_foc.lo.ref_i_dq.q
-address = 536873232
+address = 536873192
 type = 7
 color = 3070291711
 should_update_from_elf = true
@@ -1111,7 +1111,7 @@ do_not_interpret_as_enum = false
 [var82]
 name = g_foc.lo.ref_pvct.cur
 tracked_name = g_foc.lo.ref_pvct.cur
-address = 536873260
+address = 536873220
 type = 7
 color = 1375731967
 should_update_from_elf = true
@@ -1124,7 +1124,7 @@ do_not_interpret_as_enum = false
 [var83]
 name = g_foc.lo.ref_pvct.elec_tor
 tracked_name = g_foc.lo.ref_pvct.elec_tor
-address = 536873264
+address = 536873224
 type = 7
 color = 1694641478
 should_update_from_elf = true
@@ -1137,7 +1137,7 @@ do_not_interpret_as_enum = false
 [var84]
 name = g_foc.lo.ref_pvct.ffd_cur
 tracked_name = g_foc.lo.ref_pvct.ffd_cur
-address = 536873272
+address = 536873232
 type = 7
 color = 2692046508
 should_update_from_elf = true
@@ -1150,7 +1150,7 @@ do_not_interpret_as_enum = false
 [var85]
 name = g_foc.lo.ref_pvct.ffd_vel
 tracked_name = g_foc.lo.ref_pvct.ffd_vel
-address = 536873268
+address = 536873228
 type = 7
 color = 3003402974
 should_update_from_elf = true
@@ -1163,7 +1163,7 @@ do_not_interpret_as_enum = false
 [var86]
 name = g_foc.lo.ref_pvct.pos
 tracked_name = g_foc.lo.ref_pvct.pos
-address = 536873252
+address = 536873212
 type = 7
 color = 1308125974
 should_update_from_elf = true
@@ -1176,7 +1176,7 @@ do_not_interpret_as_enum = false
 [var87]
 name = g_foc.lo.ref_pvct.vel
 tracked_name = g_foc.lo.ref_pvct.vel
-address = 536873256
+address = 536873216
 type = 7
 color = 2636736907
 should_update_from_elf = true
@@ -1189,7 +1189,7 @@ do_not_interpret_as_enum = false
 [var88]
 name = g_foc.lo.smo.cfg.es0
 tracked_name = g_foc.lo.smo.cfg.es0
-address = 536872364
+address = 536872324
 type = 7
 color = 1608794314
 should_update_from_elf = true
@@ -1202,7 +1202,7 @@ do_not_interpret_as_enum = false
 [var89]
 name = g_foc.lo.smo.cfg.ks
 tracked_name = g_foc.lo.smo.cfg.ks
-address = 536872360
+address = 536872320
 type = 7
 color = 1602414659
 should_update_from_elf = true
@@ -1215,7 +1215,7 @@ do_not_interpret_as_enum = false
 [var90]
 name = g_foc.lo.smo.in.i_ab.a
 tracked_name = g_foc.lo.smo.in.i_ab.a
-address = 536872432
+address = 536872392
 type = 7
 color = 4143972607
 should_update_from_elf = true
@@ -1228,7 +1228,7 @@ do_not_interpret_as_enum = false
 [var91]
 name = g_foc.lo.smo.in.i_ab.b
 tracked_name = g_foc.lo.smo.in.i_ab.b
-address = 536872436
+address = 536872396
 type = 7
 color = 3717344922
 should_update_from_elf = true
@@ -1241,7 +1241,7 @@ do_not_interpret_as_enum = false
 [var92]
 name = g_foc.lo.smo.lo.est_emf_v_ab.a
 tracked_name = g_foc.lo.smo.lo.est_emf_v_ab.a
-address = 536872472
+address = 536872432
 type = 7
 color = 3053453567
 should_update_from_elf = true
@@ -1254,7 +1254,7 @@ do_not_interpret_as_enum = false
 [var93]
 name = g_foc.lo.smo.lo.est_emf_v_ab.b
 tracked_name = g_foc.lo.smo.lo.est_emf_v_ab.b
-address = 536872476
+address = 536872436
 type = 7
 color = 4127260493
 should_update_from_elf = true
@@ -1267,7 +1267,7 @@ do_not_interpret_as_enum = false
 [var94]
 name = g_foc.lo.smo.lo.est_i_ab.a
 tracked_name = g_foc.lo.smo.lo.est_i_ab.a
-address = 536872456
+address = 536872416
 type = 7
 color = 2415853632
 should_update_from_elf = true
@@ -1280,7 +1280,7 @@ do_not_interpret_as_enum = false
 [var95]
 name = g_foc.lo.smo.lo.est_i_ab.b
 tracked_name = g_foc.lo.smo.lo.est_i_ab.b
-address = 536872460
+address = 536872420
 type = 7
 color = 3238461184
 should_update_from_elf = true
@@ -1293,7 +1293,7 @@ do_not_interpret_as_enum = false
 [var96]
 name = g_foc.lo.smo.lo.est_i_ab_err.a
 tracked_name = g_foc.lo.smo.lo.est_i_ab_err.a
-address = 536872464
+address = 536872424
 type = 7
 color = 3539992831
 should_update_from_elf = true
@@ -1306,7 +1306,7 @@ do_not_interpret_as_enum = false
 [var97]
 name = g_foc.lo.smo.lo.est_i_ab_err.b
 tracked_name = g_foc.lo.smo.lo.est_i_ab_err.b
-address = 536872468
+address = 536872428
 type = 7
 color = 1465570830
 should_update_from_elf = true
@@ -1319,7 +1319,7 @@ do_not_interpret_as_enum = false
 [var98]
 name = g_foc.lo.smo.lo.pll.cfg.wc
 tracked_name = g_foc.lo.smo.lo.pll.cfg.wc
-address = 536872484
+address = 536872444
 type = 7
 color = 2132015907
 should_update_from_elf = true
@@ -1332,7 +1332,7 @@ do_not_interpret_as_enum = false
 [var99]
 name = g_foc.lo.smo.lo.pll.lo.cfg.wc
 tracked_name = g_foc.lo.smo.lo.pll.lo.cfg.wc
-address = 536872524
+address = 536872484
 type = 7
 color = 997664437
 should_update_from_elf = true
@@ -1345,7 +1345,7 @@ do_not_interpret_as_enum = false
 [var100]
 name = g_foc.lo.smo.out.est_omega
 tracked_name = g_foc.lo.smo.out.est_omega
-address = 536872452
+address = 536872412
 type = 7
 color = 413350346
 should_update_from_elf = true
@@ -1358,7 +1358,7 @@ do_not_interpret_as_enum = false
 [var101]
 name = g_foc.lo.smo.out.est_theta
 tracked_name = g_foc.lo.smo.out.est_theta
-address = 536872448
+address = 536872408
 type = 7
 color = 1725279843
 should_update_from_elf = true
@@ -1410,7 +1410,7 @@ do_not_interpret_as_enum = false
 [var105]
 name = g_foc.lo.theta_offset_sum
 tracked_name = g_foc.lo.theta_offset_sum
-address = 536871936
+address = 536871896
 type = 7
 color = 428714495
 should_update_from_elf = true
@@ -1436,7 +1436,7 @@ do_not_interpret_as_enum = false
 [var107]
 name = g_foc.lo.vel_pid.cfg.ki
 tracked_name = g_foc.lo.vel_pid.cfg.ki
-address = 536872096
+address = 536872056
 type = 7
 color = 580997687
 should_update_from_elf = true
@@ -1449,7 +1449,7 @@ do_not_interpret_as_enum = false
 [var108]
 name = g_foc.lo.vel_pid.cfg.kp
 tracked_name = g_foc.lo.vel_pid.cfg.kp
-address = 536872092
+address = 536872052
 type = 7
 color = 1386719851
 should_update_from_elf = true
@@ -1462,7 +1462,7 @@ do_not_interpret_as_enum = false
 [var109]
 name = g_foc.out.f32_v_uvw.u
 tracked_name = g_foc.out.f32_v_uvw.u
-address = 536871812
+address = 536871772
 type = 7
 color = 218104063
 should_update_from_elf = true
@@ -1475,7 +1475,7 @@ do_not_interpret_as_enum = false
 [var110]
 name = g_foc.out.f32_v_uvw.v
 tracked_name = g_foc.out.f32_v_uvw.v
-address = 536871816
+address = 536871776
 type = 7
 color = 3506502655
 should_update_from_elf = true
@@ -1488,7 +1488,7 @@ do_not_interpret_as_enum = false
 [var111]
 name = g_foc.out.f32_v_uvw.w
 tracked_name = g_foc.out.f32_v_uvw.w
-address = 536871820
+address = 536871780
 type = 7
 color = 3730046720
 should_update_from_elf = true
@@ -1501,7 +1501,7 @@ do_not_interpret_as_enum = false
 [var112]
 name = g_foc.out.svpwm.f32_pwm_duty.u
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.u
-address = 536871836
+address = 536871796
 type = 7
 color = 2030043391
 should_update_from_elf = true
@@ -1514,7 +1514,7 @@ do_not_interpret_as_enum = false
 [var113]
 name = g_foc.out.svpwm.f32_pwm_duty.v
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.v
-address = 536871840
+address = 536871800
 type = 7
 color = 218168319
 should_update_from_elf = true
@@ -1527,7 +1527,7 @@ do_not_interpret_as_enum = false
 [var114]
 name = g_foc.out.svpwm.f32_pwm_duty.w
 tracked_name = g_foc.out.svpwm.f32_pwm_duty.w
-address = 536871844
+address = 536871804
 type = 7
 color = 4177462784
 should_update_from_elf = true
@@ -1540,7 +1540,7 @@ do_not_interpret_as_enum = false
 [var115]
 name = g_foc.out.svpwm.u32_pwm_duty.u
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.u
-address = 536871848
+address = 536871808
 type = 5
 color = 200119445
 should_update_from_elf = true
@@ -1553,7 +1553,7 @@ do_not_interpret_as_enum = false
 [var116]
 name = g_foc.out.svpwm.u32_pwm_duty.v
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.v
-address = 536871852
+address = 536871812
 type = 5
 color = 3832367348
 should_update_from_elf = true
@@ -1566,7 +1566,7 @@ do_not_interpret_as_enum = false
 [var117]
 name = g_foc.out.svpwm.u32_pwm_duty.w
 tracked_name = g_foc.out.svpwm.u32_pwm_duty.w
-address = 536871856
+address = 536871816
 type = 5
 color = 2524445715
 should_update_from_elf = true
@@ -1579,7 +1579,7 @@ do_not_interpret_as_enum = false
 [var118]
 name = g_foc.out.v_ab.a
 tracked_name = g_foc.out.v_ab.a
-address = 536871796
+address = 536871756
 type = 7
 color = 2038804954
 should_update_from_elf = true
@@ -1592,7 +1592,7 @@ do_not_interpret_as_enum = false
 [var119]
 name = g_foc.out.v_ab.b
 tracked_name = g_foc.out.v_ab.b
-address = 536871800
+address = 536871760
 type = 7
 color = 3697789061
 should_update_from_elf = true
@@ -1605,7 +1605,7 @@ do_not_interpret_as_enum = false
 [var120]
 name = g_foc.out.v_ab_sv.a
 tracked_name = g_foc.out.v_ab_sv.a
-address = 536871804
+address = 536871764
 type = 7
 color = 657653517
 should_update_from_elf = true
@@ -1618,7 +1618,7 @@ do_not_interpret_as_enum = false
 [var121]
 name = g_foc.out.v_ab_sv.b
 tracked_name = g_foc.out.v_ab_sv.b
-address = 536871808
+address = 536871768
 type = 7
 color = 2087991284
 should_update_from_elf = true
@@ -1631,7 +1631,7 @@ do_not_interpret_as_enum = false
 [var122]
 name = g_foc.out.v_dq.d
 tracked_name = g_foc.out.v_dq.d
-address = 536871788
+address = 536871748
 type = 7
 color = 2499184209
 should_update_from_elf = true
@@ -1644,7 +1644,7 @@ do_not_interpret_as_enum = false
 [var123]
 name = g_foc.out.v_dq.q
 tracked_name = g_foc.out.v_dq.q
-address = 536871792
+address = 536871752
 type = 7
 color = 2851209014
 should_update_from_elf = true
@@ -1657,7 +1657,7 @@ do_not_interpret_as_enum = false
 [var124]
 name = g_linerhall.lo.theta_rate
 tracked_name = g_linerhall.lo.theta_rate
-address = 536873376
+address = 536873332
 type = 7
 color = 1124128255
 should_update_from_elf = true
@@ -1670,7 +1670,7 @@ do_not_interpret_as_enum = false
 [var125]
 name = g_linerhall.out.cos_norm
 tracked_name = g_linerhall.out.cos_norm
-address = 536873360
+address = 536873316
 type = 7
 color = 4044348017
 should_update_from_elf = true
@@ -1683,7 +1683,7 @@ do_not_interpret_as_enum = false
 [var126]
 name = g_linerhall.out.sin_norm
 tracked_name = g_linerhall.out.sin_norm
-address = 536873356
+address = 536873312
 type = 7
 color = 1539508658
 should_update_from_elf = true
@@ -1696,7 +1696,7 @@ do_not_interpret_as_enum = false
 [var127]
 name = g_linerhall.out.theta
 tracked_name = g_linerhall.out.theta
-address = 536873352
+address = 536873308
 type = 7
 color = 16746240
 should_update_from_elf = true
@@ -1746,6 +1746,19 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [var131]
+name = g_sched.lo.tasks[0].status.exec_cnt
+tracked_name = g_sched.lo.tasks[0].status.exec_cnt
+address = 536873476
+type = 5
+color = 3774873855
+should_update_from_elf = true
+shift = 0
+mask = 4294967295
+high_level_type = 0
+value_to_write = 0.000000
+do_not_interpret_as_enum = false
+
+[var132]
 name = g_sine.cfg.amp
 tracked_name = g_sine.cfg.amp
 address = 536873780
@@ -1758,7 +1771,7 @@ high_level_type = 0
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var132]
+[var133]
 name = g_sine.cfg.wave_freq
 tracked_name = g_sine.cfg.wave_freq
 address = 536873776
@@ -1771,10 +1784,10 @@ high_level_type = 0
 value_to_write = 5.000000
 do_not_interpret_as_enum = false
 
-[var133]
+[var134]
 name = g_user.cia402.lo.ctl_word
 tracked_name = g_user.cia402.lo.ctl_word
-address = 536874028
+address = 536873968
 type = 3
 color = 3958577021
 should_update_from_elf = true
@@ -1784,10 +1797,10 @@ high_level_type = 0
 value_to_write = 15.000000
 do_not_interpret_as_enum = false
 
-[var134]
+[var135]
 name = g_user.cia402.lo.e_mode
 tracked_name = g_user.cia402.lo.e_mode
-address = 536874034
+address = 536873974
 type = 2
 color = 3445445601
 should_update_from_elf = true
@@ -1797,10 +1810,10 @@ high_level_type = 3
 value_to_write = 3.000000
 do_not_interpret_as_enum = false
 
-[var135]
+[var136]
 name = g_user.cia402.lo.e_spec_cmd
 tracked_name = g_user.cia402.lo.e_spec_cmd
-address = 536874035
+address = 536873975
 type = 1
 color = 3991766214
 should_update_from_elf = true
@@ -1810,10 +1823,10 @@ high_level_type = 3
 value_to_write = 1.000000
 do_not_interpret_as_enum = false
 
-[var136]
+[var137]
 name = g_user.cia402.lo.e_state
 tracked_name = g_user.cia402.lo.e_state
-address = 536874032
+address = 536873972
 type = 3
 color = 2555604898
 should_update_from_elf = true
@@ -1823,10 +1836,10 @@ high_level_type = 3
 value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
-[var137]
+[var138]
 name = g_user.cia402.lo.sts_word
 tracked_name = g_user.cia402.lo.sts_word
-address = 536874030
+address = 536873970
 type = 3
 color = 2014692094
 should_update_from_elf = true
@@ -1837,7 +1850,7 @@ value_to_write = 0.000000
 do_not_interpret_as_enum = false
 
 [group0]
-name = g_foc
+name = foc
 acquisition_type = 0
 
 [group0-plot0]
@@ -2323,7 +2336,7 @@ format = DEC
 [group0-plot10]
 name = outshaft
 type = 0
-visibility = true
+visibility = false
 
 [group0-plot10-series0]
 name = g_foc.in.rotor.est_outshaft_theta
@@ -2561,211 +2574,221 @@ visibility = false
 format = DEC
 
 [group0-plot17]
-name = test
+name = task
 type = 0
 visibility = true
 
 [group0-plot17-series0]
-name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
-visibility = false
-format = DEC
-
-[group0-plot17-series1]
-name = g_foc.in.i_dq.d
-visibility = false
-format = DEC
-
-[group0-plot17-series2]
-name = g_foc.in.i_dq.q
-visibility = false
-format = DEC
-
-[group0-plot17-series3]
-name = g_foc.in.rotor.outshaft_theta
+name = g_sched.lo.tasks[0].status.exec_cnt
 visibility = true
-format = DEC
-
-[group0-plot17-series4]
-name = g_foc.in.rotor.sensor_theta
-visibility = true
-format = DEC
-
-[group0-plot17-series5]
-name = g_foc.lo.e_cali
-visibility = false
-format = DEC
-
-[group0-plot17-series6]
-name = g_foc.lo.e_state
-visibility = false
-format = DEC
-
-[group0-plot17-series7]
-name = g_foc.lo.elapsed_us
-visibility = false
-format = DEC
-
-[group0-plot17-series8]
-name = g_foc.lo.exec_cnt
-visibility = false
-format = DEC
-
-[group0-plot17-series9]
-name = g_foc.lo.hfi.lo.hfi_i_dq.d
-visibility = false
-format = DEC
-
-[group0-plot17-series10]
-name = g_foc.lo.hfi.lo.hfi_i_dq.q
-visibility = false
-format = DEC
-
-[group0-plot17-series11]
-name = g_foc.lo.hfi.lo.lpf_i_dq.q
-visibility = false
-format = DEC
-
-[group0-plot17-series12]
-name = g_foc.lo.pos_div_cnt
-visibility = false
-format = DEC
-
-[group0-plot17-series13]
-name = g_foc.lo.theta_cali_cnt
-visibility = false
-format = DEC
-
-[group0-plot17-series14]
-name = g_foc.lo.theta_cali_hold_cnt
-visibility = false
-format = DEC
-
-[group0-plot17-series15]
-name = g_foc.lo.theta_offset_sum
-visibility = true
-format = DEC
-
-[group0-plot17-series16]
-name = g_foc.lo.vel_div_cnt
-visibility = false
-format = DEC
-
-[group0-plot17-series17]
-name = g_foc.out.v_dq.d
-visibility = false
 format = DEC
 
 [group0-plot18]
-name = theta
+name = test
 type = 0
 visibility = false
 
 [group0-plot18-series0]
-name = g_foc.in.rotor.force_theta
+name = g_foc.cfg.periph_cfg.theta_cali_cnt_max
 visibility = false
 format = DEC
 
 [group0-plot18-series1]
-name = g_foc.in.rotor.mech_omega
+name = g_foc.in.i_dq.d
 visibility = false
 format = DEC
 
 [group0-plot18-series2]
-name = g_foc.in.rotor.mech_theta
+name = g_foc.in.i_dq.q
 visibility = false
 format = DEC
 
 [group0-plot18-series3]
-name = g_foc.in.rotor.mech_total_theta
-visibility = false
+name = g_foc.in.rotor.outshaft_theta
+visibility = true
 format = DEC
 
 [group0-plot18-series4]
-name = g_foc.in.rotor.obs_omega
-visibility = false
-format = DEC
-
-[group0-plot18-series5]
-name = g_foc.in.rotor.obs_theta
-visibility = false
-format = DEC
-
-[group0-plot18-series6]
-name = g_foc.in.rotor.omega
-visibility = false
-format = DEC
-
-[group0-plot18-series7]
-name = g_foc.in.rotor.sensor_omega
-visibility = false
-format = DEC
-
-[group0-plot18-series8]
 name = g_foc.in.rotor.sensor_theta
 visibility = true
 format = DEC
 
+[group0-plot18-series5]
+name = g_foc.lo.e_cali
+visibility = false
+format = DEC
+
+[group0-plot18-series6]
+name = g_foc.lo.e_state
+visibility = false
+format = DEC
+
+[group0-plot18-series7]
+name = g_foc.lo.elapsed_us
+visibility = false
+format = DEC
+
+[group0-plot18-series8]
+name = g_foc.lo.exec_cnt
+visibility = false
+format = DEC
+
 [group0-plot18-series9]
-name = g_foc.in.rotor.theta
+name = g_foc.lo.hfi.lo.hfi_i_dq.d
 visibility = false
 format = DEC
 
 [group0-plot18-series10]
-name = g_foc.in.v_bus
+name = g_foc.lo.hfi.lo.hfi_i_dq.q
+visibility = false
+format = DEC
+
+[group0-plot18-series11]
+name = g_foc.lo.hfi.lo.lpf_i_dq.q
+visibility = false
+format = DEC
+
+[group0-plot18-series12]
+name = g_foc.lo.pos_div_cnt
+visibility = false
+format = DEC
+
+[group0-plot18-series13]
+name = g_foc.lo.theta_cali_cnt
+visibility = false
+format = DEC
+
+[group0-plot18-series14]
+name = g_foc.lo.theta_cali_hold_cnt
+visibility = false
+format = DEC
+
+[group0-plot18-series15]
+name = g_foc.lo.theta_offset_sum
+visibility = true
+format = DEC
+
+[group0-plot18-series16]
+name = g_foc.lo.vel_div_cnt
+visibility = false
+format = DEC
+
+[group0-plot18-series17]
+name = g_foc.out.v_dq.d
 visibility = false
 format = DEC
 
 [group0-plot19]
-name = uvw
+name = theta
 type = 0
 visibility = false
 
 [group0-plot19-series0]
-name = g_foc.in.f32_i_uvw.u
-visibility = true
+name = g_foc.in.rotor.force_theta
+visibility = false
 format = DEC
 
 [group0-plot19-series1]
-name = g_foc.in.f32_i_uvw.v
-visibility = true
+name = g_foc.in.rotor.mech_omega
+visibility = false
 format = DEC
 
 [group0-plot19-series2]
-name = g_foc.in.f32_i_uvw.w
-visibility = true
+name = g_foc.in.rotor.mech_theta
+visibility = false
 format = DEC
 
 [group0-plot19-series3]
-name = g_foc.in.v_bus
+name = g_foc.in.rotor.mech_total_theta
 visibility = false
 format = DEC
 
 [group0-plot19-series4]
-name = g_foc.out.f32_v_uvw.u
-visibility = false
-format = DEC
-
-[group0-plot19-series5]
-name = g_foc.out.f32_v_uvw.v
-visibility = false
-format = DEC
-
-[group0-plot19-series6]
-name = g_foc.out.f32_v_uvw.w
-visibility = false
-format = DEC
-
-[group0-plot20]
-name = vel
-type = 0
-visibility = false
-
-[group0-plot20-series0]
 name = g_foc.in.rotor.obs_omega
 visibility = false
 format = DEC
 
+[group0-plot19-series5]
+name = g_foc.in.rotor.obs_theta
+visibility = false
+format = DEC
+
+[group0-plot19-series6]
+name = g_foc.in.rotor.omega
+visibility = false
+format = DEC
+
+[group0-plot19-series7]
+name = g_foc.in.rotor.sensor_omega
+visibility = false
+format = DEC
+
+[group0-plot19-series8]
+name = g_foc.in.rotor.sensor_theta
+visibility = true
+format = DEC
+
+[group0-plot19-series9]
+name = g_foc.in.rotor.theta
+visibility = false
+format = DEC
+
+[group0-plot19-series10]
+name = g_foc.in.v_bus
+visibility = false
+format = DEC
+
+[group0-plot20]
+name = uvw
+type = 0
+visibility = false
+
+[group0-plot20-series0]
+name = g_foc.in.f32_i_uvw.u
+visibility = true
+format = DEC
+
 [group0-plot20-series1]
+name = g_foc.in.f32_i_uvw.v
+visibility = true
+format = DEC
+
+[group0-plot20-series2]
+name = g_foc.in.f32_i_uvw.w
+visibility = true
+format = DEC
+
+[group0-plot20-series3]
+name = g_foc.in.v_bus
+visibility = false
+format = DEC
+
+[group0-plot20-series4]
+name = g_foc.out.f32_v_uvw.u
+visibility = false
+format = DEC
+
+[group0-plot20-series5]
+name = g_foc.out.f32_v_uvw.v
+visibility = false
+format = DEC
+
+[group0-plot20-series6]
+name = g_foc.out.f32_v_uvw.w
+visibility = false
+format = DEC
+
+[group0-plot21]
+name = vel
+type = 0
+visibility = false
+
+[group0-plot21-series0]
+name = g_foc.in.rotor.obs_omega
+visibility = false
+format = DEC
+
+[group0-plot21-series1]
 name = g_foc.in.rotor.sensor_omega
 visibility = false
 format = DEC

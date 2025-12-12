@@ -11,10 +11,13 @@
 sched_t g_sched;
 log_t   g_log;
 
-foc_t   g_foc;
-user_t  g_user;
+foc_t  g_foc;
+user_t g_user;
+
 check_t g_check;
-AT("comm_shm") comm_shm_t g_comm_shm;
+
+extern comm_shm_map_t g_comm_shm_map;
+comm_shm_t            g_comm_shm;
 
 benchmark_t g_benchmark_res[30];
 
@@ -68,7 +71,32 @@ init(void)
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "---\nlogger init\n");
 
-        comm_shm_init(&g_comm_shm);
+        check_cfg_t check_cfg = {
+            .foc = &g_foc,
+            .cnt =
+                {
+                    .over_vbus     = S2CNT(1, USER_FREQ_HZ),
+                    .over_vbus_rec = S2CNT(1, USER_FREQ_HZ),
+
+                    .under_vbus     = S2CNT(1, USER_FREQ_HZ),
+                    .under_vbus_rec = S2CNT(1, USER_FREQ_HZ),
+
+                    .over_cur     = S2CNT(1, USER_FREQ_HZ),
+                    .over_cur_rec = S2CNT(5, USER_FREQ_HZ),
+                },
+            .vbus_max = 60.0f,
+            .vbus_min = 24.0f,
+            .cur_max  = 10.0f,
+        };
+        check_init(&g_check, check_cfg);
+        log_info(&g_log, 1, "check init\n");
+
+        comm_shm_cfg_t comm_shm_cfg = {
+            .map   = &g_comm_shm_map,
+            .foc   = &g_foc,
+            .check = &g_check,
+        };
+        comm_shm_init(&g_comm_shm, comm_shm_cfg);
         log_info(&g_log, 1, "comm_shm init\n");
 
         user_init();

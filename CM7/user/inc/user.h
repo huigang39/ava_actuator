@@ -28,7 +28,7 @@ static const sched_task_cfg_t g_task_list_cfg[] = {
         {
             .id           = TASK_USER,
             .priority     = 0,
-            .exec_freq    = 1000,
+            .exec_freq    = 5000,
             .delay_tick   = 0,
             .exec_cnt_max = 0,
             .f_cb         = user_loop_task,

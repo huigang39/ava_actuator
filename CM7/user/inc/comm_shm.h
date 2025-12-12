@@ -3,6 +3,8 @@
 
 #include "module.h"
 
+#include "check.h"
+
 #define SIZE_1KB                           (0x400)
 #define SIZE_2KB                           (0x800)
 #define SIZE_4KB                           (0x1000)
@@ -87,6 +89,66 @@ typedef struct {
 } comm_shm_pid_param_t;
 
 typedef struct {
+        union {
+                u32 all;
+                struct {
+                        u32 adc_cali : 1;   // ADC校准错误
+                        u32 over_cur : 1;   // 过流
+                        u32 over_vbus : 1;  // 过压
+                        u32 under_vbus : 1; // 欠压
+
+                        u32 foc_sensor_not_cali : 1; // FOC角度传感器未校准
+                        u32 foc_sensor : 1;          // 高速编码器错误
+                        u32 outshaft_sensor : 1;     // 低速编码器错误
+                        u32 over_load : 1;           // 电机过载过温错误
+
+                        u32 mos : 1;            // MOS自检错误
+                        u32 coil_over_temp : 1; // 绕组过温
+                        u32 mos_over_temp : 1;  // MOS过温错误
+                        u32 mcu_over_temp : 1;  // 芯片过温错误
+
+                        u32 u_phase_loss : 1; // U相缺失
+                        u32 v_phase_loss : 1; // V相缺失
+                        u32 w_phase_loss : 1; // W相缺失
+                        u32 phase_loss : 1;   // 自检缺相
+
+                        u32 runaway : 1; // 飞车
+                        u32 res0 : 1;    // 保留
+                        u32 res1 : 1;    // 保留
+                        u32 param : 1;   // M7读取M4文件错误
+
+                        u32 res2 : 1;  // 上电自检错误, 传感器角度异常
+                        u32 res3 : 11; // 预留11位错误码
+                } bit;
+        } ext1;
+
+        u32 ext2;
+
+        union {
+                u32 all;
+                struct {
+                        u32 mos_over_temp : 1;  // 电机MOS过温警告
+                        u32 coil_over_temp : 1; // 电机绕组过温警告
+                        u32 ntc : 1;            // NTC异常
+                        u32 double_encoder : 1; // 双编码器异常
+
+                        u32 fpu : 1;                // FPU浮点计算异常
+                        u32 soft_pos_limit : 1;     // 软限位警告
+                        u32 comm_timeout : 1;       // 通信超时
+                        u32 param_ver_mismatch : 1; // 参数列表版本警告
+
+                        u32 res0 : 24; // 预留24位错误码
+                } bit;
+        } ext3;
+
+        u32 ext4;
+        u32 ext5;
+        u32 ext6;
+        u32 ext7;
+        u32 ext8;
+} comm_shm_errcode_t;
+
+typedef struct {
         f32 mos_temp;
         f32 coil_temp0;
         f32 v_bus;
@@ -101,7 +163,7 @@ typedef struct {
         foc_fdb_pvct_t        fdb_pvct;
         u32                   res1[7];
         comm_shm_pid_param_t  pid_param;
-        u32                   errcode[8];
+        comm_shm_errcode_t    errcode;
         comm_shm_inv_status_t inv_status;
 } comm_shm_rt_t;
 
@@ -323,10 +385,26 @@ typedef struct {
 
         u8 m4_comm_data[SIZE_1KB];
         u8 res5[SIZE_2KB];
+} comm_shm_map_t;
+
+typedef struct {
+        comm_shm_map_t *map;
+        foc_t          *foc;
+        check_t        *check;
+} comm_shm_cfg_t;
+
+typedef struct {
+
+} comm_shm_lo_t;
+
+typedef struct {
+        comm_shm_cfg_t cfg;
+        comm_shm_lo_t  lo;
 } comm_shm_t;
 
-void comm_shm_init(comm_shm_t *comm_shm);
-void comm_shm_sync_rt(comm_shm_t *comm_shm, foc_t *foc);
+void comm_shm_init(comm_shm_t *comm_shm, const comm_shm_cfg_t comm_shm_cfg);
+void comm_shm_sync_rt(comm_shm_t *comm_shm);
+
 void comm_shm_store(void *dst, void *src, usz size);
 void comm_shm_load(void *dst, void *src, usz size);
 
