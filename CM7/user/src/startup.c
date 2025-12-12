@@ -93,8 +93,8 @@ init(void)
             .vbus_max          = 60.0f,
             .vbus_min          = 24.0f,
             .cur_max           = 10.0f,
-            .coil_temp_max     = 40.0f,
-            .inverter_temp_max = 40.0f,
+            .coil_temp_max     = 80.0f,
+            .inverter_temp_max = 80.0f,
         };
         check_init(&g_check, check_cfg);
         log_info(&g_log, 1, "check init\n");

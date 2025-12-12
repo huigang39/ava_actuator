@@ -176,6 +176,8 @@ inverter_over_temp_check(check_t *check)
 static bool
 fpu_check(check_t *check)
 {
+        ARG_UNUSED(check);
+
         enum {
                 FPU_EXCEPTION_IOC, // 非法操作
                 FPU_EXCEPTION_DZC, // 被零除

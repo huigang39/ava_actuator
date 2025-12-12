@@ -150,10 +150,11 @@ static const motor_cfg_t g_motor_cfg[] = {
             .lq      = 376.2e-6f,
             .psi     = 0.005002f,
             .j       = 1.73e-5f,
-            .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
-            .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
+            .vel_max = RPM2RADS(5000),
             .cur_max = 20.0f,
             .tor_max = 0.747f,
+            .cur2tor = {3e-5f, -0.0026f, 0.0824f, 0.0f},
+            .tor2cur = {27.904f, -13.244f, 16.183f, 0.0f},
         },
     [MOTOR_FSA4515V1] =
         {
@@ -163,10 +164,11 @@ static const motor_cfg_t g_motor_cfg[] = {
             .lq      = 95.6e-6f,
             .psi     = 0.004749f,
             .j       = 3.48e-05f,
-            .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
-            .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
+            .vel_max = RPM2RADS(5000),
             .cur_max = 29.0f,
             .tor_max = 3.0f,
+            .cur2tor = {2.0e-5f, -0.0007f, 0.0658f, 0.0f},
+            .tor2cur = {-1.3579f, 2.8727f, 15.208f, 0.0f},
         },
     [MOTOR_FSA6015V25] =
         {
@@ -176,10 +178,11 @@ static const motor_cfg_t g_motor_cfg[] = {
             .lq      = 113.98e-6f,
             .psi     = 0.00727f,
             .j       = 9.23e-05f,
-            .cur2tor = {-7e-6f, 0.0001f, 0.0994f, 0.0f},
-            .tor2cur = {0.2677f, -1.1434f, 11.394f, 0.0f},
+            .vel_max = RPM2RADS(5000),
             .cur_max = 59.0f,
             .tor_max = 5.031f,
+            .cur2tor = {-7e-6f, 0.0001f, 0.0994f, 0.0f},
+            .tor2cur = {0.2677f, -1.1434f, 11.394f, 0.0f},
         },
     [MOTOR_FSA8015V25] =
         {
@@ -189,10 +192,11 @@ static const motor_cfg_t g_motor_cfg[] = {
             .lq      = 34.4e-6f,
             .psi     = 0.003259f,
             .j       = 3.48e-05f,
-            .cur2tor = {-3e-6f, 0.0002f, 0.0785f, 0.0f},
-            .tor2cur = {0.1644f, -0.9912f, 14.024f, 0.0f},
+            .vel_max = RPM2RADS(5000),
             .cur_max = 79.0f,
             .tor_max = 6.0f,
+            .cur2tor = {-3e-6f, 0.0002f, 0.0785f, 0.0f},
+            .tor2cur = {0.1644f, -0.9912f, 14.024f, 0.0f},
         },
     [MOTOR_FSA10020V25] =
         {
@@ -202,10 +206,11 @@ static const motor_cfg_t g_motor_cfg[] = {
             .lq      = 10.2e-6f,
             .psi     = 0.003979f,
             .j       = 3.48e-05f,
-            .cur2tor = {-7e-7f, -5e-5f, 0.1276f, 0.0f},
-            .tor2cur = {0.0127f, -0.1202f, 8.5115f, 0.0f},
+            .vel_max = RPM2RADS(5000),
             .cur_max = 160.0f,
             .tor_max = 18.18f,
+            .cur2tor = {-7e-7f, -5e-5f, 0.1276f, 0.0f},
+            .tor2cur = {0.0127f, -0.1202f, 8.5115f, 0.0f},
         },
 };
 
@@ -507,105 +512,87 @@ static const pid_cfg_t g_vel_cfg[] =
 static const pid_cfg_t g_pos_cfg[] = {
     [ACTUATOR_FSA361480Z] =
         {
-            .kp      = 1.0f,
-            .out_max = 50.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA601780Z] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA6030E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA6043E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA8028E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA10020E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
     [ACTUATOR_FSA10043E] =
         {
-            .kp      = 1.0f,
-            .out_max = 1000.0f,
+            .kp = 1.0f,
         },
 };
 
 static const pid_cfg_t g_pd_cfg[] = {
     [ACTUATOR_FSA361480Z] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA451780Z] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA4530E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA601780Z] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA6030E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA6043E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA8028E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA10020E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
     [ACTUATOR_FSA10043E] =
         {
-            .kp      = 10.0f,
-            .kd      = 1.0f,
-            .out_max = 10.0f,
+            .kp = 10.0f,
+            .kd = 1.0f,
         },
 };
 
