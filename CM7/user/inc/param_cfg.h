@@ -16,12 +16,6 @@
 
 #define ACTUATOR_TYPE ACTUATOR_FSA6030E
 
-static const sched_cfg_t g_sched_cfg = {
-    .e_type   = SCHED_TYPE_FCFS,
-    .e_tick   = SCHED_TICK_US,
-    .f_get_ts = periph_get_ts_us,
-};
-
 static const ntc_t g_ntc_cfg[] = {
     [NTC_COIL_0] =
         {

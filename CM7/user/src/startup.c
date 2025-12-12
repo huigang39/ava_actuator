@@ -11,25 +11,10 @@
 sched_t g_sched;
 log_t   g_log;
 
-foc_t  g_foc;
-user_t g_user;
-
-check_t g_check;
-
-extern comm_shm_map_t g_comm_shm_map;
-comm_shm_t            g_comm_shm;
+foc_t         g_foc;
+extern user_t g_user;
 
 benchmark_t g_benchmark_res[30];
-
-static void
-cpy_vtor_to_itcm(void)
-{
-        const u32 *src = (u32 *)FLASH_BANK1_BASE;
-        u32       *dst = (u32 *)D1_ITCMRAM_BASE;
-        memcpy(dst, src, 0x400);
-        SCB->VTOR = D1_ITCMRAM_BASE;
-}
-
 static void
 run_math_benchmark(void)
 {
@@ -50,12 +35,21 @@ run_math_benchmark(void)
         });
 }
 
+static void
+cpy_vtor_to_itcm(void)
+{
+        const u32 *src = (u32 *)FLASH_BANK1_BASE;
+        u32       *dst = (u32 *)D1_ITCMRAM_BASE;
+        memcpy(dst, src, 0x400);
+        SCB->VTOR = D1_ITCMRAM_BASE;
+}
+
 void
 init(void)
 {
         DWT_INIT();
 
-        log_cfg_t log_cfg = {
+        const log_cfg_t log_cfg = {
             .e_mode     = LOG_MODE_ASYNC,
             .e_level    = LOG_LEVEL_INFO,
             .fp         = g_log_uart,
@@ -71,48 +65,15 @@ init(void)
         log_init(&g_log, log_cfg);
         log_info(&g_log, 1, "---\nlogger init\n");
 
-        check_cfg_t check_cfg = {
-            .foc = &g_foc,
-            .cnt =
-                {
-                    .over_vbus     = S2CNT(1, USER_FREQ_HZ),
-                    .over_vbus_rec = S2CNT(1, USER_FREQ_HZ),
-
-                    .under_vbus     = S2CNT(1, USER_FREQ_HZ),
-                    .under_vbus_rec = S2CNT(1, USER_FREQ_HZ),
-
-                    .over_cur     = S2CNT(1, USER_FREQ_HZ),
-                    .over_cur_rec = S2CNT(5, USER_FREQ_HZ),
-
-                    .coil_over_temp     = S2CNT(1, USER_FREQ_HZ),
-                    .coil_over_temp_rec = S2CNT(1, USER_FREQ_HZ),
-
-                    .inverter_over_temp     = S2CNT(1, USER_FREQ_HZ),
-                    .inverter_over_temp_rec = S2CNT(1, USER_FREQ_HZ),
-                },
-            .vbus_max          = 60.0f,
-            .vbus_min          = 24.0f,
-            .cur_max           = 10.0f,
-            .coil_temp_max     = 80.0f,
-            .inverter_temp_max = 80.0f,
+        const sched_cfg_t sched_cfg = {
+            .e_type   = SCHED_TYPE_FCFS,
+            .e_tick   = SCHED_TICK_US,
+            .f_get_ts = periph_get_ts_us,
         };
-        check_init(&g_check, check_cfg);
-        log_info(&g_log, 1, "check init\n");
-
-        comm_shm_cfg_t comm_shm_cfg = {
-            .map   = &g_comm_shm_map,
-            .foc   = &g_foc,
-            .check = &g_check,
-        };
-        comm_shm_init(&g_comm_shm, comm_shm_cfg);
-        log_info(&g_log, 1, "comm_shm init\n");
-
-        user_init();
-        log_info(&g_log, 1, "user init\n");
-
-        sched_init(&g_sched, g_sched_cfg);
+        sched_init(&g_sched, sched_cfg);
         for (u32 i = 0; i < ARRAY_LEN(g_task_list_cfg); i++)
                 sched_add_task(&g_sched, g_task_list_cfg[i]);
+        log_info(&g_log, 1, "sched init\n");
 
         g_foc.lo.pll.cfg           = g_omega_pll_cfg[ACTUATOR_TYPE];
         g_foc.lo.hfi.cfg           = g_hfi_cfg[ACTUATOR_TYPE];
@@ -124,6 +85,14 @@ init(void)
         g_foc.lo.lbg.cfg           = g_lbg_cfg[ACTUATOR_TYPE];
         foc_init(&g_foc, g_foc_cfg[ACTUATOR_TYPE]);
         log_info(&g_log, 1, "foc init\n");
+
+        const user_cfg_t user_cfg = {
+            .foc   = &g_foc,
+            .sched = &g_sched,
+            .log   = &g_log,
+        };
+        user_init(&g_user, user_cfg);
+        log_info(&g_log, 1, "user init\n");
 
         periph_init();
         log_info(&g_log, 1, "periph init\n");
