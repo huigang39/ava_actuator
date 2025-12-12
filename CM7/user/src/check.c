@@ -18,8 +18,8 @@ check_init(check_t *check, const check_cfg_t check_cfg)
 void
 check_exec(check_t *check)
 {
-        DECL_PTR_RENAME(&check->lo.warn, warn);
-        DECL_PTR_RENAME(&check->lo.err, err);
+        RENAME(&check->lo.warn, warn);
+        RENAME(&check->lo.err, err);
 
         warn->bit.FPU_EXCEPTION = fpu_check(check);
 
@@ -33,8 +33,8 @@ check_exec(check_t *check)
 static bool
 over_vbus_check(check_t *check)
 {
-        DECL_PTRS(check, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(check, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         if (IS_IN_RANGE(foc->in.v_bus, cfg->vbus_min, cfg->vbus_max)) {
                 if (lo->cnt.over_vbus_rec < cfg->cnt.over_vbus_rec) {
@@ -63,8 +63,8 @@ over_vbus_check(check_t *check)
 static bool
 under_vbus_check(check_t *check)
 {
-        DECL_PTRS(check, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(check, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         if (IS_IN_RANGE(foc->in.v_bus, cfg->vbus_min, cfg->vbus_max)) {
                 if (lo->cnt.under_vbus_rec < cfg->cnt.under_vbus_rec) {
@@ -93,8 +93,8 @@ under_vbus_check(check_t *check)
 static bool
 over_cur_check(check_t *check)
 {
-        DECL_PTRS(check, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(check, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         if (IS_IN_RANGE(foc->in.i_dq.q, -cfg->cur_max, cfg->cur_max)) {
                 if (lo->cnt.over_cur_rec < cfg->cnt.over_cur_rec) {
@@ -122,8 +122,8 @@ over_cur_check(check_t *check)
 static bool
 coil_over_temp_check(check_t *check)
 {
-        DECL_PTRS(check, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(check, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         if (MAX(foc->in.temp.coil[0], foc->in.temp.coil[1]) < cfg->coil_temp_max) {
                 if (lo->cnt.coil_over_temp_rec < cfg->cnt.coil_over_temp_rec) {
@@ -149,8 +149,8 @@ coil_over_temp_check(check_t *check)
 static bool
 inverter_over_temp_check(check_t *check)
 {
-        DECL_PTRS(check, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(check, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         if (foc->in.temp.inverter < cfg->inverter_temp_max) {
                 if (lo->cnt.inverter_over_temp_rec < cfg->cnt.inverter_over_temp_rec) {

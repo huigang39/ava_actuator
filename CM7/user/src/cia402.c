@@ -8,8 +8,8 @@ void
 cia402_init(cia402_t *cia402, const cia402_cfg_t cia402_cfg)
 {
         CFG_INIT(cia402, cia402_cfg);
-        DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
+        DECL(cia402, cfg, lo);
+        RENAME(cfg->comm_shm, comm_shm);
 
         lo->e_state = CIA402_STATE_START;
 }
@@ -17,7 +17,7 @@ cia402_init(cia402_t *cia402, const cia402_cfg_t cia402_cfg)
 void
 cia402_exec(cia402_t *cia402)
 {
-        DECL_PTRS(cia402, cfg, lo);
+        DECL(cia402, cfg, lo);
 
         cia402_state_update(cia402);
         cia402_foc_update(cia402);
@@ -27,10 +27,10 @@ cia402_exec(cia402_t *cia402)
 static void
 cia402_state_update(cia402_t *cia402)
 {
-        DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
-        DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
-        DECL_PTR_RENAME(cfg->check, check);
+        DECL(cia402, cfg, lo);
+        RENAME(cfg->foc, foc);
+        RENAME(cfg->comm_shm, comm_shm);
+        RENAME(cfg->check, check);
 
         switch (comm_shm->cfg.map->rt.ctl.e_word) {
                 case COMM_SHM_WORD_ENABLE: {
@@ -211,8 +211,8 @@ cia402_state_update(cia402_t *cia402)
 static void
 cia402_foc_update(cia402_t *cia402)
 {
-        DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(cia402, cfg, lo);
+        RENAME(cfg->foc, foc);
 
         switch (lo->e_state) {
                 case CIA402_STATE_START:
@@ -301,10 +301,10 @@ cia402_foc_update(cia402_t *cia402)
 static void
 cia402_sts_update(cia402_t *cia402)
 {
-        DECL_PTRS(cia402, cfg, lo);
-        DECL_PTR_RENAME(cfg->foc, foc);
-        DECL_PTR_RENAME(cfg->comm_shm, comm_shm);
-        DECL_PTR_RENAME(cfg->check, check);
+        DECL(cia402, cfg, lo);
+        RENAME(cfg->foc, foc);
+        RENAME(cfg->comm_shm, comm_shm);
+        RENAME(cfg->check, check);
 
         const bool has_fault       = check->lo.err.all != 0;
         const bool has_warning     = check->lo.warn.all != 0;

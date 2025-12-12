@@ -18,9 +18,9 @@ void
 comm_shm_init(comm_shm_t *comm_shm, const comm_shm_cfg_t comm_shm_cfg)
 {
         CFG_INIT(comm_shm, comm_shm_cfg);
-        DECL_PTRS(comm_shm, cfg);
-        DECL_PTR_RENAME(cfg->map, map);
-        DECL_PTR_RENAME(&cfg->check->lo.err, err);
+        DECL(comm_shm, cfg);
+        RENAME(cfg->map, map);
+        RENAME(&cfg->check->lo.err, err);
 
         memset((void *)map, 0, sizeof(*map));
 
@@ -64,10 +64,10 @@ comm_shm_init_hsem(void)
 void
 comm_shm_sync_rt(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
-        DECL_PTR_RENAME(cfg->foc, foc);
-        DECL_PTR_RENAME(&cfg->map->rt, rt);
-        DECL_PTR_RENAME(&cfg->check->lo.err, err);
+        DECL(comm_shm, cfg);
+        RENAME(cfg->foc, foc);
+        RENAME(&cfg->map->rt, rt);
+        RENAME(&cfg->check->lo.err, err);
 
         if (err->bit.PARAM_SYNC) {
                 comm_shm_init_pid_param(comm_shm);
@@ -88,7 +88,7 @@ comm_shm_sync_rt(comm_shm_t *comm_shm)
 static void
 comm_shm_init_uid(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
+        DECL(comm_shm, cfg);
 
         u32 *uid = cfg->map->uid;
         uid[0]   = HAL_GetUIDw0();
@@ -100,7 +100,7 @@ comm_shm_init_uid(comm_shm_t *comm_shm)
 static void
 comm_shm_init_ver(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
+        DECL(comm_shm, cfg);
 
         comm_shm_ver_t *m7_ver = &cfg->map->m7_ver;
         m7_ver->num            = USER_VER_NUM;
@@ -110,8 +110,8 @@ comm_shm_init_ver(comm_shm_t *comm_shm)
 static void
 comm_shm_init_pid_param(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
-        DECL_PTR_RENAME(cfg->foc, foc);
+        DECL(comm_shm, cfg);
+        RENAME(cfg->foc, foc);
 
         cfg->map->rt.pid_param.cur_vel_kp = foc->lo.vel_pid.cfg.kp;
         cfg->map->rt.pid_param.cur_vel_ki = foc->lo.vel_pid.cfg.ki;
@@ -123,9 +123,9 @@ comm_shm_init_pid_param(comm_shm_t *comm_shm)
 static void
 comm_shm_sync_pid_param(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
-        DECL_PTR_RENAME(cfg->foc, foc);
-        DECL_PTR_RENAME(&cfg->map->rt, rt);
+        DECL(comm_shm, cfg);
+        RENAME(cfg->foc, foc);
+        RENAME(&cfg->map->rt, rt);
 
         foc->lo.vel_pid.cfg.kp = rt->pid_param.cur_vel_kp;
         foc->lo.vel_pid.cfg.ki = rt->pid_param.cur_vel_ki;
@@ -137,9 +137,9 @@ comm_shm_sync_pid_param(comm_shm_t *comm_shm)
 static void
 comm_shm_sync_errcode(comm_shm_t *comm_shm)
 {
-        DECL_PTRS(comm_shm, cfg);
-        DECL_PTR_RENAME(&cfg->map->rt, rt);
-        DECL_PTR_RENAME(&cfg->check->lo.err, err);
+        DECL(comm_shm, cfg);
+        RENAME(&cfg->map->rt, rt);
+        RENAME(&cfg->check->lo.err, err);
 
         rt->errcode.ext1.bit.under_vbus         = err->bit.UNDER_VBUS;
         rt->errcode.ext1.bit.over_vbus          = err->bit.OVER_VBUS;
