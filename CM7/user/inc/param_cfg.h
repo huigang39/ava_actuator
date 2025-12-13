@@ -661,8 +661,11 @@ static const foc_cfg_t
 
                             .f_get_adc = periph_get_adc,
 
-                            .f_init_theta_sensor = dpt_init,
-                            .f_get_theta         = dpt_get_outer_theta,
+                            .f_init_theta_sensor = void_null_func,
+                            .f_get_theta         = f32_null_func,
+
+                            .f_init_mech_theta_sensor = dpt_init,
+                            .f_get_mech_theta         = dpt_get_outer_theta,
 
                             .f_init_outshaft_theta_sensor = void_null_func,
                             .f_get_outshaft_theta         = dpt_get_inner_theta,
@@ -721,8 +724,11 @@ static const foc_cfg_t
 
                             .f_get_adc = periph_get_adc,
 
-                            .f_init_theta_sensor = dpt_init,
-                            .f_get_theta         = dpt_get_outer_theta,
+                            .f_init_theta_sensor = void_null_func,
+                            .f_get_theta         = f32_null_func,
+
+                            .f_init_mech_theta_sensor = dpt_init,
+                            .f_get_mech_theta         = dpt_get_outer_theta,
 
                             .f_init_outshaft_theta_sensor = void_null_func,
                             .f_get_outshaft_theta         = dpt_get_inner_theta,
@@ -784,6 +790,9 @@ static const foc_cfg_t
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
 
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
+
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
 
@@ -836,13 +845,16 @@ static const foc_cfg_t
 
                     .func_cfg =
                         {
-                             .f_store = comm_shm_store,
+                            .f_store = comm_shm_store,
                             .f_load  = comm_shm_load,
 
                             .f_get_adc = periph_get_adc,
 
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
+
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
 
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
@@ -904,6 +916,9 @@ static const foc_cfg_t
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
 
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
+
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
 
@@ -956,13 +971,16 @@ static const foc_cfg_t
 
                     .func_cfg =
                         {
-                             .f_store = comm_shm_store,
+                            .f_store = comm_shm_store,
                             .f_load  = comm_shm_load,
 
                             .f_get_adc = periph_get_adc,
 
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
+
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
 
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
@@ -1016,13 +1034,16 @@ static const foc_cfg_t
 
                     .func_cfg =
                         {
-                           .f_store = comm_shm_store,
+                            .f_store = comm_shm_store,
                             .f_load  = comm_shm_load,
 
                             .f_get_adc = periph_get_adc,
 
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
+
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
 
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
@@ -1084,6 +1105,9 @@ static const foc_cfg_t
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
 
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
+
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
 
@@ -1136,13 +1160,16 @@ static const foc_cfg_t
 
                     .func_cfg =
                         {
-                             .f_store = comm_shm_store,
+                            .f_store = comm_shm_store,
                             .f_load  = comm_shm_load,
 
                             .f_get_adc = periph_get_adc,
 
                             .f_init_theta_sensor = ads_init,
                             .f_get_theta         = ads_get_theta,
+
+                            .f_init_mech_theta_sensor = void_null_func,
+                            .f_get_mech_theta         = f32_null_func,
 
                             .f_init_outshaft_theta_sensor = tmr_init,
                             .f_get_outshaft_theta         = tmr_get_theta,
