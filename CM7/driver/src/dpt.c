@@ -38,5 +38,5 @@ dpt_get_outer_theta(void)
 {
         g_dpt_raw         = dpt_get_raw();
         g_dpt_outer_theta = CNT2THETA(g_dpt_raw.outer, BIT(DPT_BITS));
-        return g_dpt_outer_theta * 10.0f;
+        return g_dpt_outer_theta;
 }
