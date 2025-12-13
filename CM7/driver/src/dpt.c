@@ -19,8 +19,8 @@ dpt_raw_t
 dpt_get_raw(void)
 {
         HAL_UART_Transmit_DMA(g_dpt_uart, &g_dpt_tx_buf, sizeof(g_dpt_tx_buf));
-        g_dpt_raw.inner  = (u32)g_dpt_rx_buf[2] << 16 | g_dpt_rx_buf[1] << 8 | g_dpt_rx_buf[0];
-        g_dpt_raw.outer  = (u32)g_dpt_rx_buf[5] << 16 | g_dpt_rx_buf[4] << 8 | g_dpt_rx_buf[3];
+        g_dpt_raw.inner  = (u32)g_dpt_rx_buf[2] << 16 | (u32)g_dpt_rx_buf[1] << 8 | (u32)g_dpt_rx_buf[0];
+        g_dpt_raw.outer  = (u32)g_dpt_rx_buf[5] << 16 | (u32)g_dpt_rx_buf[4] << 8 | (u32)g_dpt_rx_buf[3];
         g_dpt_raw.status = g_dpt_rx_buf[6];
         g_dpt_raw.crc    = g_dpt_rx_buf[7];
         return g_dpt_raw;
